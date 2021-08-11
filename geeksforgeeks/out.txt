@@ -1,0 +1,65 @@
+t is: 3
+
+n is: 15
+k is: 9
+legal eles: 9
+freq: 5
+max cnt: 0
+a[i]: 2
+a[i - legalEles]: 4
+freq: 5
+max cnt: 5
+a[i]: 7
+a[i - legalEles]: 16
+freq: 6
+max cnt: 5
+a[i]: 17
+a[i - legalEles]: 3
+freq: 5
+max cnt: 6
+a[i]: 4
+a[i - legalEles]: 8
+freq: 5
+max cnt: 6
+a[i]: 19
+a[i - legalEles]: 13
+freq: 5
+max cnt: 6
+a[i]: 1
+a[i - legalEles]: 2
+3
+
+n is: 5
+k is: 3
+legal eles: 3
+freq: 2
+max cnt: 0
+a[i]: 6
+a[i - legalEles]: 2
+freq: 1
+max cnt: 2
+a[i]: 3
+a[i - legalEles]: 1
+1
+
+n is: 7
+k is: 6
+legal eles: 3
+freq: 1
+max cnt: 0
+a[i]: 5
+a[i - legalEles]: 2
+freq: 1
+max cnt: 1
+a[i]: 8
+a[i - legalEles]: 7
+freq: 1
+max cnt: 1
+a[i]: 7
+a[i - legalEles]: 9
+freq: 1
+max cnt: 1
+a[i]: 4
+a[i - legalEles]: 5
+2
+
