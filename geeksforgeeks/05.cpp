@@ -29,6 +29,7 @@ void rearrangeM2(vector<int>& a) {
     for (int i{0}; i<n; i++) a[i] = -1*a[i] - 1;
 }
 
+// limitations: if numbers are too big then overflow can occur
 void rearrangeM3(vector<int>& a) {
     int n = a.size();
     for (int i = 0; i < n; i++) {
