@@ -24,7 +24,8 @@ int findGCDM1(int a, int b) { // tc = O(n)
     return 1;
 }
 
-int findGCDM2(int a, int b) { // euclid's gcd algorithm - tc = O(logn)
+// euclid's gcd algorithm - tc = O(logn)
+int findGCDM2(int a, int b) {
     int x = min(a, b);
     int y = max(a, b);
     if (x == 0) return y;
