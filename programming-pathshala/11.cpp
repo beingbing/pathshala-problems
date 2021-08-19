@@ -6,7 +6,7 @@ using namespace std;
 int m, n;
 
 int countPaths(int i, int j) {
-    if (i == m-1 || j == m-1) return 1;
+    if (i == m-1 || j == n-1) return 1;
     return countPaths(i+1,j) + countPaths(i, j+1);
 }
 
@@ -21,9 +21,14 @@ void countPaths2(int i, int j) {
     countPaths2(i, j+1);
 }
 
+int countPaths3(int i, int j) {
+    if (i == 0 || j == 0) return 1;
+    return countPaths3(i-1, j) + countPaths3(i,j-1);
+}
+
 int main() {
     cin>>m>>n;
-    countPaths2(0,0);
-    cout << cnt << endl;
+    int ans = countPaths(0,0);
+    cout << ans << endl;
     return 0;
 }
