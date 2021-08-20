@@ -23,3 +23,15 @@ public:
         return subs;
     }
 };
+
+int main() {
+    vector<int> nums = {1,3,2};
+    Solution* obj = new Solution();
+    vector<vector<int>> ans = obj->subsets(nums);
+    for (auto rws : ans) {
+        cout << "$: ";
+        for (auto ele : rws) cout << ele << '\t';
+        cout << endl;
+    }
+    return 0;
+}
