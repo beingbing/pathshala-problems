@@ -10,7 +10,7 @@ using namespace std;
         if (i == j and j == maze.size()-1) {
             route.push_back({i,j});
             ans.push_back(route);
-            route.clear();
+            route.pop_back();
             return;
         }
         route.push_back({i,j});
@@ -20,6 +20,7 @@ using namespace std;
             findPaths(maze, route, i, j+1);
             findPaths(maze, route, i+1, j);
         }
+        route.pop_back();
     }
 
 int main() {
