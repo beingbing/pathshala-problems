@@ -15,7 +15,7 @@ void permute(string str, int idx) {
 }
 
 int main() {
-    string str = "abcd";
+    string str = "abc";
     permute(str, 0);
     return 0;
 }
