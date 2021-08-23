@@ -1,4 +1,7 @@
 // max chuncks to make sorted
+#include <iostream>
+#include <vector>
+using namespace std;
 
 class Solution {
 public:

@@ -36,16 +36,11 @@ int main() {
 int minSwap(int *a, int n, int k) {
     int legalEles{0};
     for (int i{0}; i < n; i++) if (a[i] <= k) legalEles++;
-    // cout << "legal eles: " << legalEles << endl;
     int maxCnt{0}, freq{0};
     // legalEles is my sliding window size
     for (int i{0}; i < legalEles; i++) if (a[i] <= k) freq++;
     for (int i{legalEles}; i < n; i++) {
-        // cout << "freq: " << freq << endl;
-        // cout << "max cnt: " << maxCnt << endl;
         if (freq > maxCnt) maxCnt = freq;
-        // cout << "a[i]: " << a[i] << endl;
-        // cout << "a[i - legalEles]: " << a[i-legalEles] << endl;
         if (a[i] <= k) freq++;
         if (a[i - legalEles] <= k) freq--;
     }

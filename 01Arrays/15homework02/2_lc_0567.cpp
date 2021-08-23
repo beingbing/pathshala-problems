@@ -7,7 +7,7 @@ class Solution {
 public:
     bool checkInclusion(string s1, string s2) {
         vector<int> s1chars(26), s2chars(26);
-        for (auto alps : s1) s1chars[alps-'a']++
+        for (auto alps : s1) s1chars[alps-'a']++;
         int k = s1.size(), n = s2.size();
         for (int i{0}; i<k; i++) s2chars[s2[i]-'a']++;
         for (int i{k}; i<n; i++) {

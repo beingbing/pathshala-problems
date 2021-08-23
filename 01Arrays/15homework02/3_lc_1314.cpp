@@ -42,18 +42,13 @@ public:
         createSumMat(mat);
         vector<vector<int>> res(row, vector<int>(col, 0));
         int row1, col1, row2, col2;
-        // cout << row << " : " << col << endl;
         for (int i{0}; i<row; i++) {
-            // cout << "$ " << i << endl;
             for (int j{0}; j<col; j++) {
-                // cout << "# " << j << endl;
                 row1 = findMin(i, k);
                 col1 = findMin(j, k);
                 row2 = findMax(i, row, k);
                 col2 = findMax(j, col, k);
-                // cout << "(" << row1 << ", " << col1 << "), (" << row2 << ", " << col2 << ")" << endl;
                 res[i][j] = sumRegion(row1, col1, row2, col2);
-                // cout << "res: " << res[i][j] << endl;
             }
         }
         return res;

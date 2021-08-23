@@ -13,9 +13,11 @@ int matrixSum(int arr[][n]) {
 		for (int j = 0; j < n; j++) {
 			// Number of ways to choose
 			// from top-left elements
+			// top-left is starting point for a sub-matrix
 			int top_left = (i + 1) * (j + 1);
 			// Number of ways to choose
 			// from bottom-right elements
+			// it is ending point for a sub-matrix
 			int bottom_right = (n - i) * (n - j);
 			sum += (top_left * bottom_right * arr[i][j]);
 		}

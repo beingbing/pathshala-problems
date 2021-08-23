@@ -1,0 +1,3 @@
+~~ reverse lookup 2d ~~
+
+same as previous lecture but for 2d matrix

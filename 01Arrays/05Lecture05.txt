@@ -1,0 +1,8 @@
+~~ maximum chunks ~~
+given an array with elements value belonging to [0, n-1], find max chunks
+to split so that sorting and again concatenating the chunks give a sorted
+original array
+
+so, the simplest approach is to track prefix max of the array elements,
+whenever prefix max is equal to the index at which we are currently at
+then we have a potential chunk, increment your count and move forward.

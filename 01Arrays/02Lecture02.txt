@@ -1,0 +1,37 @@
+~~ pre-computation techniques ~~
+
+given int arr[]
+given a lot of Q queries with L and R, sub array with starting and ending index
+you need to return sum of the given sub array
+
+Brute force approach -
+to calculate the sum for every query, will have TC of O(Q*N)
+
+Better approach -
+Do pre-computation, create a prefix sum array and keep all the sum from
+0th index till ith index in preSum[i], this way, required sub array sum
+will be,
+        preSum[R] - preSum[L-1], if L != 0
+and, =  preSum[R], if L == 0
+
+preSum[i] = preSum[i-1] + arr[i] for i = [1, n)
+
+code -
+preSum[0] = arr[0]
+for (int i{1}; i<n; i++)
+    preSum[i] = preSum[i-1] + arr[i]
+
+TC = O(Q+N), which is much better than previous method
+
+Similarly, you can do for finding max/min for a sub array instead of sum
+
+arr :  [5, -1, 0, 4, 2, 7]
+preMax:[5,  5, 5, 5, 5, 7]
+
+so, preMax[i] = max(preMax[i-1], arr[i])
+
+Similarly, for suffix max/min/sum
+code -
+sufMax[n-1] = arr[n-1]
+for (int i{n-2}; i>=0; i--)
+    sufMax[i] = max(sufMax[i+1], arr[i])

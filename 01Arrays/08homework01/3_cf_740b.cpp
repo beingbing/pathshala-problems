@@ -4,8 +4,8 @@ using namespace std;
 
 int main() {
     int n, m;
-    cin>>n>>m;
-    vector<long long int> nums(n);
+    cin>>n>>m; // flowers Cnt, sub-array cnt
+    vector<long long int> nums(n); // flower moods
     for (int i{0}; i<n; i++) cin>>nums[i];
     vector<long long int> cumSum(n);
     cumSum[0] = nums[0];

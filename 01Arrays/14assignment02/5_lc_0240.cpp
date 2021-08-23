@@ -9,8 +9,6 @@ public:
         int i = 0, j = n-1;
         bool found = false;
         while (i < m and j >= 0) {
-            // cout << "i: " << i << endl;
-            // cout << "j: " << j << endl;
             if (target < matrix[i][j]) j--;
             else if (target > matrix[i][j]) i++;
             else {
@@ -32,6 +30,6 @@ int main() {
                                   };
     Solution *obj = new Solution();
     bool ans = obj->searchMatrix(matrix, 5);
-    // cout << "ans: " << ans << endl;
+    cout << "ans: " << ans << endl;
     return 0;
 }

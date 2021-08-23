@@ -1,0 +1,8 @@
+~~ rotate the array ~~
+
+You know this problem and it's solution very well, so skipping notes for this
+
+it is leetcode 189 problem
+
+FootNote: when we are using STL reverse(ar[i], arr[j]) funtion on subarray then range
+considered is [i, j)

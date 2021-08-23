@@ -1,0 +1,7 @@
+~~ processing queries efficiently (range queries) ~~
+
+same as lecture 2 (prefix sum finding part) but for 2 dimensions
+
+assignment#2 Q4 and homework#2 Q3, Q4
+
+sumRegion[i2][j2]-[i1][j1] = sumMat[i2][j2] - sumMat[i2][j1-1] - sumMat[i1-1][j2] + sumMat[i1-1][j1-1]

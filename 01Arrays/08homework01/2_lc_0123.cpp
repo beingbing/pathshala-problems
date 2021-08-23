@@ -1,4 +1,7 @@
 // best time to buy and sell stock 3
+#include <iostream>
+#include <vector>
+using namespace std;
 
 class Solution {
 public:

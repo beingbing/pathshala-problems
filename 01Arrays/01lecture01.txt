@@ -1,0 +1,19 @@
+~~ Fundamental Concepts ~~
+
+Arrays -
+1. collection of elements of same data type
+2. fixed size (not in dynamic array)
+3. contiguous memory allocation
+
+Explained how memory allocation in dynamic arrays(vector) works.
+ - new memory location is assigned with greater memory then previously provided
+ - amortized(average) will still be O(1)
+
+ amortized   =   number          /      number of   
+ complexity      of operation   /        insertions (push backs)
+
+name of the array acts as a base address of the array
+
+by default, array is passed by reference.
+
+to pass a vector by reference, you need to add & in function parameters.

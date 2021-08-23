@@ -1,0 +1,5 @@
+~~ Histogram problem ~~
+
+You know this problem and it's solution very well, so skipping notes for this
+
+it is leetcode 42 - rain water trapping; problem

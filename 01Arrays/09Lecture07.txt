@@ -1,0 +1,4 @@
+~~ sliding window technique ~~
+
+I believe no amount of notes would capture it's essence as good as what
+is explained in assignment#2 Q1 and homework#2 Q1 and Q2
