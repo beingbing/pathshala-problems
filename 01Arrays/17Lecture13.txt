@@ -1,0 +1,3 @@
+~~ array rearrangement ~~
+
+best notes recorded in assignment#3 Q2, have attempted all versions as well.

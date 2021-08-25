@@ -1,0 +1,3 @@
+~~ array rearrangement : alternate technique ~~
+
+notes are recorded in assignment#3 Q2 M3

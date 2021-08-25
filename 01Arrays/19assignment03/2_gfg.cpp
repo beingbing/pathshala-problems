@@ -16,20 +16,21 @@ void rearrangeM2(vector<int>& a) {
     int n = a.size();
     for (int i{0}; i<n; i++) {
         if (a[i] >= 0) {
-            int idx = a[i], val = i;
+            int idx = a[i], nwVal = i;
             while (idx != i) {
                 int temp = a[idx];
-                a[idx] = -1*(val+1);
-                val = idx;
+                a[idx] = -1*(nwVal+1);
+                nwVal = idx;
                 idx = temp;
             }
-            a[idx] = -1*(val+1);
+            a[idx] = -1*(nwVal+1);
         }
     }
     for (int i{0}; i<n; i++) a[i] = -1*a[i] - 1;
 }
 
 // limitations: if numbers are too big then overflow can occur
+// (n * new_val) + old_val
 void rearrangeM3(vector<int>& a) {
     int n = a.size();
     for (int i = 0; i < n; i++) {
@@ -37,6 +38,7 @@ void rearrangeM3(vector<int>& a) {
         a[oldVal] = a[oldVal] + n*i;
         // a[a[i] % n] += i * n;
     }
+// divide with n, old_val will be discarded and new_val is what you get
     for (int i = 0; i < n; i++) a[i] /= n;
 }
 

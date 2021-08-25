@@ -1,3 +1,5 @@
+// max gap problem: bucketing
+
 #include <iostream>
 #include <vector>
 #include <algorithm>
