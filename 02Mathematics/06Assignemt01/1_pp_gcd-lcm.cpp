@@ -30,7 +30,7 @@ int findGCDM2(int a, int b) {
     int y = max(a, b);
     if (x == 0) return y;
     if (y%x == 0) return x;
-    return findGCDM2(x, y%x);
+    return findGCDM2(y%x, x);
 }
 
 int findLCMM1(int a, int b) {

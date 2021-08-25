@@ -1,0 +1,36 @@
+~~ Lowest Common Multiple ~~
+
+multiple => divisible by both the number
+
+max(a,b) <= lcm <= a*b 
+
+M1 => iterate from max(a,b) to a*b and check if any number is divisible by both number
+
+M2 -
+
+GCD * LCM = a * b
+
+gcd finding takes logn time so same can be done for lcm
+
+
+Note: for finding gcd of numbers > 2, find for first 2 numbers,
+then go on finding the gcd of previously found gcd and the next number.
+
+
+code for both methods is in assinment#1 Q1
+
+-------------------------------------------------------
+
+Q. given a number N and two numbers A and B find all the numbers in [1, N] which
+are divisible by A or B
+
+numbers divisible by A in [1, N] is N/A, which will be A, 2A, 3A, 4A, .....
+numbers divisible by B in [1, N] is N/B, which will be B, 2B, 3B, 4B, .....
+
+so, number divisible by A or B will be -
+        N/A + N/B - N/lcm(A,B)
+
+for three numbers -
+        N/A + N/B + N/C - N/lcm(A,B) - N/lcm(B,C) - N/lcm(A,C) + N/lcm(A,B,C)
+
+this is hint for assignment#1 Q2

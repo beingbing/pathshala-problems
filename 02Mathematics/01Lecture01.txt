@@ -1,0 +1,21 @@
+~~ Greatest Common Divisor ~~
+
+divisor => a number which can divide your given number
+
+1 <= gcd <= min(a, b)
+
+M1 => iterate from 1 to min(a,b) and check if any number divides both number
+
+M2 => 12, 18
+
+12 ) 18 (1
+     12
+   _____
+      6) 12 (2
+         12
+         _____
+         0
+
+so, gcd is 6
+
+code for both methods is in assinment#1 Q1

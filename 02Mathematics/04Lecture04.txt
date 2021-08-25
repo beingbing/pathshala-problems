@@ -1,0 +1,72 @@
+~~ generating all factors/divisors ~~
+
+find all the factors of a given number.
+
+given N  - smallest factor => 1
+           largest factor => N (number itself)
+
+M1 -
+
+loop from 1 to N and record all numbers which perfectly divides N.
+
+void printAllDivisorsM1(int n) {
+    cout << 1 << '\t';
+    for (int i{2}; i<n; i++) {
+        if (n%i == 0) cout << i << '\t';
+    }
+    cout << n << endl;
+}
+
+
+
+M2 -
+
+the biggest factor of N apart from N will be <= (N/2), so,
+we can reduce the looping limits as -
+
+void printAllDivisorsM2(int n) {
+    cout << 1 << '\t';
+    for (int i{2}; i<=n/2; i++) {
+        if (n%i == 0) cout << i << '\t';
+    }
+    cout << n << endl;
+}
+
+
+
+M3 -
+
+remember: factors of a number are symmetric about sqrt(N).
+
+that means if i is a factor then N/i will also be a factor.
+
+
+#include <iostream>
+using namespace std;
+
+void printAllDivisorsM3(int n) {
+    cout << 1 << '\t';
+    int lim = sqrt(n);
+    for (int i{2}; i<=lim; i++)
+        if (n%i == 0)
+            if (i*i == n) cout << i << '\t';
+            else cout << i << '\t' << n/i << '\t';
+    cout << n << endl;
+}
+
+int main() {
+    int n = 16;
+    printAllDivisorsM3(n);
+    return 0;
+}
+
+----------------------------------------------------------------------------
+
+Note: perfect squares has odd number of factors and other numbers have
+even number of factors.
+
+bool oddNumberOfFactors(int n) {
+    int val = sqrt(n);
+    if (val*val == n) return true;
+    return false;
+}

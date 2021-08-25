@@ -1,0 +1,13 @@
+~~ open close problems ~~
+
+N doors which are initially closed, all labelled from [1,N], you played it N times,
+and in ith round toggle states of all those doors which are multiple of i. What will
+be the final state of the doors, how many doors will be open.
+
+Ans: door numbers which has odd number of factors will become open and all the remaining
+doors will remain closed.
+And as we know, only perfect squares has odd number of factors, so all the doors numbers
+in [1,N] which are a perfect square will be open other remaining will be closed.
+so,
+  return sqrt(N);
+will be the answer.
