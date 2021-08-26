@@ -1,9 +1,11 @@
-// sieve of eratosthenes
+// ~~ implementing sieve of eratosthenes ~~
 
 #include <iostream>
 #include <vector>
 using namespace std;
 
+// SC = O(n)
+// TC = O(n*loglogn)
 vector<int> primesTill(int n) {
     vector<int> primes(n+1, 1);
     primes[1] = 0;
@@ -23,3 +25,12 @@ int main() {
     cout << endl;
     return 0;
 }
+
+/*
+Limitations -
+1. space constraints is concerning.
+2. if query is for a single number, the O(sqrt(n)) approach discussed in lecture#6 is better.
+
+Advantages -
+1. preprocessing time for Q queries will be O(n*loglogn), so total time will be
+(n*loglogn + Q) ~~ (n*loglogn)

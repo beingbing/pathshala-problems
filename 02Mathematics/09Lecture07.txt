@@ -1,0 +1,17 @@
+~~ Primality test in a range ~~
+
+given number N, print all numbers from 1 to N which are prime.
+
+
+M1 -
+
+if we use the method learned in previous lecture, then TC = (n*srqt(n));
+
+
+
+M2 -
+
+sieve of eratosthenes -
+TC = O(n*loglogn)
+
+code will be discussed in next lecture.

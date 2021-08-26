@@ -1,0 +1,13 @@
+~~ counting divisors faster ~~
+
+given a number N, give count of the divisors of N.
+
+
+M1 -
+
+N can be represented in terms of it's prime factors as -
+
+        N = p^l * q^m * r^n * .....
+
+so, count of total divisors will be -
+    (l+1)*(m+1)*(n+1)* .....

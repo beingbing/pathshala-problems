@@ -26,7 +26,7 @@ vector<long long int> primes(1000001, 1);
 vector<long long int> primesCnt(1000001, 0);
 
 void primesTill() {
-		primes[0] = 0;
+	primes[0] = 0;
     primes[1] = 0;
     int val = sqrt(1000001);
     for (int i{2}; i<=val; i++)
