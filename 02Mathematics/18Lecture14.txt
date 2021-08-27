@@ -1,0 +1,14 @@
+~~ modular arithematic (arithematic of remainders) ~~
+
+a % b = c where b != 0, so c belongs to [0, b-1]
+
+modular congruence => when two numbers give same remainder on modular with b,then
+those numbers are said to be in modular congruence.
+
+properties -
+1. (a+b)%m = (a%m + b%m) % m
+2. (a-b)%m = a%m - b%m          if result a%m - b%m > 0
+           = a%m - b%m + m      if result a%m - b%m < 0
+3. (a*b)%m = (a%m * b%m) % m
+
+Note: remainder of sum  =  (sum of remainders) % m

@@ -1,0 +1,28 @@
+~~ counting pairs ~~
+
+given array of non-negative elements find total number of pairs of i, j such that
+a[i] + a[j] is divisible by given number k.
+
+M1 - brute force
+
+cnt{0};
+for (int i{0}; i<n; i++)
+    for (j{i+1}; j<n; j++)
+        if (a[i]+a[j]%k == 0) cnt++;
+
+
+
+M2 -
+
+distribute all the numbers into buckets of [0,1,2,3,....,k-3,k-2,k-1] and then
+calculate their contributions
+
+vector<int> cnt(k, 0);
+for (int i{0}; i<n; i++) cnt[a[i]%k]++;
+ans{0};
+ans += (cnt[0]*(cnt[0]-1))/2;
+for (int i{0}; i<(k/2); i++) ans += cnt[i]*cnt[k-i];
+if (k%2 == 0) ans += (cnt[k/2]*(cnt[k/2]-1))/2;
+else ans += cnt[k/2]*cnt[k/2+1];
+
+TC = O(n+k) SC = O(k)

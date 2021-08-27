@@ -1,0 +1,26 @@
+~~ counting triplets ~~
+
+given array of non-negative elements find total number of triplets of i, j and k such that
+a[i] + a[j] + a[k] is divisible by given number m.
+
+M1 - brute force
+similar
+
+
+M2 -
+
+for (i{0}; i<m; i++) {
+    for (j{i}; j<m; j++) {
+        int k;
+        if ((i+j)%m == 0) k = 0;
+        else k = m - (i+j)%m;
+        if (k < j) continue;
+        if (i == j && j == k) ans += cnt[i]*(cnt[i]-1)*(cnt[i]-2)/6;
+        if (i == j) ans += cnt[i]*(cnt[i]-1)/2  * cnt[k];
+        if (i == k) ans += cnt[i]*(cnt[i]-1)/2  * cnt[j];
+        if (k == j)  ans += cnt[j]*(cnt[j]-1)/2  * cnt[i];
+        else ans += cnt[i]*cnt[j]*cnt[k];
+    }
+}
+
+TC = O(n+m^2)  SC = O(m)
