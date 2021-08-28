@@ -1,0 +1,18 @@
+~~ pascal triangle for nCr ~~
+
+1. given m girls and n boys, need to choose a group containing t people, having no less
+than 4 boys and no less than 1 girl.
+
+so, 5 <= t <= m+n
+
+and,
+
+t => x boys + y girls,      here, 4 <= x and 1 <= y
+
+now, if, 4 <= n <= 30 and 1 <= m <= 30
+
+to calculate nCr, create pascal's triangle
+
+then do the computation
+
+SC = O(m*n) TC = ~~ O(1)

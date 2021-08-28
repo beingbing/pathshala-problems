@@ -1,0 +1,26 @@
+~~ applications of catalan numbers ~~
+
+1. given 2d grid n*n, moment is possible in down or right direction, you are at (0,0) and
+need to reach (n-1, n-1), give the count of all possible paths.
+(rat in the maze problem - solution using iterative approach)
+
+
+answer =>  (2n-2)C(n-1)
+
+if m*n matrix => (m+n-2)C(m-1) or (m+n-2)C(n-1)
+
+
+
+
+2. given square matrix, find count of paths from (0,0) to (n-1, n-1) such that you never cross
+major diagonal ( go till major diagonal )
+
+approach -
+at any time cnt(down moves) >= cnt(right moves)
+and, we always have to start with down moves
+
+it is similar to parantheses problem, where we have to start with '(' and count of '(' at any
+instant of time should be >=  ')'
+
+so, our problems become => count of balanced parantheses combinations with n-1 parantheses. Which
+was our previous problem.

@@ -1,0 +1,10 @@
+~~ basics of combinatorics ~~
+
+1. Rule of product
+
+A  3 roads p,q,r  B   2 roads p', q'   C
+
+so to reach from A to C we have 3*2 options
+
+
+2.
