@@ -1,0 +1,56 @@
+~~ Interface Segregation Principle ~~
+
+Let us design a cricket game with variety of players
+
+when you are modelling class under one another, you should not think literally, you should
+think behaviourly.
+
+An interface for most abstract form of cricket player will have all the actions which can
+be performed by the player during the play.
+Assume we defined an interface Player -
+
+interface Player {
+    bat();
+    bowl();
+    field();
+    keeper();
+}
+
+the problem with this is, for each player implementation, all methods need to be defined.
+Now, if we define a concrete Class PureBatsman, then that class do not need bowl() method,
+it might create problems we have seen in previous lecture, so what is the way out here.
+
+We discussed previously that one pausible solution is Inheritance, now suppose -
+
+                Player .bat()   
+                    |      |
+                    |      |
+        fielder .field()  keeper .keep()
+            |
+            |
+    bowler .bowl()
+
+now the problem with this alternative approach is that cricket allows substitution in which a
+player is allowed to substitute another player if injured for fielding, now assume that that
+player is a bowler, so there should not be a field() method for this type of cases but,
+Inheritance made it very rigid and difficult for us to achieve this scenario.
+
+So, instead of Inheritance we go for composition, that means, we create 4 different interfaces
+for each type of role that a player can perform and will keep the heirarchy flat.
+
+Interface player    Interface Bowler    Interface fielder    Interface keeper 
+.bat()              .bowl()             .field()             .keep()
+
+and then -
+
+class PureBatsman extends Player, fielder {}
+
+class WicketKeeper extends player, keeper {}
+
+Composition is better than Inheritance.
+so,
+multiple small interfaces is better than few big interfaces
+
+4. I: Interface Segregation Principle - segregate a big interface into multiple smaller
+interfaces.
+client shouldn't depend upon methods that they do not use.

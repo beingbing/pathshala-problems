@@ -1,0 +1,101 @@
+~~ LLD basics ~~
+
+What is LLD ?
+- In LLD your concerns is how to structure the code, so that it is easy to read and maintain.
+- If computers could write code for other computes, we would have never needed LLD.
+It has everything to do with humans writing code.
+- Maintainability : how easy is a code to maintain.
+- Abstraction: If you treat something as a black-box (not worrying about it’s functioning),
+not go in much details as how it works, just treat it as an abstract singular entity and build
+over it.
+- Avoiding duplication of code. (but do not do it at the cost of forced implementation of unwanted
+methods through Inheritance)
+
+
+Note: HLD(system design) has to do nothing with humans, it concerns with how can I optimise
+my used machine resources or how can I process be done more efficiently. Like, Should I write
+it as a service or should I write it as a code. Which DB should be used for most efficiency.
+How should we design our system in the given constraints.
+
+Mistakes in LLD.
+- Entire code in one file (code not properly split into components and modules).
+- 
+
+Q: how should you break your code to have a good structure ?
+A: Think about the types of functionality we need be coding, like to make an ATM, we have -
+- functionality to swipe/read a card (swipe_card.cpp)
+- Authentication (functions)
+- Entering a pin (enter_pin.cpp)
+- Validating a pin
+- Balance related queries and their evaluation
+- Giving back cash
+Let’s call this splitting into files modules.
+Next step,
+Clubbing modules related to same functionality into folders/packages. E.g. - entering and
+validating a pin are two different modules but can be clubbed into a bigger module called
+maybe ‘pin-input’.
+So,
+  Packages -> modules -> files
+
+Note: for better understanding, if we talk about LLD then think of it in terms of service.
+Note: big service is called monolithic and small services are called micro-service.
+
+Best way to abstract -
+- Start from the top, get the whole thing working.
+- Then dive into it’s component one by one to decide on how that particular component will function.
+- When you enter into a component, don’t worry about other components, just be concerned
+with well functioning of that component only. (Once you are inside the component, be in it
+until you make whole think working, then go again to another level of depth.)
+
+
+In any piece of code there is data/variables/state and there are algorithms/functions/methods
+that operate on it.
+-> put together related pieces of data and algorithms and put them together inside, We call it
+‘class’. This is called Encapsulation.
+-> by doing this, you know, if there is some discrepancy in some data then what functions to
+look for.
+
+Abstraction is what you get after doing Encapsulation.
+
+The paradigm to which the term ‘Encapsulation’ refers to could have been better represented by
+the word ‘Binding’.
+
+
+Access modifiers => private/public
+
+When you have a functionality that is needed to be in more than one feature then you let those
+features inherit said functionality.
+This Avoid code Duplication. And is called Inheritance.
+One  other great thing we achieve from Inheritance apart from avoiding code duplication is to
+allow object of child to be assigned to the references/pointers of parent. This helps you
+categorise them separately and add the same time club them together while maintaining their
+exclusivity. 
+
+Polymorphism - multiple faces, things which can behave differently in different situation.
+
+e.g. - class Bird extends Animal
+Class Lion extends Animal
+Class Tiger extends Animal
+
+Animal[] beasts;
+
+Lion simba;
+
+Tiger SherKhan;
+
+beasts.push_back(simba);
+
+beasts.push_back(sherKhan);
+
+Here both simba and sherKhan are showing polymorphic properties, behaving both as Lion/Animal
+and Tiger/animal at the same time.
+
+With Inheritance we achieve Polymorphism.
+
+Abstract class - Which declares at least one functions but doesn’t implement it.
+
+Interfaces - Abstract classes with no functions implemented.
+
+Prefers Interfaces over Abstract class.
+
+Q: Why micro services exist ?

@@ -1,0 +1,49 @@
+~~ Liskov substitution principle ~~
+
+sub-class are known as derivatives of super-class
+
+Abstract class is a type of special class which could not be instantiated
+
+Consider Employee class which we defined in Lecture 1, now let us assume that it's an
+abstract class and there are a list of concrete classes which extends it, e.g. -
+- full-time employee
+- contractual employee
+- intern employee
+.... etc.
+
+now, as we know all of the concrete class will be forced to implement all the business logic
+which is defined in employee abstract class
+
+now, consider the scenario where you have a concrete class Volunteer, now, it represents
+group of people which work for company but do not take salary, they are almost similar to
+an employee except this one aspect, so, if you make this class also extend employee class,
+then employee abstract class will force you to implement calcSalary() for Volunteer class
+as well, what you can do -
+
+1. just return 0.
+It will be a bad idea, because it will make volunteer class category to go down into balancesheet
+while calculating the salary of all types of employee with 0 salary, but they should not be
+present that sheet in first place.
+
+2. you may think of throwing an error/exception if someone tries to access calcSalary() method
+for Volunteer class object.
+you were just made to throw an error in this case because you were forced to implement something
+which was not needed in first place.
+This is where people start disliking Inheritance when working in real-world applications and
+replace it with something else (that something else is composition, see next chapter).
+
+Now, assume if you have to write a new module SalaryDisburser, which will calculate salary for
+all the employee, ideally, it should only know about abstract class Employee and nothing else,
+it should not have any idea about full-time employee, etc., classes, but when we be implementing
+it we have to be aware of handling of exception which will be thrown by Volunteer class, which
+is wrong, as then, SalaryDisburser class have an idea about Volunteer class apart from Employee
+class.
+
+what we learn from here,
+1. Never use Inheritance from the purpose of code reuse, every class which is extending, should
+have an actual relation which validates the said extension.
+2. Use Inheritance iff there is a strict "is a " relationship between parent and child classes.
+
+so the design principle related to this logic is -
+
+3. L: Liskov substitution principle - subtypes must be substitutable for their base types.

@@ -1,0 +1,10 @@
+~~ dependency inversion principle ~~
+
+our new module should depend on abstractions, not on concretion.
+
+5. D: Dependency Inversion Principle - High Level Module should not depend on Low Level
+Module, rather, both should depend on Abstraction.
+
+
+Let user provide you with concrete instance of the abstract classes on which your implementation
+depends, do not create object by yourself.

@@ -1,0 +1,63 @@
+~~ single responsibility principle ~~
+
+you have to build a software for a company which is composed of several employees.
+
+As employees is clearly an entity so we gonna model it as a class, Employee class.
+
+class employee {
+    id;
+    
+    public:
+
+        getId();
+//        calcSalary(); // removed from here
+//        printPerformanceReport(); // removed from here
+//        retrieveBiodata(); // removed from here
+}
+
+List down how many different things is it doing.
+1. Employee attribute management
+2. Salary computation logic
+3. performance report logic
+4. biodata retrieval logic
+
+The bad things with this type of class which contains a lot of different purposed logic is,
+it has multiple reasons for change, reasons which has nothing in common among themselves.
+This is exactly what we should avoid while creating a class.
+This brings us to our very first design principle -
+
+1. S: Single responsibility principle - A class must have only one reason to change.
+
+so, what changes should i bring to this class, so that it starts to follow SRP.
+
+we can start by delegating the responsibility which this class shouldn't supposed to have,
+for that we definetly need two classes.
+
+class SalaryCalculator {
+    calcSalary(Employee Emp);
+}
+
+class PerformanceReportPrinter {
+    printPerformanceReport(Employee emp);
+}
+
+class BioDataRetriever {
+    retrieveBiodata(Employee emp);
+}
+
+now the Employee class become much lean and the code is now less fragile and these types of
+classes are more preffered.
+So, new Employee class will be now -
+
+class Employee {
+    EmpId;
+
+    public:
+        Employee(Id) {
+            this.EmpId = Id;
+        }
+
+        getEmployeeId() {
+            return EmpId;
+        }
+}

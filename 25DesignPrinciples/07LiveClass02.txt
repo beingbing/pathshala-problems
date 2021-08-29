@@ -1,0 +1,125 @@
+~~ LLD 2nd lecture ~~
+
+Pareto’s principle => 80/20 rule
+
+Cache => identify top 20% of Important data and you would have resolved 80% of the queries.
+
+Principle => it says something basic, which is knowingly always true.
+
+On the basis of principle, we derive assumptions which help us in deducing other stuff.
+Principle are rough laws. True almost every time. wisdom.
+
+Laws are more objective, concrete and definite.
+
+Design patterns => reoccurring of similar problems in different setups, to solve them,
+we create some standard patterns.
+
+14 Design problems which very frequently occur have been solved and made into basic Design pattern.
+
+
+Design Principles (guiding light/ words of wisdom) -
+- S : single responsibility principle - think about reason to change.
+- O : open/close principle - open for extension and closed to modification.
+- L: Liskov substitution principle - you are writing a piece of code which works with
+class-animal so it also should work with class-bird or any other child class.
+
+    violation of LSP -
+	extending rectangle to square 
+
+    class Rectangle {
+        int length;
+        int width;
+        
+        public:
+            setLength(l) {
+                this.length = l;
+            }
+
+            setWidth(w) {
+                this.width = w;
+            }
+
+            calcArea() {
+                return this.length * this.width;
+            }
+    }
+
+    class Square extends Rectangle {
+        int length;
+        int width;
+
+        public:
+            setLength(l) {
+                this.length = l;
+                this.width = l;
+            }
+
+            setWidth(w) {
+                this.length = l;
+                this.width = w;
+            }
+
+            calcArea() {
+                return this.length * this.width;
+            }
+    }
+
+    int main() {
+        Rectangle rect = new Rectangle();
+        rect.setLength(4);
+        rect.setLength(6);
+        cout << rect.calcArea() << endl; // o/p: 24
+
+        Rectangle sq = new Square();
+        sq.setLength(4);
+        sq.setWidth(6);
+        cout << sq.calcArea() << endl; // o/p: 36
+    }
+
+    this is not acceptable as the calcArea function is working for parent (Rectangle) class
+    but broke in child (Square) class for the same implementation.
+
+- I : interface segregation principle
+- D : dependency inversion principle
+
+ class A {
+	void b() {
+		Cc = new C()
+	}
+} 
+It is wrong, if C breaks then A also breaks, as A was given the responsibility of create and
+handle C’s object.
+Instead do -
+
+Class A {
+	constructor(C c) {
+		this.c = c;
+	}
+}
+Now the responsibility of C is taken from A and given to the caller of A.
+
+Dependency Inversion leads to Dependency Injection.
+
+responsibility should be looked at from the perspective of who will be handling that responsibility.
+
+Extension : 
+Action: Read JSON files
+New req: also read CSV file.    => extension
+New req2: removing offensive words => modification
+
+Modification => adding some ability that didn’t exist before.
+Extension => making it more efficient and generic in what it can already do.
+
+Extend without modifying => build on existing abilities to use the same ability in different ways.
+So it expects (class/function/module) to be Open/Closed... but we leverage polymorphism to create
+the behavior or Open/extendability
+
+Try as much as possible to not use Inheritance, instead use composition.
+
+Why Immutable objects ?
+
+Concurrent usage of variable => leads to race condition.
+if a constructor sets a variable, it becomes immutable as constructor can’t be called again and
+again.
+
+Write down the requirements (concise) then decide if you want to extend or modify.

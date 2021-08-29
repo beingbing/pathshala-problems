@@ -1,0 +1,118 @@
+~~ open closed principle ~~
+
+We tasked to build a game, with SuperHeroes and villains.
+
+public enum SuperHero {
+    CAPTAIN_AMERICA,
+    BATMAN,
+    SPIDERMAN;
+
+    public void attackWithCaptainAmerica() {}
+
+    public void attackWithBatman() {}
+
+    public void attackWithSpiderman() {}
+}
+
+now let us say we need to add a feature where player can attack with multiple
+superHeroes.
+for that i would be needed to write a new class/module.
+
+public class Attacker {
+    public void attackWithSuperHeroes(vector<SuperHero> supHero) {
+        for (int i{0}; i<supHero.size(); i++) {
+            SuperHero superHero = SupHero.get(i);
+            switch(superHero) {
+                case CAPTAIN_AMERICA:
+                    superHero.attackWithCaptainAmerica();
+                    break;
+                
+                case BATMAN:
+                    superHero.attackWithBatman();
+                    break;
+                
+                case SPIDERMAN:
+                    superHero.attackWithSpiderman();
+                    break;
+            }
+        }
+    }
+}
+
+The problem here is, it has a switch statement, which posses some design threats, because,
+when i will introduce a new superHero, say, IronMan, and introduce an attack for it, i have
+to come here in Attacker class and modify it as well.
+
+So the problem statement is: We are unable to extend to new feature without modifying existing
+module/class/software.
+
+that is, if i want to extent SuperHero class with IronMan, i have to modify Attacker class as
+well, so, extension without modification is not possible in current situation.
+
+This should not be Ideally the case, we should have been able to extend SuperHero class without
+needing to modify the Attacker module. 
+
+Understand this, the Attacker class to function properly, it need a lot of information around
+superHero class, for example, information about CAPTAIN_AMERICA, BATMAN, SPIDERMAN, IronMan,
+and all other superheroes which we will be implementing in future.
+
+We should try to resolve these tighy dependency of Attacker class on SuperHero class
+implementation, it should not be needed to know about CAPTAIN_AMERICA, BATMAN, SPIDERMAN etc.
+all it should know about is that there exist a class SuperHero whose instance is passed
+to it for it to function over that instance.
+
+So, it just needs to have knowledge of an abstract concept called SuperHero.
+
+Note: superHero is an abstract concept but CAPTAIN_AMERICA, BATMAN example are it's 
+concrete implementation.
+
+so, the code should be written in a way that, you are implementing logic around abstract
+ideas rather than depending on concrete logic.
+
+To resove this issue, we need to use polymorphism.
+
+2. O: open/close principle - A class should be open for extension but closed for modification.
+
+So we need to create an interface by the name SuperHero which will have a method called attack().
+
+so, all the different concrete classes which will be implementing this interface needs to
+implement this attack() method as well.
+
+public interface SuperHero {
+    void attack();
+}
+
+so, the way of writing should have been -
+
+class IronMan implements SuperHero {
+    .
+    .
+    .
+    attack() {
+        //
+    }
+}
+
+class CaptainAmerica implements SuperHero {
+    attack() {
+        //
+    }
+}
+
+and goes on for all superHeroes.
+
+so, the attacker class will become -
+
+public class Attacker {
+    public void attackWithSuperHeroes(vector<SuperHero> supHero) {
+        for (int i{0}; i<supHero.size(); i++) {
+            SuperHero superHero = supHero.get(i);
+            superHero.attack();
+        }
+    }
+}
+
+so the code split into two completely separate modules, Attacker and SuperHero.
+A separate team can work on Attacker module, without knowing much about SuperHero module
+and vice versa.
+
