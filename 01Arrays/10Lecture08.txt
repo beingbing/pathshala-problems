@@ -35,7 +35,7 @@ for (i{0}; i<n; i++)
 
 better approach -
 think in reverse, instead of consider all the subarrays and then finding their sum,
-we should check what all subarray will consider a particular element and and then
+we should check what all subarray will consider a particular element and then
 evaluate it's contribution
 
 ex -
@@ -47,10 +47,10 @@ all the subarrays starting at index 0, 1 and 2 and ending at 2, 3, 4 and 5 will 
 element 2 (ar[2])
 so,
 for i = 2 we have 3 options for starting point and 4 options for ending point
-in other workds,
+in other words,
 for element at index i, we have (i+1) options for starting point and (n-i) options for
 ending points
 
 code -
 for (int i{0}; i<n; i++)
-    ans += (i+1)*(n-i)*a[i]
+    ans += (i+1)*(n-i)*a[i] // here a[i] is considered as we need sum of subarrays
