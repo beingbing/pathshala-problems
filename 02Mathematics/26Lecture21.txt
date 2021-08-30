@@ -25,6 +25,10 @@ and the final answer will the the sum of all those cases. So, the equation becom
 where,
 f(0) = 1 and f(1) = 1
 
+other formula for this, using combinatorics is -
+
+        f(n) = 2nCn / (n+1)
+
 code -
 
 vector<int> cnt(n+1, 0);

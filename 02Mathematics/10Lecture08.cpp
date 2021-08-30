@@ -34,3 +34,4 @@ Limitations -
 Advantages -
 1. preprocessing time for Q queries will be O(n*loglogn), so total time will be
 (n*loglogn + Q) ~~ (n*loglogn)
+*/
