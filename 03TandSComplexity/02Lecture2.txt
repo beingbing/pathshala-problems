@@ -1,0 +1,84 @@
+~~ order of expressions and recorrence relations ~~
+
+let us assume for a code of input size n, we performed some operations which can be
+represented by the equation,
+
+an^3 + bn^2 + cn + d
+where a,b,c and d are constants
+
+for a large input size the order of the expression will be,
+TC = O(n^3)
+
+let's try some sample questions in which we deduce number of operations from which we
+will retrieve the time taken for the code to run.
+
+Q1. 
+for (int i{0}; i<n; i++) {
+    for (int j{0}; j<=i; j++)
+        cout << i << " " << j << endl;
+}
+
+    i:  0  1    2      3                ....        n-1               n
+
+    j:  0  0 1  0 1 2  0 1 2 3          ....        0 1 2 3 ... n-1   0 1 2 3 ... n-1 n
+
+no of:  1   2   3       4                           n-1               n
+operations
+
+so, total no of operations = n*(n+1) / 2    =   n^2 / 2     +   n/2
+now,
+for very high values of n, the order will become,
+
+    total no of operations = O(n^2) which will be our time taken
+
+
+
+
+recurrence equation -
+
+T(big problem)  =   T(small problem) + (some constant)
+
+e.g. -
+
+int arr[n];
+int s{0};
+for (i: 1 to n-1) {
+    s += arr[i];
+}
+
+T(n) = T(n-1) + O(1)
+
+substituting T(n-1) with T(n-2) + O(1), we get,
+
+T(n) = T(n-2) + 2*O(1)
+
+... goes on like this
+
+T(n) = T(0) + (n)*O(1)
+
+T(0) is time taken by code when n = 0, which will be 0, so,
+
+T(n) = n*O(1)       =>      T(n) = O(n)
+
+
+
+
+
+
+create recurrence relation for Q1.
+
+T(n) = T(n-1) + O(n)
+
+substituting T(n-1) with T(n-2) + (n-1), we get,
+
+T(n) = T(n-2) + (n-1) + n
+
+... goes on like this
+
+T(n) = T(0) + 1 + 2 + ... + (n-2) + (n-2) + n
+
+T(0) is time taken by code when n = 0, which will be 0, so,
+
+T(n) = 1 + 2 + ... + n  =  n*(n+1)/2
+
+T(n)  =  O(n^2)

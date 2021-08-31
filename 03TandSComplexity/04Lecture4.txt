@@ -1,0 +1,5 @@
+~~ space complexity ~~
+
+It depends on extra space taken
+
+If someone asks then total memory consumption = extra space + input
