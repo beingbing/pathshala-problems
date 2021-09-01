@@ -1,0 +1,19 @@
+~~ all subsets of a set ~~
+
+set: a collection of disting elements
+
+leetcode problem #78
+
+assignment #1 Q #1
+
+think in the manner of inclusion-exclusion when you have to generate all the Combinations.
+Either have that element, or not have it.
+
+so it will have a binary tree with one side for Inclusion and other with Exclusion
+
+    a   b   c   d   e
+
+    2 * 2 * 2 * 2 * 2  number of choices
+
+by rule of product, we have 2^n results
+

@@ -1,0 +1,12 @@
+~~ pass by reference ~~
+
+variable can be passed to a function in two ways
+1. pass by value
+2. pass by reference
+
+1. content of variable copied into a new container, no changes will be reflected in the
+variable of caller function
+
+2. content of variable get referenced to the called function, changes made will be permanent
+and will be reflected in caller function
+
