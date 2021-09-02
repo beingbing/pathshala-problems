@@ -1,0 +1,22 @@
+~~ counting leaves ~~
+
+given a binary tree, count number of leaf nodes.
+
+code -
+
+intt countLeaf(Node* root) {
+    if (!root) return 0;
+    if (!(root->left) && !(root->right)) return 1;
+    return countLeaf(root->left) + countLeaf(root->right);
+}
+
+
+void countLeaf(root) {
+    if (!root) return;
+    if (!(root->left) && !(root->right)) cnt++;
+    countLeaf(root->left);
+    countLeaf(root->right);
+}
+
+TC = O(N)
+SC = O(H)

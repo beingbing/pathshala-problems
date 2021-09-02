@@ -1,0 +1,35 @@
+~~ what are trees ~~
+
+The need for tree type data structure rose from the need to store hierarchical data
+
+Tree can be described as an acyclic graph
+
+graph is collection of edges and vertices(nodes).
+
+A tree with N nodes will have N-1 edges
+
+categories of trees -
+
+rooted vs unrooted trees
+
+if your edges are bidirectional (you can travel in both the direction along the edge) then you
+have an unrooted trees because any node can function as node.
+but,
+you can only travel from one node to another along an edge in one direction only in rooted tree
+hence, they have a single well-defined root.
+
+
+skewed tree -
+all the nodes are trying in a single straight line (just like linked-list)
+
+binary tree -
+a node can have maximum 2 children. 
+
+in a perfect binary tree, total number of nodes = 2^(i+1) - 1
+the root to leaf length = i (level of a tree)
+other way around,
+if a tree has, total number of nodes = n,
+then root to leaf length = logn (level of a tree)
+
+total leaf nodes = 2^i (roughly half of the total nodes)
+so, in a perfect binary tree, max number of nodes will be present at the last level

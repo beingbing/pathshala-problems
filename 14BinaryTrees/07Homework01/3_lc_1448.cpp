@@ -1,0 +1,36 @@
+#include <climits>
+using namespace std;
+
+ struct TreeNode {
+     int val;
+     TreeNode *left;
+     TreeNode *right;
+     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ };
+ 
+class Solution {
+    
+    int ans{0};
+    
+    void countGoodNodes(TreeNode* root, int mx) {
+        if (!root) return;
+        // cout << mx << " " << root->val << endl;
+        if (mx <= root->val) {
+            ans++;
+            mx = root->val;
+        }
+        countGoodNodes(root->left, mx);
+        countGoodNodes(root->right, mx);
+    }
+    
+public:
+    int goodNodes(TreeNode* root) {
+        if (!root) return ans;
+        int mx{INT_MIN};
+        if (mx < root->val) mx = root->val;
+        countGoodNodes(root, mx);
+        return ans;
+    }
+};

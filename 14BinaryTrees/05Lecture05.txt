@@ -1,0 +1,21 @@
+~~ symmetric binary tree ~~
+
+given a binary tree, check if it is symmetric
+
+IF a tree is symmetric, then it's mirror image will look exactly like it.
+
+bool areMirrorImage(r1, r1) {
+    if (!r1 && !r2) return true;
+    if (!r1 || !r2) return false;
+    return (r1->val == r2->val) 
+        && areMirrorImage(r1->left, r2->right)
+        && areMirrorImage(r1->right, r2->left);
+}
+
+bool isSymmetric(root) {
+    if (!root) return true;
+    return areMirrorImage(root->left, root->right);
+}
+
+TC = O(N)
+SC = O(H)
