@@ -1,0 +1,32 @@
+~~ height of binary tree ~~
+
+given a binary tree, find its height.
+
+height = max length of root to leaf path
+
+len -> no of nodes
+
+every path will pass from root, so we can consider it by-default, hence,
+our answer will be, 1(contribution of root) + max(ht of LST, ht of RST)
+=> ht(root) = 1 + max(ht(root->left), ht(root->right))
+termination condition: if (!root) return 0;
+
+int ht(root) {
+    if (!root) return 0;
+    return 1 + max(ht(root->left), ht(root->right));
+}
+
+TC = O(N)
+SC = O(H)
+
+node with max level will be on the longest path
+
+void getMaxHt(root, lvl, &ans) {
+    if (!root) return;
+    if (!(root->left) && !(root->right)) {
+        ans = max(ans, lvl);
+        return;
+    }
+    getMaxHt(root->left, lvl+1, ans);
+    getMaxHt(root->right, lvl+1, ans);
+}

@@ -1,0 +1,29 @@
+~~ root to leaf paths ~~
+
+given a binary tree, print all the root to leaf paths
+
+we will be using backtrackking in this problem
+
+void printAllPaths(root) {
+    if (!root) return;
+    vec.push_back(root);
+    if (!(root->left) && !(root->right)) {
+        ans.push_back(vec);
+        vec.pop_back();
+        return;
+    }
+    printAllPaths(root->left);
+    printAllPaths(root->right);
+    vec.pop_back();
+}
+
+void printAllPaths(root) {
+    if (!root) return;
+    vec.push_back(root);
+    if (!(root->left) && !(root->right))ans.push_back(vec);
+    else {
+        printAllPaths(root->left);
+        printAllPaths(root->right);
+    }
+    ans.push_back(vec);
+}
