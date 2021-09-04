@@ -1,0 +1,39 @@
+~~ scalability ~~
+
+ability of a sustem to handle a hefty amount of requests.
+
+load here is a subjective term, can defer from application to application.
+ - number of users
+ - number of requests by a user.
+ - size of data processed
+
+so, we need to decide on metric of load.
+
+scalability and performance are two different things.
+
+performance(example, avg delay or 99% delay) - how quickly your system responds.
+
+scalability - acceptable performance with an amount of users.
+min allowed time for a particular amount of users.
+
+latency - time elapsed between request and response.
+
+throughput - number of requests that can be delivered within a time period.
+
+latency is a short vision time which talks in respect of a particular request whereas,
+it ls looked from a user perspective.
+
+for our system to work well, we need to focus on throughput.
+
+So, we should maximize throughput, while maintaining acceptable latency.
+
+performance is defined based on throughput of a system.
+
+
+latency -> throughput -> performance -> scalability
+
+
+different methods of scaling -
+1. horizontal scalling - adding more machines and dividing the load between them.
+2. vertical scalling - improving/ increasing resources of a system. It is exensive and not that
+efficient, there is finite limit to how much you can scale.

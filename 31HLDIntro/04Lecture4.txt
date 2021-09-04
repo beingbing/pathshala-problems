@@ -1,0 +1,33 @@
+~~ reliability ~~
+
+The system is reliable (gives valid response) in every situation.
+
+scalability - system is able to manage x amount of requests together.
+
+maintainability - system should be maintainable if new features need to be added.
+
+
+reliability -
+it focuses on that the application keeps running and gives the output no matter what happens.
+
+the system should be fault tolerant.
+no matter the fault, system is able to give corresponding responses.
+
+fault - some type of error and issues that occur in a system.
+
+fault -
+1. hardware fault.
+ - power going off.
+ - connectivity loss.
+ - hard dist / RAM failure.
+due to this our requests start failing. To avoid this, make sure that there is no single
+point of failure. (There are multiple servers) (like, load balancing, replication)
+
+2. software fault.
+ - code / configurational bugs or malfunctioning of application.
+we need to handle exceptions/issues.
+it will happen on every server copy, it will not be prevented by preventing single point of
+failure.
+for this, we need to keep testing our code.
+We need to keep monitor our servers.
+handle exceptions and errors gracefully (handle them, do not close down the server).

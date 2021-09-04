@@ -1,0 +1,83 @@
+~~ Understanding web architecture - databases ~~
+
+Whenever we need certain data which is not known at the time of development, then our two tier
+architecture which we read about in previous lecture fails. As it can only serve the files
+which are stored on it, and for that we have to know about those files beforehand.
+
+Dynamic data are those datasets whose general structure we know, for example, we know that
+we need to receive a phone number which will be a 10 digit number, firstName will be a string,
+etc.
+So, we know what kind of data we are expecting but do not know the exact value. Here, we use
+a different kind of system, called database system. In which we create placeholders for our
+data. for example, a userProfile table will have place reserved for userName, firstName,
+phoneNumber, etc.
+And, for every user i will create a row in my table.
+Sometimes, i might need to retrieve them also.
+
+This database will be stored on a separate machine called database server or DB server.
+
+So, this DB server holds the dynamic data.
+
+Now, even to access this DB server you need some authentication like, username and password.
+Which will be string. 
+So, if a person wants to retrieve or store some data in that server has to provide this
+username and password.
+
+If you remember this security with DB server was not there with front-end server, there
+everyone who knew about the server can access the data stored in it. but here, as the
+data is sensitive, hence we need to guard it with a layer of authentication.
+
+Apart from DB server you need certain files which are dynamic in nature but can't be stored
+inside DB. for example, a users profile picture. We do not store them in DB because these
+files are normally in KB/MBs due to which a DBs accomodation size can increase tremendously,
+which will make DB bulky and slow to work with, so even retrieval of small data will take time
+as this bulky file will get associated with it.
+
+To remedy this problem, we introduce one more database store by the name file-system, which
+is also hosted on a certain machine, generally we use, cloud based file-system, like, AWS EC2.
+
+
+So, on the basis of our discussion till now, i can categories data as -
+- static data
+    can be directly stored on front-end server and no security is needed (available to everyone).
+
+- dynamic data
+    1. text which is smaller in size and will be accessed very frequently, but are sensitive
+    in nature, and about which we don't know beforehand hand, and can be sensitive hence
+    will need security layers as well.
+    Will go in our DB.
+
+    2. data files which is huge in size like images/videos which takes time to load and
+    are not needed as early as the text data generally goes into cloud storage.
+
+
+Every server described above will have different IP address. So, we need to modify our 
+two tier architecture.
+
+As we can not let the client know about DB and file system credentials, so to keep those
+credentials secure, we introduce a layer between client and DB/FS servers known as
+backend.
+So, client can only directly access the frontend server using which (or directly using APIs
+exposed) it can make request to backend server to access the files stored in DB/FS servers.
+And, if the client has proper authorization, then the data will be delivered to it
+via API response.
+
+
+        client     ------>      frontend    ------>    backend    ------>   DB/FS server
+                   <------                  <------               <------
+
+
+or,
+            -----------
+            |    ------->      frontend
+            |   |
+            |   |
+            |   |
+            client    ------>      backend      ------>       DB/FS
+                      <------                   <------
+
+
+so, it become a three-tier architecture with backend working as a security layer.
+It is also known as MVC (model(data) view(frontend) controller(backend)) architecture.
+
+This is the most common architecture which is followed these days.

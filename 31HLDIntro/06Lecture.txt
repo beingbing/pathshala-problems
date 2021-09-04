@@ -1,0 +1,13 @@
+~~ maintainability ~~
+
+the system code should be maintainable in nature.
+1. design should be simple - helps in debugging
+2. code should be clean (understandable)
+
+simplicity -
+KISS: keep it simple stupid
+DRY: don't repeat yourself
+YAGNI: you aren't gonna need it
+
+evolvablity -
+new features can be added easily
