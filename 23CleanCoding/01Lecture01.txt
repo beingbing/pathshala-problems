@@ -1,0 +1,18 @@
+~~ what is clean coding ~~
+
+We write clean code for other humans, machine doesn't care.
+
+clean code importance ^ ans team size ^
+
+A wrong code which is understandable in nature is better than clean code which is not
+understandable.
+
+dirtiness of code -
+- bad variable/function names
+- a lot of decision branches
+- repetation of logic
+- delegate operations to other functions
+- one function should be responsible for one action
+- keep function pure as much as possible
+- passing a lot of parameters is not good
+

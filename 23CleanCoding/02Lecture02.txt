@@ -1,0 +1,7 @@
+~~ importance of naming ~~
+
+There should not be any magic numbers/strings
+
+all mathematical expressions should be wrapped in a well defined function
+
+always create classes for a better classification.

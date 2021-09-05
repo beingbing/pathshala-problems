@@ -1,0 +1,58 @@
+~~ best practices for writing functions ~~
+
+- a function should be small and do only one thing
+
+- a function should have a Descriptive name (the name of a function is generally a verb)
+the argument that a function take as parameters should be nouns
+
+- long well Descriptive names are better then short not well Descriptive names.
+
+- get/fetch/retrieve you should maintain only one type of verb for denoting an action
+
+- boolean function should have is/are as prefixes
+like isPrime()
+they can also confirm presence of something tangible like instead of,
+doesNodeExist() you can write nodeExist() ?, as you can see it is Descriptive enough to tell
+us what is it's purpose.
+
+- update/delete/upsert - these are write functions (until now we only saw read functions) - 
+write functions usually are void type (as read functions return something after reading) as
+they do change state, and you hold the state, so access the state for further successfull
+implementation of write functions
+
+- avoid if conditions confirm to a flag and doing something, instead make a separate function
+for when that flag is true. And then handle the flag outside the core logic (delay if-else
+conditions as much as possible)
+
+- switch statements are equally bad as if-else ladder
+never use them in core logic, they should be outside of it, delayed as much as possible.
+coz if any new conditions is added then all the switch statements with core logic needs to
+be updated instead we should just add that condition in high level of abstraction and create
+a separate chain of action for it rather than interfering in already present code.
+
+- no more than two level of indentation.
+
+- we should be passing too less arguments in a function
+
+- high level functions should never deal directly with low level functions
+LL functions should be wrapped and abstracted away into a higher level functions
+which in turn should be made to interact with other high level functions.
+
+- if a functions is producing a side effect then it should only be responsible to
+revert the changes and mitigating the side effect so that there are no after effects.
+this type af actions are usually performed in pairs, like, open/close, so the same 
+function should be responsible for closing if it was responsible for opening.
+Atomicity should be maintained as much as possible.
+And even if an error is thrown and you need to abort the function, do not forget to mitigate
+the side effect before aborting.
+
+- A function should never be of write as well as of read classification.
+
+- follow DRY
+
+- instead of relying on error/success code, do try-catch and handle the exception/error thrown.
+
+- never have nested try-catch instead get a separate function for that nesting and
+handle that inner try-catch in that newly abstracted function.
+
+- handle exceptions instead of checking error codes.

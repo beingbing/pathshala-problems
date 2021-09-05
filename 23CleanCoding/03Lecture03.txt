@@ -1,0 +1,34 @@
+~~ best practices for naming ~~
+
+- Descriptive names
+Names should reveal to the user what it's existence purpose is and what code is trying to do
+with it. If a reader is through reading a line, then there should not be any doubt left in 
+his/her mind.
+
+- never name based on number series, like i1, i2, i3, x2, etc..
+
+- we should be able to distinguish after reading names 
+
+- do not club variable name with a DS like priceArray is not a good name, coz if you want to
+change it DS to map then you have to change it's name also as priceMap
+
+- name if have any abbreviations or prefixes then it should be deducable and pronouncable.
+
+- the names should be searchable within files or modules, for that it should be distinguishable
+from others.
+
+- len of var name       directly proportional to        scope of variable
+like global variable should be so well defined that if it's length can be extended
+whereas, local or one line variables should be named according to their usage, can have
+a smaller name.
+
+- no magic numbers should exist
+
+- make explanatory names, example, pair<int, pair<bool, int>> p;
+then, int isPrime = p.second.first;
+
+- do not put unnecessary prefixes/suffixes in names, if it self explanatory then do not add
+unnecessary meta information in name.
+
+- if any rule can not be checked by your IDE, then do not implement it, create rules which your
+IDE can convince others to follow as well.

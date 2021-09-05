@@ -1,0 +1,25 @@
+~~ clean functions ~~
+
+- a function should be responsible for one action only (their unique responsiblility)
+
+- main should declare process, no implementation step should be in main. Every step
+or action should have either it's own function or should be in a well Descriptive
+variable.
+main function should contain only lines of code which are 1 level abstraction below it
+other all should be in their separate functions.
+
+drawbacks of a bad function -
+- there are too many lines
+- does too many things
+
+- a function should do exactly one thing if either of them holds -
+a. one can't meaningfully extract any other function from it.
+b. all lines are just one level of abstraction below the function's level
+
+example,
+
+            printAdjCoPrimePairsWithSameParity
+
+    changeSumToAbsVal       areCoPrime      isParitySame        printPair
+
+    math.abs()              getGCD          bit operators
