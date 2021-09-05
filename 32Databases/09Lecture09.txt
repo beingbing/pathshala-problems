@@ -1,0 +1,22 @@
+~~ database scalability : denormalisation ~~
+
+scalability: maintain acceptable performance with increasing load.
+
+techniques to ensure scalability -
+- improving the performance
+1. to actually go for the right DB which is more suitable for your use case
+2. with SQL, denormalisation can be done
+3. go for some kind of indexing.
+
+if we can't improve performance then split the load
+- Federation
+- Scharding - splitting the same DB into multiple portions
+
+
+Denomalisation -
+Normal forms: we are able to create good DB designs
+
+it states that, sometimes it is better to break normal form rules to get better performance.
+
+we might need to keep a derived field so that our application do not choke while processing
+a query if dataset is huge.

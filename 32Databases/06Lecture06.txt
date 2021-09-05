@@ -1,0 +1,38 @@
+~~ database reliability: transaction write ahead logs ~~
+
+In DB reliability till now we have discussed, what happens if DB server goes down.
+
+now, we will focus on, what happens to running transactions (how to maintain atomicity)
+
+A: Atomicity
+C: Consistency
+I: Isolation
+D: Durability
+
+A = 100, B = 200
+A -= 20
+        ----> some s/w error occurs gets captured before this transaction could completed
+B += 20
+
+so, we have to rollback (undo, Whatever steps we currently did) and the atomicity is ensured
+
+Now, what happens if that s/w bug was instead a h/w bug.
+So, the compete system went down with A as 80 and B as 200
+and after getting restarted A is still kept at 80 and B at 200, so, a certain 20 rupees
+is gone for forever from A's account.
+
+So, with current setup, atomicity got compromised.
+
+what can be done about this problem ?
+so, we maintain transaction logs, according to which, before doing anything in DB, i will first
+create it's logs in a file.
+coz as file is a permanent storage, our action logs persist as compared to what happens in RAM
+
+So this simple idea of ensuring reliability using logs is called as write-ahead logs.
+
+So, in above example when server is up again, it will see that there is an incomplete transaction
+then it will revert that back.
+
+as we have read, whenever two transactions are done in parallel, we need to ensure that there
+is isolation between them and that we achieve using serializable.
+

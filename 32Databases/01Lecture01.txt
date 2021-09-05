@@ -1,0 +1,56 @@
+~~ database reliability: replication ~~
+
+issues -
+1. network between backend and DB can't be established
+2. power goes down
+3. data become corrupt as hardware crashes
+4. processing a lot of requests - slowness
+
+reasons for single point of failure.
+
+how to handle it ?
+
+if DB goes down, what will happen to the transactions going on ?
+
+
+replication -
+we create a replica of DB in another machine.
+so, when primary DB goes down, backend redirects requests to secondary DB.
+
+benifits -
+ - reduce in latency
+    The locality of location of secondary DB, for them it can function as primary DB.
+
+drawbacks -
+ - what happens when we are storing new data
+to handle, synchronous updates.
+it states that, the DB will inform that storage/updation is successfully done only when, it
+has been successfully done on all the replicas as well.
+
+problems in this solution -
+1. increased writing latency
+2. what if one of the replica is down.
+ for 2., there needs to be a heartbeat check which continuously goes on, our primary DB
+ keeps a connection with all the replicas and make sure that they are ok, as soon as one
+ of them goes down, the heartbeat will stop and they will know that a replica is down.
+
+
+asynchronous updates
+as soon as a requests come to DB, it will stopre/update and return a response, then asynchronous
+order other replicas to make the changes.
+
+problems
+1. a DB completed the update and then before it could communicate to others, it dies down.
+and the user who made the changes now accessing a replica which do not contain the changes
+user made.
+2. replica dies after informing ok to the user.
+It violates the important property of durability. which states -
+once you inform that something is done, then it should be done, user should not find later that
+it was not done.
+3. there is a replication lag.
+ok, if it is in an acceptable limits.
+
+
+hybrid of above two -
+out of 5 replicas if atlest 3 of them responds ok then we consider the operation successful
+and moves on, do not wait for the remaining replicas there updation will continue asynchronous.

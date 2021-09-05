@@ -1,0 +1,35 @@
+~~ Database maintainability: SQL vs NoSQL ~~
+
+using right kind of DB
+
+the idea is to not reinvent the wheel but to use existing solutions.
+
+broadly all DB can be divided into 
+- SQL (relational DBs) - organized in forms of tables
+they ensure ACID properties and hence perform transactions very well.
+
+limitations -
+ - requires strict schema
+ - handling images/videos (they are stream of bytes, not good to store in SQL)
+ - performance - if tables are huge then queries take time
+
+ - NoSQL (non-relational DBs)
+ 1. key/value pairs (example, redis, memCache) - ideal for creating eCommerce carts
+ 2. document DB (example, mongoDB) - instead of having tables we have huge chunks of JSON
+ for each object stored in DB. Although it is still a kind of key/value pair but it is
+ representing a particular set in the form of JSON.
+3. graph DBs (example, social network) - 
+4. time series DBs (example, uber) - 
+
+
+SQL
+- strict schema
+- Joins
+- ACID (transactions)
+- sharding is done to store a lot of data
+
+NoSQL
+- flexible schema
+- application logic
+- BASE ()
+- can store a lot of data

@@ -1,0 +1,38 @@
+~~ database scalability: sharding ~~
+
+Sharding is only valid when we have huge amount of data.
+
+It is a horizontal scaling solution, when we diide our data into multiple DBs known as shards
+
+The sharded data are normally unique subsets among themselves.
+
+how do decide which data goes to which shard, and how will read/write occur ?
+For this, we use, Hash function
+we choose a key, and then decides on the number of sharded DBs and then classify as which
+data will go into which DB.
+
+If not have a hashing function we can create a table also in which mapping is maintained
+for corresponding ID and in which Shard it is located.
+
+So, in case of Table, our application first approach the Table to know the shard ID
+then it will go and search in that particular shard.
+
+So, latency is increased.
+
+If we use a hash function, then, this function is reside in routing layer on top of these
+shards,
+so, every request goes through routing layer.
+hence,
+an extra layer is introduced in our three tier architecture, making it 4-tier.
+
+pros of sharding -
+1. scalability
+2. also helps in making architecture Fault tolerant and reliable.
+
+cons -
+1. complexity of system increased because of an extra layer.
+2. we need to have to fault proof the routing layer as well.
+3. non uniformity of data - example, one of the shard has way more data as compared to others.
+If one of the shard increases beyond a point then we need to go for re-sharding.
+4. some of the queries maybe across multiple shards, which will make application/backend
+logic heavy to maintain.

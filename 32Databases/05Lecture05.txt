@@ -1,0 +1,36 @@
+~~ multiple leader replication model ~~
+
+as, Leaderless application was too complex and single leader application is not suitable
+for when there are two many write actions.
+hence, we have this model
+also called as master-master replication.
+
+here, there are more than one leaders which supports write and others which just support
+reads.
+
+problem -
+synchronous updates.
+1.solved exactly the same way as done in the leaderless application.
+the only difference is this responsibility is not shared by all the replica, shared
+only among masters.
+2. manual intervention - latest write wins might not always be correct as an earlier
+value might restrict the latest update from completing hence in this case the earlier
+value is the legit value.
+An on-call person look at the conflicts and decide which update need to be kept.
+
+now,
+how these masters will communicate with each other.
+
+different topologies -
+
+1. All masters connected to each other, 1.e., each servers is connected to all n-1 servers.
+drawback -
+we need to maintain the order of commands. command with earlier Timestamp will happen first.
+
+
+2. star topology - among masters also there will be a master among masters which will decide on
+all the conflicts
+any updation received will be communicated to master do decide upon them.
+here again single point of failure problem reappears.
+
+couchDB uses this model.

@@ -1,0 +1,30 @@
+~~ database scalability: indexing ~~
+
+we can create a mapping of that value with it's location in the table
+
+problem -
+- DB has persist memory, but map we are creating is in RAM, which will get lost once machine
+is shut down.
+- we may not have enough RAM to build that mapping.
+
+This concept of having some kind of persist map even if the server shut down then this map
+is called as an index and this process is called indexing.
+
+types - 
+- primary/clustered index
+(given by DBMS itself)
+
+- secondary/clustered index
+(we need to create it on our own)
+
+To show us the nearby taxi, uber creats its own index based on location.
+
+build secondary indeices only when -
+- identified frequent queries
+- scaled to a substantial users
+
+in DB,
+ordered map is built using B-tree or B+ tree
+
+unordered map is built using hashing based index
+

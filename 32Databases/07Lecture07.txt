@@ -1,0 +1,23 @@
+~~ Database maintainability: Federation ~~
+
+SRP: single responsibility principle
+
+whenever it is violated, it might lead to issues and difficulty in maintainance, hence, 
+the idea of Federation (functional responsibility) comes in -
+
+in this, we even divide DB also in smaller modules instead of keeping one huge DB.
+But, keep in mind that it should not be overdone.
+
+we do Federation, once we reach around 10M users (approximately)
+
+advantages -
+ - easy to maintain, find bugs and upgrades.
+ - reduction of traffic
+ - increase in scalability
+ - horizontal scalling high, vertical scalling low
+
+disadvantages -
+ - amount of hardware increases with that, the application side is more complex.
+ - maintainability of application decreases
+ - Joins queries is difficult across DB
+

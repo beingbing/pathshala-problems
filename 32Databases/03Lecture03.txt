@@ -1,0 +1,57 @@
+~~ Leaderless replication model ~~
+
+If two replicas are updated with different values at the same time then when they try to
+communicate changes made to them with other replicas then whichever replica was first to
+approach other replica will modify the value to its value, which will lead to permanent
+inconsistency as some DB replicas will have values from first server and others will have
+values from second server.
+
+The model in which client is allowed to make read/write requests to any replica is called
+Leaderless replication model(example, DynamoDB)
+
+how to handle it ?
+Timestamp is introduced with each update, based on which, latest written action wins.
+
+issues -
+each server is present in a different and as each machines time can be different, so this
+solution implementation is not that straightforward.
+This is called, time synchronization issues, as system times are unreliable.
+
+solution -
+we can use NTP(network time protocol), which gives us synchronous time stamp.
+
+so, after introducing this logic, our simple updation action has become complicated.
+The DB server which we normally run is not that effective to perform this complex
+action effectively.
+Its very difficult to write the logic at DB server level to compare time stamp and
+deciding according to it.
+
+So, to, remedy this, we need to run a parallel process, whose sole purpose is to
+maintain the time Consistency. So, this parallel process in case of DynamoDB is called
+as anti-entropy process.
+This has the sole purpose of reading data in different replicas, and keeping the latest
+change.
+This is a background process that syncs the DB.
+So, with this there is need of concept of synchronous/asynchronous updates as this DB
+keeps running in the background.
+anti-entropy process internally uses merkel tree (a type of DS).
+
+problem -
+this process becomes very crucial and if single point of failure occurs in it, then
+data in our DB becomes stale.
+
+So, we ourself with our DB available to us has to come up with a process so that we 
+can maintain the Consistency as relying on anti-entropy process alone is very risky.
+
+so, the solution we came up with is, to read/write from multiple DBs, so, the
+probability is high that you will read/write from atleast one of the most updated DB.
+
+so, the count of multiple DBs on which a client writes simultaneously is called
+write quorum. and similarly we say for read quorum.
+and also further to build on this, we try to maintian -
+write quorum + read quorum > no of DBs
+so to ensure 100% Consistency.
+
+
+as you can understand from above discussion this Leaderless replication model is a complex
+system to maintain.

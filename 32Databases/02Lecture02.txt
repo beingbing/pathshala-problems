@@ -1,0 +1,44 @@
+~~ CAP theorem ~~
+
+Consistency : All clients see same view
+Availability : All cleints can perform their jobs (read / write)
+Partition : system continues to work even in partial failure/fault.
+
+out of these three we can ensure at max two.
+
+replication is derived from partition.
+
+with replication with had issues with write for which we had -
+ - synchronous update -> Consistency and partition ensured
+ - asynchronous update -> partition and Availability ensured
+
+in it there are some Consistency patterns -
+ - Weak Consistency: if you update any one replica, you do not care if that value is communicated
+    to others (no worry of Consistency), like, a database which stores analytics
+    because the analytics data stored on US servers if not properly communicated to India
+    servers then still it won't create any big issue.
+    (if we can then we will update it)
+
+ - Eventual Consistency: Async updates - After some time the system will be eventually 
+ consistent. example, email services, twitter posting.
+
+ - Strong Consistency: synchronous updates - we need to make sure that every replica has same
+ information. example, banking and financial services.
+
+These were important.
+
+another types of Consistency
+ - read your write Consistency: Whatever you have written, if you try to read that across
+ replicas then that should be consistent. example, If you post a tweet on twitter and your
+ location changes such that you are accessing another replica DB, other than what on which
+ you had posted your tweet, then when you try to access it, the tweet should be there, 
+ irrespective of the DB on which you have posted it.
+To ensure it, when we are doing writing, we can note down the replica on which we are writing it
+so that until Consistency is achieved, we connect to the same server on which we have written.
+
+ - Monotonic read Consistency: If someone is reading any value multiple times from different
+ replicas then still the value should be consistent, it should not happen that replicas
+ among themselves have different data stored for same value.
+We can ensure it by ensuring that whenever repeated readings are done throughout the session,
+they are done from the same server, until something bad happen and we need to switch replica.
+

@@ -1,0 +1,47 @@
+~~ single leader replication model ~~
+
+idea of this model follows master slave architecture.
+This has a primary DB which is called as Leader/Master.
+And replicas is called Slave.
+
+according to this, Leader can only direct the slaves to update their values.
+and all the latest updates only comes to primary DB.
+
+updation from Leader to slaves can follow asynchronous/synchronous updation whichever
+is suitable.
+
+Read action can happen from both leader/slave. but Write can only happen at leader.
+
+issue -
+1.master handles a lot of updation traffic due to which leader can be overloaded and
+2.hence write latency can be high.
+3.Master becomes single point of failure.
+
+To handle 3., we can promote one of the slave to be leader (this idea is used in mongoDB)
+
+ - automatic fail-over
+If our primary DB dies then we need to replace with it secondary.
+a. A sequence of seniority can be created.
+b. seniority based on latest update.
+
+issue with it -
+1. how to identify that master is dead. so, when to initiate fail-over process.
+
+we can use a pre-defined time elapse. (we need to decide on it very carefully).
+
+2. how to define the next leader.
+we can use one of the ideas from a. or b.
+but the routes need to be updated to get redirected to the new leader.
+hence,
+3. routing problem to new master ?
+
+Solution - So, as read can be received by any server similarly, the write can also be
+received by any server but it gets redirected to current master.
+Hence, it is DBs responsibility to redirect all the updation requests to correct leader.
+
+now,
+4. split brain problem
+If all the previous problems are resolved as explained then this 4. problem arise.
+Because the old dead master might suddenly wake up, so then we have a scenario where
+we have two masters with different data.
+whenever this happen we have to kill one of them.

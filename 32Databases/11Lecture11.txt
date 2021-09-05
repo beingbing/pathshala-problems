@@ -1,0 +1,17 @@
+~~ types of indices ~~
+
+- unordered map -> hash table
+
+hash value is generated within a range for given keys, for which we used to store corresponding
+keys
+
+hash values might have pointer to different files at which all the list of keys with
+same hask-key are present
+
+- ordered map(balanced BST implemented under hood) -> B-tree which is extended to B+ tree
+
+we will have a structure for the root that will point to different entries.
+
+The tree can also be having 3 children at each node called ternary tree.
+
+So, insertion and deletion is expensive with indexing.
