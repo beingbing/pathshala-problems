@@ -1,0 +1,39 @@
+~~ frontend system design: content delivery network ~~
+
+- if server is in US and request from india, then it will take long.
+- different pages for different countries.
+- different variations for different screen sizes.
+- updates need to go to every client.
+
+solution -
+- for first 3 we can make replicas 
+- we can distribute code according to the region, as server in india do not need to have
+pages which only need to be shown in US.
+
+
+- every region has it's own regulations, so every updates need to apply them.
+- machines need to be acquired to be used as server at each location.
+
+So,
+to solve all this issues, we have CDNs like, AWS cloudFront or akamai. 
+
+types of CDNs -
+1. push CDN -
+whenever main website gets updated, the updates are also pushed on the server available
+on CDN immediately.
+if a business is organizing a sale, then this architecture can also dictate for how long
+the latest pushed update will live.
+it will have very few network calls until pushed from businss.
+cons -
+- takes up more storage
+
+2. pull CDN
+whenever a client requests for webpages, the CDN will contact main servers get it from there
+and then give it to client.
+This CDN will keep every fetched page for a particular amount of time, after that, it will
+refetch it.
+it requires less storage.
+good for regular updates and more traffic webpages.
+cons -
+- unnecessary more network calls (as there was no update and page was valid but still got
+invalidated and re-fetched)

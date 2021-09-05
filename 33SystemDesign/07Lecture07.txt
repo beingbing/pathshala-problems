@@ -1,0 +1,39 @@
+~~ forward and reverse proxies ~~
+
+proxy server and its variations
+
+proxy - if someone acts or does something on behalf of someone else.
+
+proxy server - acts on some clients behalf when faces internet.
+
+forward proxy -
+example, browsers sitting in a college campus when want to access internet, goes through
+a proxy server which checks their requests and then permit to access internet.
+1. here, proxy server can block certain websites with the help of a firewall.
+2. proxy servers can manage requests better.
+example, if multiple clients are accessing same browsers, so instead of sending multiple
+requests for same resource, proxy server sends a single request and respond to all clients
+with the response.
+3. can improve performance by introducing cacheing.
+4. can ensure better security, to evaluate incoming responses to check for any virus or
+malware.
+5. it ensures encryption-decryption (it abstracts out the details of client)
+
+
+reverse proxy -
+they are for servers and not for clients. in architecture, can be imagined at the same place
+with LB and it abstracts out the actual location of our backend servers.
+after evaluating the request it redirects them to suitable backend server.
+
+benifits -
+1. no server addresses exposed (hacking attacks stopped)
+2. can act as a load balancer (LB)
+3. can also do work as discovery server.
+4. can also act as an API Gateway - handling clients sessions and cookies, managing SSL certificates
+and handshakes
+
+example - Nginx
+
+5. cacheing of responses and return it to the clients
+6. helps in compression - unzip the incoming requests then forward it to backend and zip back it
+with the response to clients.

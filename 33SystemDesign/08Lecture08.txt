@@ -1,0 +1,33 @@
+~~ backend scalability: message queues ~~
+
+1. LB is important for scalability as well.
+2. microservices also helps in scalability.
+
+3. 
+
+client makes a request and gets a response - synchronous communication.
+once a request get processed others are kept on hold.
+
+to avoid it we move to asynchronous communication.
+on receiving a request, backend will immediately respond with a token that says that your
+request is in consideration and is presently in queue for getting processed.
+once client receives a token, it periodically keeps on asking whether its request is served
+or not.
+After giving a token server will push the request in a queue.
+So, server acts as producer of requests for threads to work on and those threads will act
+as consumer threads which will pick a job from queue and return a response after processing.
+
+in case of multiple backend servers, there will be a LB to direct the requests and each 
+server will maintain its own queue and consumers.
+
+what if a server dies ?
+queue dies with it.
+requests are also lost then.
+to avoid this.
+we do not keep queue in volatile memory.
+or,
+we can maintain same queue for all backend sever replicas coz even if we make queues in persistent
+memory still if a server goes down, the requests gets hung until it is back up.
+so,
+queues maintained separately and if a heartbeat goes down then requests connected to it are made
+to redirect to other replicas.

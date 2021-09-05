@@ -1,0 +1,35 @@
+~~ service discovery ~~
+
+1. let us keep in each machines configuration files the location of other machines.
+issues -
+- what if a machines IP address changes, due to which all machines need to be updated
+- if we have replicas in a microservices and has a load balancer, then config of 
+other microservices again needs to change
+
+2. use separate discovery server, which will maintain a service registry.
+every microservice subscribe to discovery service and logs its location and same for
+if any load balancer is present.
+then all microservices will contact discovery service to know where to contact.
+
+types -
+1. client side service discovery
+a microservice calls discovery server, it maintains a map and respond with the location.
+and a new incoming microservice will subscribe to discovery server and create a logs
+for its location.
+
+disadvantage -
+- requesting microservice needs to make two calls
+- needs to have logic to get the address and then use it to contact another microservice
+- 
+
+2. server side service discovery
+when a microservice contacts discovery server for details of whom to contact, discovery server
+will contact the other microservice on it's behalf and respond to it with the response
+discovery server gets on its behalf.
+
+disadvantage -
+- slower
+- single point of failure will stop internal microservice communication
+
+
+In some architectures LB acts as discovery server as well.

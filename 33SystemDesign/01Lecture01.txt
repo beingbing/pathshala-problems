@@ -1,0 +1,26 @@
+~~ backend reliablity: REST APIs ~~
+
+assume backend is a single machine which the front-end calls for different queries and it
+respond by quering the DB.
+
+Front-end query using APIs (functions) exposed by the backend
+
+Reliability -
+
+Single point of failure -
+we can use replication
+
+Note: backend should never have a state to maintain. Backend should only depend upon the
+query from client and upon the DB for query resolution.
+
+If a client has some actions performed which brings a need for state then the results
+of clients actions should be stored in DB.
+So,
+our backend should be stateless in nature and clients state should be kept in DB as a
+mapping in a table.
+
+So, the kind of APIs which are stateless in nature are called REST (Representational 
+State Transfer) APIs
+
+clients should not know about the presence of different replicas of backend, to ensure that
+we keep another level of abstraction by introducing load balancer 

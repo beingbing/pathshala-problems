@@ -1,0 +1,48 @@
+~~ polling and websockets ~~
+
+how the token made available to client are processed.
+
+1. polling -
+after client gets token, they will ping servers to check on the status of their requests.
+so, the status will be communicated by backend server to the enquirer only on receiving
+a ping.
+
+types -
+- long polling
+when client makes a request, server will keeps the request even if it is not currently processed,
+once it is processed, it will be responded. The request will be kept till client times it out as
+server took too long to respond. (three way handshake). The kept request connection wasn't getting
+processed only the connection was kept alive, hence it doesn't utilise a lot of resources, so
+many(in thousands) connections like this can be maintained at a time. 
+If they would have been utilising resources then we would have to keep them in queues and we will
+be back to our previous lecture.
+
+benifits -
+- real time updates received
+- comparatively there will be less amount of network calls.
+
+cons -
+- design a system to hold those connections.
+- machine should not go to overload with a lot of connections.
+
+- short polling (almost never used)
+after some time i will keep on pinging the server, if my request is completed i will get
+the response other i will get not-yet-completed status.
+it is not used much because, too many variables, time-interval between each ping, if time
+interval is too short, too many request, and if it is too long, result is delayed a lot.
+It was the simplest polling implementation.
+
+
+
+long polling was so good, it was taken to a next level and the implementation become -
+why not keep a connection all the time and make this connection duplex (communication can happen
+both ways) in nature. that is, client can query anytime and server can respond any time. This 
+concept is known as websockets.
+
+websockets: client and server have a permanenet duplex connection between them. and, both sides
+are listening. (example, notification system)
+
+cons -
+as it is a duplex connection, LB can't do much here, if you have thousands of connections 
+then server has to maintain them and handle them, they can't be delegated to another servers.
+

@@ -1,0 +1,45 @@
+~~ load balancers ~~
+
+This is basically a layer between client and backend such that if backend has multiple replicas
+then we are easily able to manage load distribution.
+
+benifits -
+1. if any pod becomes unhealthy then load balancer will not even try to contact that particular
+pod until it is back on and healthy. (load balancer will know if pod is healthy or not due to 
+heartbeats)
+2. Prevents over-loading (scalability)
+3. Also eliminates single point of failure. (reliablity)
+
+additional benifits -
+4. Also sometimes serves as API gateway. (like checking if a user is a subscriber or new)
+So, malformed API calls do not even reach the backend. So, increased security.
+5. also check for SSL certificates/ security
+SSL certificate handshake happens to make sure all interaction is happening on a trustable
+and secure channel.
+
+cons -
+1. have an extra layer to maintain.
+
+Note: replicas of backend servers also sometimes called pods.
+
+Types of LBs -
+1. hardware based LBs
+it's an hardware device put across connections with different servers. (like switch in networking)
+
+2. software based LBs (example, Nginx, HAProxy)
+it will store the IP addresses. Get the request, verify it, and send it to the IP address it
+choose to be suitable.
+
+what will happen if LB fails ?
+replicas exist here as well, which have different types of architecture -
+
+1. Active-passive LBs
+(AP is an availbility design pattern which is used in other implementations also)
+
+a. master slave architecture
+one is active and others are passive (inactive)
+which can further lead to choking of master if load increases.
+
+2. active active LBs
+all are active, and listed on DNS, so, clients can choose which to approach (which is bad).
+very complex to handle.

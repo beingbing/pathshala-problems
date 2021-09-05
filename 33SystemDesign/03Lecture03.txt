@@ -1,0 +1,48 @@
+~~ load balancing algorithms ~~
+
+1. round robin -
+every server gets request in sequential fashion.
+works well when requests and servers are all similar in nature.
+
+drawback -
+- if any server has high capacity and some are low on capacity then those small servers can
+choke on excessive loads. Or, the powerful server is under-used.
+- if requests are not homogeneous in nature then some server might get unlucky and get a lot
+of heavyduty requests which will slow it down and ultimately bring it down.
+
+we can mitigate first drawback by using -
+
+2. weighted round robin - 
+Lets assign weight to each server according to it's strength.
+
+for second drawback -
+so for that, better idea is to note down the current active requests instead of going through
+round robin
+I will check for which server has least amount of active requests on basis of which decide
+where to redirect.
+known as -
+3. Least connection algorithm
+
+4. weighted Least connection algorithm
+I will check for which server has least amount of active requests then decide on where to 
+redirect after interpolating it with their manageable capacity.
+
+5. random load balancing (exprerimental observed gave best results)
+redirect requests randomly.
+randomness is produced using a hash function
+It is usually a good advice to connect to a user to the same server everytime a request comes
+from him/her.
+So, this random idea is implementing using 'consistent hashing technique'. To preserve consistency
+at user level as well.
+
+
+where does this load balancer exist in terms of network architecture ?
+Layer 4: Transport Layer
+H/w LB is used. deals with packets. Works primarily based on IP address of src and dest.
+Content is not accessible. Is time effecient.
+
+Layer 7: Application Layer
+s/w LB is used. deals with data. We know the Content, we can read it, hence we can decide
+somewhere as where to redirect, normally helpful if Federation or sharding is done. Takes
+a lot more time.
+
