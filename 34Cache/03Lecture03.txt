@@ -1,0 +1,50 @@
+~~ cache invalidation and cache eviction ~~
+
+cache Invalidation: 
+Assume that a lot of queries are happening for a particular data then we have 
+cached it and that data is time dependent, getting updated every few minutes.
+Now, assume that after 10-20 mins if another query comes asking for same
+data, then we can not relying on cache because it is possible that data configuration
+has changed with time and the data stored in cache do not anymore represent
+correct results.
+formally speaking, stale data maybe served to a client.
+because cache do not gets updated, we do not keep any process to check recentness of
+the cache, we only check for it's presence.
+So, the procedure to check the recentness of cache and update it if not find correct that
+is called as cache Invalidation.
+
+to achieve it we have -
+- cache expiry: with every cache we have an associated TTL -> time to live with it.
+so, as soon as cache expires, either cache removes the data itself or if server sees that
+the associated data has expired, so, data gets discarded and it is re-computed and again
+stored in cache with new TTL.
+cons -
+to come up with an appropriate TTL for a cache is hard.
+
+one approach is that the data we calculate using a process to store in cache, we can keep
+a flag if any associated data which is used in calculation of cached data is updated,
+then flag gives us indication that, i think, it's time to re-calculate the cache data
+and renew it.
+The problem with this approach is the process which has the responsibility to raise the flag,
+might become heavy with logic and a side responsibility and can itself becomes slow.
+
+
+cache Eviction:
+cache storing is expensive, so, whatever is stored in cache must be extremely useful. and count
+of cache hits is way more than cache misses.
+So, sometimes it happens that cache memory is full, and we need to keep a new data in cache.
+so, we need to make a decision on out of the N cache already stored and 1 new cache present to
+be stored, out of these n+1, which cache i can evict.
+
+algos for this are -
+1. first in first out -
+cache which came earliest will go out and newly coming data will be stored.
+
+2. least frequently used -
+the cache whose query comes the least will be evicted.
+
+3. least recently used -
+note down when was the last time each cache was used, so, the one which was used the last will
+be evicted.
+
+4. hybrid of above 3.

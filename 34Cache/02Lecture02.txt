@@ -1,0 +1,32 @@
+~~ cache positions in web architecture ~~
+
+1. broswer cache - 
+some of the static/dynamic data might be stored at broswer level, so that when user opens same
+website again, its content can be accessed without making an API call.
+
+cons -
+for a polling API, whenever application tries to check whether response is processed or not,
+broswer will look into cache and respond with 'no'
+so, sometimes we need to set 'no-cache' policy in header, so that the result of API call
+comes from server, and do not cache this data, this need to be fetched fresh everytime
+it enquired.
+
+forward proxy also can use cache to respond to same queries from different clients.
+
+pull CDN also works as a cache layer for a lot of repeated queries for same resource.
+
+reverse proxy also can use cache to respond to same queries from different clients.
+
+application (server) level cache:
+If for every user query we need to check whether user has appropriate permissions or not,
+for that we need to go through a bunch of tables to confirm.
+And if there are a lot of requests like this where we need to check same users access
+rights. So, once we have confirmed that the user is a valid user, we store it in
+server level cache for an amount of time so that remaining requests can be responded
+more faster.
+So, it is taking a huge computational query response and cache it for a valid amount of time.
+
+DB level cache:
+DB level cache will be across queries, example, if there are a lot of queries around some
+data from a particular table then we cache that data and then if a similar query comes then
+we can respond to it using cache.

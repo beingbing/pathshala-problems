@@ -1,0 +1,21 @@
+~~ introduction to cache ~~
+
+If we have calculated value for some case then store it then when someone else again ask
+for the same information, do not do the calculation, just return it from the storage.
+just like memoization.
+
+cache: a simple s/w or h/w components that stores data for fast retrieval by avoiding
+recomputation.
+s/w example - map
+h/w example - redis
+
+cache hit: whenever a query comes, first check if it is present in cache, if it is then its a
+cache hit.
+
+cache miss: if you can not find the data in cache then its a cache miss.
+
+we generally tries to keep cache hit rate higher.
+
+cache hit rates depend on your system, some examples are -
+1. recency bias
+2. avg over a long period

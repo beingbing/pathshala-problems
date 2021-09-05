@@ -1,0 +1,85 @@
+~~ cache pattern ~~
+
+1. Cache aside pattern (lazy loading pattern) -
+only application server can contact the cache.
+so,
+if cache hit happens then use it, otherwise, calculate, store in cache then return the data.
+
+features -
+- DB and cache are completely decoupled
+- single point of failure of cache do not impact working of the system.
+- network calls in read queries when hit = 1, when miss = 3.
+in write query only 1 network call.
+
+Note: decoupling: two components are related to each other in a way that they are mutually
+exclusive, updation in one do not affect in any way the other.
+
+pros -
+- if cache goes down, system still works.
+- whatever is written to DB, is not reflected in cache. Only requested data is stored in cache.
+- system works efficiently with subsequent similar queries in the same time window.
+
+cons -
+- a cache miss will lead to 3 calls (noticable delay)
+- cache invalidation is hard to detact.
+
+famous example of this is, memCache.
+
+
+
+2. read through / write through pattern -
+the cache layer sits in between DB and server and every query goes through it.
+server puts data in cache which updates the data in DB.
+if there is a miss then it's cache responsibility to fetch the data and respond to server call.
+So, cache is intelligent, it has logic to process on DB.
+at the same time, server responsibility got reduced, so, logic that server has to handle is less.
+cache and DB are tightly coupled.
+if cache fails, the system goes down. (single point of failure on cache)
+network calls in read queries, hit = 1, miss = 2.
+in write query, 2 calls.
+
+advantage -
+- good for application which needs to read frequently data which is recently written.
+- even with cache miss we are more effecient.
+
+disadvantage -
+- single point of failure, if there is a distributed cache their handling can be complex.
+- writes are more expensive now.
+- redundant data in cache which never will be fetched.
+
+read intensive application will prefer this.
+
+
+
+3. write around, read through pattern -
+the difference from previous is, write do not happen through the cache.
+if cache fails read will not work but write works.
+read queries hit = 1, miss = 2.
+in write 1 calls.
+
+advantage -
+- works well with read heavy and write heavy applications.
+- works well when reads are similar during a particular time.
+- minimum calls in read and write
+
+disadvantage -
+- cache invalidation is a problem
+- single point of failure will stop read queries.
+
+
+
+4. write back pattern -
+write back / write behind, all the write queries are maintained in a queue by cache and time
+to time asynchronously bulk upload all the write queries in DB.
+useful specifically when write queries are huge.
+if DB is down, it gives an extra layer of reliability.
+if cache goes down, all pending write also lost. (consistency is lost) - a work around for this
+is, some implementations use message queues instead of keeping write back queue in RAM.
+complex to start and maintain.
+
+
+
+5. refresh ahead pattern -
+automatically refreshes stored cache by quering DB from time to time.
+It is useful only when we specifically know the important queried data and we know
+when to automatically update.
