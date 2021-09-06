@@ -1,0 +1,19 @@
+~~ diameter of binary tree - 1 ~~
+
+given a binary tree, find it's diameter
+
+diameter -> longest path between any two nodes
+
+diameter will be some path that will be taking turn about a particular node
+
+it is not necessary that diameter will pass through root.
+
+diameter of a tree = max(diameter of LST, diameter of RST, ht of tree);
+
+int getDia(root) {
+    if (!root) return 0;
+    return max(getDia(root->left), getDia(root->right), 1+getHt(root->left)+getHt(root->right));
+}
+
+TC = O(n^2)
+SC = O(H)

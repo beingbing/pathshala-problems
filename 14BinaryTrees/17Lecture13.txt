@@ -1,0 +1,33 @@
+~~ maximum sum path ~~
+
+given a binary tree, find maximum sum path
+
+possibilities -
+1. either my path will take a turn at given root
+2. or, it is completely contained in my LST
+3. or, it is completely contained in my RST
+
+in LST and RST look for unidirectional paths with max sum, as only those path can merge
+with roots.
+
+class Solution {
+    
+    pair<int, int> getMaxPath(TreeNode* root) {
+        if (!root) return {INT_MIN,0};
+        pair<int, int> lst = getMaxPath(root->left);
+        pair<int, int> rst = getMaxPath(root->right);
+        int ans1 = lst.first;
+        int uniPath1 = lst.second;
+        int ans2 = rst.first;
+        int uniPath2 = rst.second;
+        int ans = max(ans1, ans2);
+        ans = max(ans, root->val + max(0, uniPath1) + max(0, uniPath2));
+        int uniPath = root->val + max(0, max(uniPath1, uniPath2));
+        return {ans, uniPath};
+    }
+    
+public:
+    int maxPathSum(TreeNode* root) {
+        return getMaxPath(root).first;
+    }
+};

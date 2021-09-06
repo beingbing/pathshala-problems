@@ -1,0 +1,47 @@
+~~ height balanced binary tree ~~
+
+given a binary tree, check if it is height balanced.
+
+height balanced: for every node, left and right sub-tree must not differ by more than
+1 unit in height.
+
+| ht(LST) - ht(RST) | <= 1 for every node
+
+
+
+
+M1 -
+
+bool ans{true};
+
+int getHt(root) {
+    if (!root) return 0;
+    int lst = getHt(root->left);
+    int rst = getHt(root->right);
+    if (ans) ans = abs(lst - rst) <= 1;
+    return 1 + max(lst, rst);
+}
+
+bool isTreeHeightBalanced(Node* root) {
+    if (!root) true;
+    getHt(root);
+    return ans;
+}
+
+TC = O(N)
+SC = O(H)
+
+
+
+M2 -
+
+pair<bool, int> func(Node* root) {
+    if (!root) return {true, 0};
+    pair<bool, int> lst = func(root-> left);
+    pair<bool, int> rst = func(root->right);
+    bool f1 = lst.first;
+    int h1 = lst.second;
+    bool f2 = rst.first;
+    int h2 = rst.second;
+    return {f1 && f1 && abs(h1 - h2) <= 1, 1 + max(h1, h2)};
+}

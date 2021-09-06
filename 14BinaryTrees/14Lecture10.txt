@@ -1,0 +1,17 @@
+~~ diameter of binary tree - 2 ~~
+
+int getHt(Node* root, unordered_map<Node*, int> height) {
+    if (!root) return 0;
+    int lh = getHt(root->left, height);
+    int rh = getHt(root->right, height);
+    height[root] = 1 + max(lh, rh);
+    return height[root];
+}
+
+int getDia(root) {
+    if (!root) return 0;
+    return max(1+height[root->left]+height[root->right], getDia(root->left), getDia(root->right));
+}
+
+TC = O(N)
+SC = O(N)

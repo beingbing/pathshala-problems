@@ -1,0 +1,43 @@
+~~ diameter of binary tree - 3 ~~
+
+key idea: diameter will be some path that will be taking turn about a particular node
+
+maintain a global variable mx, and check for max(mx, 1+ ht(lst) + ht(rst));
+
+int getHt(Node* root) {
+    if (!root) return 0;
+    int lh = getHt(root->left)
+    int rh = getHt(root->right)
+    ans = max(ans, 1+lh+rh);
+    return 1 + max(lh, rh);
+}
+
+----------------------------------------
+
+
+d = max(1 + h1 + h2, d1, d2)
+
+h = 1 + max(h1, h2)
+
+while going from bottom-to-top, we can pass on diameter and height corresponding to every
+node to its parent.
+
+pair<int, int> func(root) {
+    if (!root) return {0,0};
+    lst = func(root->left)
+    rst = func(root->right);
+    h1 = lst.first
+    d1 = lst.second
+    h2 = rst.first
+    d2 = rst.second;
+    d = max(1 + h1 + h2, d1, d2);
+    h = 1 + max(h1, h2);
+    return {h, d};
+}
+
+getDia(root) {
+    return func(root).second
+}
+
+TC = O(N)
+SC = O(H)
