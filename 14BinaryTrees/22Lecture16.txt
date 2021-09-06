@@ -1,0 +1,20 @@
+~~ all possible binary trees - 2 ~~
+
+vector<Node*> allPossibleTrees(int n) {
+    vector<vector<Node*>> trees;
+    trees.push_back({NULL});
+    for (int i{1}; i<=n; i++) {
+        vector<Node*> ans;
+        for (int j{0}; j<i; j++) {
+            vector<Node*> lst = trees[j];
+            vector<Node*> rst = trees [i-1-j];
+            for (int k{0}; k<lst.size(); k++) {
+                for (int l{0}; l<rst.size(); l++) {
+                    ans.push_back(new Node(0, lst[k], rst[l]));
+                }
+            }
+        }
+        trees.push_back(ans);
+    }
+    return trees[n];
+}

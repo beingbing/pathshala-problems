@@ -1,0 +1,22 @@
+~~ recursive tree traversal ~~
+
+void traverse(Node* root) {
+    if (!root) return;
+    traverse(root->left);
+    cout << root->val << endl;
+    traverse(root->right);
+}
+
+void traverse(Node* root) {
+    if (!root) return;
+    cout << root->val << endl;
+    traverse(root->left);
+    traverse(root->right);
+}
+
+void traverse(Node* root) {
+    if (!root) return;
+    traverse(root->left);
+    traverse(root->right);
+    cout << root->val << endl;
+}

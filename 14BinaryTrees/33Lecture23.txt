@@ -1,0 +1,19 @@
+~~ left and right views of binary tree ~~
+
+print left view of a binary tree
+
+left order traversal -
+first node of ith level in preorder sequence will be the left most node of ith level.
+
+void traverse(Node* root, int lvl, int& mxL) {
+    if (!root) return;
+    if (lvl > mxL) {
+        cout << root->val << endl;
+        mxL = lvl;
+    }
+    traverse(root->left);
+    traverse(root->right);
+}
+
+
+

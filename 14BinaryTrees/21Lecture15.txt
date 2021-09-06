@@ -1,0 +1,24 @@
+~~ all possible binary trees ~~
+
+given int N, generate all the structurally different binary trees having N nodes.
+
+similar to balanced parantheses string
+
+vector<Node*> allPossibleTrees(int n) {
+    if (n == 0) {
+        vector<Node*> ans;
+        ans.push_back(NULL);
+        return ans;
+    }
+    vector<Node*> ans;
+    for (int i{0}; i<n; i++) {
+        vector<Node*> lst = allPossibleTrees(i);
+        vector<Node*> rst = allPossibleTrees(n-i-1);
+        for (int j{0}; j<lst.size(); j++) {
+            for (int k{0}; k<rst.size(); k++) {
+                ans.push_back(new Node(0, lst[j], rst[k]));
+            }
+        }
+    }
+    return ans;
+}

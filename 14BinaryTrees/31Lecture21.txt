@@ -1,0 +1,16 @@
+~~ level order traversal ~~
+
+this is not a recursive pattern because recursion works by exploring depth
+
+queue<Node*> q;
+q.push(root);
+while (!q.empty()) {
+    Node* n = q.front();
+    q.pop();
+    cout << n->val << " ";
+    if (n->left) q.push(n->left);
+    if (n->right) q.push(n->right);
+}
+
+TC = O(N)
+SC = O()

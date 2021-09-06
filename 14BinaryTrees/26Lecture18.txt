@@ -1,0 +1,18 @@
+~~ iterative preorder traversal ~~
+
+recursive ---------> iterative
+            stack
+
+
+stack<Node*> stk;
+stk.push(root);
+while (!stk.empty()) {
+    Node* node = stk.top();
+    stk.pop();
+    cout << node->val << " ";
+    if (node->right) stk.push(node->right);
+    if (node->left) stk.push(node->left);
+}
+
+TC = O(N)
+SC = O(H)

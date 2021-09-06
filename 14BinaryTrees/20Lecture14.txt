@@ -1,0 +1,25 @@
+~~ binary tree to doubly linked list ~~
+
+given a binary tree, convert it into a doubly linked list
+
+pair<Node*, Node*> convert(Node* root) {
+    if (!root) return {NULL, NULL};
+    pair<Node*, Node*> lst = convert(root->left);
+    pair<Node*, Node*> rst = convert(root->right);
+    Node* head = root;
+    Node* tail = root;
+    root->left = lst.second;
+    if (lst.second) {
+        lst.second->right = root;
+        head = lst.first;
+    }
+    root->right = rst.first;
+    if (rst.first) {
+        rst.first->left = root;
+        tail = rst.right;
+    }
+    return {head, tail};
+}
+
+TC = O(N)
+SC = O(H)
