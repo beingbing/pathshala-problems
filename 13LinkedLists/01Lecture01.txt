@@ -1,0 +1,32 @@
+~~ what is a linked list ~~
+
+class Node {
+    int data;
+    Node* next;
+}
+
+Node* head = NULL;
+Node* tail = NULL;
+
+Node* tmp;
+
+while(n--) {
+    cin >> x;
+    Node* tmp = new Node(x);
+    if (!head) {
+        head = tmp;
+        tail = tmp;
+    } else {
+        tail->next = tmp;
+        tail = tail->next;
+    }
+}
+
+
+traversal -
+
+Node* p = head;
+while (p) {
+    cout << p->data
+    p = p->next;
+}

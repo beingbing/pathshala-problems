@@ -1,0 +1,130 @@
+~~ LRU cache - 1 ~~
+
+void put(k, v);
+
+get(k);
+
+DLL(key, value, next*, prev*)
+
+hashMap(k -> node*)
+
+ get(k) {
+    if k not found in hashMap
+        return -1;
+    else
+        get node* from hashMap
+        ans = node->val
+        move the captured node to tail
+        return ans;
+ }
+
+put(k, v) {
+    if k present already
+        move node to tail with updated value
+        return;
+    else
+        if cur size is less than capacity
+            add new node towards tail
+            make corresponding entry in hashMap
+        else
+            evict head
+            erase that entry from hashMap
+            add new node towards tail
+            make corresponding entry in hashMap
+}
+
+
+most frequently used actions -
+§ add to tail
+§ move to tail
+§ delete head
+
+
+class Node {
+        int key;
+        int value;
+        Node* prev;
+        Node* next;
+
+    public:
+        Node(int k, int v) {
+            key = k;
+            value = v;
+            prev = NULL;
+            next = NULL;
+        }    
+}
+
+
+class LRUCache {
+        int maxSize, curSize;
+        Node* head, tail;
+        unordered_map<int, Node*> keyToAddress;
+
+    public:
+        LRUCache(int capacity) {
+            maxSize = capacity;
+            curSize = 0;
+            head = NULL;
+            tail = NULL;
+        }
+
+        Node* addToTail(k, v) {
+            Node* n = new Node(k, v);
+            if (!tail) {
+                tail = n;
+                head = n;
+            } else {
+                tail->next = n;
+                n->prev = tail;
+                tail = tail->next;
+            }
+            curSize++;
+            return n;
+        }
+
+        void moveToTail(Node* nd, int v) {
+            nd->value = v;
+            if (nd == tail) return;
+            else if (nd == head) {
+                head = head->next;
+                head->prev = NULL;
+            } else {
+                nd->prev->next = nd->next;
+                nd->next->prev = nd->prev;
+            }
+            nd->prev = tail;
+            nd->next = NULL;
+            tail->next = nd;
+            tail = tail->next;
+        }
+
+        void deleteHead() {
+            Node* tmp = head;
+            head = head->next;
+            if (head) head->prev = NULL;
+            else tail = head;
+            delete(tmp);
+            curSize--;
+        }
+
+        int get(k) {
+            if (keyToAddress[k] == keyToAddress.end()) return -1;
+            else {
+                Node* n = keyToAddress[k];
+                moveToTail(n, n->value);
+                return n->value;
+            }
+        }
+
+        void put(k, v) {
+            if (keyToAddress[k] != keyToAddress.end()) moveToTail(keyToAddress[k], v);
+            else {
+                if (curSize == maxSize) {
+                    keyToAddress.erase(head->key);
+                    deleteHead();
+                }
+                keyToAddress[k] = addToTail(k, v);
+            }
+        }
+}

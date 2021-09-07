@@ -1,0 +1,13 @@
+~~ middle node ~~
+
+find the middle node of a LL
+
+if nodes are even, there will be two middle nodes
+
+Node* slow = head;
+Node* fast = head;
+while (!fast && !(fast->next)) {
+    slow = slow->next;
+    fast = fast->next->next;
+}
+

@@ -1,0 +1,29 @@
+~~ k reverse a linked list ~~
+
+TC = O(N)
+
+
+Node* kRev(Node* head, int k) {
+    int cnt = 0;
+    Node* cur = head;
+    while (cur && cnt < k) {
+        cnt++;
+        cur = cur->next;
+    }
+    if (cnt < k) return head;
+
+    // second step
+    cur = head
+    Node* prv = NULL;
+    Node* tmp;
+    cnt = 0;
+    while (cnt < k) {
+        tmp = cur->next;
+        cur->next = prv;
+        prv = cur;
+        cur = tmp;
+        cnt++;
+    }
+    head->next = kRev(cur, k);
+    return prv;
+}

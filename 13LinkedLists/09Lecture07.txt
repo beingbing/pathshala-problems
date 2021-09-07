@@ -1,0 +1,13 @@
+~~ palindrome linked list ~~
+
+bool isPal(Node* head) {
+    Node* mid = getMid(head);
+    Node* t = reverse(mid);
+    Node* h = head;
+    while (h && t) {
+        if (h->val != t->val) return false;
+        h = h->next;
+        t = t->next;
+    }
+    return true;
+}

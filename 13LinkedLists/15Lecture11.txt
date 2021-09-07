@@ -1,0 +1,22 @@
+~~ cycle detection - 3 ~~
+
+l1 + d = (m - 2n) * l2
+
+l1 = distance of straight part
+l2 = distance of circular part
+d = distance from start of circular part to where the pointers meet
+m = revolutions made by fast pointer
+n = revolutions made by slow pointer
+
+(d + l1) % l2 = 0
+
+
+node *p = head;
+while (p != slow) {
+    p = p->head;
+    slow = slow->head;
+}
+return p;
+
+TC = O(N)
+SC = O(1)

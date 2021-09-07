@@ -1,0 +1,36 @@
+~~ basic operations ~~
+
+searching in a LL
+
+search a val k
+
+
+Node* cur = head;
+while () {
+    if (cur->data == k) {
+        return true;
+    }
+    cur = cur->next;
+}
+return false;
+
+
+if values are sorted, still we will need O(N) time
+
+
+
+Insertion -
+
+at the end -
+
+traverse till end
+then insert
+
+
+at the beginning -
+
+add in the beginning
+
+
+Deletion -
+

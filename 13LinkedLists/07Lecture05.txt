@@ -1,0 +1,14 @@
+~~ reverse linked list (iteratively) ~~
+
+Node* cur = head;
+Node* prev = NULL;
+Node* tmp;
+
+while (cur) {
+    tmp = cur->next;
+    cur->next = prev;
+    prev = cur;
+    cur = tmp; 
+}
+
+return prev;
