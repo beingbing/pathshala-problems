@@ -1,0 +1,140 @@
+1. Inheritance -
+2. Problems with inheritance
+3. composition
+4. Polymorphism
+
+
+Inheritance -
+1. “Is A” relationship
+a. Barber is a Profession
+b. Lily is a flower
+C. Square is a rectangle
+
+Why inheritance should exits ?
+A: It is a means for us to put related code and data together.
+And, many classes shares same method.
+So, to put common functionality across classes.
+Crude deli: Inheritance is a way of refactoring out classes.
+What we are refactoring - data and behaviour
+
+A class should only expose behaviour.
+All the data in a class must always be private.
+
+Abstract class: it is allowed to not implement few methods. It can not be instantiated but can only
+be inheritance. It is pure behaviour. 
+
+Polymorphism: Reference of parent class can hold object of child class.
+
+An abstract class with no method implemented became so famous that Java rebranded it by the name
+‘interface’. 
+
+Interface (has declaration but no implementation)
+Abstract class (has some implementations)
+Child 1 				child 2
+Both use abstract class implementation and for methods which were left un-implemented they create
+their own implementation.
+
+If not for abstract class, we had to implement complete interface in both child classes, but to
+avoid repetition, we created an abstract class and put the common implementation in their and only
+implemented methods in child class which are specific to them.
+
+Constructor -
+- They are like static methods on a class, they aren’t member functions of a class.
+- To create a child object, you must have create a parent object.
+- Constructor execution happen from parent to child
+
+
+This keyword -
+- Self reference
+
+Super keyword -
+ - reference to the parent class.
+- Super must be on the first line of your constructor or else your code won’t compile.
+
+
+Problems with interfaces -
+1. Child class implementation has to depend on parent class, and if parent class implementation
+changes, child class will break without any notice.
+2. Inheritance code is very hard to debug.
+3. Combinatorial explosion - have to implement a separate child class for all the variation of
+parent class implementations.
+
+Solution to interface problems -
+
+1. and 2.
+
+To do this, we need to remove our dependency from parent class, what we can do is, create an
+abstract version of parent class, And use abstract class reference to store actual parent
+class object.
+e.g. -
+
+class CountingFileReader extends FileReader {
+    int readCount, writeCount;
+
+    @Override
+    void read(int pos) {
+        readCount++;
+        return super.read();
+    }
+
+    @Override
+    void write(int pos, int val) {
+        writeCount++;
+        super.write();
+    }
+
+    @Override
+    void writeMany(int[] pos, int[] val) {
+        writeCount += pos;
+        super.writeMany();
+    }
+}
+
+// as writeMany internally calls write function due to which this implementation
+// will give incorrect result.
+// instead do this -
+Extend/implement abstract class with no implementation (interface)
+and, take the same object in constructor and store it.
+
+class CountingFileReader extends AbstractFileReader {
+    private final AbstractFileReader reader;
+    int readCount, writeCount;
+
+    CountingFileReader(AbstractFileReader reader) {
+        this.reader = reader;
+    }
+
+    @Override
+    void read(int pos) {
+        readCount++;
+        return reader.read();
+    }
+
+    @Override
+    void write(int pos, int val) {
+        writeCount++;
+        reader.write();
+    }
+
+    @Override
+    void writeMany(int[] pos, int[] val) {
+        writeCount += pos;
+        reader.writeMany();
+    }
+}
+
+this is composition.
+
+AbstractFileReader immutableCountingReader =
+new ImmutableFileReader(new CountingFileReader(new FileReader()));
+
+here, we created two variations of FileReader class, one is ImmutableFileReader class
+and other is CountingFileReader class, and by using composition we were able to create
+an object of third type of category, can be called as, immutableCountingFileReader
+by using composition. 
+
+
+Polymorphism
+ - poly + morph
+ => multiple forms/faces
+

@@ -4,11 +4,11 @@
 using namespace std;
 
 class TrieNode {
+public:
     TrieNode* next[26];
     bool isPresent{false};
     int prefixCnt{0};
 
-public:
     TrieNode() {
         for (int i{0}; i<26; i++) next[i] = NULL;
         isPresent = false;
@@ -53,13 +53,13 @@ public:
         if (pos == str.size()) {
             if (root->isPresent) {
                 found = true;
-                root->strCnt--;
+                root->prefixCnt--;
             }
             return;
         }
         deletion(root->next[str[pos]-'a'], str, pos+1);
-        if (found) root->strCnt--;
-        if (root->next[str[pos]-'a']->strCnt == 0) {
+        if (found) root->prefixCnt--;
+        if (root->next[str[pos]-'a']->prefixCnt == 0) {
             TrieNode* temp = root->next[str[pos]-'a'];
             root->next[str[pos]-'a'] = NULL;
             delete(temp);
