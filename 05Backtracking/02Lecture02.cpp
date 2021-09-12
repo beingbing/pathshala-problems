@@ -1,4 +1,5 @@
 // write all the permutations of a given string in lexicographic order
+
 #include <iostream>
 using namespace std;
 
@@ -20,9 +21,9 @@ void permute(string str, int idx) {
         return;
     }
     for (auto toSwapIdx{idx}; toSwapIdx < str.size(); toSwapIdx++) {
-        rightRotate(str, idx, toSwapIdx);
-        permute(str, idx+1);
-        leftRotate(str, idx, toSwapIdx);
+        rightRotate(str, idx, toSwapIdx); // do
+        permute(str, idx+1);              // recurse  
+        leftRotate(str, idx, toSwapIdx);  // undo
     }
 }
 
