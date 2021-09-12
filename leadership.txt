@@ -1,0 +1,71 @@
+Ok, so in case of taking a decision, you should be able to back them up with
+principles which are common and understandable to the whole organization.
+That's why we have leadership principles.
+
+Customer Obsession -
+1. 
+
+Ownership -
+If you are connected to a project, you are it's owner, you should know everything about it,
+and if everything goes wrong, you own it.
+
+Invent and simplify -
+Instead of re-doing everything, look for any 
+
+Are right, a lot
+Experience brings in the righteousness in you.
+You know correct solution of a problem with experience.
+
+Learn and be curious.
+
+
+Insist on highest standards
+Testing 
+
+
+Think big
+
+Bias for action
+things should always be working, do not invest heavily in root cause, in case of failure.
+A new update should not break already working features, otherwise roll back.
+
+
+frugality
+Frugality -> Efficient utilisation of resource ?
+
+Earn trust
+people should trust of every action you make.
+By keeping code self explanatory, and use comments to where it is needed
+
+
+Dive deep
+Why is this issue occuring
+You need to understand it thoroughly.
+
+Tell me about a situation where you stuck at a problem 
+
+
+Have backbone, disagree and commit
+
+
+Deliver results
+
+
+Success and scale bring broad responsibility
+
+
+
+
+STAR
+Situation   Task    Analysis    Result
+
+deep dive -> invent and simplify
+
+
+before askng any question, do homework by yourself,
+
+situation where you had a disagreement and how did you resolved it.
+situation -> framework conflicts
+task -> to understand the problem
+Analysis -> go through the pros and cons of each framework and how can they have an impact on our project
+result -> how did you resolved it
