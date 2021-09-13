@@ -1,5 +1,6 @@
 // print all the valid paths that a rat can take in a maze to 
-// reach it's destination.
+// reach it's destination with restricted movement allowed
+
 #include <iostream>
 #include <vector>
 using namespace std;
