@@ -1,4 +1,4 @@
-// count number of subsets of an array which has sum equal to given target
+// count number of distinct subsets of an array which has sum equal to given target
 
 // lexicographical subsets printing
 // extension of leetcode 0078

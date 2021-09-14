@@ -1,4 +1,4 @@
-// lexicographical subsets printing
+// ~~ lexicographical subsets printing ~~
 // extension of leetcode 0078
 
 #include <iostream>
@@ -11,6 +11,7 @@ class Solution {
     
     void subsets(vector<int>& nums, int i, vector<int>& sub) {
         subs.push_back(sub);
+        // if you have considered the smallest number once, then do not consider it again
         for (int j = i; j < nums.size(); j++) {
             sub.push_back(nums[j]);
             subsets(nums, j + 1, sub);
@@ -38,3 +39,6 @@ int main() {
     }
     return 0;
 }
+
+// TC = O(2^n)
+// more optimal then the previous one
