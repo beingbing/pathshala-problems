@@ -1,3 +1,5 @@
+// N Queens problem
+// Prune: discard all those cases, which you know can't lead to results
 #include <iostream>
 #include <vector>
 using namespace std;
