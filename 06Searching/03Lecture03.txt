@@ -1,0 +1,53 @@
+~~ First and Last occurence ~~
+
+20  21
+
+given a sorted array in which elements can be repeated, give the index of first occurence of given key.
+
+change this condition from lecture #1
+    if (a[mid] == k) return mid;
+to
+    if ((a[mid] == k && mid == 0) || (a[mid] == k && a[mid-1] != k)) return mid;
+so, the code becomes -
+
+low = 0, high = n-1
+while (low <= high) {
+    mid = low + (high - low)/2;
+    if (a[mid] > k) high = mid-1;
+    else if (a[mid] < k) low = mid+1;
+    else {
+        if (mid == 0) return mid;
+        else if (a[mid-1] != k) return mid;
+        else high = mid - 1;
+    }
+}
+return -1;
+
+
+
+
+given a sorted array in which elements can be repeated, give the index of last occurence of given key.
+
+change this condition from lecture #1
+    if (a[mid] == k) return mid;
+to
+    if ((a[mid] == k && mid == 0) || (a[mid] == k && a[mid+1] != k)) return mid;
+so, the code becomes -
+
+low = 0, high = n-1
+while (low <= high) {
+    mid = low + (high - low)/2;
+    if (a[mid] > k) high = mid-1;
+    else if (a[mid] < k) low = mid+1;
+    else {
+        if (mid == n-1) return mid;
+        else if (a[mid+1] != k) return mid;
+        else low = mid + 1;
+    }
+}
+return -1;
+
+
+
+given a sorted array in which elements can be repeated, give the frequency of given key.
+then ans = last occurence - first occurence + 1
