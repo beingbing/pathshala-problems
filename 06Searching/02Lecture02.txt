@@ -1,0 +1,13 @@
+~~ Common Observations ~~
+
+1. the search space should be ordered according to some rules which helps us in deducing which
+half to explore.
+
+2. If we told to search for an element which is not actually present in search space, then, once
+we are done with binary searching,
+low = upper_bound (pointing towards element just smaller than key)
+high = lower_bound (pointing towards element just higher than key)
+
+so, if we asked to put the key in our search space, then it should come at the index pointed by
+low.
+but, if low do not exist then key will become our last element.

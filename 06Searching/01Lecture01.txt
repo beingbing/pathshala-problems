@@ -1,7 +1,5 @@
 ~~ Binary Search ~~
 
-29  30
-
 Whenever we search something, we has two things -
 1. search key
 2. search space
@@ -26,7 +24,7 @@ l, the amount of search space left to search into after every iteration.
 
 
 To search is a very huge task of our day to day life, so, to make it efficient, 2 points were noted -
-1. if search space is sorted in some order then it will give us an intution regarding our search process.
+1. if search space is sorted/ordered in some order then it will give us an intution regarding our search.
 2. if we always look fo a middle element, and then decide which portion of remaining search space can
 contain our answer.
 
