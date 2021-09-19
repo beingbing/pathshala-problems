@@ -1,0 +1,15 @@
+~~ square root ~~
+
+given a number n find it's square root, or floor of square root (if it's not a perfect square)
+
+int low = 0, high = n;
+while (low <= high) {
+    int mid = low + (high - low)/2;
+    if (mid * mid > n) high = mid - 1;
+    else {
+        if ((mid+1)*(mid+1) > n) return m;
+        else low = mid + 1;
+    }
+}
+
+TC = O(logn)
