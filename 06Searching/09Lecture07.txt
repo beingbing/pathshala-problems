@@ -38,7 +38,7 @@ while (low <= high) {
             firstOccurence = m-1;
             secondOccurence = m;
         }
-        if (m%2 == 0) low = mid + 1;
+        if (firstOccurence%2 == 0) low = mid + 1;
         else high = mid - 1;
     }
 }
