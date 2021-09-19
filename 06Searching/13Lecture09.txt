@@ -13,3 +13,6 @@ while (low <= high) {
 }
 
 TC = O(logn)
+
+this technique has it's own name, binary search on answer
+here, you first find the domain then implement BS on it.
