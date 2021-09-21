@@ -61,3 +61,12 @@ while (low <= high) {
     }
 }
 TC = O(nlog(h-l))
+
+
+
+
+In this question we had minimize the max
+
+and in last we had, maximize the min
+
+so, we can conclude that in these type of problems BS is applicable
