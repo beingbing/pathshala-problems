@@ -1,0 +1,52 @@
+~~ dealing with absolute values ~~
+
+1. given an int arr of size n, 
+- find min value of mod(a[i]-a[j])
+- find max value of mod(a[i]-a[j])
+such that i != j
+
+max => difference between maximum and minimum value - O(n)
+
+min => only adjacent elements can be candidates for getting this answer
+so, 
+- sort the array
+- then find the minimum (gap) difference between any two elements
+O(nlogn)
+
+2. manhattan distance
+distance between two points if i am only allowed horizontal and vertical movements (no diagonal movements allowed)
+so, it becomes d = |x2 - x1| + |y2 - y1|
+
+given two arrays of x coordinates and y coordinates, find sum of manhattan distances between all pair of points.
+
+
+M1 -
+int sum = 0
+for (int i{0}; i<n; i++) {
+    for (int j{i+1}; j<n; j++) {
+        sum += abs(x[i]-x[j])+abs(y[i]-y[j])
+    }
+}
+
+
+M2 -
+- sorting x coordinates in ascending order
+- ans += sufArr[i+1] - (n-i-1)*x[i]
+or 
+- ans += (totalSum-x[i]) - (n-i-1)*x[i]
+
+
+code -
+sort(x.begin(), x.end())
+sort(y.begin(), y.end())
+init totalXSum{0}, totalYSum{0}
+for (auto ele : x) totalXSum += ele;
+for (auto ele : y) totalYSum += ele;
+for (int i{0}; i<n; i++) {
+    totalXSum -= x[i];
+    xdiff += totalXSum - (n-i-1)*x[i]
+}
+for (int i{0}; i<n; i++) {
+    totalYSum -= y[i];
+    xdiff += totalXSum - (n-i-1)*x[i]
+}
