@@ -1,0 +1,27 @@
+~~ next greater permutation ~~
+
+given an arr of n elements, find lexicographically next greater permutation.
+
+vec<int> num
+int x = num.size()-1
+while (x > 0 and num[x] <= num[x-1]) x--;
+if (x-1 >= 0) {
+    for (y = num.size()-1; y>=x; y--) {
+        if (num[y] > num[x-1]) {
+            swap(num[x-1], num[y])
+            break;
+        }
+    }
+    int i = x, j = num.size()-1
+    while (i < j) {
+        swap(num[i], num[j])
+        i++
+        j--
+    }
+}
+
+try generating all permutation by inputing an ascending order list and applying
+above function for every result until we have the string in descending order
+
+many libraries has this functionality in-built, and this is how exactly they are
+implement.
