@@ -1,0 +1,26 @@
+~~ how hashtables work ~~
+
+hashing solves problems related to key-value pair
+
+so, the last lecture problem of frequency can be thought as -
+
+key => value
+element => frequency
+
+so for this we need a DS which can -
+- insert a key-value pair efficiently. TC = O(1) or O(n) (depending on type of key)
+- can retrieve information related to a key efficiently. TC = O(1) or O(n) (if it goe in rehashing/resizing)
+theoretically there TC can go till O(n) in worst case
+but amortized is mostly O(1)
+
+for explaining insertion and retrieval -
+-in lecture talks about how hashing DS work for a limited amount of space using 
+a hash function for storing a key and it's value
+-talks about collision
+- handling collision - chaining
+if length of a chain crosses a threshold value then hashtables undergoes resizing and rehashing
+this threshold value is called as load factor.
+
+This is also called as hashtables (it's a dynamic data structure)
+
+all the keys needs to be unique
