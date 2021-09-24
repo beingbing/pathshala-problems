@@ -1,0 +1,36 @@
+~~ subarray with given sum ~~
+
+given an int array, check if there is a subarray with sum 0
+return true if it does otherwise return false
+
+we can have a prefix sum, and if it's value repeats then the array portion between those two
+sums will certain not contributing anything hence it is 0.
+
+unordered_map<int, int> m;
+int psum = 0;
+m.insert({psum, 1});
+for (i{0}; i<n) {
+    psum += a[i]
+    if (m.find(psum) != m.end()) return true;
+    m.insert({psum, 1});
+}
+return false;
+
+TC = O(n)
+SC = O(n)
+
+
+modification find sum = k
+so,
+unordered_map<int, int> m;
+int psum = 0;
+m.insert({psum, 1});
+for (i{0}; i<n) {
+    psum += a[i]
+    if (m.find(psum-k) != m.end()) return true;
+    m.insert({psum, 1});
+}
+return false;
+
+TC = O(n)
+SC = O(n)
