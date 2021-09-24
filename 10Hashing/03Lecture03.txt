@@ -1,0 +1,43 @@
+~~ using hashtables and treemaps ~~
+
+chaining optimization -
+use hierarchical DS instead of LL
+BBST -> hierarchical DS used -> longest part becomes logn instead of n
+
+unordered_map -> hashtables name in c++
+hashmap -> hashtables name in java
+
+explained working of unordered_map -
+ht.insert({key, value})
+ht[key] = value // while insertion it works like magic, but while reading be cautious
+e.g. -
+if (ht[i] == v)
+// here if you take an i which is not a key in ht, then a new key is created with that i
+// and some garbage value will be inserted.
+so,
+instead ht[i] use ht.find(), it will return you an iterator
+so, it becomes -
+if (ht.find(i) != ht.end())
+
+ht.begin() will reference to the first key value pair
+ht.end() will reference to the block just after the last key value pair
+
+key-value pairs are not ordered.
+
+iterator looping -
+for (auto it = ht.begin(); it != ht.end(); it++) cout << it->first << " " << it->second;
+
+while defining ht
+unordered_map<int, int> ht;
+then ints default value will always be 0
+so,
+for () ht[i]++
+will create a key-value pair with value 0 if not exist and then increment it to 1.
+
+SC = O(number of unique elements)
+
+
+TreeMap -
+it is a BBST
+in c++ it is called ordered_map
+got TC = O(logn)
