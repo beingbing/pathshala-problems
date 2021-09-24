@@ -1,0 +1,26 @@
+~~ count of subarrays ~~
+
+given an integer array and a number k, find total number of subarrays with sum == k
+
+every subarray will have an ending index (i do not care where it started)
+cnt[i] => no of subarrays with sum == k and ending at i
+so, ans = cnt[0] + cnt[1] + cnt[2] + ... + cnt[i] + ... + cnt[n-1]
+
+how many indices were there before i, which had a sum psum-k because all those indices
+will have reached till i and got a sum of psum
+so, we just need to record the psum encountered and it's frequency as at how many indices
+it hans been encountered, so,
+<psum, frequency>
+
+unordered_map<int, int> m;
+int psum = 0
+int ans = 0;
+m.insert({ans, 1});
+for (i{0}; i<n) {
+    psum += a[i]
+    if (m.find(psum-k) != m.end()) ans += m[psum-k]
+    m[psum]++
+}
+return ans;
+
+TC/SC = O(n)
