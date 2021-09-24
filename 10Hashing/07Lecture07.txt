@@ -5,6 +5,8 @@ given array of n elements, find length of longest subarray with sum = 0
 the solution will be highly derived from the previous lecture solution with some
 modifications
 
+here value will denote the index of first occurence of that prefix sum
+
 unordered_map<int, int> m;
 int ans = 0;
 m.insert({ans, -1});
