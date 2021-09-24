@@ -1,0 +1,16 @@
+~~ consecutive elements ~~
+
+given an array of size n, check if it contains all the elements which are consecutive
+(no repetation)
+
+- difference between max and min of array will be n-1, where n is number of elements
+
+code -
+unordered_map<ll, ll> m;
+ll minm = LLONG_MAX
+for (i{0}; i<n) {
+    m[arr[i]] = 0;
+    minm = min(minm, arr[i])
+}
+for (i{minm}; i<minm+n-1) if (m.find(i) == m.end()) return false
+return true
