@@ -1,0 +1,31 @@
+~~ longest subarray with given sum ~~
+
+given array of n elements, find length of longest subarray with sum = 0
+
+the solution will be highly derived from the previous lecture solution with some
+modifications
+
+unordered_map<int, int> m;
+int ans = 0;
+m.insert({ans, -1});
+int psum = 0
+for (i{0}; i<n) {
+    psum += a[i]
+    if (m.find(psum) == m.end()) m.insert({psum, i});
+    else ans = max(ans, i-m[psum])
+}
+return false;
+
+
+modification find sum = k
+so,
+unordered_map<int, int> m;
+int ans = 0;
+m.insert({ans, -1});
+int psum = 0
+for (i{0}; i<n) {
+    psum += a[i]
+    if (m.find(psum-k) != m.end()) ans = max(ans, i-m[psum-k]);
+    if (m.find(psum) == m.end()) m.insert({psum, i});
+}
+return false;
