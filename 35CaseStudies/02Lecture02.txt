@@ -1,0 +1,19 @@
+~~ designing URL shortener: functional and non functional requirements ~~
+
+design bit.ly (an application)
+
+functional requirements -
+1 -     -> long url     f(x)        ->short url     (write function)
+short url characteristics -
+- limit to characters
+- guarantee of uniqueness
+- expiration
+- which users are allowed - users authorization
+
+2-      -> short url    f(x)        ->long url      (read function)
+
+
+non functional requirements -
+- user base - college/company departments with with some kind of feedback forms / promotional posts
+- write/read function should be highly available and with low latency
+- eventual consistency
