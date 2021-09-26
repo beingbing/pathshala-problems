@@ -1,0 +1,11 @@
+~~ a basic intro to class ~~
+
+as seen in last lecture we need to separate out code with independent standing in a separate file,
+and to help with that we can use Class
+
+class -> helps us to put related data and algorithm together as a separate independently standing
+unit (entity).
+
+e.g. - in file-system, a file can be thought of an entity.
+
+so, whenever you think of entity, think of class, and they can be interdependent on each other as well.
