@@ -1,0 +1,25 @@
+~~ parallel threading - synchronized execution ~~
+
+leetcode 1116
+
+semaphore - special type of variables => to introduce synchronization in parallel threads
+interprocess communication using semaphore
+
+acquire() => put a lock on variable so that no one else can acquire it.
+release() => release the lock.
+
+Semaphore sem = new Semaphore(1) // 1 -> count of threads which can acquire it at a time
+
+this will confirm synchronization but ordering is still not maintained
+so, we need 3 semaphore
+
+Semaphore sem_zero = new Semaphore(1)
+Semaphore sem_odd = new Semaphore(1)
+Semaphore sem_even = new Semaphore(1)
+
+but here we want that zero will always be the first to acquire the lock, hence, 
+
+Semaphore sem_zero = new Semaphore(1)
+Semaphore sem_odd = new Semaphore(0)
+Semaphore sem_even = new Semaphore(0)
+
