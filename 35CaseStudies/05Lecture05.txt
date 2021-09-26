@@ -1,0 +1,48 @@
+~~ Designing URL Shortener: System Design Part 2 ~~
+
+discussion on DB got completed in last lecture, now, we will explore our designing of backend servers.
+
+the API which we will be exposing are -
+
+1.      shotened-url    <----   shorten(string long-url);
+generate unique short url for given long url and insert it inside DB.
+
+2.      string long-url     <----   getLongUrl(string short-url);
+for given short url, fetch long url from DB and return it.
+
+
+how 1. api would work -
+we can use MD5 hash, it generates a 128 characters string. but we need 7 characters only, so it is not that
+good candidates.
+
+we can try base62 encoding. but for this we need a unique number which can be convert. for this, we can use
+our timestamp. but then our generated urls will have a pattern as they will be in increasing order in-sync
+with timestamp then it can be easily predict which is not a good thing, we do not want an unauthorised
+person to be able to predict a url, so for this we can use a completely random token, which we can provide
+to our service everytime it needs to generate a new url. In this what can happen is, different replicas can
+generate the same random string and then we will have a replication, to avoid this, we can have a check at
+DB level, which before storing will check if that url already is created, if no then store it and send
+successfully completion of operation message, but if yes then direct backend server to generate a new 
+short url for that long url.
+
+instead of letting every server have a random number generation ability, we can use a key DB (token service)
+which will have around 10^9 key at any time, whenever a shortening requests came a key is taken from that
+DB and is assigned, the key DB maybe backed by a key-generation-service whose job will be to periodically
+fill the key DB for new keys to use.
+
+
+LB -
+as both APIs will have very similar functions, i.e., they will access DB to store/retrieve data, we can use
+a simple round robin approach.
+If some of the servers had more power as compared to others then we would have gone for weighted round-robin
+approach. 
+
+
+as the load will not be same across a month, then we do not need this much servers everytime, so as our load
+is dynamic w.r.to time. So, depending on that, we might have some system in place to remove/add servers as and
+when needed. For this we can place a monitoring service (MS) which will be keep on collecting data on work load
+managed by each server. But due to presence of MS we can not longer do Round-robin, we need to do consistent
+hashing then.
+
+
+we will also be needing a separate clean-up service whose job will be to simply delete expired URLs from our DB.
