@@ -1,0 +1,8 @@
+~~ separating out files ~~
+
+our code can be split into two things -
+- algorithm
+- data
+
+If we split code which can have an independent meaning on it's own in separate files,
+then it will make maintaining of codebase much easier.
