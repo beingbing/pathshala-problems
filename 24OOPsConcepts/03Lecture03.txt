@@ -1,0 +1,11 @@
+~~ a basic intro to objects ~~
+
+declaring and defining a class is not enough, for creating an object you need to provide memory to its instance
+which can be done by new keyword.
+
+File     myfile    =   new   File()
+type variable-name   keyword constructor
+
+every instance of a class has its own set of properties. We use dot operator to run the methods of that class
+on instances. All of objects of the same class has the same methods. Methods may behave differently on different
+objects, because different objects have different data. 
