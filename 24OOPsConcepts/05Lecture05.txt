@@ -1,0 +1,26 @@
+~~ static variables ~~
+
+we must have used MATH.sqrt(x) and MATH.PI
+these variables and methods which can be directly used by using their class name without need of
+creating an object of their class are static variables. (+ they have a public access.)
+
+normally, when we declare properties of a class, we refer to them as instance variables as they
+are associated with a particular instance and can vary in value from instance to instance, but,
+when we declare a class property to be static, then its a property of a class not of instances.
+so, one copy of static variables is shared by all the instances.
+
+static -> class specific instead of object specific, shared by all the objects.
+static -> global variables at the level of class
+
+create a instance counter of a class -
+
+class File {
+    private static int count = 0;
+    File() {
+        this.count++;
+    }
+}
+
+static variables tells us something about the class instead of object.
+
+in multi-threading, racing condition can occur with static variables.
