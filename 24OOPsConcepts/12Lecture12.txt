@@ -1,0 +1,13 @@
+~~ generic sorting using polymorphism ~~
+
+anonymous class -> when you try to instatiate an interface, then it will tell you to define
+the methods there and then, which will function as an anonymous class.
+
+we use anonymous classes mostly when we know that the code by which we will be declaring it
+will not be used again, it is like inline/anonymous functions in javasript (or like anonymous
+callback functions)
+
+in this lecture a generic sort class is created which takes in a comparator object and on the basis
+of which it does sorting, so for that we implemented three comparator classes namely,
+ascendingComparator, descendingComparator and absoluteValueComparator and passed their objects
+in sort class to do the sorting.
