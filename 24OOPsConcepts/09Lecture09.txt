@@ -1,0 +1,23 @@
+~~ final keyword ~~
+
+final keyword -> once a final variables is initialised it can not be changed.
+the above is true for primitive data types.
+here variable name is the object itself.
+
+in non primitive data types, the pointer gets fixed, that, that given pointer will only point to
+the given object only, but that object is allowed to get modified/changed.
+here variable name is only a pointer to that type of object.
+e.g. -
+final Date dt = new Date()
+dt = m' // not allowed.
+
+it helps us in making immutable object properties
+
+
+final properties of a class can be initialised through constructor (if they are not initialised while
+declarations) for once and for all, we can not write setters for them.
+
+Imagine an object to be the root of a tree and all its properties to be branching out, for that object
+to be immutable, every property need to be final along with every sub-object properties which are
+contained in that object need to be final as well, so if an object is recursively final then it is 
+immutable.
