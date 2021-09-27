@@ -1,0 +1,12 @@
+~~ static methods ~~
+
+a static method can also be accessed from object. But to create an instance only to use its static
+methods is futile.
+
+If everything in a class is static then we can enforce user to not create an instance of that class
+by making the constructor private.
+
+If your method is static then you can not talk to non-static variables/methods from defination of
+that method, but reverse is allowed.
+
+static variables -> initialised during class loadig process
