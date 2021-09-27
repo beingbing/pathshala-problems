@@ -1,0 +1,9 @@
+~~ encapsulation ~~
+
+direct access to instance variable must not be allowed. Data must be hidden.
+All instance variables must be private and their getters must be public.
+
+sometimes you do not want a getter for some properties, you just want it to keep a secret
+internally known to the class only. 
+
+changes are not always backward compatible.
