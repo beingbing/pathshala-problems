@@ -1,0 +1,19 @@
+~~ all about constructors ~~
+
+constructor contains name of class, it does not return anything.
+
+it is required to construct instances of a class, we write initialisation activity in a constructor.
+
+new keyword is must while invoking a constructor.
+
+an object is always created in heap memory. The variable which references that object stays in RAM, it works as pointer
+and points to the object sitting in heap memory.
+so, the name which we give to an object, is not an object in itself, its a pointer to an object.
+
+default constructor -> if we do not write a constructor, then a no arguments constructor is provided by compiler to us.
+DC is provided to you if and only if you have not written any constructor of your own.
+hence, you will have to do constructor overloading.
+
+Note: builder DP is used in constructor overloading to prevent constructor explosion.
+
+copy constructor -> copies the value of one object into the object which is being created.
