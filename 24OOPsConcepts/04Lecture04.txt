@@ -1,0 +1,14 @@
+~~ access modifiers ~~
+
+private -> something which is not disclosed to others. If a property/method is declared private then it can only be accessed inside of a
+class it cannot be accessed outside using dot operator. 
+
+public ->
+
+protected -> when something is declared as protected, then it has public scope for classes which are in same package but private scope
+for classes which are outside of their package. but, this rule is exempted for child classes.
+so, if there is a variable in a classwhich is protected but we have a child class in another package which extends our class then that
+child class will be able to access the variable.
+
+Note: if you do not provide any access modifiers to a property/method then it is public for classes in the same package but private
+outside the package.
