@@ -1,0 +1,22 @@
+~~ polymorphism ~~
+
+Interface -
+- skeleton of a class
+- interface is all about behaviour/methods
+
+polymorphism is a concept and interface is a construct which is used to implement/achieve that concept.
+
+in lecture, an animal interface was defined with walk() and speak(), then 3 different class were written which implements that
+interface, namely, cat and dog class, the objects of which were stored in an array of type animal, then another class was written
+which iterates over that array of animal and execute their speak();
+
+this is an example of plug-and-play model, where you can create a class of any type of animal like giraffe, elephant etc, and
+store its object in animal array, on which our tester class loops and executes speak() for all the animals.
+
+so, polymorphism helps us in achieving 2 things -
+- it helps us define a generic structure for multiple similar kind of applications
+- poly means many and morphs mean forms, so a generic kind of data type can store different type of objects, here in our example,
+we saw that animal array was able to store all cat, dog, giraffe and elephant objects.
+
+runtime polymorphism -
+during runtime objects are created and provided to variable.
