@@ -1,0 +1,26 @@
+~~ this keyword ~~
+
+it is used for self refrencing. You reference the current object in action. Inside of a class you can access the said object
+using this keyword.
+
+this has the same hashCode as the pointer to the object which is contained in heap memory.
+
+can not use this keyword from static methods.
+
+this can be used to access constructors as well.
+if constructor is Student()
+then this can be envoked as this()
+if constructor is Student(int a, int b)
+then this can be envoked as this(int a, int b)
+
+by using this we can do constructor chaining, that is, call one constructor inside another as mentioned above.
+
+using this we can pass the current class instance from one class to another.
+this apporach is very effective when we try to do event handling, we can pass around the whole object and then it's upto
+the method to which the object is passed, it can consume the object however way it wants.
+
+method chaining -
+a member method after modifiying the object, return this, to return the new modified object to another method.
+e.g. -
+obj.func1().func2().func3();
+here func1, func2 does return this; after modification.
