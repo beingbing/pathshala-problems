@@ -1,0 +1,11 @@
+~~ runtime vs compile-time polymorphism ~~
+
+runtime -> something that happens after compilation, when the program is alive and in action. 
+
+runtime polymorphism -> call to a method is resolved at runtime, not at compile-time.
+
+method overloading => compile-time polymorphism
+
+implicit type promotion => similar to type casting
+
+can main() be overloaded ?
