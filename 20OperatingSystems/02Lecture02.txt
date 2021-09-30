@@ -1,0 +1,37 @@
+~~ resource management ~~
+
+function of OS: resource management
+in compiler based language.
+
+when you write a code, then,
+
+
+
+
+
+- compiler
+
+to transform your code into machine level code (understandable by machine)
+
+
+
+
+
+then, we execute the code.
+so, how do you actually run it, for that a cycle happens which is -
+fetch/decode(understand)/execute cycle
+
+requirements to execute a code -
+- RAM/memory where the code can be kept and all it's variable values can be kept so that no other
+code interfere with it or tries to change it, or not by mistake it changes for other programs
+- execution thread (CPU core)
+- availability of I/O drivers to fetch/send required stuff from/to those sources (HDD for persistent data) 
+
+OS is responsible for providing all the above stated resources.
+e.g. - if you are alloted memory from 100 till 200 and if you try ti access memory location 205, you get
+segmentation fault or index out of bound error.
+
+system calls - commands that OS provide us to let OS know when you need something from it.
+
+every language has wrappers around these system calls like c/c++ has scanf/cin wrappers for read()
+system call. To make their usage handy.
