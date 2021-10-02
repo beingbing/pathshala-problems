@@ -1,0 +1,20 @@
+~~ minimize the expression ~~
+
+given 3 sorted arrays A[m], B[n], C[p].
+minimize: max(a,b,c)-min(a,b,c)
+
+minimum possible answer = 0
+
+i = 0, j = 0, k = 0
+int ans = INT_MAX
+while (i < n1 && j < n2 && k < n3) {
+    int val = max(a[i], max(b[j], c[k])) - min(a[i], min(b[j], c[k]))
+    ans = min(val, ans)
+    minm = min(a[i], min(b[j], c[k]))
+    if (a[i] == minm) i++
+    else if (b[j] == minm) j++
+    else k++
+}
+return ans;
+
+TC = O(n1+n2+n3)
