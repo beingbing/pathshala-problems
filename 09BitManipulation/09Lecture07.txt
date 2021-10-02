@@ -1,0 +1,19 @@
+~~ hamming distances ~~
+
+hamming distance b/w 2 integers a and b
+no of bit positions where they have different bits.
+
+Q: given array, find hamming distance sum among all pairs formed.
+
+int hammingDist(vector<int>& a) {
+    n = a.size(), ans = 0;
+    long mask = 1L << 31
+    for (i{31}; i>=0; i--) {
+        int cnt = 0
+        for (j{0}; j<n) if (mask & a[j]) cnt++
+        ans += cnt * (n-cnt)
+        mask >>= 1
+    }
+    return ans;
+}
+TC = O(32n)
