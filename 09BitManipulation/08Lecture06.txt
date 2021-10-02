@@ -1,0 +1,25 @@
+~~ detecting odd one out ~~
+
+1. given an integer array, every element comes twice, except just one element, find that element out.
+
+ans: take XOR of all array elements, that xor will be your answer
+
+2. given an integer array, every element comes even times, except just one element, find that element out.
+
+ans: same as above
+
+3. every elements appears thrice except 1 element which is coming only once, find that element.
+
+ans:
+
+code -
+int singleNum(vector<int>& a) {
+    long mask = 1L << 31, ans = 0
+    for (i{31}; i>=0; i--) {
+        int cnt = 0
+        for (j{0}; j<a.size(); j++) if (a[j] & mask) cnt++
+        if (cnt%3 != 0) ans += mask
+        mask >>= 1
+    }
+    return ans;
+}
