@@ -1,0 +1,33 @@
+~~ longest substring without repetition ~~
+
+given a string s, find the length of longest substring with distinct characters
+
+M1 -
+ans = 0
+for (i{0}; i<n) {
+    reset(freq, 0);
+    for (j{i}; j<n) {
+        if (freq[s[j]] > 0) break;
+        else {
+            freq[s[j]]++
+            ans = max(ans, j-i+1)
+        }
+    }
+}
+TC = O(n^2)
+
+
+M2 -
+i = 0, j = 0
+freq[s[0]]++
+while (j < n-1) {
+    if (freq[s[j+1]] == 0) {
+        j++
+        freq[s[j+1]]++
+    } else {
+        freq[s[i]]--
+        i++
+    }
+    ans = max(ans, j-i+1)
+}
+TC = O(n)
