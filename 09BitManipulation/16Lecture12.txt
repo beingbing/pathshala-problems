@@ -1,0 +1,24 @@
+~~ find two elements ~~
+
+given array of n elements, every element comes twice, just two elements comes once.
+find those two elements.
+
+if we take XOR of complete array, then we will have XOR of n1 and n2 as well.
+in that, we can take first set bit, and with its help divide the array into two
+halves.
+one half with all numbers whose that selected bit is set.
+other half with all numbers whose that bit is unset.
+then take XOR of those groups separately, there XOR will be our numbers n1 and n2.
+
+findNums(vector<int>& a) {
+    int overallXOR = 0
+    for (auto ele : a) overallXOR ^= ele;
+    int leastSetBit = 1;
+    while (!(leastSetBit & overallXOR)) leastSetBit << 1;
+    n1 = 0
+    for (auto ele : a) if (ele & leastSetBit) n1 ^= ele;
+    n2 = overallXOR ^ n1;
+    return {n1, n2};
+}
+
+TC = O(n)
