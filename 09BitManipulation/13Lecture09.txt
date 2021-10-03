@@ -1,0 +1,9 @@
+~~ finding minimum XOR ~~
+
+given array, find min(a[i]^a[j]), where i != j and 0 <= i < j < n
+
+adjacent elements in a sorted array may have the smallest array
+we reached to this solution by using mathematical exptrapolation approach where
+you take a smaller set of cases find the possible answer candidates, find a relation
+among them which might be responsible for answer and then extrapolate your hypothesis
+on a bigger set. if found true you have algorithm which can lead to your answer.
