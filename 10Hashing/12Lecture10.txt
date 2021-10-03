@@ -1,0 +1,25 @@
+~~ longest consecutive sequence ~~
+
+given an array, find length of longest consecutive sequence.
+ls -> left streak
+rs -> right streak
+a -> given array
+m -> map created
+
+unordered_map<int, int> m;
+vector<int> a
+int ans = 0
+for (i{0}; i<n) {
+    if (m.find(a[i]) != m.end()) continue;
+    int ls = 0, rs = 0;
+    if (m.find(a[i]-1) != m.end()) ls = m[a[i]-1];
+    if (m.find(a[i]+1) != m.end()) rs = m[a[i]+1];
+    ans = max(ans, ls+rs+1)
+    m[a[i]] = ls+rs+1
+    m[a[i]-ls] = 1+ls+rs;
+    m[a[i]+rs] = 1+ls+rs;
+}
+return ans;
+
+SC = O(n)
+TC = O(n)
