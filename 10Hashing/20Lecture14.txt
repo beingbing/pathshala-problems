@@ -1,0 +1,84 @@
+~~ maximum points on same line ~~
+
+n points lying on x,y plane. find maximum number of points lying along same straight line.
+
+for all the points lying on the same line, have the same slope.
+slope = m = (y1-y)/(x1-x)
+
+
+
+M1 -
+we need a reference point (x, y) though.
+so,
+for each slope, we track frequency.
+but this process needs to be repeated for all points.
+keep track of highest frequency for each slope.
+among them, highest frequency candidate will be our answer.
+
+possible optimization -
+if we have considered p1 while taking p0 as p,
+then while taking p1 as p, we can leave out p0.
+
+limitation -
+rounding off of floats and doubles, e.g. - 3.9999999976, 3.9999999977
+instead do pair<int, int> (y1-y, x1-x)
+but here still, 4/6 and 8/12 will be considered different, which should not happen.
+both should be 2/3.
+for this we need to find gcd of numerator and denominator, then divide both of them by gcd.
+
+here 0/1, 0/14, 5/0, 6/0, ... will also be taken care of, as there gcd will be 1, 14, 5, 6, ...
+which after getting divided by gcd becoe 1,0 or 0,1
+
+if duplicate points are present then we get (0,0), we can not let them getting divided by gcd.
+for this we will keep track of duplicate points.
+
+another problem, (2, -3) should be considered either as (-2, 3) or identical to it.
+and for (-2, -3) it need to be converted to (2, 3)
+
+so if olp stores all duplicate points of p, and maxm has the maximum frequency then total number
+of points will be 1(due to point p) + olp + maxm
+
+
+code -
+
+int gcd(int val1, int val2) {
+    if (val1 == 0) return val2;
+    if (val2 == 0) return val1;
+    int mx = max(val1, val2), mn = min(val1, val2);
+    if (mx%mn == 0) return mn;
+    return gcd(mx%mn, mn);
+}
+
+void standardise(int& numerator, int& denominator) {
+    if (numerator == 0) denominator = 1;
+    else if (denominator == 0) numerator = 1;
+    else if ((numerator < 0 && denominator < 0) || denominator < 0)
+        numerator *= -1, denominator *= -1;
+}
+
+int maxPoints(vector<vector<int>>& points) {
+    if (points.size() == 0) return 0;
+    int ans = 1;
+    map<pair<int, int>, int> m;
+    for (i{0}; i<points.size()) {
+        int olp = 0, maxm = 0;
+        for (j{i+1}; j<points.size()) {
+            if (points[i][0] == points[j][0] && points[i][1] == points[j][0]) olp++;
+            else {
+                int xdiff = points[j][0] - points[i][0], ydiff = points[j][1] - points[i][1]
+                int g = gcd(abs(xdiff), abs(ydiff));
+                int f = xdiff/g, s = ydiff/g;
+                standardise(f, g);
+                if (m.find({f,g}) != m.end()) m[{f,g}]++;
+                else m[{f,g}] = 1;
+                maxm = max(maxm, m[{f,g}]);
+            }
+        }
+        ans = max(ans, 1+olp+maxm);
+        m.clear();
+    }
+    return ans;
+}
+
+TC = O(n^2 * log(maxm))
+SC = O(n)
