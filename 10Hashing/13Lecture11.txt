@@ -1,0 +1,19 @@
+~~ longest consecutive sequence - 2 ~~
+
+vector<int> a
+unordered_map<int, int> m, visited;
+for (i{0}; i<n) m[a[i]] = 1
+int ans = 0
+for (i{0}; i<n) {
+    if (m.find(a[i]-1) != m.end()) continue;
+    if (visited.find(a[i]) != visited.end()) continue;
+    visited[a[i]] = 1;
+    int len = 0;
+    int x = a[i]
+    while (m.find(x) != m.end()) {
+        len++;
+        x++;
+    }
+    ans = max(ans, len);
+}
+return ans;
