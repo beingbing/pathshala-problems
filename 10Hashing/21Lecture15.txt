@@ -1,0 +1,29 @@
+~~ substring containing all words ~~
+
+upgrade of arrays : 15Homework02 : 2_lc_0567
+
+given a string s and an array of words of equal length. Find starting indices of all substrings in s that contains all the words
+from array in any order.
+
+vector<int> findSubstrings(string s, vector<string>& words) {
+    vector<int> ans;
+    if (s.size() == 0 || words.size() == 0 || words.size()* words[0].size() > s.size()) return ans;
+    unordered_map<string, int> wordsFreq;
+    for (i{0}; i<words.size(); i++) wordsFreq[words[i]]++;
+    int n = words.size(), l = words[0].size();
+    unordered_map<string, int> tmp;
+    for (int i{0}; i<s.size()-n*l; i++) {
+        for (int j = i; j < i+n*l; j += l) tmp[s.substr(j, l)]++;
+        flag = true;
+        for (j{0}; j<n; j++) if (tmp.find(words[j]) == tmp.end() || tmp[words[j]] != wordsFreq[words[j]]) flag = 0, break;
+        if (flag) ans.push_back(i);
+        tmp.clear();
+    }
+    return ans;
+}
+
+N - n*l for outer loop
+2*n*l for inner loop
+
+TC = O((N-n*l)(2*n*l))
+SC = O(n*k)
