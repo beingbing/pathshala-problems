@@ -1,0 +1,15 @@
+~~ boolean matrix - 2 ~~
+
+given mat[m][n] with only 0s and 1s. Transform it such that if mat[i][j] == 1 then all the cells of
+ith row and jth col changed to 1 and all the diagonals that passes through i, j must also be made 1.
+
+along a major diagonal i-j is constant
+along a minor diagonal i+j is constant
+
+rowMap lookup -> x
+colMap lookup -> y
+majorDiaMap lookup -> x-y
+minorDiaMap lookup -> x+y
+
+so, majorDiaMap range will be [-(n-1), n-1] transform-> [0, 2n-2] by doing x-y+(n-1)
+and minorDiaMap range will be [0, 2n-2]
