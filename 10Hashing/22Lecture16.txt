@@ -1,0 +1,12 @@
+~~ making palindromes - 1 ~~
+
+give a list of unique words, find all pairs of indices (i, j), i!=j such that on concatenation of
+ith words with jth word the result is a palindrome.
+
+- if prefix of a word is present in some other word as suffix
+- remaining parts of both those words are palindromic
+
+edge cases -
+- empty prefix/suffix
+- considering an element again
+- duplicate pairs
