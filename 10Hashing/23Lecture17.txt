@@ -1,0 +1,34 @@
+~~ making palindromes - 2 ~~
+
+bool isPal(string& s, int i, int j) {
+    while (i < j) {
+        if (s[i] != s[j]) return false;
+        i++, j--;
+    }
+    return true;
+}
+
+vector<vector<int>> getPairs(vector<string>& words) {
+    unordered_map<string, int> ump;
+    for (i{0}; i<words.size()) ump[string(words[i].rbegin(), words[i].rend())] = i;
+    map<pair<int, int>, bool> m;
+    vector<vector<int>> ans;
+    for (i{0}; i<words.size(); i++) {
+        if (ump.find("") != ump.end() && ump[""] != i && isPal(words[i], 0, words[i].size()-1) && m.find({i, ump[""]}) == m.end())
+            m[{i, ump[""]}] = true, m[{ump[""], i}] = true, ans.push_back({i, ump[""]}), ans.push_back({ump[""], i});
+        string prefix;
+        for (j{0}; j < words[i].size(); j++) {
+            prefix = words[i].substr(0, j+1);
+            if (ump.find(prefix) != ump.end() && ump[prefix] != i && isPal(words[i], j+1, words[i].size()-1) && m.find({i, ump[prefix]}) == m.end())
+                m[{i, ump[prefix]}] = true, ans.push_back({i, ump[prefix]});
+        }
+        string suffix;
+        for (j{words[i].size()-1}; j>=0; j--) {
+            suffix = words[i].substr(j, words[i].size()-j);
+            if (ump.find(suffix) != ump.end() && ump[suffix] != i && isPal(words[i], 0, j-1) && m.find({ump[suffix], i}) == m.end())
+                m[{ump[suffix], i}] = true, ans.push_back({ump[suffix], i});
+        }
+    }
+}
+
+TC = O(n*k^2)
