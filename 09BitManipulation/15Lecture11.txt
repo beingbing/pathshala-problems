@@ -1,0 +1,9 @@
+~~ pair with given XOR ~~
+
+given n elements array, and an integer k.
+Find a pair a[i], a[j] such that a[i]^a[j] = k return true otherwise return false
+
+exactly similar to find two elements in array whose sum equals k
+as,
+a[i]^a[j] = k
+=> a[j] = k^a[i]
