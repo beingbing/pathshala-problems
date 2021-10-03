@@ -1,0 +1,19 @@
+~~ multiple XOR queries ~~
+
+given array, given q queries of form i,j where i <= j, both represent indexes in given array
+calculate XOR of all elements from i to j
+
+prefix XOR of a^b^c^d^e when XORed with a^b gives XOR of c^d^e
+
+code -
+
+vector<int> preXor(n,0);
+preXor[0] = a[0]
+for (i{0}; i<n) preXor[i] = preXor[i-1]^a[i]
+cin >> q
+while (q) {
+    cin >> i >> j
+    cout << i != 0 ? preXor[j]^preXor[i-1] : preXor[j] << endl;
+}
+
+TC = O(N+Q)
