@@ -1,0 +1,22 @@
+~~ binary matrix - 2 ~~
+
+given a mxn biary matrix. find max area rectangle whose -
+- all cells must contain 1.
+
+we solved the previous problem just for last row, we can extend it further for all the rows as well.
+
+1   1   1   1                       1   1   1   1
+1   0   0   1                       2   0   0   2
+0   0   1   1                       0   0   1   3
+1   1   1   0           =>          1   1   2   0
+1   1   0   0                       2   2   0   0
+0   1   1   1                       0   3   1   1
+1   1   1   1                       1   4   2   2
+
+for (c{0}; c<n) {
+    for (r{0}; r<n) {
+        if (mat[r][c] != 0) mat[r][c] = 1 + mar[r-1][c]
+    }
+}
+
+TC = O(m*n) { due to transformation }
