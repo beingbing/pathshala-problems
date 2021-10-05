@@ -1,0 +1,43 @@
+~~ push bottom in a stack ~~
+
+built in stack
+
+stack<int> s;
+
+s.empty() => T/F
+s.push()
+s.pop()
+s.top() => int
+
+implement push bottom to given stack;
+
+- use a temporary stack to empty given stack
+- push the required element
+- push back the elements from temporary stack into original stack;
+
+void pushBottom(int x, stack<int>& s) {
+    stack<int> tmp;
+    while (!s.empty()) {
+        e = s.top()
+        s.pop()
+        tmp.push(e)
+    }
+    s.push(x);
+    while (!tmp.empty()) {
+        e = tmp.top()
+        tmp.pop()
+        s.push(e)
+    }
+}
+
+// recursive code
+void pushBottom(int x, stack<int>& s) {
+    if (s.empty()) s.push(x), return;
+    int y = s.top()
+    s.pop()
+    pushBottom(x, s)
+    s.push(y)
+}
+
+TC = O(n)
+SC = O(n)
