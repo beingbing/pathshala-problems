@@ -1,0 +1,26 @@
+~~ next greater elemnent ~~
+
+given array of n elemnent, find next greater element of every array element.
+
+next greater element -> closest element on right which is greater
+
+vector<int> nge(vector<int>& a) {
+    int n = a.size()
+    stack<int> s;
+    s.push(0)
+    vector<int> ans;
+    for (i{1}; i<n) {
+        while (!s.empty() && a[i] > a[s.top()]) {
+            ans[s.top()] = a[i]
+            s.pop()
+        }
+        s.push(i)
+    }
+    while (!s.empty()) {
+        ans[s.top()] = -1
+        s.pop()
+    }
+    return ans;
+}
+TC = O(n)
+SC = O(n)
