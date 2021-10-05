@@ -1,0 +1,11 @@
+~~ two stacks in same array ~~
+
+implement two stacks within same array
+
+struct stack {
+    int a[n]
+    int top1 = -1, top2 = n
+}
+
+push1 top1++
+push2 top2--
