@@ -1,0 +1,10 @@
+~~ binary matrix - 1 ~~
+
+given a mxn biary matrix. find max area rectangle whose -
+- all cells must contain 1.
+- the base must be in last row.
+
+this problem can be transformed into previous problem.
+
+TC = O(m*n) {due to transformation}
+SC = O(n)

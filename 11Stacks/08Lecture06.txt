@@ -33,3 +33,6 @@ for (i{0}; i<n) {
     maxArea = max(maxArea, ht[i]*(nse[i]-pse[i]-1))
 }
 return maxArea;
+
+TC = O(n)
+SC = O(n)
