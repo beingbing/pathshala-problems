@@ -1,0 +1,40 @@
+~~ sum of minimums (reverse lookup inn stacks) ~~
+
+given an array, find the sum of minimum elements of all the subarrays
+
+vector<int> a;
+int m = 10^9+7, n = a.size()
+vector<int> nse(n), psoee(n);
+stack<int> s;
+s.push(0)
+for (i{1}; i<n) {
+    while (!s.empty() && a[i] < s.top()) {
+        nse[s.top()] = i, s.pop()
+    }
+    s.push(i)
+}
+while (!s.empty()) {
+    nse[s.top()] = n;
+    s.pop()
+}
+s.push(n-1);
+for (i{n-2}; i>=0; i--) {
+    while (!s.empty() && a[i] <= a[s.top()]) {
+        psoee[s.top()] = i
+        s.pop()
+    }
+    s.push(i)
+}
+while (!s.empty()) {
+    psoee[s.top()] = -1
+    s.pop()
+}
+int ans = 0;
+for (i{0}; i<n) {
+    x = (long long)((((i-psoee[i])%m)*((nse[i]-i)%m))%m)*((a[i]%m)%m)
+    ans = (ans%m + x%m)%m 
+}
+return ans;
+
+TC = O(n)
+SC = O(n)
