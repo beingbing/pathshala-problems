@@ -1,0 +1,6 @@
+~~ inbuild queue ~~
+
+queue<int> q;
+
+functions provided -
+push(), pop(), front(), back(), size(), empty()
