@@ -1,0 +1,44 @@
+~~ design queue with stacks ~~
+
+void push(x)
+int pop()
+int peek() // front
+bool empty()
+
+q.push(x) == s.push(x)
+
+class QueueByStack {
+    stack<int> stk, auxStk;
+    int front;
+
+    QueueByStack() {}
+
+    void push(int x) {
+        if (stk.empty()) front = x;
+        stk.push(x)
+    }
+
+    int pop() {
+        int ans;
+        while (!stk.empty()) {
+            auxStk.push(stk.top())
+            stk.pop()
+        }
+        ans = auxStk.top()
+        auxStk.pop();
+        while (!auxStk.empty()) {
+            if (stk.empty()) front = auxStk.top();
+            stk.push(auxStk.top());
+            auxStk.pop()
+        }
+        return ans;
+    }
+
+    int peek() {
+        return front;
+    }
+
+    bool empty() {
+        return stk.top()
+    }
+}
