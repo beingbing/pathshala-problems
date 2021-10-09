@@ -1,0 +1,43 @@
+~~ design min stack - 2 ~~
+
+- encode both current and previous minimum in a single value.
+- recognise the point of change
+
+encoding => 2*curMin - prevMin = st.top()
+
+class MinStack {
+    stack<long> s;
+    long curMin;
+    MinStack() {
+        curMin = LONG_MAX;
+    }
+    void push(int x) {
+        if (s.empty()) {
+            s.push(x)
+            curMin = x;
+            return;
+        }
+        if (x < curMin) {
+            s.push((long)2*x-curMin);
+            curMin = x;
+        } else {
+            s.push(x);
+        }
+    }
+    void pop() {
+        if (s.top() < curMin) {
+            curMin = (long)2*curMin - s.top()
+            s.pop()
+        } else s.pop()
+    }
+    int top() {
+        if (s.top() < curMin) return curMin;
+        return s.top();
+    }
+    int getMin() {
+        return curMin;
+    }
+}
+
+TC = O(1)
+SC = O(1)
