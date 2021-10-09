@@ -1,0 +1,25 @@
+~~ remove duplicates ~~
+
+given a string containing smallcase alphabets. remove duplicate letters such that -
+- every letter come exactly once.
+- the resultant string should be lexicographically smallest.
+
+psuedo code -
+
+- initialise an empty stack
+- initialise a freq array, store in it freq of chars in string
+- initialise a present array with 0
+- push s[0] in stack and make changes to freq, present array accordingly.
+(freq[s[0]]-- and present[s[0]] = 1)
+- for (i{1}; i<n)
+    - freq[s[i]]--
+    - if (present[s[i]]) continue
+    - while (!stk.empty() && s[i] < stk.top() && freq[stk.top()] > 0) {
+        present[stk.top()] = 0
+        stk.pop()
+    }
+    - stk.push(s[i])
+    - present[s[i]] = 1
+
+TC = O(n)
+SC = O(n)
