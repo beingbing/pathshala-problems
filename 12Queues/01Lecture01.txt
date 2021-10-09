@@ -1,0 +1,30 @@
+~~ what is a queue ~~
+
+FIFO
+
+it's a two ended data structure
+
+deletion -> front
+insertion -> back
+
+struct Queue {
+    int arr[]
+    int front, back
+}
+
+push() {
+    back++
+    arr[back] = x
+}
+
+pop() {
+    front++
+}
+
+underflow => front > back
+overflow => back == arr.size()
+
+in this implementation a lot of space is wasted even when we are indicated that the queue is full,
+it may be possible that queue is mostly empty.
+
+TC = O(1)
