@@ -1,1 +1,5 @@
 ~~ what is a stack ~~
+
+LIFO/FILO
+
+it's a single ended data structure

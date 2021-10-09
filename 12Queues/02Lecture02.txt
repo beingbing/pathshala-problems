@@ -1,0 +1,8 @@
+~~ circular queue ~~
+
+if array is circular
+we can achieve it by -
+b = (b+1)%n instead of b = b+1
+
+overflow => front = (back+1)%n
+underflow => count = 0
