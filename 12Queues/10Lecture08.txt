@@ -1,0 +1,22 @@
+~~ level order traversal ~~
+
+given a positive number n, pring first n natural numbers whose digits are either 1 or 2 or 3,
+in sorted form.
+
+queue<int> q;
+q.push(0);
+int c = 0;
+while (c<n) {
+    int x = q.front();
+    if (x != 0) {
+        cout << x << " ";
+        c++;
+    }
+    q.pop()
+    q.push(x*10+1)
+    q.push(x*10+2)
+    q.push(x*10+3)
+}
+
+TC = O(n)
+SC = O(n)
