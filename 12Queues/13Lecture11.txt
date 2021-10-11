@@ -1,0 +1,7 @@
+~~ maximum in sliding window ~~
+
+given int a[n], and k, k < n.
+consider every window of size k and find maximum element in that window.
+
+SC = O(k)
+TC = O(n)
