@@ -1,0 +1,19 @@
+~~ binary forms ~~
+
+given n > 0
+pring binary representation of all the numbers in [1,n]
+
+queue<long long> q;
+q.push(1);
+int c = 0;
+while (c < n) {
+    long long x = q.front()
+    q.pop()
+    cout << x << " ";
+    q.push(x*10);
+    q.push(q*10+1);
+    c++;
+}
+
+TC = O(n)
+SC = O(n)
