@@ -1,0 +1,5 @@
+~~ doubly ended queue ~~
+
+combination of stack and queue => deque (doubly ended queue)
+
+it supports both insertion and deletion at both ends.
