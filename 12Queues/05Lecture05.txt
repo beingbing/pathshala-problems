@@ -1,0 +1,47 @@
+~~ design queue with stacks - 2 ~~
+
+all push, pop and peek should be of O(1)
+
+how about, exposing the deletion end somewhere else. so, pop from one stack and push to another stack.
+
+to keep peek() of O(1), we can track the bottom most element of push-stack. and we need to update it when,
+- both stacks are empty
+- whenever we pop from pop-stack
+- when pop-stack gets empty
+
+
+class QueueByStack {
+    stack<int> popStack, pushStack;
+    int front, pushStkBtm;
+
+    QueueByStack() {}
+
+    void push(x) {
+        if (popStack.empty() && pushStack.empty()) front = x;
+        else if (pushStack.empty()) pushStkBtm = x;
+        pushStack.push(x);
+    }
+
+    int pop() {
+        int ans;
+        if (popStack.empty()) {
+            while (!pushStack.empty()) {
+                popStack.push(pushStack.top());
+                pushStack.pop();
+            }
+        }
+        ans = popStack.top();
+        popStack.pop();
+        if (!popStack.empty()) front = popStack.top();
+        else if (!pushStack.empty()) front = pushStkBtm;
+        return ans;
+    }
+
+    int peek() {
+        return front;
+    }
+
+    bool empty() {
+        return pushStack.empty() && popStack.empty();
+    }
+}
