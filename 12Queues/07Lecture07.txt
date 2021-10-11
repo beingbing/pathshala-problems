@@ -1,0 +1,33 @@
+~~ reverse a queue ~~
+
+iterative solution -
+queue<int> rev(queue<int> q) {
+    stack<int> s;
+    while (!q.empty()) {
+        s.push(q.front());
+        q.pop();
+    }
+    while (!s.empty()) {
+        q.push(s.top());
+        s.pop();
+    }
+    return q;
+}
+
+recursive approach -
+
+            del ele                         add ele
+queue       ------>         reverse         ------>         result queue
+
+if queue empty then just return.
+
+queue<int> rev(queue<int>& q) {
+    if (q.empty()) return;
+    int x = q.front()
+    q.pop()
+    rev(q)
+    q.push(x)
+}
+
+TC = O(n)
+SC = O(n)
