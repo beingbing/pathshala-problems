@@ -1,26 +1,18 @@
 ~~ delete Nth node from end ~~
 
-Node* p1 = head;
-Node* p2 = head;
-
+Node* p1 = head, p2 = head;
 int c{0};
-while (c < n) {
-    p2 = p2->head;
-}
-
+while (c < n) p2 = p2->head;
 if (!p2) {
     Node* tmp = head->next;
     delete(head);
     return tmp;
 }
-
 while (p2->next) {
     p1 = p1->next;
     p2 = p2->next;
 }
-
 Node* tmp = p1->next;
 p1->next = p1->next->next;
 delete(tmp);
-
 return head;
