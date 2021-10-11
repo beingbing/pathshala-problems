@@ -1,0 +1,42 @@
+~~ design stack using queue ~~
+
+stack is a one ended DS.
+queue is a two ended DS.
+
+in queue block any one end, and use the other end as it is the top of your stack.
+
+case 1:
+blocking front-end and using back-end as the only working end.
+- push will be same.
+- for pop -
+we want deletion end to be at insertion end, for this we need to invert the current queue while
+doing a deletion. for this we can use a temporary queue. 
+
+class StackByQueue {
+    queue<int> q;
+
+    StackByQueue() {}
+    void push(int x) {
+        q.push(x);
+    }
+
+    int pop() {
+        queue<int> temp;
+        while (q.size() > 1) {
+            tmp.push(q.front());
+            q.pop();
+        }
+        int ans = q.front();
+        q.pop();
+        q = tmp;
+        return ans;
+    }
+
+    int top() {
+        return q.back();
+    }
+
+    bool empty() {
+        return q.empty();
+    }
+}
