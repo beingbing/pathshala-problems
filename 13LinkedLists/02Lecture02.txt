@@ -1,36 +1,61 @@
 ~~ basic operations ~~
 
-searching in a LL
-
+searching in a LL -
 search a val k
 
-
 Node* cur = head;
-while () {
-    if (cur->data == k) {
-        return true;
-    }
+while (cur) {
+    if (cur->data == k) return true;
     cur = cur->next;
 }
 return false;
 
-
-if values are sorted, still we will need O(N) time
+Note: if values are sorted, still we will need O(N) time
 
 
 
 Insertion -
 
-at the end -
+- at the end -
+traverse till end then insert - TC = O(n)
 
-traverse till end
-then insert
+- at the beginning -
+add in the beginning - TC = O(1)
 
+- at the kth position -
+go to (k-1)th position and create a connected node after it - TC = O(k)
 
-at the beginning -
+code:
+insert(pos, val) {
+    if (pos == 1) {
+        Node* n = new Node(val);
+        n->next = head;
+        head = n;
+    } else {
+        Node* cur = head;
+        for (i{0}; i<pos-1) cur = cur->next;
+        Node* tmp = cur->next;
+        Node* n = new Node(val);
+        cur->next = n;
+        n->next = tmp;
+    }
+}
 
-add in the beginning
 
 
 Deletion -
 
+code:
+void delete(pos, val) {
+    if (pos == 1) {
+        Node* tmp = head;
+        head = head->next;
+        delete(head);
+    } else {
+        Node* cur = head;
+        for (i{0}; i<pos-1) cur = cur->next;
+        Node* tmp = cur->next;
+        cur->next = cur->next->next;
+        delete(tmp);
+    }
+}
