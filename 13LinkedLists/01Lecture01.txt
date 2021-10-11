@@ -1,10 +1,18 @@
 ~~ what is a linked list ~~
 
+talking about difference between array(static/dynamic) and linked list.
+
+describing how linked list is constructed (from logical understanding to implementation) -
 class Node {
     int data;
     Node* next;
+    Node(int x) {
+        this.data = x;
+        this.next = NULL;
+    }
 }
 
+reading data from user and creating a linked list out of it -
 Node* head = NULL;
 Node* tail = NULL;
 
@@ -24,7 +32,6 @@ while(n--) {
 
 
 traversal -
-
 Node* p = head;
 while (p) {
     cout << p->data
