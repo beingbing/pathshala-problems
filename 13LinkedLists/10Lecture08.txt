@@ -1,7 +1,6 @@
 ~~ k reverse a linked list ~~
 
-TC = O(N)
-
+if a chunk is smaller than k, then do nothing.
 
 Node* kRev(Node* head, int k) {
     int cnt = 0;
@@ -27,3 +26,4 @@ Node* kRev(Node* head, int k) {
     head->next = kRev(cur, k);
     return prv;
 }
+TC = O(N)
