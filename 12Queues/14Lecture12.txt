@@ -1,0 +1,19 @@
+~~ maximum in sliding window - 2 ~~
+
+void insertAtBack(deque<int>& d, int idx, vector<int>& nums) {
+    while (nums[idx] >= nums[d.back()]) d.pop_back();
+    d.push_back(idx);
+}
+
+vector<int> maxSlidingWin(vector<int>& num, int k) {
+    vector<int> ans;
+    deque<int> d;
+    for (int i{0}; i<k) insertAtBack(d, i, nums);
+    for (int i{k}; i<nums.size()) {
+        ans.push_back(nums[d.front()]);
+        if (d.front() == i-k) d.pop_front();
+        insertAtBack(d, i, nums);
+    }
+    ans.push_back(nums[d.front()]);
+    return ans;
+}
