@@ -1,6 +1,8 @@
 ~~ cycle detection - 3 ~~
 
-l1 + d = (m - 2n) * l2
+distance covered by f = 2 * (distance covered by s)
+=>  l1 + m*l2 + d = 2 * (l1 + n*l2 + d)
+=>  l1 + d = (m - 2n) * l2
 
 l1 = distance of straight part
 l2 = distance of circular part
@@ -20,3 +22,23 @@ return p;
 
 TC = O(N)
 SC = O(1)
+
+Node* isCycle(Node* head) {
+    Node *slow = head, *fast = head;
+    bool hasCycle = false;
+    while (fast && fast->next) {
+        slow = slow->next;
+        fast = fast->next->next;
+        if (slow == fast) {
+            hasCycle = true;
+            break;
+        }
+    }
+    if (!hasCycle) return NULL;
+    Node* p = head;
+    while (p != slow) {
+        p = p->head;
+        slow = slow->head;
+    }
+    return p;
+}
