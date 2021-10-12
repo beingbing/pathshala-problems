@@ -1,0 +1,16 @@
+~~ merge k linked lists ~~
+
+Node* mergek(vector<Node*>& lists, int i, int j) {
+    if (i == j) return lists[i];
+    int m = (i+j)/2;
+    Node* h1 = mergek(lists, i, m);
+    Node* h2 = mergek(lists, m+1, j);
+    return merge(h1, h2);
+}
+
+Node* mergeLists(vector<Node*>& lists) {
+    if (lists.size() == 0) return NULL;
+    return mergek(lists, 0, lists.size()-1);
+}
+TC = O(k*n*logk)
+SC = O(logk)
