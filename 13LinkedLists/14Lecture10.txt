@@ -1,0 +1,36 @@
+~~ cycle detection - 2 ~~
+
+given a linked list, find first node of the loop. return NULL if no loop.
+
+M1 -
+hash table approach from previous lecture can be used, as very first node found will be our answer.
+
+M2 -
+once a loop is detected, we can try every node for the starting point of loop.
+
+Node* isCycle(Node* head) {
+    Node *slow = head, *fast = head;
+    bool hasCycle = false;
+    while (fast && fast->next) {
+        slow = slow->next;
+        fast = fast->next->next;
+        if (slow == fast) {
+            hasCycle = true;
+            break;
+        }
+    }
+    if (!hasCycle) return NULL;
+    Node* p = head;
+    while (1) {
+        Node *tmp = slow;
+        while (tmp != p) {
+            tmp = tmp->next;
+            if (tmp == slow) break;
+        }
+        if (tmp == p) return tmp;
+        p = p->next;
+    }
+    return NULL;
+}
+SC = O(1)
+TC = O(n^2)
