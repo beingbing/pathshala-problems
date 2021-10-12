@@ -1,0 +1,39 @@
+~~ clone linked list - 1 ~~
+
+given a linked list with a special kind of node -
+class Node {
+    int val;
+    Node* next, random;
+}
+random pointer pointing to any random node or can be NULL.
+
+
+unordered_map<Node*, Node*> nodesMap;
+Node* cloneHead = NULL;
+Node* cur = head
+Node* prv = NULL
+Node* tmp = NULL;
+while (cur) {
+    tmp = new Node(cur->val);
+    nodesMap[cur] = tmp;
+    if (!prv) {
+        cloneHead = tmp;
+        prv = tmp;
+    } else {
+        prv->next = tmp;
+        prv = tmp;
+    }
+    cur = cur->next;
+}
+Node* cur1 = head;
+Node* cur2 = cloneHead;
+while (cur2) {
+    if (cur1->random) cur2->random = nodesMap[cur1->random]
+    else cur2->random = NULL;
+    cur1 = cur1->next;
+    cur2 = cur2->next;
+}
+return cloneHead;
+
+TC = O(n)
+SC = O(n)
