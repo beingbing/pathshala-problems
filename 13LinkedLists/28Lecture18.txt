@@ -1,0 +1,21 @@
+~~ doubly linked list ~~
+
+struct Node {
+    int val;
+    Node* prv, next;
+}
+
+insertion -
+Node *tmp = cur->next;
+cur->next = n;
+tmp->prv = n;
+n->prv = cur;
+n->next = tmp;
+
+
+deletion -
+Node* n = cur;
+cur->next = cur->next->next;
+Node* tmp = cur->next;
+tmp->prv = tmp->prv-prv;
+delete(n);
