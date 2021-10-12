@@ -1,0 +1,38 @@
+~~ cycle detection - 1 ~~
+
+given a linked list, check if it contains a cycle.
+
+M1 -
+we can use a map to store the visited node, if we visit a node again, then its starting node of cycle.
+SC = O(n)
+TC = O(nlogn)
+
+bool isCycle(Node* head) {
+    map<Node*, bool> m;
+    Node* cur = head;
+    while (cur) {
+        if (m.find(cur) != m.end()) return true;
+        m[cur] = true;
+        cur = cur->next;
+    }
+    return false;
+}
+
+
+slow and fast pointer will always be able to detect loop because there will come a point when they meet.
+they will meet because their relative distance is perfectly divisible by relative speed.
+    d % (f-s) = 0   =>  d = distance between them, f = fast pointer speed, s = slow pointer speed.
+    d % 1 = 0
+
+SC = O(1)
+TC = O(n)
+
+bool isCycle(Node* head) {
+    Node* slow = head, fast = head;
+    while (fast && fast->next) {
+        slow = slow->next;
+        fast = fast->next->next;
+        if (slow == fast) return true;
+    }
+    return false;
+}
