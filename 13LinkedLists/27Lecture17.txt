@@ -1,0 +1,14 @@
+~~ flatten a linked list ~~
+
+given a linked list. down => pointing to head of another linked list.
+
+struct Node {
+    int val;
+    Node* next, down;
+}
+
+flatten this type of linked list.
+
+we can have two approaches -
+- through all the content of down pointer at the end of current pointer and update the tail pointer
+- accomodate it in between cur and cur->next pointer.
