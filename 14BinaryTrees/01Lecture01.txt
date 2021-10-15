@@ -2,6 +2,12 @@
 
 The need for tree type data structure rose from the need to store hierarchical data
 
+trees has nodes and edges.
+
+nodes are further divided as leaf nodes and non-leaf nodes.
+
+children => direct descendents.
+
 Tree can be described as an acyclic graph
 
 graph is collection of edges and vertices(nodes).
@@ -25,6 +31,10 @@ all the nodes are trying in a single straight line (just like linked-list)
 binary tree -
 a node can have maximum 2 children. 
 
+level -> every descendent creates a level.
+
+for a tree with minimum number of level will have maximum branching.
+
 in a perfect binary tree, total number of nodes = 2^(i+1) - 1
 the root to leaf length = i (level of a tree)
 other way around,
@@ -33,3 +43,14 @@ then root to leaf length = logn (level of a tree)
 
 total leaf nodes = 2^i (roughly half of the total nodes)
 so, in a perfect binary tree, max number of nodes will be present at the last level
+
+programatic representation of tree node -
+struct Node {
+    int data;
+    struct Node *left, *right;
+}
+
+every tree is made up of 3 components - root, left subtree, right subtree.
+
+hierarchy always leads to decomposed which can easy be conquered latter, hence, tree DS
+is inherently recursive in nature and can be solved mostly by divide and conquer.
