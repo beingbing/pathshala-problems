@@ -1,0 +1,20 @@
+~~ iterative inorder traversal without flag ~~
+
+stack<Node*> stk;
+Node* tmp = root;
+while (tmp) {
+    stk.push(tmp);
+    tmp = tmp->left;
+}
+while (!stk.empty()) {
+    Node* p = stk.top();
+    stk.pop();
+    cout << p->val << " ";
+    Node* r = p->right;
+    while (r) {
+        stk.push(r);
+        r = r->left;
+    }
+}
+
+Q. can you print reverse inorder (rst | root | lst) using above approach ?
