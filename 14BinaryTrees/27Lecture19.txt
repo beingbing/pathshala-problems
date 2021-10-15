@@ -1,2 +1,35 @@
 ~~ a generic tree traversal technique ~~
 
+inorder traversal -
+
+stack<pair<Node*, int>> stk;
+stk.push({root, 0});
+while (!stk.empty()) {
+    pair<Node*, int> p = stk.top();
+    stk.pop();
+    if (p.second == 1) cout << p.first->val << " ";
+    else {
+        if (p.first->right) stk.push({p.first->right, 0});
+        stk.push({p.first, 1});
+        if (p.first->left) stk.push({p.first->left, 0});
+    }
+}
+
+
+postorder traversal -
+
+stack<pair<Node*, int>> stk;
+stk.push({root, 0});
+while (!stk.empty()) {
+    pair<Node*, int> p = stk.top();
+    stk.pop();
+    if (p.second == 1) cout << p.first->val << " ";
+    else {
+        stk.push({p.first, 1});
+        if (p.first->right) stk.push({p.first->right, 0});
+        if (p.first->left) stk.push({p.first->left, 0});
+    }
+}
+
+TC = O(n)
+SC = O(h)
