@@ -1,0 +1,7 @@
+~~ serialization and deserialization of a tree ~~
+
+convert a user defined DS into a bytes array.
+
+list<int> serialization(Node* root);
+
+Node* deserialization(list<int> a);
