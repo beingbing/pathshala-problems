@@ -1,0 +1,14 @@
+~~ reconstructing tree from given traversals - 2 ~~
+
+construct a tree from postorder and inorder
+
+vector<int> postorder, inorder
+
+Node* build(int i1, int j1, int i2, int j2) {
+    if (i1 > j1) return NULL;
+    Node* root = new Node(postorder[j1], NULL, NULL);
+    int i = mp[postorder[j1]];
+    root->left = build(i1, i1+i-i2, i2, i-1);
+    root->right = build(i1+i-i2, j2-1, i+1, j2);
+    return root;
+}
