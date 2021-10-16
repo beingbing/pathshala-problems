@@ -1,0 +1,15 @@
+~~ Count of Nodes in Complete Binary Tree - 1 ~~
+
+cbt - all the levels are full, except the last level. last level can be allowed to be partially filled.
+if partially full then all the nodes do appear as left as possible (there should not be any NULL node).
+
+perfect binary tree - all levels are full.
+
+Q. count number of nodes in a perfect binary tree.
+A. 2^(h) - 1, h => height.      2^(i+1) - 1, i => level.
+
+h = logn, n => no of nodes.
+so,
+TC becomes logh = loglogn.
+
+Q. count number of nodes in a perfect binary tree.
