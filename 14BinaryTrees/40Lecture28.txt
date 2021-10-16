@@ -1,0 +1,62 @@
+~~ Count of Nodes in Complete Binary Tree - 2 ~~
+
+Q. count number of nodes in a Complete binary tree.
+A.
+
+as, nodes of last level will be present as left as possible, we can use this information.
+
+ans = count of nodes till second but last level + count of nodes in last level.
+
+Note: number of nodes in last level of a perfect binary tree of height h is 2^(h-1).
+
+for Complete BT, 2^(h-1) = count of NULL nodes + count of non NULL nodes.
+
+we can use binary search to find the last NON-NULL node. range: [1, 2^(h-1)]
+
+Q. while performing BS, how to know if mth node is null/non-null.
+A. we can do it in logn time, as at every level number of nodes can be divided into two parts,
+lst and rst. we can repeat till we reach the required node, about which we want to inquire.
+
+bool isNULLNode(Node* root, int maxLeavesCnt, int mid) {
+    if (mid > maxLeavesCnt) return true;
+    int l = 1, h = maxLeavesCnt;
+    while (l > h) {
+        m = (l+h)/2;
+        if (mid <= m) root = root->left, h = m;
+        else root = root->right, l = m+1;
+    }
+    return !root;
+}
+
+int getHeight(Node* root) {
+    int ans = 0;
+    while (root) ans++, root = root->left;
+    return ans;
+}
+
+int getMaxLeavesCnt(int base, int pow) {
+    if (pow = 0) return 1;
+    int ans = getMaxLeavesCnt(base, pow/2);
+    if (pow%2 == 0) return ans*ans;
+    return ans*ans*base;
+}
+
+int countNodes(Node* root) {
+    if (!root) return 0;
+    int ht = getHeight(root);
+    int maxLeavesCnt = getMaxLeavesCnt(2, ht-1);
+    int low = 1, high = maxLeavesCnt, mid, ans;
+    while (low <= high) {
+        mid = (low+high)/2;
+        bool x = isNULLNode(root, maxLeavesCnt, mid);
+        if (x) high = mid-1;
+        else {
+            if (isNULLNode(root, maxLeavesCnt, mid+1)) ans = mid, break;
+            else low = mid+1;
+        }
+    }
+    return ans + maxLeavesCnt - 1;
+}
+
+TC = O(h^2) = O((logn)^2)
+SC = O(1)

@@ -12,4 +12,4 @@ h = logn, n => no of nodes.
 so,
 TC becomes logh = loglogn.
 
-Q. count number of nodes in a perfect binary tree.
+Q. count number of nodes in a Complete binary tree.
