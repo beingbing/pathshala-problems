@@ -5,15 +5,33 @@ print left view of a binary tree
 left order traversal -
 first node of ith level in preorder sequence will be the left most node of ith level.
 
-void traverse(Node* root, int lvl, int& mxL) {
+void leftView(Node* root, int lvl, int& mxL) {
     if (!root) return;
     if (lvl > mxL) {
-        cout << root->val << endl;
         mxL = lvl;
+        cout << root->val << endl;
     }
-    traverse(root->left);
-    traverse(root->right);
+    leftView(root->left, lvl+1, mxL);
+    leftView(root->right, lvl+1, mxL);
 }
 
+TC = O(n)
+SC = O(h)
 
 
+
+print right view of a binary tree
+
+right order traversal -
+last node of ith level in preorder sequence will be the right most node of ith level.
+so, we can print a reverse preorder traversal in which we approach right side first.
+
+void rghtView(Node* root, int lvl, int& mxL) {
+    if (!root) return;
+    if (lvl > mxL) {
+        mxL = lvl;
+        cout << root->val << endl;
+    }
+    rghtView(root->right, lvl+1, mxL);
+    rghtView(root->left, lvl+1, mxL);
+}
