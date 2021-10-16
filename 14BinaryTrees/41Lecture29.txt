@@ -1,0 +1,25 @@
+~~ Count of Nodes in Complete Binary Tree - 3 ~~
+
+Q. count number of nodes in a binary tree.
+
+pair<bool, int> isPerfect(Node* root) {
+    Node* tmp = root;
+    int hleft = 0;
+    while (tmp) hleft++, root = root->left;
+    tmp = root;
+    int hright = 0;
+    while (tmp) hright++, tmp = tmp->right;
+    return {hleft == hright, hleft};
+}
+
+int countNodes(Node* root) {
+    if (!root) return 0;
+    int cnt = 1; // contribution of root
+    pair<bool, int> pleft = isPerfect(root);
+    pair<bool, int> pright = isPerfect(root);
+    if (pleft.first) cnt += pow(2, pleft.second) - 1;
+    else cnt += countNodes(root->left);
+    if (pright.first) cnt += pow(2, pright.second) - 1;
+    else cnt += countNodes(root->right);
+    return cnt;
+}
