@@ -1,1 +1,22 @@
 ~~ vertical order traversal 1 ~~
+
+given a binary tree, perform vertical order traversal.
+
+assume every tree node to be a point on 2d plane and consider root to have (0,0)
+x denotes level on which root is present
+y denotes the height of eash node from the root, going in decreasing order.
+
+so, once we calculate x & y coordinates for each node, we can print their vertical order.
+
+(0,0)
+(1,-1) (1,1)
+(2,-2) (2,0) (2,2)
+.
+.
+.
+
+
+sorting will be first done on the basis of y in ascending,
+but if y is same then according to x in ascending.
+
+TC = O(nlogn)
