@@ -1,0 +1,33 @@
+~~ vertical order traversal 2 ~~
+
+we can also use hashing -
+
+horizontal distance     ->      node values (ascending sorted)
+-2 : 11
+-1 : 6, 12
+0 : 5, 7
+1 : 8, 10
+2 : 9
+
+but to maintain the level order sorting, we will be needing queue.
+
+queue<pair<Node*, int>> q;
+q.push({root, 0});
+unordered_map<int, vector<int>> mp;
+int mx = INT_MIN, mn = INT_MAX;
+while (!q.empty()) {
+    pair<Node*, int> p = q.front();
+    q.pop();
+    mx = max(mx, p.second);
+    mn = min(mn, p.second);
+    mp[p.second].push_back(p.first->val);
+    if (p.first->left) q.push({p.first->left, p.second - 1});
+    if (p.first->right) q.push({p.first->right, p.second + 1});
+}
+for (i{mn}; i<=mx) {
+    vector<int> v = mp[i];
+    print(v);
+}
+
+TC = O(n)
+SC = O(n)
