@@ -1,0 +1,33 @@
+~~ reconstructing tree from preorder traversal ~~
+
+can we reconstruct a tree from only by a preorder ?
+
+1   2   3   7   4   5   6
+
+for this we need information when to return, so for that if we introduce null nodes also our job will
+be done.
+
+1   2   3   N   7   N   N   N   4   5   N   N   6   N   N
+
+these null nodes signifies us as when to return in our recursion call stack.
+
+// to construct preorder array
+void preorder(Node* root, vector<int> po) {
+    if (!root) po.push_back(NULL), return;
+    pre.push_back(root->val);
+    preorder(root->left, po);
+    preorder(root->right, po);
+}
+
+// to construct tree from preorder
+Node* makeTree(vector<int>& po, int& i) {
+    if (po[i] == NULL) i++, return NULL;
+    Node* n = new Node(po[i], NULL, NULL);
+    i++;
+    n->left = makeTree(po, i);
+    n->right = makeTree(po, i);
+    return n;
+}
+TC = O(n)
+
+Q. can this idea be extended to postorder and inorder traversal also ?
