@@ -1,0 +1,5 @@
+~~ Binary Tree Reconstruction ~~
+
+given preorder traversal of a BT. generate the tree from this.
+
+only preorder traversal is not sufficient for reconstruction of a tree.
