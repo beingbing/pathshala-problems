@@ -1,0 +1,27 @@
+~~ LCA - 1 ~~
+
+vector<Node*> path1, path2, tmp;
+traverse(root, r1, r2, path1, path2, tmp);
+
+void traverse(Node* root, Node* r1, Node* r2, vector<Node*>& path1, vector<Node*>& path2, vector<Node*>& tmp) {
+    if (!root) return;
+    tmp.push_back(root);
+    if (root->val == r1->val) for (i{0}; i<tmp.size()) path1.push_back(tmp[i]);
+    if (root->val == r2->val) for (i{0}; i<tmp.size()) path2.push_back(tmp[i]);
+    traverse(root->left, r1, r2, path1, path2, tmp);
+    traverse(root->right, r1, r2, path1, path2, tmp);
+    tmp.pop_back();
+}
+
+vector<int> getLCA(vector<Node*> path1, vector<Node*> path2) {
+    int i=0;
+    while (i < path1.size() && path2.size()) {
+        if (path1[i]->val != path2[i]->val) break;
+        i++;
+    }
+    return path1[i-1];
+}
+TC = O(n)
+SC = O(n)
+
+Q. can we reduce SC ?
