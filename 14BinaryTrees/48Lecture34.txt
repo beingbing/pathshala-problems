@@ -1,0 +1,41 @@
+~~ subtree of a tree ~~
+
+subtree -> completely contained in a tree and is not a cut out portion of a path.
+
+check if 2nd tree is a subtree of 1st.
+
+bool areSame(Node* t1, Node* t2) {
+    if(!t1 && !t2) return true;
+    if (!t1 || !t2) return false;
+    return t1->val == t2->val && areSame(t1->left, t2->left) && areSame(t1->right, t2->right);
+}
+
+void traverse(Node* r1, Node* r2, bool ans) {
+    if (areSame(r1, r2)) ans = true, return;
+    if (!r1) return;
+    traverse(r1->left, r2, ans);
+    traverse(r1->right, r2, ans);
+}
+TC = O(n^2)
+
+if 2 trees are same, then same preorder traversal.
+there are 2 problems with this logic.
+- the preorder is not unique.
+- preorder doesnt ensure that it's a complete subtree
+
+so, to make this logic work we need to include NULLs as well.
+
+vector<int> po1, po2;
+preorder(r1, po1);
+preorder(r2, po2);
+
+
+if (po1.size() < po2.size()) return false;
+for (i{0}; i<=po1.size()-po2.size()) {
+    int c=0;
+    for (j=i;j < i+po2.size(); j++) if (po1[j] == po2[j-i]) c++; 
+    if (c == po2.size()) return true;
+}
+return false;
+
+TC = O(n)
