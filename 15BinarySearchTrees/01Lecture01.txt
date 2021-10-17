@@ -1,0 +1,16 @@
+~~ what is a BST ~~
+
+special kind of BT -> BST
+
+Binary Searcy -> sortedness
+Tree -> heirarchical (dynamic) DS -> insertion/deletion in runtime.
+
+in a sorted array -
+search - O(logn)
+insertion/deletion - O(n)
+
+in a sorted LL -
+search - O(n)
+insertion/deletion - O(n)
+
+BST - everything in LST of root is smaller than root, and everything in RST is larger.
