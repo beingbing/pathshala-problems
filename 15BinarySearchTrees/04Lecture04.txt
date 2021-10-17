@@ -1,0 +1,21 @@
+~~ delete in BST ~~
+
+given a BST and a number k, delete node whose value is equal to k, and return root of updated BST.
+
+we have 3 scenarios -
+- the node to be deleted is leaf node.
+- the node to be deleted has only one child, replace it with its child.
+- the node to be deleted has both children.
+
+in third case we have 2 scenarios -
+- replace it with the largest element of LST
+- replace it with the smallest element of RST
+
+methods needed to accomplish deletion -
+- getNodeAndParent()
+- isLeaf()
+- deleteLeaf()
+- hasSingleChild()
+- deleteSingleChildNode()
+- deleteDoubleChildNode()
+- deleteRoot()
