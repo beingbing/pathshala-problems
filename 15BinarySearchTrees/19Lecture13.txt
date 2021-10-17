@@ -1,0 +1,42 @@
+~~ BST iterator - 1 ~~
+
+design a BST iterator.
+
+the methods that BST iterator should expose are -
+- hasNext()
+- next()
+
+class Iterator {
+    int next()
+    bool hasNext()
+}
+
+Iterator itr = new Iterator()
+while (itr.hasNext()) cout << itr.next() << endl;
+
+class BSTIterator {
+    // create an inorder traversal array
+    vector<int> inorder;
+    int c = 0;
+    void traverse(Node* root) {
+        if (!root) return;
+        traverse(root->left);
+        inorder.push_back(root->val);
+        traverse(root->right);
+    }
+    BSTIterator(Node* root) {
+        traverse(root);
+    }
+    int next() {
+        // array index giving you value.
+        return inorder[c++];
+    }
+    bool hasNext() {
+        // array pointer telling you if there is an element at current index.
+        return c < inorder.size();
+    }
+}
+TC = O(n)
+SC = O(n)
+
+Q. can we reduce SC further ?
