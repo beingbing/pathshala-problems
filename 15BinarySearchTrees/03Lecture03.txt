@@ -1,0 +1,19 @@
+~~ insert in BST ~~
+
+given a BST and a number k, insert node whose value is equal to k, and return root of updated BST.
+
+Node* insert(Node* root, int k) {
+    if (!root) return new Node(k, NULL, NULL);  
+    Node* par = NULL;
+    Node* node = root;
+    while (node) {
+        par = node;
+        if (k > node->val) node = node->right;
+        else node = node->left;
+    }
+    if (k > par->val) par->right = new Node(k, NULL, NULL);
+    else par->left = new Node(k, NULL, NULL);
+    return root;
+}
+TC = O(H)
+SC = O(1)
