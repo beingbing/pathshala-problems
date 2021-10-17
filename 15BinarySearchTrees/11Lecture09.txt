@@ -1,0 +1,14 @@
+~~ check if a binary tree is BST - 3 ~~
+
+let's see another approach.
+
+every traverse creates a range of values in which an element can lie.
+
+void check(Node* root, long lb, long ub, bool& ans) {
+    if (!root) return;
+    if (node->val <= lb || node->val >= ub) ans = false, return;
+    check(node->left, lb, node->val, ans);
+    check(node->right, node->val, up, ans);
+}
+TC = O(n)
+SC = O(h)
