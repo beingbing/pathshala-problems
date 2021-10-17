@@ -1,0 +1,86 @@
+~~ implementing delete in BST ~~
+
+pair<Node*, Node*> getNodeAndParent(Node* root, int k) {
+    Node* node = root;
+    Node* par = NULL;
+    while (node) {
+        if (node->val == key) break;
+        par = node;
+        if (key > node->val) node = node->right;
+        else node = node->left;
+    }
+    return {node, par};
+}
+
+bool isLeaf(Node* root) {
+    return !root->left && !root->right;
+}
+
+Node* deleteLeaf(Node* node, Node* par) {
+    if (par->left == node) par->left = NULL;
+    else par->right = NULL;
+    return node;
+}
+
+bool hasSingleChild(Node* node) {
+    return ((node->left && !node->right) || (!node->left && node->right));
+}
+
+Node* deleteSingleChildNode(Node* node, Node* par) {
+    if (node->left) {
+        if (par->right == node) par->right = node->left;
+        else par->left = node->left;
+        node->left = NULL;
+    } else {
+        if (par->right == node) par->right = node->right;
+        else par->left = node->right;
+        node->right = NULL;
+    }
+    return node;
+}
+
+Node* deleteDoubleChildNode(Node* node, Node* par) {
+    Node* parent = node;
+    Node* predec = node->left;
+    while (predec->right) {
+        parent = predec;
+        predec = predec->right;
+    }
+    Node* n1;
+    if (isLeaf(predec)) n1 = deleteLeaf(predec, parent);
+    else n1 = deleteSingleChildNode(predec, parent);
+    if (parent && parent->left == node) parent->left = n1;
+    else if (par) par->right = n1;
+    n1->left = node->left;
+    n1->right = node->right;
+    return node;
+}
+
+Node* deleteRoot(Node* root) {
+    if (isLeaf(root)) delete(root), return NULL;
+    if (hasSingleChild(root)) {
+        Node* ans = node->left ? node->left : node->right;
+        delete(root);
+        return ans;
+    }
+    Node* ans = root->left;
+    while (ans->right) ans = ans->right;
+    Node* node = deleteDoubleChildNode(root, NULL);
+    delete(node);
+    return ans;
+}
+
+Node* deleteBSTNode(Node* root, int k) {
+    pair<Node*, Node*> p = getNodeAndParent(root, k);
+    if (!p.first) return root;
+    if (p.first == root) return deleteRoot(root);
+    Node* node;
+    if (isLeaf(p.first)) node = deleteLeaf(p.first, p.second);
+    else if (hasSingleChild(p.first)) node = deleteSingleChildNode(p.first, p.second);
+    else node = deleteDoubleChildNode(p.first, p.second);
+    delete(node);
+    return root;
+}
+
+Q. here we picked max value from LST ans substitute it at the place of deleted node, implement
+deletion when we pick min from RST.
