@@ -1,0 +1,32 @@
+~~ BST iterator - 2 ~~
+
+we had SC = O(n)
+we can further reduce it to O(h)
+
+hasNext - check if stack is empty.
+next - print top
+     - insert right subtree of node.
+
+class BSTIterator {
+    stack<Node*> stk;
+    BSTIterator(Node* root) {
+        Node* node = root;
+        while (node) {
+            stk.push(node);
+            node = node->left;
+        }
+    }
+    int next() {
+        Node* ans = stk.top();
+        stk.pop();
+        Node* node = ans->right;
+        while (node) {
+            stk.push(node);
+            node = node->left;
+        }
+        return ans->val;
+    }
+    bool hasNext() {
+        return !stk.empty();
+    }
+}
