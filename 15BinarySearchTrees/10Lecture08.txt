@@ -1,0 +1,26 @@
+~~ check if a binary tree is BST - 2 ~~
+
+what if we are not allowed to use inorder traversal in problem from last lecture.
+
+so, instead, we can check for each node, whether its right child is strictly > and left
+child is strictly <.
+but this won't work as LST should have all the elements smaller w.r.t. root vis-a-vis for RST.
+
+instead if we get minVal(RST) maxVal(LST) and if maxVal(LST) < root < minVal(RST) then we can guarantee
+that the current node is following BST criteria.
+
+pair<pair<int, int>, bool> check(Node* root) {
+    if (!root) return {{LONG_MAX, LONG_MIN}, true};
+    left = check(root->left);
+    right = check(root->right);
+    bool flag = left.second && right.second && root->val > left.first.second && right.first.first;
+    long mn = min(root->val, left.first.first, right.first.first);
+    long mx = max(root->val, left.first.second, right.first.second);
+    return {{mn, mx}, flag};
+}
+
+p = check(root)
+return p.second;
+
+TC = O(n)
+SC = O(H)
