@@ -1,0 +1,24 @@
+~~ search in BST ~~
+
+given a BST and a number k, search and return node whose value is equal to k, otherwise NULL.
+
+iterative -
+Node* search(Node* root, int k) {
+    Node* node = root;
+    while (node) {
+        if (node->val == k) return node;
+        if (node->val < k) node = node->right;
+        else node = node->left;
+    }
+    return NULL;
+}
+TC = O(H)
+SC = O(1)
+
+recursive -
+Node* search(Node* root, int k) {
+    if (!root) return NULL;
+    //
+}
+
+Q. on the basis of search can we perform insertion also ?
