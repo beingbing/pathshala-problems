@@ -1,0 +1,14 @@
+~~ creating BST from sorted array ~~
+
+sorted ar a[n], create a height balanced BST.
+
+Node* makeBST(vector<int>& nums, int i, int j) {
+    if (i>j) return NULL;
+    int m = (i+j)/2
+    Node* root = new Node(nums[m], NULL, NULL);
+    root->left = makeBST(nums, i, m-1);
+    root->right = makeBST(nums, m+1, j);
+    return root;
+}
+TC = O(n)
+SC = O(logn)
