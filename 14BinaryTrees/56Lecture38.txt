@@ -1,0 +1,12 @@
+~~ distance between nodes ~~
+
+given a BT, and two nodes n1 and n2, find distance between these two nodes.
+
+- find levels of both n1 and n2.
+- find LCA
+- find level of LCA.
+
+ans = (level(n1) - level(LCA)) + (level(n2) - level(LCA))
+
+TC = O(n)
+SC = O(h)
