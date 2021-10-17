@@ -1,0 +1,46 @@
+~~ reconstructing a BST ~~
+
+BST is a subset of BT, so the way we reconstruct a BT, can also be used for the construction of BST.
+but,
+there must be some unique way as well.
+
+given a preorder traversal of a BST. we can divide the remaining array after identifying the root,
+on the basis of numbers < root which will make LST, and > root which will make RST.
+so, if we can just identify the nearest greater element (NGE) from root, we will get starting
+point of RST.
+we can find NGE using stacks. (it is a pre-requisite)
+so,
+root = a[i], LST = (i+1, NGE[i]-1), RST = (NGE[i]+1, j)
+
+Node* makeBSTFromPreorder(vector<int>& preorder) {
+    int NGE[preorder.size()];
+    stack<int> stk;
+    stk.push(0);
+    for (i{1}; i<preorder.size()) {
+        while (!stk.empty() && preorder[i] > preorder[stk.top()]) {
+            NGE[stk.top()] = i;
+            stk.pop();
+        }
+        stk.push(i);
+    }
+    while (!stk.empty()) {
+        NGE[stk.top()] = preorder.size();
+        stk.pop();
+    }
+    return makeBST(preorder, 0, preorder.size()-1, NGE);
+}
+
+Node* makeBST(vector<int>& p, int i, int j, vector<int>& NGE) {
+    if (i>j) return NULL;
+    Node* node = new Node(p[i], NULL, NULL);
+    node->left = makeBST(p, i+1, NGE[i]-1, NGE);
+    node->right = makeBST(p, NGE[i], j, NGE);
+    return node;
+}
+TC = O(n)
+SC = O(n)
+
+Q. we can do it without any extra space.
+- convert a preorder array into BT. (with NULL indicated)
+we can use ub/lb approach.
+- check if BST.
