@@ -1,0 +1,28 @@
+~~ largest BST in a BT ~~
+
+given a BT, find the size of largest BST present in it.
+
+class SubTreeDetails {
+    bool isBST;
+    long mn, mx, cnt;
+    SubTreeDetails(bool flag, long mnVal, long mxVal, long cntN) {
+        isBST = flag, mn = mnVal, mx = mxVal, cnt = cntN;
+    }
+}
+
+SubTreeDetails* getLongestBST(Node* root, int& ans) {
+    if (!root) return new SubTreeDetails(true, LONG_MAX, LONG_MIN, 0);
+    SubTreeDetails* lst = getLongestBST(root->left, ans);
+    SubTreeDetails* rst = getLongestBST(root->right, ans);
+    bool isBST = false;
+    long cnt = 1 + lst->cnt + rst->cnt;
+    long mn = min(root->val, lst->mn, rst->mn);
+    long mx = max(root->val, lst->mx, rst->mx);
+    if (lst->isBST && rst->isBST && root->val > lst->mx && root->val < rst->mn) {
+        ans = max(ans, cnt);
+        isBST = true;
+    }
+    return new SubTreeDetails(isBST, mn, mx, cnt);
+}
+TC = O(n)
+SC = O(h)
