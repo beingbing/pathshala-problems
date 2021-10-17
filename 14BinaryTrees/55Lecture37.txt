@@ -1,0 +1,14 @@
+~~ LCA - 2 ~~
+
+Node* LCA(Node* root, Node* r1, Node* r2) {
+    if (!root) return NULL;
+    if (root->val == r1->val || root->val == r2->val) return root;
+    Node* lst = LCA(root->left, r1, r2);
+    Node* rst = LCA(root->right, r1, r2);
+    if (!lst) return rst;
+    if (!rst) return lst;
+    return root;
+}
+
+TC = O(n)
+SC = O(h)
