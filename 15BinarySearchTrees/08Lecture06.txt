@@ -1,0 +1,18 @@
+~~ kth smallest node in BST ~~
+
+given a BST and an integer k(1 indexed), find the kth smallest integer.
+
+int getKthVal(Node* root, int k) {
+    int cnt = 1, ans;
+    traverse(root, k, cnt, ans);
+    return ans;
+}
+
+void traverse(Node* root, int& k, int& cnt, int& ans) {
+    if (!root) return;
+    traverse(root->left, k, cnt, ans);
+    if (cnt++ == k) ans = root->val, return;
+    traverse(root->right, k, cnt, ans);
+}
+TC = O(n)
+SC = O(h)
