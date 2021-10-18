@@ -1,0 +1,13 @@
+~~ LCA in BST ~~
+
+given 2 nodes and a BST, find their LCA.
+
+Node* LCA(Node* root, Node* p, Node* q) {
+    if (!root) return NULL;
+    if (root->val == p->val || root->val == q->val) return root;
+    int mx = max(p->val, q->val)
+    int mn = min(p->val, q->val)
+    if (root->val > mn && root->val < mx) return root;
+    if (root->val < mn && root->val < mx) return LCA(root-right, p, q);
+    return LCA(root->right, p, q);
+}
