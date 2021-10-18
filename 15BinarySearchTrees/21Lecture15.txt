@@ -1,0 +1,64 @@
+~~ pair sum in BST ~~
+
+given a BST and a number k, check if there is a pair of nodes s.t. its sum is k.
+
+M1 -
+create an inorder array and apply 2 pointer approach on it.
+TC = O(n)
+SC = O(n)
+
+M2 -
+we can trasform BST to a DLL and then apply 2 pointers approach on it.
+TC = O(n)
+SC = O(h)
+but we tampered with the tree.
+
+M3 -
+without tampering.
+if we perform iterative inorder traversal.
+and have two stack, one from left to right element (smallest at top).
+another from right to left element (largest at top).
+TC = O(n)
+SC = O(h)
+
+void moveLeft(Stack<Node*>& stk) {
+    Node* n = stk1.top();
+    stk1.pop();
+    Node* tmp = n->right;
+    while (tmp) {
+        stk1.push(tmp);
+        tmp = tmp->left;
+    }
+}
+
+void moveRight(Stack<Node*>& stk) {
+    Node* n = stk1.top();
+    stk1.pop();
+    Node* tmp = n->left;
+    while (tmp) {
+        stk1.push(tmp);
+        tmp = tmp->right;
+    }
+}
+
+bool isPresent(Node* root, int& target) {
+    stack<Node*> stk1, stk2;
+    Node* node = root;
+    while (node) {
+        stk1.push(node);
+        node = node->left;
+    }
+    node = root;
+    while (node) {
+        stk1.push(node);
+        node = node->right;
+    }
+    while (stk1.top() != stk2.top()) {
+        int x = stk1.top()->val;
+        int y = stk2.top()->val;
+        if (x+y == target) return true;
+        else if (x+y < target) moveLeft(stk1);
+        else moveRight(stk2);
+    }
+    return false;
+}
