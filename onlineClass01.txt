@@ -22,4 +22,3 @@ but here we want that zero will always be the first to acquire the lock, hence,
 Semaphore sem_zero = new Semaphore(1)
 Semaphore sem_odd = new Semaphore(0)
 Semaphore sem_even = new Semaphore(0)
-
