@@ -1,0 +1,19 @@
+~~ maximum XOR in an array ~~
+
+given int a[n] where 0 <= a[i] <= (2^m - 1)
+and queries[m] of size M
+
+max xor of query element with any element from array.
+
+MSB -> LSB
+
+algo -
+- convert given query number into binary
+- traverse query binary number 
+ - if encounter 0 go for 1(left)
+ - if encounter 1 go for 0(right)
+ - else traverse whichever node available.
+- complete the traverse, xor the query number with obtained number and print the answer.
+
+TC = O(n*M + m*M)
+SC = O(n*M)
