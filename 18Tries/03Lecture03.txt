@@ -1,0 +1,26 @@
+~~ prefix search in trie ~~
+
+how to find whether a given prefix is present in strings and count of those strings in the given list ?
+
+M1 -
+to do that, once we reach the node which represents the said prefix, find the number of nodes with
+isString true in the given subtree with root as that node.
+
+M2 -
+find how many nodes in its subtree have isString == true.
+so, while creating the tree if we store the count of isString == true nodes up until that node then our
+answer can be obtained in O(1) TC.
+
+
+struct TrieNode {
+    int subTreeStings;
+    TrieNode* children[26];
+}
+
+int find(string& prefix, int pos, Node* root) {
+    if (root == NULL) return 0;
+    if (pos == prefix.size()) return root->subTreeStings;
+    return find(prefix, pos+1, root->children[prefix[pos]-'a']);
+}
+TC = O(l)
+SC = O(l)
