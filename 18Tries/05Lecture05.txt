@@ -1,0 +1,20 @@
+~~ deletion in tries ~~
+
+void deletion(TrieNode* root, string str, int pos) {
+    if (!root) return;
+    bool found = false;
+    if (pos == str.size()) {
+        if (root->isPresent) {
+            found = true;
+            root->prefixCnt--;
+        }
+        return;
+    }
+    deletion(root->next[str[pos]-'a'], str, pos+1);
+    if (found) root->prefixCnt--;
+    if (root->next[str[pos]-'a']->prefixCnt == 0) {
+        TrieNode* temp = root->next[str[pos]-'a'];
+        root->next[str[pos]-'a'] = NULL;
+        delete(temp);
+    }
+}
