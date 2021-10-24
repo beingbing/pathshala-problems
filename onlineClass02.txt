@@ -1,0 +1,202 @@
+~~ class design exercise 03/10/2021 ~~
+
+Design a game of tic tac toe.
+
+1.
+gathering requirements -
+- there is a 3x3 board
+- two players playing
+- each players take turn
+- either of them gets assigned x/0
+- in each turn, players put their symbol on an empty cell.
+- is it a terminal/console game or a web game with UI.
+
+game termination conditions -
+- whenever 3 symbols come in a line, the corresponding player wins.
+- when board is full, and no one has won yet.
+
+2. come up with entities -
+- board
+- player
+- game
+- symbol
+
+3. relationship/connection between entities -
+- symbols are put on board
+- player makes a move on board during game.
+- game involves putting symbols on board alternatively.
+
+4. what is the code i will be writing in main() ?
+int main() {
+    Player currentPlayer = new Player();
+    Player player1 = new Player();
+    Player player2 = new Player();
+    Board board = new Board();
+    while (!board.isTerminated) {
+        move = currentPlayer.decide(board);
+        board.make(move);
+        if (currentPlayer == player1) currentPlayer = player2;
+        else currentPlayer = player1;
+    }
+}
+
+this is wrong -
+go according to unit testing -
+write your code such that everything can be tested by a unit test.
+Note: you can not unit test main() because we are expected to test on some input their corresponding
+output. So minimize main() as much as possible.
+
+so here,
+int main() {
+    TicTacToe game = new TicTacToe();
+    game.start();
+}
+is the most appropriate main() we can have.
+
+but as we know, we should follow SOLID principle, hence should to dependency inversion too.
+
+int main() {
+    Player player1 = new Player('X')
+    Player player1 = new Player('O')
+    Board board = new EmptyBoard();
+    TicTacToe game = new TicTacToe(player1, player2, board);
+    Player winner = game.start();
+}
+
+class TicTacToe {
+    Player player1, player2;
+    Board board;
+    TicTacToe(Player p1, Player p2, Board board) {
+        this.player1 = p1
+        this.player2 = p2;
+        this.board = board;
+    }
+
+    Player start() {
+        Player currentPlayer = new Player();
+        while (!board.isTerminated) {
+            move = currentPlayer.decide(board);
+            board.make(move);
+            if (currentPlayer == player1) currentPlayer = player2;
+            else currentPlayer = player1;
+        }
+    }
+}
+
+we can now unit test TicTacToe class and start() easily.
+
+Note: never use classes directly, always use them via interfaces.
+so,
+lets define an interface for TicTacToe to use.
+
+interface TwoPlayerGame {
+    // returns the winner of the game
+    Player start();
+}
+
+int main() {
+    Player player1 = new Player('X')
+    Player player1 = new Player('O')
+    Board board = new EmptyBoard();
+    TwoPlayerGame game = new TwoPlayerAlternativeGame(player1, player2, board);
+    Player winner = game.start();
+}
+
+// now this class can be used to write chess also.
+class TwoPlayerAlternativeGame implements TwoPlayerGame {
+    Player player1, player2;
+    Board board;
+    TwoPlayerAlternativeGame(Player p1, Player p2, Board board) {
+        this.player1 = p1
+        this.player2 = p2;
+        this.board = board;
+    }
+
+    Player start() {
+        Player currentPlayer = new Player();
+        while (!board.isTerminated) {
+            move = currentPlayer.decide(board);
+            board.make(move, currentPlayer.symbol());
+            if (currentPlayer == player1) currentPlayer = player2;
+            else currentPlayer = player1;
+        }
+        return currentPlayer;
+    }
+}
+
+-----------
+
+interface Player {
+    Move decide(Board board);
+    string symbol();
+}
+
+class Move {
+    int i, j;
+}
+
+the Move class only has data, so we do not need interface for it, class is enough.
+but whenever behaviour gets introduce, its nice to have an interface.
+
+-----
+
+class ConsoleHumanPlayer implements Player {
+    private final String symbol;
+
+    ConsoleHumanPlayer(string symbol) {
+        this.symbol = symbol;
+    }
+
+    Move decide(Board board) {
+        // show them the board.
+        // take move as input from terminal.
+        system.out.println(board);
+        Scanner sc = new Scanner();
+        int i = sc.nextInt();
+        int j = sc.nextInt();
+        return new Move(i, j);
+    }
+}
+
+interface Board {
+    void make(Move move, string symbol);
+    bool isTerminated();
+}
+
+class SimpleBoard implements Board {
+    private final int[][] board;
+
+    Board() {
+        this.board = new int[3];
+        for (i{0}; i<3; i++) {
+            this.board[i] = new int[3];
+        }
+    }
+
+    void make(Move move, string symbol) {
+        // TODO: to be terminated
+        board[move.i][move.j] = symbol;
+    }
+
+    bool isTerminated() {
+        // check all the straight lines
+        // and check for termination.
+    }
+}
+
+// extend the code without modifying it.
+// everything is loosly coupled due to presence of interfaces
+
+if requirements is of nxn board;
+ - by making SimpleBoard more generic
+ - create a new implementation of board (extending it)
+
+if requirements comes of each player having two moves -
+ this requires code modification, so do not design for this condition, untill the requirement is legit.
+
+so, always keep in mind the extension of existing requirements, do not worry about new requirements.
+
+50 mins.
+ - 5-10 mins introduction and resume
+ - 10 mins gathering requirements
+ - 30 mins for actually coming up with design.
