@@ -1,0 +1,44 @@
+~~ storing binary numbers in trees ~~
+
+given array a[n], 0 <= a[i] <= (2^m - 1)
+
+- this will always make a binary tree
+- non-leaf nodes will never become valid strings.
+- preorder traversal will release numbers in sorted order.
+- all the leaves will be located at the same level which is m.
+
+Node* left for 0
+Node* right for 1
+int numb // storing leaves.
+
+Node* createNode() {
+    Node* temp = new Node();
+    temp->numb = -1;
+    temp->left = temp->right = NULL;
+    return temp;
+}
+
+string convert(int n, int m) {
+    string temp = "";
+    while (m--) {
+        int x = n%2;
+        temp += x + '0';
+    }
+    reverse(temp.begin(), temp.end());
+    return temp;
+}
+
+void insert(string& s, int pos, Node* cur) {
+    if (pos == s.size()) {
+        cur->num = n;
+        return;
+    }
+    char curChar = s[pos];
+    if (curChar == '0') {
+        if (cur->left) insert(s, pos+1, cur->left);
+        else {
+            cur->left = createNode();
+            insert(s, pos+1, cur->left);
+        }
+    }
+}
