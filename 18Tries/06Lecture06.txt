@@ -1,0 +1,12 @@
+~~ shortest unique prefixes ~~
+
+string ans = ""
+void findUniquePrefix(string &s, node* cur, int pos) {
+    if (cur->strings == 1) ans = s.substr(0, pos), return;
+    findUniquePrefix(s, cur->children[s[pos]-'a'], pos+1);
+}
+
+for building trie TC = O(nl)
+for finding TC = O(nl)
+so, TC = O(nl)
+SC = O(nl)
