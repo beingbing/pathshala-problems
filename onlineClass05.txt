@@ -1,0 +1,36 @@
+~~ AI on the edge: optimizing ML Models for edge computing - 16/10/2021 ~~
+
+why companies adopting AI so fast ?
+A. Hyper personalization.
+chatboxes making almost accurate predictions.
+The advantage of good prediction is better conversion rate, if you can easily find what you are
+looking for, you will purchase it sooner without haste.
+
+The AI applications should work without an internet connection too with low memory usage, latency
+and less battery consumption.
+and these AI models are trained on servers and deployed on devices.
+
+Exponential increase in model size and challenges in deploying model in resource constraint environment.
+solution to this is Quantization. 
+
+Quantization and knowledge distillation.
+Quantization is more popular in Neural networks as they are more resilient to noises.
+By Quantization we losses some amount of accuracy.
+(noise -> e.g. - if we reduce variable size from float to int, it losses some information)
+example - tensorFlow, pyTorch.
+
+knowledge distillation -> when even 2-3% drop in accuracy, then we adopt to student-teacher model.
+wherein we first train the teacher model and then with its help we train a smaller model to cover
+those missing test cases. 
+
+difference between static acyclic graph and dynamic acyclic graph ?
+
+ONNX
+if you train a model for ios device application and want to transfer it to any other OS, we can use
+this framework.
+ONNX is an open standard for representing ML models. ONNX runtime is used to deploy applications
+on production. 
+
+MS floating point 16
+
+after completing PP, futher extend it by learning ML engineering.
