@@ -1,0 +1,123 @@
+~~ problem solving - Graph - 16/10/2021 ~~
+
+Graph problem 1:
+bob loves grid mazes. A grid maze is an nxm rectangular maze where each cell is either empty, or is a
+wall. You can go from one cell to another only if both cells are empty and have a common side.
+bob drew a grid maze with all empty cells with s walls forming a connected area. That is, you can go
+from any empty cell to any another one. bob doesn't like it when his maze has too little walls. He
+wants to turn exactly k empty cells into walls so that all the remaining cells still formed a
+connected area. Help him.
+
+
+void dfs1(int i, int j,int &count, vector<vector<char>> &a,
+    vector<vector<bool>> &vis) { // How many empty spaces are there
+    if(i<0 || i>=vis.size() || j<0 || j>=vis[0].size()) {
+        return;
+    }
+    if(a[i][j] == '#' || vis[i][j]) {
+        return;
+    }
+    vis[i][j] = true;
+    count++;
+    dfs1(i+1,j,a,vis);
+    dfs1(i-1,j,a,vis);
+    dfs1(i,j+1,a,vis);
+    dfs1(i,j-1,a,vis);
+}
+ 
+void dfs2(int i, int j,vector<vector<char>> &a, int &count) {
+    if(i<0 || i>=vis.size() || j<0 || j>=vis[0].size()) {
+        return;
+    }
+    if(a[i][j] == '#' || vis[i][j]) {
+        return;
+    }
+    if(count==0) {
+        return;
+    }
+    vis[i][j] = true;
+    count--;
+    dfs1(i+1,j,a,vis);
+    dfs1(i-1,j,a,vis);
+    dfs1(i,j+1,a,vis);
+    dfs1(i,j-1,a,vis);
+}
+ 
+vector<vector<int>> solve(vector<vector<char>> &a, int k) {
+    int N=a.size(),M=a[0].size();
+    vector<vector<bool>> vis(N,vector<bool>(M,false));
+    int i,j;
+    for(i=0;i<N;i++) {
+        for(int j=0;j<M;j++){
+            if(a[i][j]=='.') {
+                break;
+            }
+        }
+        if(a[i][j]=='.') {
+            break;
+        }
+    }
+    int s = 0; // number of empty spaces
+    dfs1(s, a,vis);
+ 
+    s-=k;
+    vis = vector(N,vector<bool>(M,false));
+ 
+    dfs2(i,j,a,vis...);
+ 
+ 
+    vector<pair<int,int>> ans;
+    for(i=0;i<N;i++) {
+        for(j=0;j<M;j++) {
+            if(a[i][j] != '#' && !vis[i][j]) {
+                ans.push_back(make_pair(i,j));
+            }
+        }
+    }
+    return ans;
+}
+
+TC = O(n*m)
+SC = O(n*m)
+
+
+
+Graph problem 2:
+Freight delivery service DedEx has service centers in n cities. these n cities are connected with M
+bidirectional roads. These roads are sometimes bumpy so the cost to transport between every 2 cities
+is not the same, and the extra cost incurred by DedEx to transport equipment is represented by a
+numeric value w[i].
+Now DedEx has recommended government to run a renovation operations on these roads. Each renovation
+costs c[j], and reduce the road l[u, v]'s cost by a value d[j]. Find out in which order the
+government should do the renovation in, such that if they stop renovating at some point in the middle,
+they have already covered the most optimal routes.
+we can assume for simplicity that there is no cycle in the graph.
+
+unordered_map<pair<int,int>, int64_t> p;
+ 
+// for calculating c
+int dfs(vector<vector<int>> &adj, vector<vector<int>> &vis,int u, vector<int> &c) {
+    if(vis[u]) {
+        return 0;
+    }
+    vis[u] = true;
+    for(auto v:adj[u]) {
+        c[u]+=dfs(adj,vis,v);
+    }
+}
+ 
+void dfs2(vector<vector<int>> &adj, vector<vector<int>> &vis,int u, vector<int> &c) {
+    if(vis[u]) {
+        return;
+    }
+    vis[u] = true;
+    for(auto v:adj[u]) {
+        p[make_pair(u,v)] = c[v]
+    }
+}
+ 
+vector<int> solve(vector<vector<int>> &adj, vector<int> &cost, vector<int> &d,
+    vector<int> &w) {
+    int V = adj.size();
+    vector<int> c(V);
+}
