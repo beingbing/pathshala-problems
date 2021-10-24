@@ -1,0 +1,26 @@
+~~ insertion in tries ~~
+
+How to insert a string in a trie.
+
+struct TrieNode {
+    int subTreeStings;
+    bool end;
+    TrieNode* children[26];
+}
+
+TrieNode* createNode() {
+    TrieNode* node = new TrieNode();
+    node->end = false;
+    node->string = 0;
+    for (i{0}; i<26) node->children[i] = NULL;
+    return node;
+}
+
+void insert(TrieNode* cur, string& word, int pos) {
+    if (pos > word.size()) return cur;
+    if (!cur) cur = new TrieNode();
+    cur->subTreeStings++;
+    if (pos == word.size()) cur->end = true;
+    else cur->children[word[pos]-'a'] = insertWord(cur->children[word[pos]-'a'], str, pos+1);
+    return cur;
+}
