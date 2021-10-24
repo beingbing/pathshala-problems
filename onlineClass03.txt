@@ -1,0 +1,99 @@
+~~ concurrency - 10/10/2021 ~~
+
+computer
+ - cpu - it executes instructions and is very dumb
+ 1 core executres 1 instruction at a time, so, 
+ 12 cores executes 12 instructions parallely at the same time.
+ - memory (RAM)
+ - disk/network
+
+Hertz -> unit of frequency, simply means how many times something happens in a second.
+so, if a computer says 2.6 GHz of clock speed means it can perform 2.6B operations/sec.
+giga -> billion
+
+
+memory -> store some data and read it whenever you want.
+it has address, at which data is written
+RAM storage and retrival is x1000 fast as compared to disk memory.
+it works synchronously with CPU for every instruction.
+
+
+disk/network -> permanent storage, stores data on magnet.
+disk works asynchronously with CPU, as CPU has to request for storage first then it can execute.
+
+
+
+parallelism -> a CPU having multiple cores gives birth to this phenomenon.
+when you run multiple tasks on multiple CPU cores parallely at a time.
+
+
+
+concurrency -> concept of concurrency have nothing to do with presence of multiple cores although their
+presence helps but it is not a necessity.
+when you executes processes alternatively one after another.
+
+example -
+T1 - prepare tea
+T2 - prepare toast
+
+parallelism - use one hand for tea and another for toast and perform both tasks parallely.
+concurrency - suppose you have only one hand, you are performing both tasks simultaneously without
+having any ideal time, whenever a pause comes in T1 you switch to T2 and keeps repeating this process
+until both of them completes.
+ct1 + ct2 < t1 + t2
+
+so concurrency is helpful in this example as there are some other process which are getting executed
+without any involvement of core, like process of getting water boiled.
+
+example -
+T1 - maths assignment
+T2 - DS assignment
+
+here, even if we solve the problem of T1 and T2 alternatively it won't be helping us because
+t1 and t2 will be same whether we use concurrency or not, hence concurrency is not helpful here.
+ct1 + ct2 === t1 + t2
+
+so, if there is some waiting time in tasks then concurrency is helpful.
+
+
+normally CPU intensive tasks do not have much waiting time hence concurrency is not advantageous there,
+but I/O intensive tasks get a huge advantage with concurrency.
+
+I/O tasks - reading/writing from/to disks, keyboard, printer, screen, network.
+
+
+why concurrency ?
+- performance optimization: I/O intensive tasks can be optimized
+- multitasking: although not saving time (optimizing) but making it appear that many tasks are getting executed.
+
+
+Process -
+- we write applications and submit them to OS for execution. while the code is being executed, it is called process.
+
+Note: two processes running at the same time can not share RAM but can share disk.
+
+people needed some way so that two processes can share data even on RAM, so they invented threads (lightweight process).
+
+threads -
+process which can share RAM memory data.
+for OS, threads are processes, they can not differentiate.
+a process can have multiple threads.
+
+process P1 can have threads T1, T2 and T3, which will be visible to OS as process PT1, PT2 and PT3.
+
+| applications |
+------------
+|    OS    | 
+------------
+| Hardware |
+------------
+
+Hardware are the resources that applications want to use. 
+concurrency can lead to racing condition.
+
+for solving racing condition, we need lock
+it has two methods acquire(), release()
+
+acquire() - when you call it no one else can call it successfully until you call release()
+
+how to design a lock ?
