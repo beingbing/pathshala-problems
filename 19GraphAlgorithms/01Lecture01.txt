@@ -1,0 +1,16 @@
+~~ what is a graph ~~
+
+As soon as a cycle gets introduced in a tree, that cycle destroys the heirarchical structure and then
+the tree is called as a graph.
+
+every tree is a graph without a cycle.
+
+graph: nodes + edges
+
+- types of graph
+- traversal on graph
+- directed graph: topological sorting and strongly connected components
+- articulation points and bridges
+- disjoint set-union: minimum spanning trees
+- shortest path algorithms
+- non-graph seeming problems
