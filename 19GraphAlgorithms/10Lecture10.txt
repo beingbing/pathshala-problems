@@ -1,0 +1,12 @@
+~~ rotten oranges ~~
+
+given nxm grid, where every cell is either 0(empty cell), 1(fresh orange), 2(rotten orange).
+Every minute a rotten orange make it's adjacent fresh orange as rotten.
+After how much time will all the oranges be rotten in the grid.
+
+If graph has disconnected components which doesn't have any rotten orange, then answer will be INF.
+as all the oranges will never rot.
+
+every orange will rot in time t = distance to nearest rotten orange.
+
+It is very similar to the previous problem.
