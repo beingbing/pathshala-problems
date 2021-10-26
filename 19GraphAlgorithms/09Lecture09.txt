@@ -1,0 +1,33 @@
+~~ closest zero ~~
+
+given an nxm binary matrix, every cell is connected to it's neighbour in all 4 directions.
+For every 1 we want to know, distance to closest 0.
+
+M1 -
+for every 0 -> run a BFS -> and calculate min distance of all the 1's from it.
+
+M2 -
+simultaneous BFS: BFS expanding simultaneously from all the 0 nodes in all directions.
+
+struct Cell {
+    int row, col, dist;
+}
+
+Cell createNode(int row, int col, int dist) {
+    Cell c;
+    c.row = row;
+    c.col = col;
+    c.dist = dist;
+    return c;
+}
+
+int mat[n][m], visited[n][m] = {0};
+queue<Cell> q;
+for (int i{0}; i<n; i++)
+    for (int j{0}; j<m; j++)
+        if (mat[i][j] == 0)
+            visited[i][j] = 1, q.push(createNode(i, j, 0);
+TC = O(nm)
+SC = O(nm)
+
+Note: first missing positive number has implementation of not using visited array. check that out.
