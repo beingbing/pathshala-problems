@@ -1,0 +1,22 @@
+~~ number of connected components ~~
+
+count number of distinct connected components.
+
+void dfs(int node) {
+    if (marked[node]) return;
+    marked[node] = 1;
+    for (i{1}; i<adj[node].size(); i++) {
+        dfs(adj[node][i]);
+    }
+}
+
+int components = 0;
+for (i{1}; i<adj[node].size(); i++) {
+    if (!marked[i]) components++, dfs(i);
+}
+
+problems which can be solved with dfs can also be solved with bfs.
+
+both bfs and dfs are equivalent in terms of time and space complexity.
+but some consider dfs to be more optimal as it uses recursion stack which is handled by machine,
+whereas bfs uses queue, which is maintained by us.
