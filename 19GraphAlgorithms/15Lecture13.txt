@@ -1,0 +1,17 @@
+~~ depth first search ~~
+
+DFS is a recursion based traversal.
+
+vector<int> adj[n+1];
+int visited[n+1] = {0};
+void dfs(int node) {
+    if (visited[node]) return;
+    visited[node] = 1;
+    print(node);
+    for (int i{0}; i<adj[node].size(); i++) {
+        dfs(adj[node][i]);
+    }
+}
+
+SC = O(n)
+TC = O(n+e)
