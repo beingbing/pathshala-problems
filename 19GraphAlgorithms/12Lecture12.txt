@@ -1,0 +1,27 @@
+~~ word ladder - alternate approach ~~
+
+set<string> words;
+map<string, bool> visited;
+queue<pair<string, int>> q;
+visited[src] = true;
+q.push({src, 0});
+while (!q.empty()) {
+    pair<string, int> x = q.front();
+    q.pop();
+    string temp = x.first;
+    if (temp == dest) print(x.second), break;
+    for (int i{0}; i<temp.size(); i++) {
+        char ch = temp[i];
+        for (int j{0}; j<26; j++) {
+            char rep = j + 'a';
+            temp[i] = rep;
+            if (temp in words && !visited[temp]) {
+                visited[temp] = true;
+                q.push({temp, x.second+1});
+            }
+        }
+        temp[i] = ch;
+    }
+}
+TC = O(n*m^2)
+SC = O(n*m)
