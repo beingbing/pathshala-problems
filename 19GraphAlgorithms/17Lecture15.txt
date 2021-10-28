@@ -1,0 +1,30 @@
+~~ number of islands ~~
+
+given a binary matrix, find number of islands. An island is an accumulation of 1s which is surrounded
+by 0s.
+
+// main function
+int component = 0;
+for (i{0}; i<n) {
+    for (j{0}; j<m) {
+        if (!visited[i][j] && matrix[i][j] == 1) dfs(i, j), component++;
+    }
+}
+
+vector<pair<int, int>> directions = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+int visited[n][n];
+
+bool isValid(int r, int c) {
+    return r >= 0 && r < n && c >= 0 && c < m && mat[r][c] == 1;
+}
+
+void dfs(int r, int c) {
+    if (!isValid(r, c)) return;
+    if (visited[r][c]) return;
+    visited[r][c] = true;
+    for (i{0}; i<directions.size(); i++) {
+        dfs(r+directions[i].first, c+directions[i].second);
+    }
+}
+TC = O(nm)
+SC = O(nm)
