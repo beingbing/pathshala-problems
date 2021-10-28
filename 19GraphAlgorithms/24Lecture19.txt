@@ -1,0 +1,45 @@
+~~ topological sort ~~
+
+topological sort on DAG (directed acyclic graph)
+
+sorting nodes of a graph such that every edge directs from a node previous to the end node.
+
+order n nodes of a graph such that if edge: a[i]->a[j], then, i < j.
+
+there can be multiple topological sort for the same graph.
+
+kahn's algorithm: algo to find topological sort.
+
+start off with nodes with indegree = 0.
+
+once a node is added to sotred order, it's outdegree which will be indegree for other nodes should
+be removed from other nodes resulting in reduction of indegree for other nodes. After that, if a
+node has indegree 0, then it's our next candidate.
+
+vector<int> adj[n]
+int indegree[n+1]
+for (int i{0}; i<n; i++) {
+    for (j{0}; j< adj[i].size(); j++) {
+        indegree[adj[i][j]]++;
+    }
+}
+queue<int> possibleNodes;
+for (int i{1}; i<=n; i++) {
+    if (indegree[i] == 0) possibleNodes.push_back(i);
+}
+vector<int> topologicalOrder
+while (!q.empty()) {
+    int x = q.front();
+    q.pop();
+    topologicalOrder.push_back(x);
+    for (j{0}; j<adj[x].size(); j++) indegree[adj[x][i]]--;
+    if(indegree[adj[x][j]] == 0) possibleNodes.push_back(adj[x][j]);
+}
+TC = O(v+e)
+SC = O(v)
+
+here q and possibleNodes are same queue, by mistake used two different names.
+
+the above implementation can also be used as a cycle detection mechanism in directed graphs, because
+if there is a cycle in DG then the above implementation will return an incomplete topological sort,
+it will be missing some nodes, and those nodes will be a part of cycle.
