@@ -1,0 +1,10 @@
+~~ course scheduler ~~
+
+student wants to be in n different courses from 0 to n-1. there are some prerequisite courses for some
+particular courses. the prerequisite list is given. then find in what order can a student complete all
+courses. 
+
+we can model it as a graph, all the courses will be nodes, and all the prerequisites will be directed
+edges. and then this problem becomes a topological sort problem.
+
+if (ans.size != courses.size) return no_answer;
