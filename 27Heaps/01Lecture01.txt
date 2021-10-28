@@ -1,0 +1,11 @@
+~~ what is heap ~~
+
+create a DS to support following operations -
+- insert an integer k in your DS
+- delete at a given positions
+- get maximum of those elements
+
+Heap => an array perceived as a complete binary tree. 
+
+minHeap -
+every parent <= both its direct children
