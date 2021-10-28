@@ -1,0 +1,22 @@
+~~ detect cycle in directed graph ~~
+
+0: not visited
+1: visited in current path
+2: visited in any other path
+
+if we visit something which has 1, then its a cycle.
+
+bool cycle = false;
+int visited[n] = {0};
+
+dfs(int node) {
+    if (visited[node]) {
+        if (visited[node] == 1) cycle = true;
+        return;
+    }
+    visited[node] = 1;
+    for (i{0}; i<adj[node].size(); i++) dfs(adj[node][i]);
+    visited[node] = 2;
+}
+TC = O(v+e)
+SC = O(v)
