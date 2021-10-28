@@ -1,0 +1,30 @@
+~~ check bipartite graph (very famouns interview problem) ~~
+
+given a graph, find if it is bipartite or not.
+
+if there is a cycle with odd length, then not bipartite.
+
+divide all the nodes in two sets, every edge will be from set 1 to set 2.
+
+// main function
+for (i{0}; i<n) if (!visited[i]) dfs(i, 1);
+
+bool bipartite = true;
+int visited[n+1] = {0};
+vector<int> adj[n+1];
+int color[n+1] = {-1};
+
+void dfs(int node, int col) {
+    if (visited[node]) {
+        if (col != color[node]) bipartite = false;
+        return;
+    }
+    visited[node] = true;
+    color[node] = col;
+    int adjColor = (col == 0) ? 1 : 0;
+    for (int i{0}; i<adj[node].size(); i++) {
+        dfs(adj[node][i], adjColor);
+    }
+}
+TC = O(v+e)
+SC = O(v)
