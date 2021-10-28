@@ -1,0 +1,14 @@
+~~ detect cycle in undirected graph ~~
+
+cycle: simple path that started and ended at the same node.
+
+void dfs(int node, int prvNode) {
+    if (visited[node]) cycle = true, return;
+    visited[node] = true;
+    for (i{0}; i<adj[node].size(); i++) {
+        if (adj[node][i] == prvNode) continue;
+        dfs(adj[node][i], node);
+    }
+}
+TC = O(v+e)
+SC = O(v)
