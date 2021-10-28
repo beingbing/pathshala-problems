@@ -1,0 +1,14 @@
+~~ CPU virtualization ~~
+
+resources required a computer to run -
+- CPU
+- memory/RAM
+- HDD/DB/files
+
+any program requires CPU to run. but a CPU can run a single program at a time, so, we should be able to
+execute a single program at a time, but that doesn't happen, because of a concept of cores. Each core
+can separately operate a program, and we have multiple cores in our CPU. But the no of cores doesnt
+dictate the number of programs that can be run at a time. Due to concept of virtualization, we can
+run infinite programs at any given time. That's because, CPU keeps switching between different programs
+and it does this very quickly. So a single core runs a single program at a time but switching is so
+fast that it feels like there are multiple programs being handled at a time.
