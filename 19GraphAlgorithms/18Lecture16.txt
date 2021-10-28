@@ -1,0 +1,7 @@
+~~ capture surrounded regions ~~
+
+given an nxm matrix with either x or o as its element. All the islands which are surrounded by x's
+should be captured. Boundry connected islands cant be captured.
+
+replace all o's with boundry to be a's then iterate all over again and switch all a's to o's and all
+o's to x's.
