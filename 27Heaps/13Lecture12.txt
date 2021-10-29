@@ -1,0 +1,5 @@
+~~ k-th smallest in special matrix ~~
+
+given an nxn matrix with every row and column sorted. given an integer k, find kth smallest element.
+
+implementation and solution is exactly same as of last problem.
