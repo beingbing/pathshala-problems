@@ -1,0 +1,31 @@
+~~ tying ropes ~~
+
+given ar[n] with length of n ropes. Tie all the ropes together. The overall cost should be min.
+- at a time -
+- can tie any two ropes
+- cost will be sum of lengths of both the ropes.
+
+algo -
+- create a min-heap
+- extract min1 and min2
+- record their contribution
+- insert(min1+min2)
+TC = O(nlogn)
+
+struct Comp {
+    bool operator() (int& a, int& b) {
+        return a > b;
+    }
+}
+
+priority_queue<int, vector<int>, Comp> pq(ar.begin(), ar.end());
+int ans = 0;
+while (pq.size() != 1) {
+    int min1 = pq.top();
+    pq.pop();
+    int min2 = pq.top();
+    pq.pop();
+    ans += min1+min2;
+    pq.push(ans);
+}
+return ans;
