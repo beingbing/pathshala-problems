@@ -1,0 +1,20 @@
+~~ K Closest Points on X-Y plane ~~
+
+- create a min-heap based on distance.
+- and pop k closest points.
+
+struct Comp {
+    bool operator() (pair<int, int>& a, pair<int, int>& b) {
+        long d1 = p1.first * p1.first + p1.second * p1.second;
+        long d2 = p2.first * p2.first + p2.second * p2.second;
+        return d1 > d2;
+    }
+}
+
+priority_queue<pair<int, int>, vector<pair<int, int>>, Comp> pq(points.begin(), points.end());
+for (i{0}; i<k; i++) {
+    pair<int, int> pt = pq.top();
+    cout << pt.first << " " << pt.second << endl;
+    pq.pop();
+}
+TC = O(n + klogn)
