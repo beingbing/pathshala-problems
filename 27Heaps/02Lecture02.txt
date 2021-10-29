@@ -1,0 +1,10 @@
+~~ building a max heap - 1 ~~
+
+the building of max heap is similar to insertion algo of insertion sort.
+
+for (i{1}; i<=n) {
+    while (j>1 && a[j] > a[j/2]) {
+        swap(a[j], a[j/2]);
+    }
+}
+TC = O(nlogn)
