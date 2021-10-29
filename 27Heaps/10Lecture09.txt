@@ -1,0 +1,24 @@
+~~ merge k sorted arrays ~~
+
+given k sorted arrays of size k each, merge them together. return answer in sorted array.
+
+struct Comp {
+    bool operator() (pair<int, int>& a, pair<int, int>& b) {
+        int val1 = vec[a.first][a.second];
+        int val2 = vec[b.first][b.second];
+        return val1 > val2;
+    }
+}
+
+priority_queue<pair<int, int>, vector<pair<int, int>>, Comp> pq;
+for (i{0}; i<k; i++) pq.push({i, 0});
+vector<int> ans;
+while (!pq.empty()) {
+    pair<int, int> p = pq.top();
+    int i = p.first, j = p.second;
+    ans.push_back(vec[i][j]);
+    pq.pop();
+    if (j+1 < k) pq.push({i, j+1});
+}
+return ans;
+TC = (logk * k^2)
