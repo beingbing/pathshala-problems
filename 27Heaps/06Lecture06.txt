@@ -1,0 +1,7 @@
+~~ heap sort ~~
+
+- for ascending, create a min-heap
+- pop the root one by one.
+TC = O(nlogn)
+
+is it a stable or unstable sort ?
