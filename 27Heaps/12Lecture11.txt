@@ -1,0 +1,27 @@
+~~ k smallest sum pairs - implementation ~~
+
+struct Comp {
+    bool operator() (pair<int, int>& p1, pair<int, int>& p2) {
+        return a[p1.first] + b[p1.second] > a[p2.first] + b[p2.second];
+    }
+}
+
+priority_queue<pair<int, int>, vector<pair<int, int>>, Comp> pq;
+pq.push({0,0});
+map<pair<int, int>, bool> mp;
+m[{0,0}] = true;
+while (k--) {
+    pair<int, int> p = q.top();
+    q.pop();
+    cout << a[p.first] + b[p.second] << endl;
+    if (p.second+1 < b.size() && mp.find({p.first, p.second+1}) == mp.end()) {
+        p.push({p.first, p.second+1})
+        mp[{p.first, p.second}] = true;
+    }
+    if (p.first+1 < a.size() && mp.find({p.first+1, p.second}) == mp.end()) {
+        q.push({p.first+1, p.second});
+        m[{p.first+1, p.second}] = true;
+    }
+}
+TC = O(klogk)
+SC = O(k)
