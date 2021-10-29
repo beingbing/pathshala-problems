@@ -1,0 +1,23 @@
+~~ heap operations ~~
+
+getMax() - return first element of max-heap array.
+
+insert(x) -
+- insert at the bottom
+- do maxHeapify
+
+a[size] = x;
+size++;
+while (i > 1 && a[i] ? a[i/2]) {
+    swap(a[i], a[i/2])
+    i = i/2;
+}
+
+deleteRoot() -
+- swap root with last element
+- do size--;
+
+deleteAtIndex(i) -
+- replace element at that index with INF.
+- do maxHeapify
+- do deleteRoot()
