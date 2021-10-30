@@ -1,0 +1,13 @@
+~~ K Max in Running Stream ~~
+
+given a stream of running integers, given k. Store k largest elements seen till any instant.
+
+- collect k elements
+- create a minHeap
+- check coming element with root
+- insert the bigger of two back into minHeap
+
+TC = O(logk)
+SC = O(k)
+
+heap inherently is a greedy DS.
