@@ -1,0 +1,15 @@
+~~ job sequencing - 2 ~~
+
+map<int, bool> slots;
+for (int i{1}; i<=n; i++) slots[i] = false;
+int ans = 0;
+for (int i{0}; i<n; i++) {
+    int val = vec[i].first;
+    auto itr = slots.upper_bound(val);
+    if (itr != slots.begin()) {
+        --itr;
+        slots.erase(itr);
+        ans += vec[i].second;
+    }
+}
+return ans;
