@@ -1,0 +1,25 @@
+~~ job sequencing - 1 ~~
+
+given n jobs with deadline and profit associated. every job takes one unit of time. only one job can be
+done at a time. maximum profit earned.
+
+- perform a job as late as possible
+- prioritize profit (sort in descending order)
+
+vector<bool> slots(n+1, false);
+vector<pair<int, int>> vec;
+sort(vec.begin(), vec.end(), Comp);
+int ans = 0;
+for (i{0}; i<n; i++) {
+    for (j{min(n, vec[i].first)}; j>0; j--) {
+        if (!slots[j]) {
+            slots[j] = true;
+            ans += vec[i].second;
+            break;
+        }
+    }
+}
+return ans;
+
+TC = O(nlogn)
+SC = O(n)
