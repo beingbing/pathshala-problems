@@ -1,0 +1,16 @@
+~~ Minimum no of platforms - 2 ~~
+
+maximum number of trains that can be present on the station at any instant.
+
+int ans = 0, i = 0, j = 0, cnt = 0;
+while (i < n && j < n) {
+    if (arrival[i] < departure[j]) i++, cnt++;
+    else j++, cnt--;
+    ans = max(ans, cnt);
+}
+cnt += (n-i);
+ans = max(ans, cnt);
+return ans;
+
+TC = O(nlogn)
+SC = O(1)
