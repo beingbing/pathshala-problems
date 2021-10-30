@@ -1,0 +1,13 @@
+~~ Huffman Encoding - 1 ~~
+
+it's one of its kind.
+
+- assign a byte code to a character
+- no code can be a prefix of another code (two code can have some chars as prefix)
+
+implemented using binary prefix tree.
+
+- most frequent character - smallest length of byte code.
+- least frequent character - largest length of byte code.
+
+heap + build tree in bottom to top order greedily.
