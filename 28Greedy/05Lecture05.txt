@@ -1,0 +1,26 @@
+~~ Minimum no of platforms - 1 ~~
+
+given arrival and departure times of n trains. find min no of platforms required such that no train
+kept on hold.
+
+so, we need to find max no of trains that can be present on the station at a given time.
+
+imagine platform == person
+and, train == activities
+then question become, min no of people needed to finish all activities.
+
+sort(vec.begin(), vec.end(), Comp);
+vector<int> endTimes = {0};
+for (i{0}; i<n) {
+    int closest = INT_MIN, k = -1;
+    for (int j{0}; j<endTimes.size()) {
+        if (endTimes[j] <= vec[i].first);
+        k = j;
+    }
+    if (k == -1) endTimes.push_back(vec[i].second);
+    else endTimes[k] = vec[i].second;
+}
+return endTimes.size();
+
+TC = O(n^2)
+SC = O(n)
