@@ -1,0 +1,42 @@
+~~ Activity Selection - 3 ~~
+
+given n Activities with start time and end time and k persons. every person can perform only one Activity
+at a time, find max number of activities that can be performed.
+
+for every activity i:
+    int maxm = -INF, k = -1;
+    for (j{0}; j < k) {
+        if (endTime[j] < start[i]) {
+            maxm = max(maxm, end[j]);
+            k = j;
+        }
+    }
+    if (k != -1) {
+        endTime[k] = end[i];
+        ans++;
+    }
+TC = O(nk)
+we can improve it.
+
+
+lower_bound(val) - out of all the elements which are >= val, return pointer to smallest such value.
+upper_bound(val) - out of all the elements which are > val, return pointer to smallest such value.
+
+ordered_map() (internally implemented using balanced BST) can perform both above functions.
+
+
+map<int, int> endTimes;
+endTimes[0] = k;
+for (int i{0}; i<n) {
+    auro itr = endTimes.upper_bound(start[i]);
+    if (itr != endTimes.begin()) {
+        itr--;
+        endTimes[itr->first]--;
+        if (!endTimes[itr->first]) endTimes.erase(itr);
+        endTimes[end[i]]++;
+        ans++;
+    }
+}
+return ans;
+TC = O(nlogk)
+SC = O(k)
