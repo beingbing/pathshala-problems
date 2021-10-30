@@ -1,0 +1,20 @@
+~~ Median in Running Stream - 1 ~~
+
+given a stream of running integers, find median at any instant.
+
+- maintain minHeap for n/2 largest items
+- maintain maxHeap for n/2 smallest items
+
+- if heaps are of different size, then heap with more elements will have root as our answer.
+
+class MedianInStream {
+    MedianInStream() {
+        //
+    }
+    void insert(int num) {
+        //
+    }
+    double getMedian() {
+        //
+    }
+}
