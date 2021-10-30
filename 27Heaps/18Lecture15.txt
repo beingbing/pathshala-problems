@@ -1,0 +1,29 @@
+~~ Numbers with Limited Prime Factors - 2 ~~
+
+given a primes array, find the nth natural number whose prime factorization contains prime from
+given array.
+
+struct Comp {
+    bool operator() (pair<int, int>& p1, pair<int, int>& p2) {
+        return p1.first * nums[p1.second] > p2.first * nums[p2.second];
+    }
+}
+
+vector<int> nums;
+priority_queue<pair<int, int>, vector<pair<int, int>>, Comp> pq;
+nums.push_back(1);
+for (i{0}; i<primes.size(); i++) {
+    q.push({primes[i], 0});
+}
+while (nums.size() < n) {
+    pair<int, int> p = pq.top();
+    pq.pop();
+    if (p.first * nums[p.second] > nums[nums.size()-1]) {
+        nums.push_back(p.first * nums[p.second]);
+    }
+    pq.push({p.first, p.second+1});
+}
+return nums[nums.size()-1];
+
+TC = O(nlogk)
+SC = O(k)
