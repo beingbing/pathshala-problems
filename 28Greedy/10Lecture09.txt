@@ -1,0 +1,31 @@
+~~ fractional Knapsack Problem ~~
+
+given weights and prices of n items, and given a sack of capacity W. Fill the sack with items such
+that prize can be maximum.
+
+- an item can be split to fill the sack (if required)
+
+we will need a custom greed - price/weight ratio
+
+bool Comp(pair<int, int>& a, pair<int, int>& b) {
+    return a.first*b.second > b.first*a.second;
+}
+
+vector<pair<int, int>> vec;
+int W;
+sort(vec.begin(), vec.end(), Comp);
+double ans;
+for (i{0}; i<n; i++) {
+    if (w - vec[i].second >= 0) {
+        ans += vec[i].first;
+        w -= vec[i].second;
+    } else {
+        double r = (w * vec[i].first * 1.0) / vec[i].second;
+        ans += r;
+        break;
+    }
+}
+return ans;
+
+TC = O(nlogn)
+SC = O(1)
