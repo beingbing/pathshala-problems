@@ -1,0 +1,41 @@
+~~ task scheduling ~~
+
+given some tasks (A - Z), tasks are doable in any order. Each task takes 1 interval of time to get
+executed and multiple tasks can not be executed at the same time. Given an integer n as cooling
+interval. n means, two tasks of same type must be separated by n intervals.
+Find minimum number of intervals needed to finish n tasks.
+
+DS needed -
+- max-heap
+- temporary ar
+
+algo -
+- while pq !empty
+- execute cycle
+
+priority_queue<int> pq;
+vector<int> cnt(26, 0);
+for (i{0}; i<task.size(); i++) cnt[tasks[i]-'A']++;
+for (i{0}; i<cnt.size(); i++) if (cnt[i]) pq.push(cnt[i]);
+int ans = 0;
+while (pq.size() > 0) {
+    int cnt = 0;
+    vector<int> tmp;
+    while (cnt <= n) {
+        if (pq.size() == 0) {
+            if (tmp.size() > 0) ans += n-cnt+1;
+            break;
+        }
+        int x = pq.top();
+        pq.pop();
+        if (x-1 > 0) tmp.push_back(x-1);
+        ans++;
+        cnt++;
+    }
+    for (i{0}; i<tmp.size(); i++) {
+        pq.push(tmp[i]);
+    }
+}
+return ans;
+TC = O(n)
+SC = O(n)
