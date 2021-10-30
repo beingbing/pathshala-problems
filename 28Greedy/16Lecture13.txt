@@ -1,0 +1,7 @@
+~~ data compression ~~
+
+compress data by encoding.
+
+compression -
+- loss less compression - hoffman encoding
+- lossy compression
