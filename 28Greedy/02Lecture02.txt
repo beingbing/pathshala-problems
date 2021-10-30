@@ -1,0 +1,32 @@
+~~ Activity Selection - 1 ~~
+
+given n Activities with start time and end time. You can perform only one Activity at a time, find
+max number of activities that can be performed. 
+
+- if we pick activities in terms of their start time then it may have highest end time and can only
+perform 1 activity, which is not what we want.
+
+- if we pick activities with smallest duration then it may have smallest duration but very high start
+and end time which will render us incapable of picking any other activity.
+
+- if we pick activities in terms of their end time then it will work fine in our test cases, because
+early concluding activities gives you more time to pick another activities.
+
+bool Comp(pair<int, int>& a, pair<int, int>& b) {
+    return a.second < b.second;
+}
+
+vector<pair<int, int>> vec(n);
+for (i{0}; i<n) vec[i] = {start[i], end[i]};
+sort(vec.begin(), vec.end(), Comp);
+int ans = 1;
+int endTime = vec[0].second;
+for (i{1}; i<n) {
+    if (vec[i].first >= endTime) {
+        ans++;
+        endTime = vec[i].second;
+    }
+}
+return ans;
+TC = O(nlogn)
+SC = O(n)
