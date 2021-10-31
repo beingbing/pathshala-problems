@@ -1,0 +1,26 @@
+~~ what is DP ~~
+
+prerequisites -
+- recursion
+- backtracking
+- greedy
+
+when no greed is applicable then explore all possible solutions and pick the best one. That's what
+we been doing in recursion and backtracking.
+so,
+DP is a smart version of recursion and backtracking.
+
+smart: more optimized w.r.t. time and space.
+
+Every unique problem in case of recursion has a unique state.
+
+recurrence relation - a relation relating solution of a larger problem to solution of a smaller sub
+problem.
+In DP it is called as, optimal substructure.
+
+bottom to top : using for loops
+top to bottom : using recursion
+
+in bottom to top approach we can save space sometimes if there are not much dependencies in smaller
+problems and bigger problems then instead of storing all the values, we can only save those values
+which will help us in computing solution of next bigger problem.
