@@ -12,5 +12,6 @@ for (i{1}; i<=coins.size(); i++) for (j{1}; j<=amount; j++) {
     ans[i][j] = ans[i-1][j];
     if (j >= coins[i-1]) ans[i][j] += ans[i][j-coins[i-1]];
 }
+SC = O(amount * denominations)
 
 can we optimize space further ?
