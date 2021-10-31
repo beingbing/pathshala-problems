@@ -1,0 +1,46 @@
+~~ coin change - 1 ~~
+
+given coins of several denomination, we have infinite supply of coins. Find minimum number of coins
+required to make an amount of n.
+
+long minCoins(vector<int>& coins, int n) {
+    if (n < 0) return INT_MAX;
+    if (n == 0) return 0;
+    long ans = INT_MAX;
+    for (i{0}; i<coins.size(); i++) ans = min(ans, 1+minCoins(coins, n-coins[i]));
+    return ans;
+}
+
+int main() {
+    ans = minCoins(coins, 10);
+    if (ans < INT_MAX) return ans;
+    else return -1;
+}
+
+we need to do memoization -
+
+vector<int> ans(n+1, -1);
+
+long minCoins(vector<int>& coins, int n, vector<int>& ans) {
+    if (n < 0) return INT_MAX;
+    if (n == 0) return 0;
+    if (ans[n] != -1) return ans[i];
+    for (i{0}; i<coins.size(); i++) ans[n] = min(ans[n], 1+minCoins(coins, n-coins[i]));
+    return ans[n];
+}
+TC = O(n*m)
+DP = recursion + memoization
+
+bottom to top approach -
+
+ans[0] = 0;
+for (i{1}; i<=n; i++) {
+    ans[i] = INT_MAX;
+    for (j{0}; j<coins.size(); j++) {
+        if (coins[j] <= i) {
+            ans[i] = min(ans[i], ans[i-coins[j]])
+        }
+    }
+}
+if (ans[n] < INT_MAX) return ans[n];
+return -1;
