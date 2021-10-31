@@ -1,0 +1,35 @@
+~~ Count of Decodings - 2 ~~
+
+we are gonna do memoization in code written in last lecture.
+
+int countOfDecoding(string &s, int i, vector<int>& ans) {
+    if (i >= s.length()) return 1;
+    if (ans[i] != -1) return ans[i];
+    ans[i] = 0;
+    if (isValidCode(s[i]-'0', 1)) ans[i] += countOfDecoding(s, i+1, ans);
+    if (i < s.length-1 && isValidCode((s[i]-'0')*10 + s[i+1]-'0', 2)) ans[i] += countOfDecoding(s, i+2, ans);
+    return ans[i];
+}
+
+TC = O(n)
+SC = O(n)
+
+
+if instead func(i) defines string from 0-i then
+    func(i) = func(i-1) + func(i-2)
+
+bottom to top -
+
+ans[0] = isValidCode(s[0] - '0', 1) ? 1 : 0;
+if (s.length == 1) return ans[0];
+ans[1] = 0;
+if (isValidCode(s[1] - '0', 1)) ans[1] += ans[0];
+if (isValidCode((s[0] - '0')*10 + s[1] - '0', 2)) ans[1]++;
+for (i{2}; i<s.length) {
+    ans[i] = 0;
+    if (isValidCode(s[i]-'0', 1)) ans[i] += ans[i-1];
+    if (isValidCode((s[i-1] - '0')*10 + s[i] - '0', 2)) ans[i] += ans[i-2];
+}
+return ans[s.length() - 1];
+
+we can easily get rid of ans vector and use f and s variables.
