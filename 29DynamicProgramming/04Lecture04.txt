@@ -1,0 +1,9 @@
+~~ tile the lane ~~
+
+given n >0, we got a 2xn lane and an infinite supply of tile with dimension 2x1. There are two ways
+to lay the tile on line -
+- horizontally 2x1
+- vertically 1x2
+find count of distinct ways to tile the lane.
+
+similar to last problem, write solution by yourself.
