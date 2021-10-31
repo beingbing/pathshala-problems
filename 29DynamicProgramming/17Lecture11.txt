@@ -1,0 +1,31 @@
+~~ coin change - 2 ~~
+
+given coins of several denomination, we have infinite supply of coins. Find total number of distinct coins
+combinations possible to make an amount of n.
+
+int numCombs(int i, int amount, vector<int>& coins) {
+    if (amount == 0) return 1;
+    if (amount < 0) return 0;
+    if (i < 0) return 0;
+    return numCombs(i-1, amount, coins) + numCombs(i, amount - coins[i], coins);
+}
+
+memoization -
+
+it's a 2D problem, coz we have an array whose idx matters and we need to track the current amount
+accumulated too.
+
+vector<vector<int>> ans(coins.size(), vector<int>(amount+1, -1));
+
+int numCombs(int i, int amount, vector<int>& coins, vector<vector<int>>& ans) {
+    // termination conditions
+    if (ans[i][amount] != -1) return ans[i][amount];
+    ans[i][amount] =  numCombs(i-1, amount, coins) + numCombs(i, amount - coins[i], coins);
+    return ans[i][amount];
+}
+
+TC = O(m * amount)
+SC = O(m * amount)
+
+bottom to top approach -
+will be discussed in next lecture.
