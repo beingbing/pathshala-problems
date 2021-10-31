@@ -3,7 +3,12 @@
 Arrays -
 1. collection of elements of same data type
 2. fixed size (not in dynamic array)
-3. contiguous memory allocation
+3. contiguous memory allocation (100,104,108, ....)
+
+storing a value in array, TC = O(1)
+reading a value in array, TC = O(1)
+
+vector (c++) === list (java)
 
 Explained how memory allocation in dynamic arrays(vector) works.
  - new memory location is assigned with greater memory then previously provided
@@ -16,4 +21,30 @@ name of the array acts as a base address of the array
 
 by default, array is passed by reference.
 
+func(int ar[], int val) {
+    // here array get passed to the func by reference
+}
+
+main() {
+    int ar[10]
+    func(ar, 10);
+}
+
 to pass a vector by reference, you need to add & in function parameters.
+
+func(vector<int>& vec) {
+    // here vector get passed to the func by reference
+    // side effects will be reflected back in calling function.
+}
+
+func(vector<int> vec) {
+    // here vector get passed to the func by value
+    // side effects will not be reflected back in calling function.
+}
+
+main() {
+    vector<int> v;
+    func(v);
+}
+
+Always prefer pass by reference as it is fast and saves space as well.
