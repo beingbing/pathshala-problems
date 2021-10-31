@@ -1,0 +1,30 @@
+~~ 0/1 Bounded Knapsack - 2 ~~
+
+bottom up approach with memoization -
+
+vector<vector<int>> ans[n+1][w+1]
+for (i{1}; i<=n) {
+    for (j{1}; j<=w) {
+        ans[i][j] = ans[i-1][j];
+        if (j >= wt[i-1]) {
+            ans[i][j] = max(ans[i][j], pr[i-1]+ans[i-1][j-wt[i-1]]);
+        }
+    }
+}
+return ans[n][w];
+
+to optimize space -
+
+vector<int> ans(w+1, 0);
+vector<int> tmp(w+1);
+for (i{1}; i<=n; i++) {
+    tmp[0] = 0;
+    for (j{1}; j<=w; j++) {
+        tmp[j] = ans[j];
+        if (j >= wt[i-1]) {
+            tmp[j] = max(tmp[j], pr[i-1] + ans[j-wt[i-1]]);
+        }
+    }
+    ans = tmp;
+}
+return ans[w];
