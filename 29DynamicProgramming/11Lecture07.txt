@@ -1,0 +1,18 @@
+~~ Count of Decodings - 1 ~~
+
+let's encode a string containing ('A' - 'Z') every character is encoded to its numerical value.
+- given a numerical string
+- find in how many ways it can be decoded.
+
+bool isValidCode(int code, int len) {
+    if (len == 1) return code >= 1 && code <= 9;
+    return code >= 10 && code <= 26;
+}
+
+int countOfDecoding(string &s, int i) {
+    if (i >= s.length()) return 1;
+    int ans = 0;
+    if (isValidCode(s[i]-'0', 1)) ans += countOfDecoding(s, i+1);
+    if (i < s.length-1 && isValidCode((s[i]-'0')*10 + s[i+1]-'0', 2)) ans += countOfDecoding(s, i+2);
+    return ans;
+}
