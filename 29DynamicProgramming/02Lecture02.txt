@@ -1,0 +1,62 @@
+~~ Top Bottom vs Bottom Top ~~
+
+int fib(int n) {
+    if (n < 2) return n;
+    return fib(n-1) + fib(n-2);
+}
+
+we will have too many sub problems repeating in this top down approach, which will be called
+overlaping subproblems.
+
+here, as TC is 2^n hence the execution time will rise exponentially with the rise in the value
+of the input, hence, we need to find a way to execute this recursion smartly such that we get
+our answer and also do not exceed our time limit.
+here, the total count of unique subproblems is roughly of order n, hence if we can store the
+results of every subproblems, then we do not have to compute them everytime.
+
+smart recursion:
+
+int fib(int n) {
+    if (n < 2) return n;                    // termination condition
+    if (ans[n] != -1) return ans[n];        // mem check
+    ans[n] = fib(n-1) + fib(n-2);           // solve and store
+    return ans[n];                          // answer
+}
+
+this storing of data for latter use is also called as cacheing.
+In DP it is also called as memoization.
+
+top to bottom DP is composed of recursion and memoization.
+
+the variables which contribute in defining a unique problem are called parts of its state.
+
+in above solution ans[] is not a part of state it is just used to store the state. n is a part of state.
+as it has only one state variable, it is also called 1D DP.
+
+state checks should always be after termination conditions.
+
+the memoization reduced TC from 2^n to n.
+
+so, in case of TtB memoization,
+total time taken = total number of distinct problems * time taken to solve one problem.
+
+extra space = recursion call stack + memoization storage.
+or
+extra space = total number of distinct subproblems.
+
+similarly, we have bottom to top approach -
+
+int fib(int n) {
+    if (n == 0) return 0;
+    int f = 0, s = 1;
+    for (i{2}; i<=n; i++) {
+        int cur = f+s;
+        f = s;
+        s = cur;
+    }
+    return s;
+}
+
+top bottom:     bottom top:
+TC = O(n)       TC = O(n)
+SC = O(n)       SC = O(1)
