@@ -1,0 +1,15 @@
+~~ Maximum Non Adjacent Sum - 2 ~~
+
+given a 2xn matrix, pick some elements from matrix such that -
+- their sum is Maximum
+- no 2 of them are * adjacent horizontally * adjacent vertically * adjacent diagonally
+- only output the sum
+
+vector<int> ans(n, -1);
+
+int maxSumMat(int i, vector<vector<int>>& mat, int n, vector<int> ans) {
+    if (i>= n) return 0;
+    if (ans[i] != -1) return ans[i];
+    ans[i] = max(max(mat[0][i], mat[1][i]) + maxSumMat(i+2, mat, n, ans), maxSumMat(i+1, mat, n, ans));
+    return ans[i];
+}
