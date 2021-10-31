@@ -1,0 +1,45 @@
+~~ 0/1 Bounded Knapsack - 1 ~~
+
+given n items with their price and weight. given a bag with W capacity.
+- an item can be taken completely or ignored.
+- pick items such that profit is maximized.
+output the max profit.
+
+- profit/weight ratio greed will not work here.
+
+- max profit greed will also fail
+
+- weight greed will also not work.
+
+so, now we have to go with smart recursion, we got two choices, take or leave.
+
+f(idx, wt) = max(f(idx-1, wt), f(idx-1, wt-w[idx]));
+
+termination conditions -
+- if (wt < 0) return LONG_MIN;
+- if (wt == 0 || i < 0) return 0;
+
+code -
+
+long maxProfit(int idx, int w, int wt[], int pr[]) {
+    if (w < 0) return LONG_MIN;
+    if (w == 0 || i < 0) return 0;
+    return max(maxProfit(idx-1, w, wt, pr), pr[idx] + maxProfit(idx-1, w-wt[idx], wt, pr));
+}
+
+memoization - 
+it's a 2 state problem hence 2D - no of items, weight (capacity)
+
+vector<vector<int>> ans(n, vector<int>(w+1, -1));
+long maxProfit(int idx, int w, int wt[], int pr[]) {
+    if (w < 0) return LONG_MIN;
+    if (w == 0 || i < 0) return 0;
+    if (ans[i][w] != -1) return ans[i][w];
+    ans[i][w] = max(maxProfit(idx-1, w, wt, pr), pr[idx] + maxProfit(idx-1, w-wt[idx], wt, pr));
+    return ans[i][w];
+}
+
+TC = O(n*w)
+SC = O(n*w)
+
+try bottom up approach and try to reduce space complexity, we will talk about it in next lecture.
