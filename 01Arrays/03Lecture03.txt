@@ -5,9 +5,9 @@ such that, i < j < k
 
 ex -
 arr : [1, 2, 3, 4, 5] and p = 1, q = 2, and r = 3
-o/p : 1 * 3 + 2 * 4 + 3 * 5 = 26 with i = 2, j = 3 and k = 5 is maximum
+o/p : 1 * 3 + 2 * 4 + 3 * 5 = 26 with i = 2, j = 3 and k = 4 is maximum
 
-brute force -
+1st (brute force) approach -
 run three nested for loops, to calculate i, j and k and keep track of maximum
 value of expression produced. TC = O(n^3)
 
@@ -26,7 +26,7 @@ ans => this won't work because p, q, r and array elements can take negative valu
 
 
 
-better approach -
+3rd (better) approach -
   |_ _ _ _ _ _ _ | _ | _ _ _ _ _ _ _|
   | max till j-1 | j | max till j+1 |
    from 0(preMax)     from n-1(sufMax)
@@ -47,6 +47,7 @@ for (j{1}; j<= n-2; j++) {
     x = preMax[j-1] + q*arr[j] + sufMax[j+1]
     ans = max(ans, x);
 }
+return ans;
 
 if constraints become i <= j <= k then last loop only changes to -
 for (j{0}; j < n; j++)
