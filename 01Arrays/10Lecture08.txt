@@ -10,6 +10,7 @@ sum = 0;
 for (i{0}; i<n; i++)
     for (j{i}; j<n; j++)
         sum += getSum(i, j)
+return sum;
 
 int getSum(int i, int j) {
     sum = 0;
@@ -20,7 +21,7 @@ int getSum(int i, int j) {
 
 
 2nd approach -
-we can omit the getSum function from above approach
+we can omit the getSum function from above approach. TC = O(n^2)
 
 code -
 
