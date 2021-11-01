@@ -3,6 +3,47 @@ given an array with elements value belonging to [0, n-1], find max chunks
 to split so that sorting and again concatenating the chunks give a sorted
 original array
 
+- the array elements and its index should be identical.
+
+elements from i to j should be a permutation of indexes i to j, then only
+after permutation we will get desired results.
+
+1st approach -
+check if elements are permutation of indexes -
+
+bool canBeChunked(int& i, int& j) {
+    cnt = 0;
+    for (k{i}; k<=j; k++) if (a[k] >= i && a[k] <= j) cnt++;
+    return cnt == j-i+1;
+}
+
+int i = 0, ans = 0;
+while (i < n) {
+    for (j{i}; j<n; j++) if (canBeChunked(i, j)) break;
+    i = j+1;
+    ans++;
+}
+
+TC = O(n^2)
+SC = O(1)
+
+
+2nd approach -
 so, the simplest approach is to track prefix max of the array elements,
 whenever prefix max is equal to the index at which we are currently at
 then we have a potential chunk, increment your count and move forward.
+
+curMax = -INF, ans = 0;
+for (int i{0}; i<n; i++) {
+    curMax = max(curMax, a[i]);
+    if (curMax == i) ans++;
+}
+return ans;
+
+TC = O(n)
+SC = O(1)
+
+
+Note: according to my understanding, this is an observation based question, doesn't give
+you any new insight, but just for the practice of concepts you already know, which are -
+prefix sum/max/min and suffix sum/max/min
