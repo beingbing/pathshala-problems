@@ -1,8 +1,48 @@
 ~~ rotate the array ~~
 
-You know this problem and it's solution very well, so skipping notes for this
+given an array and an integer k, rotate the array clockwise by k units.
 
-it is leetcode 189 problem
+clockwise: last element coming at front.
+
+1st approach -
+one by one push all elements to their right and bring last element to the front, do
+this for k times and you will have your desired array.
+
+while (k--) {
+    x = a[n-1]
+    for (i{n-2}; i>=0; i++) a[i+1] = a[i];
+    a[0] = x;
+}
+
+TC = O(n*k) = O(n^2) in worst case
+SC = O(1)
+
+if k > n then do k %= n, it will prevent us from unnecessary rotations.
+
+
+2nd approach -
+create a temporary array, keep elements on their new position (shifted by k) and then
+replace it with the original array.
+
+vector<int> tmp(n);
+for (i{0}; i<n; i++) tmp[(i+k)%n] = a[i];
+
+TC = O(n)
+SC = O(n)
+
+3rd approach -
+chunked reversal will lead to partial rotation.
+
+k = k%n;
+reverse(nums.begin(), nums.begin()+n-k);
+reverse(nums.begin()+n-k, nums.end());
+reverse(nums.begin(), nums.end());
+
+TC = O(n)
+SC = O(1)
+
+we can do this problem for anti-clockwise rotation also, because, k rotation clockwise
+is n-k rotation anti-clockwise.
 
 FootNote: when we are using STL reverse(ar[i], arr[j]) funtion on subarray then range
 considered is [i, j)
