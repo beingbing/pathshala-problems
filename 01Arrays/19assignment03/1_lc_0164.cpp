@@ -16,12 +16,21 @@ public:
             minNum = min(minNum, ele);
         }
         if (maxNum == minNum) return 0;
+        // if there are n elements then there will be n-1 gaps between them
         int gap = (maxNum-minNum)/(n-1);
+        // gap: minimum possible value of our answer, answer >= gap
         if ((maxNum-minNum)%(n-1) != 0) gap++;
+        // if it is not perfectly divisible, then one gap will be greater than others
+        // hence +1
         vector<int> minArr(n, INT_MAX), maxArr(n, INT_MIN);
+        // minArr: contain minimum values of n buckets
+        // maxArr: contain maximum values of n buckets
         int bkt;
         for (auto ele : nums) {
+            // find bucket in which that element will go
             bkt = (ele - minNum)/gap;
+            // check if that element contributes in either minimum or maximum
+            // element of that array
             minArr[bkt] = min(minArr[bkt], ele);
             maxArr[bkt] = max(maxArr[bkt], ele);
         }
