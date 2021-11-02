@@ -3,3 +3,6 @@
 best explained by assignment#3 Q1
 
 it's just a step by step process which will get you the answer.
+
+TC = O(n)
+SC = O(n)
