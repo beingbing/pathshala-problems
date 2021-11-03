@@ -10,7 +10,7 @@ public:
         for (int i{0}; i<n; i++) {
             cnt = 0;
             if (a[i] >= 0 ) {
-                int idx = a[i], val = i;
+                int val = i, idx = a[i];
                 while (idx != i) {
                     int temp = a[idx];
                     a[idx] = -1*(val+1);
