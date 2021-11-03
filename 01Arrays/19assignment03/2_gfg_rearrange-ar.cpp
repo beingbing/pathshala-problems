@@ -23,7 +23,7 @@ void rearrangeM2(vector<int>& a) {
                 nwVal = idx;
                 idx = temp;
             }
-            a[idx] = -1*(nwVal+1);
+            a[i] = -1*(nwVal+1);
         }
     }
     for (int i{0}; i<n; i++) a[i] = -1*a[i] - 1;
