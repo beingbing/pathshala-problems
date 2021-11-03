@@ -16,7 +16,7 @@ void rearrangeM2(vector<int>& a) {
     int n = a.size();
     for (int i{0}; i<n; i++) {
         if (a[i] >= 0) {
-            int idx = a[i], nwVal = i;
+            int nwVal = i, idx = a[i];
             while (idx != i) {
                 int temp = a[idx];
                 a[idx] = -1*(nwVal+1);
