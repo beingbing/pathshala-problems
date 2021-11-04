@@ -25,12 +25,27 @@ int findGCDM1(int a, int b) { // tc = O(n)
 }
 
 // euclid's gcd algorithm - tc = O(logn)
+// recursive
 int findGCDM2(int a, int b) {
     int x = min(a, b);
     int y = max(a, b);
     if (x == 0) return y;
     if (y%x == 0) return x;
     return findGCDM2(y%x, x);
+}
+
+// iterative
+int findGCDM2(int a, int b) {
+    int x = min(a, b);
+    int y = max(a, b);
+    if (x == 0) return y;
+    int tmp;
+    while (y%x != 0) {
+        tmp = y;
+        y = x;
+        x = tmp%y;
+    }
+    return x;
 }
 
 int findLCMM1(int a, int b) {
