@@ -1,0 +1,46 @@
+~~ 2.b: memory virtualization ~~
+
+memory is virtualized in the similar manner, but why do we need it ?
+if we recall our execution cycle from lecture#2, a code is compiled into machine code which is then
+fetched-decoded-executed.
+
+Let's focus on the fetch part of our cycle, what if we store our machine code in the hard disk and load
+each line separately from the hard disk, But access to HDD is very slow (expensive) hence we have
+RAM (memory), which is way more faster in terms of access. so, we want our machine code to lie in RAM.
+But we have limited amount of RAM available at our disposal and sometimes the requirement might go
+beyond what is available to us, this is where memory virtualization comes to our rescue. OS gives the
+process feeling that it has an infinite amount of memory available at its disposal. OS make this happen
+by moving pieces of code around what is actually available size, like, if a code is needed to be executed
+then it will be shifted into the memory, and will push some of the code out of the memory when it sees
+that the code is executed and are not required anymore.
+
+sample#01 will give you a demo to give an idea that actually the addresses which gets assigned to any
+variable are not the real address of RAM, but actually virtual address created by OS. here, let's say,
+OS tells the process that it has 1GB at it's disposal, so the address presented will be according to
+that commitment, but not the actual real address.
+
+In this demo, we will try to run two versions of the same code, and we will try to print the memory.
+And we will see that both of them, although running parallely, will be printing the same memory address,
+but we know that it can not happen, as at any given time only one memory has access to given memory cell.
+Hence we will confirm that it in not the actual memory address, but a virtual memory address.
+
+
+
+* 3: Concurrency -
+within one single program/software, what if i want to do multiple things, like in chrome browser -
+- downloading songs
+- playing videos on youtube
+- coding in an online editor ...
+
+Note: parallelism => when two completely different programs are running together.
+      concurrency => within the same program, it is trying to do multiple things.
+
+
+
+* 4: Security/access-management -
+within same machine, we can have multiple logins, in that case security is maintained, so that one
+user doesnt get access to other users stuff.
+
+
+
+out of these 4 responsibilities of OS, 2nd and 3rd will be studied and greater detail.

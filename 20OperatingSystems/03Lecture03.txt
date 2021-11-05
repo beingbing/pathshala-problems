@@ -1,4 +1,4 @@
-~~ CPU virtualization ~~
+~~ 2.a: CPU virtualization ~~
 
 we studied in last lecture, resources required a computer to run -
 - CPU
