@@ -1,0 +1,32 @@
+~~ process lifecycle ~~
+
+* process states and lifecycle -
+
+- new state : when a process is in a state of a program and is willing to get executed.
+- ready state: when a program is admitted and converted into a process for being executed.
+- running state: scheduler takes a process from ready state and turns it into running state then
+start executing it.
+- terminated state: if process is completed/forced to stop.
+- waiting state: the process is waiting for some I/O or some external dependency is there.
+
+if a process is interrupted while running then it goes back to ready state.
+
+once I/O dependency in waiting state is resolved then it goes back to ready state.
+
+for a process to be in ready-state from new-state -
+- address space needs to be declared for the process (load the code into RAM)
+- needs to allocate some stack/heap space
+
+not all the processes which are in ready-state will be there in the RAM, because of the concept of
+eager vs lazy loading.
+- eager loading - everything related to this process is taken and eagerly loaded into the RAM.
+- lazy loading - divide and fix as what needs to be allocated sometime later when the needs actually
+arrives to move the process into running-state, but this setup needs to be done beforehand, so the
+setup is done but actual code loading and actual code allocation happens when it is in running state.
+
+in either of the two, the above steps happen when a process is moved from new-state to ready-state.
+
+In some of these states, there needs to be an associated queue, e.g. - in ready-state, there needs to
+be a DS which holds all the PCBs of the processes. this DS is called ready queue. similarly processes
+in new-state are in job queue. There is also a device I/O queue in waiting-state for all the I/O related
+dependencies.
