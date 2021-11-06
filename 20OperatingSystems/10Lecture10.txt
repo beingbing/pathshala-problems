@@ -1,0 +1,12 @@
+~~ shortest job first algorithm ~~
+
+convoy effect failed the FIFO algorithm, instead lets choose shortest-job-first (SJF) algorithm.
+the DS used in SJF will be priority_queue.
+
+but still what if a big process comes in the beginning and occupies the CPU, convoy effect
+can occur in this algorithm too.
+here, we can wait for a little longer to see what new jobs comes next to decide which job to run
+but it will increase the turn around time of already present job unnecessarily and CPU is sitting
+idle even though a job is ready for getting executed.
+instead we can go with pre-emption, in this a running job can be interrupted and removed to give
+CPU time to another job.
