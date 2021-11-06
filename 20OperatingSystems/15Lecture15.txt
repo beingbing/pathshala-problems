@@ -1,0 +1,20 @@
+~~ context switch ~~
+
+if a process is running and there are some ready-state processes waiting. So the steps
+when some process goes out of CPU and another one is loaded is called context switching.
+In this, the outgoing process is also removed from RAM and incoming process is loaded.
+So, we remove PCB of outgoing process and load PCB of incoming process.
+
+how to do context switching ?
+- cooperative way - whenever a currently executing process makes a system call / software interrupt
+OS will take control to switch the mode, and then when OS is loaded it will decide the outgoing
+and incoming process according to scheduling algorithm.
+
+- non cooperative way - we use hardware interrupt, CPU is signalled then runnin process is removed
+and OS is loaded to check what's wrong.
+OS also sets a timer which sends an urgent interrupt after some timer intervals.
+
+as soon as OS takes control, it runs the scheduling algorithm to decide on which process will go in.
+
+only cooperative way is not enough, we need non-cooperative way also, what if a process falls into
+an infinite loop ?
