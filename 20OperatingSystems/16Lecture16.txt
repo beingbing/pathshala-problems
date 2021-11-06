@@ -1,0 +1,59 @@
+~~ interprocess communication ~~
+
+we need interprocess communication because -
+- producer-consumer problem (one is creating some data and other process is using it) ( data sharing)
+- parallelism -> if z can only be run once x and y is completed, so x and y can run in parallel
+and inform z.
+
+ways of achieving IPC -
+- shared memory
+    - p1 allocates some shared memory
+    - p1 gives its access to p2
+    - p2 attach that shared memory to itself
+    - now both can read/write
+setup is complicated, but once it is done the process is simple
+shared memory must have a limit.
+
+- message passing system
+there is nothing like shared memory, there is only sending and receiving of messages.
+    
+    - direct vs indirect message passing system
+        
+        there is a direct knowledge of p1 about p2 and p2 about p1, hence they can directly
+        communcate. The communication link maybe both one-way (assymetric) or two-way (symmetric).
+        
+        p1 and p2 do not know each other but use a secondary source to communicate, then -
+            - they can ues ports: parts are simply just some address on a particular machine,
+            p1 and p2 both can bind to some port, lets say 5001, then, p1 sends data to 5001 and
+            p2 collects data from it. here p1 and p2 do not know each other but are aware that
+            there exist a memory address (or port) which is a communication channel, on which
+            you can send/recieve data.
+            - they can use pipes (named pipes): pipes are simply files that can be used for
+            indirect IPC.
+
+            these communication mediums, be it ports or pipes, they are called mailboxes. 
+    
+
+    - synchronous nature
+        process maybe blocking / non-blocking on send/recieve.
+        blocking: if some process is blocking on a particular thing that means it is waiting
+        for that particular thing.
+        hence there are 4 combination -
+        blocking send - blocking recieve
+        blocking send - non blocking recieve
+        non blocking send - blocking recieve
+        non blocking send - non blocking recieve
+
+    - buffering - a space/piece of memory which can be used to store some information. recieve
+    has to have a buffer at its end, so that sent information can be collected in it and reciever
+    can start extracting that information from buffer as it will.
+    there might be a buffer requirement at sender end as well, so, sender collects information there
+    then once receiver is ready, it picks information from there.
+    it has 3 classification -
+        - zero buffer: then both sender and receiver must be blocking because there is no extra
+        space for keeping the information which are not getting consumed as soon as they are
+        generated.
+        - bounded buffer: fixed size of buffer. In this case sender must be blocking if the buffer
+        is full, but receiver has liberty, it can be blocking or non blocking.
+        - unbounded buffer: no limit on storage space. both sender and receiver have liberty to be
+        blocking or non blocking.
