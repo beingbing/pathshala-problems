@@ -1,0 +1,44 @@
+~~ modes of process execution ~~
+
+how OS solves the problem of limited/restricted resources ?
+a program can not have access to everything and do not have everything at its disposal.
+for this OS introduced concept of modes of exection -
+- kernel mode
+- user mode
+
+when CPU execution is in kernel mode, it has access to everything. priviledged.
+in user mode OS introduced restrictions.
+
+what happens when a process running in user mode try to access restricted resource ?
+an exception will occur and OS will try to kill the process.
+
+if a process running in user mode needs a restricted resource
+                            |
+                            |
+                    system call is made
+                            |
+                            |
+a special instruction (software interrupt) happens
+it changes the mode of execution from user mode to kernel mode.
+
+Every software interrupt has an ID with it. and every ID corresponds to a particular piece of code to
+execute. A collection of such IDs and corresponding code is called interrupt vector.
+
+some special types of software interrupts are traps/exceptions/faults -
+when although system call is not made but something illegal is occured.
+All those traps are collected in trap table in which with corresponding trap ID we have its associated
+code.
+
+when process is running in kernel mode, it is maintained in kernel stack. so,
+user mode - call stack          =>          kernel mode - kernel stack
+
+
+
+there are also hardware interrupts
+how to make process aware that a keyboard/mouse interrupt happened ?
+- polling - CPU keeps checking after some duration to see if any input is incoming from hardwares.
+the problem with it is, as the number of devices increase, it leads to heavy CPU wastage.
+- hardware interrupts for h/w to directly tell CPU that something has happened.
+it is further of two type -
+        - urgent interrupt (handle it right now)
+        - take your time interrupt (take your time but check it out eventually)
