@@ -9,6 +9,7 @@ and while doing so, keep recording your number.
 
 code -
 
+// TC = O(n)
 vector<int> primeFactorsM1(int n) {
     vector<int> ans;
     for (int i{2}; i<=n; i++)
@@ -31,7 +32,8 @@ M2 -
 
 1. we know that, factors of a number are symmetric around it's sqrt.
 2. a. it is possible that, all the prime factors of a number lie in (1, sqrt(n)]
-b. if a prime factor lie between (sqrt(n), n), then there can only be one such prime.
+b. if a prime factor lie between (sqrt(n), n), then there can only be one such prime, because if there
+are ever more than 1 then, there product will be greater than 1, which can not happen.
 c. no other case is possible apart from a. and b.
 
 code -
