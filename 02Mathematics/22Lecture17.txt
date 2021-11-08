@@ -5,6 +5,9 @@
 A  3 roads p,q,r  B   2 roads p', q'   C
 
 so to reach from A to C we have 3*2 options
+3 distinct ways from A to B, and 2 distinct ways from B to C
 
-
-2.
+generalise -
+to complete a particular action A, if we need to do two actions A' and A"
+then,
+no of ways in which A can be done = no of ways in which A' can be done * no of ways in which A" can be done
