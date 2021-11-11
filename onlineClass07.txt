@@ -1,0 +1,473 @@
+~~ concurrency - 24/10/2021 ~~
+
+1. Introduction to thread in java
+    - how to create threads
+    - join threads
+    - example of counter threads
+
+2. how to locks work ?
+    - example code
+    - optimistic vs pessimistic locks
+    - AtomicInteger vs synchronized int
+    - synchronized blocks and methods
+    - a word on volatile
+
+3. implement concurrent copying of data from slow storage to faster storage.
+
+
+we will write a simple application, the goal is to learn how to do multi-threading in java.
+
+normally a written program spins into a single process on cpu, gets executed and finishes. This
+normal behaviour can be seen as a single thread process.
+
+// BankAccount.java
+
+public class BankAccount {
+    string name;
+    int amount;
+
+    BankAccount(string name, int amount) {
+        this.name = name;
+        this.amount = amount;
+    }
+
+    void withdraw(int amount) {
+        this.amount -= amount;
+    }
+
+    void deposit(int amount) {
+        this.amount += amount;
+    }
+
+    int balance() {
+        return this.amount;
+    }
+}
+
+// main.java
+
+public class Main {
+    public static void main(string[] args) {
+        BankAccount aliceAccount = new BankAccount('alice', 1000);
+        BankAccount bobAccount = new BankAccount('bob', 1000);
+
+        AliceThread aliceThread = new AliceThread(aliceAccount, bobAccount);
+        BobThread bobThread = new BobThread(aliceAccount, bobAccount);
+
+        aliceThread.start();
+        bobThread.start();
+
+        for (int i{0}; i<1000; i++) {
+            aliceAccount.withdraw(1);
+            bobAccount.deposit(1);
+        }
+
+        for (int i{0}; i<1000; i++) {
+            bobAccount.withdraw(1);
+            aliceAccount.deposit(1);
+        }
+
+        System.out.println("Alice has: " + aliceAccount.balance());
+        System.out.println("Bob has: " + bobAccount.balance());
+    }
+}
+
+
+this is a single threaded implementation, but what if we want to perform both for loops parallel in
+separate threads simultaneously -
+
+to do this in java -
+- we need to create two separate threads
+- give this piece of code to the thread
+- execute the thread
+
+everything in java is an object, so the legacy (older) method to create a thread in java is -
+whatever piece of code is kept in run() will be executed when the thread will be executed.
+
+class AliceThread extends Thread {
+
+    private BankAccount aliceAccount;
+    private BankAccount bobAccount;
+
+    AliceThread(BankAccount aliceAccount, BankAccount bobAccount) {
+        this.aliceAccount = aliceAccount;
+        this.bobAccount = bobAccount;
+    }
+
+    @Override
+    public void run() {
+        System.out.println("Alice started job");
+        for (int i{0}; i<1000; i++) {
+            aliceAccount.withdraw(1);
+            bobAccount.deposit(1);
+        }
+        System.out.println("Alice completed job");
+    }
+}
+
+class BobThread extends Thread {
+
+    private BankAccount aliceAccount;
+    private BankAccount bobAccount;
+
+    BobThread(BankAccount aliceAccount, BankAccount bobAccount) {
+        this.aliceAccount = aliceAccount;
+        this.bobAccount = bobAccount;
+    }
+
+    @Override
+    public void run() {
+        System.out.println("Bob started job");
+        for (int i{0}; i<1000; i++) {
+            bobAccount.withdraw(1);
+            aliceAccount.deposit(1);
+        }
+        System.out.println("Bob completed job");
+    }
+}
+
+// main.java 2
+
+public class Main {
+    public static void main(string[] args) {
+        BankAccount aliceAccount = new BankAccount('alice', 1000);
+        BankAccount bobAccount = new BankAccount('bob', 1000);
+
+        AliceThread aliceThread = new AliceThread(aliceAccount, bobAccount);
+        BobThread bobThread = new BobThread(aliceAccount, bobAccount);
+
+        aliceThread.start();
+        bobThread.start();
+
+        System.out.println("Alice has: " + aliceAccount.balance());
+        System.out.println("Bob has: " + bobAccount.balance());
+    }
+}
+
+but here we say that mostly the answers which we are getting are all wrong, but why is it happening ?
+
+one pausible reason can be that consoles are getting printed before the threads done execution so 
+we can confirm that theory too by waiting for both the threads to complete. 
+
+public class Main {
+    public static void main(string[] args) {
+        BankAccount aliceAccount = new BankAccount('alice', 1000);
+        BankAccount bobAccount = new BankAccount('bob', 1000);
+
+        AliceThread aliceThread = new AliceThread(aliceAccount, bobAccount);
+        BobThread bobThread = new BobThread(aliceAccount, bobAccount);
+
+        aliceThread.start();
+        bobThread.start();
+
+        aliceThread.join();
+        bobThread.join();
+
+        System.out.println("Alice has: " + aliceAccount.balance());
+        System.out.println("Bob has: " + bobAccount.balance());
+    }
+}
+
+even after waiting for both the threads, we are getting the wrong answer, hence that theory is
+debunked to be false.
+
+then, what is the reason, why is it happening ?
+
+as both threads are sharing common variables, hence the problem here is racing condition, thus we
+need to make the operation of updation of variables via threads to be atomic. that is, we need a
+locking system.
+
+// main.java 3
+
+public class Main {
+    public static void main(string[] args) throws InterruptedException {
+
+        Lock lock = new ReentrantLock();
+
+        BankAccount aliceAccount = new BankAccount('alice', 1000, lock);
+        BankAccount bobAccount = new BankAccount('bob', 1000, lock);
+
+        AliceThread aliceThread = new AliceThread(aliceAccount, bobAccount);
+        BobThread bobThread = new BobThread(aliceAccount, bobAccount);
+
+        aliceThread.start();
+        bobThread.start();
+
+        aliceThread.join();
+        bobThread.join();
+
+        System.out.println("Alice has: " + aliceAccount.balance());
+        System.out.println("Bob has: " + bobAccount.balance());
+    }
+}
+
+// BankAccount.java 2
+
+public class BankAccount {
+    string name;
+    int amount;
+    Lock lock;
+
+    BankAccount(string name, int amount, Lock lock) {
+        this.name = name;
+        this.amount = amount;
+        this.lock = lock;
+    }
+
+    void withdraw(int amount) {
+        this.lock.lock();
+        this.amount -= amount;
+        this.lock.unlock();
+    }
+
+    void deposit(int amount) {
+        this.lock.lock();
+        this.amount += amount;
+        this.lock.unlock();
+    }
+
+    int balance() {
+        return this.amount;
+    }
+}
+
+this was one of the ways of doing locking. we have other ways too -
+we can synchronize the amount variable to be always in-sync with every update
+
+// main.java 4
+
+public class Main {
+    public static void main(string[] args) throws InterruptedException {
+
+        Object lock;
+
+        BankAccount aliceAccount = new BankAccount('alice', 1000, lock);
+        BankAccount bobAccount = new BankAccount('bob', 1000, lock);
+
+        AliceThread aliceThread = new AliceThread(aliceAccount, bobAccount);
+        BobThread bobThread = new BobThread(aliceAccount, bobAccount);
+
+        aliceThread.start();
+        bobThread.start();
+
+        aliceThread.join();
+        bobThread.join();
+
+        System.out.println("Alice has: " + aliceAccount.balance());
+        System.out.println("Bob has: " + bobAccount.balance());
+    }
+}
+
+// BankAccount.java 3
+
+public class BankAccount {
+    string name;
+    int amount;
+    Object lock;
+
+    BankAccount(string name, int amount, Object lock) {
+        this.name = name;
+        this.amount = amount;
+        this.lock = lock;
+    }
+
+    void withdraw(int amount) {
+        synchronized(lock) {
+            this.amount -= amount;
+        }
+    }
+
+    void deposit(int amount) {
+        synchronized(lock) {
+            this.amount += amount;
+        }
+    }
+
+    int balance() {
+        return this.amount;
+    }
+}
+
+so, these were the two ways in which we can do locking. But here we used a single lock for both
+bob and alice transactions, but this is not necessary, while bob is withdrawing from his account
+there is no need to not let alice withdraw from her account, so instead of using single lock we must
+use two locks so -
+
+instead of this -
+
+        Object lock;
+
+        BankAccount aliceAccount = new BankAccount('alice', 1000, lock);
+        BankAccount bobAccount = new BankAccount('bob', 1000, lock);
+
+we do this -
+
+        Object lock1;
+        Object lock2;
+
+        BankAccount aliceAccount = new BankAccount('alice', 1000, lock1);
+        BankAccount bobAccount = new BankAccount('bob', 1000, lock2);
+
+
+now it was more accurate, although single locking would have done the job but separating synchronization
+of all users is more accurate.
+
+so what we are doing here is we are allowing bob and alice to withdraw/deposit parallelly but 
+we are restricting bob/alice withdraw and deposit to happen parallelly
+
+or we can use this instead of passing a separate object -
+
+// main.java 5
+
+public class Main {
+    public static void main(string[] args) throws InterruptedException {
+
+        BankAccount aliceAccount = new BankAccount('alice', 1000);
+        BankAccount bobAccount = new BankAccount('bob', 1000);
+
+        AliceThread aliceThread = new AliceThread(aliceAccount, bobAccount);
+        BobThread bobThread = new BobThread(aliceAccount, bobAccount);
+
+        aliceThread.start();
+        bobThread.start();
+
+        aliceThread.join();
+        bobThread.join();
+
+        System.out.println("Alice has: " + aliceAccount.balance());
+        System.out.println("Bob has: " + bobAccount.balance());
+    }
+}
+
+// BankAccount.java 4
+
+public class BankAccount {
+    string name;
+    int amount;
+
+    BankAccount(string name, int amount) {
+        this.name = name;
+        this.amount = amount;
+    }
+
+    void withdraw(int amount) {
+        synchronized(this) {
+            this.amount -= amount;
+        }
+    }
+
+    void deposit(int amount) {
+        synchronized(this) {
+            this.amount += amount;
+        }
+    }
+
+    int balance() {
+        return this.amount;
+    }
+}
+
+alternative way to write is -
+
+    synchronized void withdraw(int amount) {
+            this.amount -= amount;
+    }
+
+    synchronized void deposit(int amount) {
+            this.amount += amount;
+    }
+
+this two methods will never be executed by two different threads, they will always be in-sync to
+each other, a user can only execute any one of them at any given time.
+
+discussing further on the first implementation of lock -
+can we implement our on lock -
+
+public class lock {
+    bool taken = false;
+    String threadName;
+
+    void lock() throws InterruptedException {
+        while (taken) {
+            Thread.sleep(100);
+        }
+        taken = true;
+        threadName = Thread.currentThread().getName();
+    }
+
+    void unlock() {
+        if (Thread.currentThread().getName().equals(this.threadName)) {
+            taken = false;
+            threadName = "";
+        }
+    }
+}
+
+this implementation will not work bacause taken variable can also have race condition.
+
+Q. why we need sleep ?
+A. it is called as busy waiting, bacause if processor is 2GHz then it can do 2G operations in
+a single second, which is not needed, so we are telling the thread to wait for sometime.
+analogy,
+you go to a restaurant, and he is late, then you have to wait there for him to come, you can not
+leave from there, you can sit there and do whatever you can do by being there, but that job
+will not be done until the other person arrives.
+
+so, we see here that we can not implement a lock without needing a lock, and theoretically
+that is true because locking behaviour is provided to a programming language by OS.
+
+then how does OS implements a lock ?
+locking system is provided to OS via hardware.
+
+so hardware is the one which has locking system logic.
+
+there are two types of lock -
+    - pessimistic lock
+        - get the key
+        - not return the key unless their work is done
+        - it ensures mutual exclusion
+    pros: you'll never need to retry.
+    cons: you always spend time taking and releasing lock.
+
+    - optimistic lock (CAS: compare and swap)
+        - it assumes there is no race condition
+        - when read they record what was the value they read.
+        - when writing back they check first whether the old value is same as what we read.
+        - if not then they will conclude that there is a race condition, and do the operation again by
+        reading new value.
+        - if yes, they will write the new value and discard the old value.
+    pros: don't need to spend time taking locks.
+    cons: you might need to retry in case of conflict.
+
+when conflicts are less -> optimistic locks are better.
+synchronized lock in java is pessimistic lock.
+ReentrantLock lock in java is optimistic lock.
+
+java also has AtomicInteger which uses optimistic locking system.
+
+native keyword in java -> means in java c code is running (as java is written in c).
+
+// BankAccount.java 5
+
+public class BankAccount {
+    string name;
+    int amount;
+
+    BankAccount(string name, int amount) {
+        this.name = name;
+        this.amount = new AtomicInteger(amount);
+    }
+
+    void withdraw(int amount) {
+        this.amount.getAndAdd(-amount);
+    }
+
+    void deposit(int amount) {
+        this.amount.getAndAdd(amount);
+    }
+
+    int balance() {
+        return this.amount.get();
+    }
+}
+
