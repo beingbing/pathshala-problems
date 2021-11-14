@@ -1,0 +1,16 @@
+~~ system design - 14/11/2021 ~~
+
+protocol - set of rules - common understanding
+
+Layers of Abstraction -
+
+- physical Layer
+transmit bits of data from one computer to another directly connected computer. Sometimes fails.
+
+- data link Layer
+to solve the sometimes failing of data transmission problem.
+we break the data to be transmitted into frames.
+we either establish a -
+- error detection method
+- error correction method - detect + correct
+
