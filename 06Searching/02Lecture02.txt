@@ -5,8 +5,8 @@ half to explore.
 
 2. If we told to search for an element which is not actually present in search space, then, once
 we are done with binary searching,
-low = upper_bound (pointing towards element just smaller than key)
-high = lower_bound (pointing towards element just higher than key)
+low = pointing towards element just greater than key
+high = pointing towards element just smaller than key
 
 so, if we asked to put the key in our search space, then it should come at the index pointed by
 low.
