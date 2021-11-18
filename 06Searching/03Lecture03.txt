@@ -1,7 +1,5 @@
 ~~ First and Last occurence ~~
 
-20  21
-
 given a sorted array in which elements can be repeated, give the index of first occurence of given key.
 
 change this condition from lecture #1
@@ -31,7 +29,7 @@ given a sorted array in which elements can be repeated, give the index of last o
 change this condition from lecture #1
     if (a[mid] == k) return mid;
 to
-    if ((a[mid] == k && mid == 0) || (a[mid] == k && a[mid+1] != k)) return mid;
+    if ((a[mid] == k && mid == n-1) || (a[mid] == k && a[mid+1] != k)) return mid;
 so, the code becomes -
 
 low = 0, high = n-1
