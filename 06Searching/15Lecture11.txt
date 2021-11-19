@@ -9,7 +9,7 @@ if previously we have seen that a numbers count is greater than k and current nu
 than previous number then its count will definetly be greater than k.
 so, here
 we get a monotonicity on the basis of results we got earlier.
-if a number is greater then check the previously obtained count for a number then decide
+if a number is greater then the previously obtained count for a number then decide
 whether we need to go with a bigger number or a smaller number as a candidate.
 
 int countNums(int x) {
