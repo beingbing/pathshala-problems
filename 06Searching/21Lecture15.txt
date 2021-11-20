@@ -1,7 +1,6 @@
 ~~ allocate the books ~~
 
 until now we saw that BS can be used to solve optimization problems.
-
 other two paradigms which can be used for this type of optimization problems are
 dynamic programming and greedy method.
 
@@ -11,8 +10,7 @@ we want to allocate n books to m students such that,
 1. each student must get atleast 1 book.
 2. all the books should be alloted. (this will direct us to implement greedy allocation strategy)
 3. allotment must be contiguous.
-
-a book will entirely belong to a single student
+4. a book will entirely belong to a single student
 
 allocate such that maximum number of pages allocated to any student must be minimum.
 
@@ -44,7 +42,7 @@ bool isPossible(vector<int>& a, int& mid, int& m) {
             pagesSum += a[i];
         }
     }
-    return c <= totalStudents;
+    return studentsCnt <= m;
 }
 
 int low{INT_MIN}, high = 0;
@@ -62,11 +60,6 @@ while (low <= high) {
 }
 TC = O(nlog(h-l))
 
-
-
-
 In this question we had minimize the max
-
 and in last we had, maximize the min
-
 so, we can conclude that in these type of problems BS is applicable
