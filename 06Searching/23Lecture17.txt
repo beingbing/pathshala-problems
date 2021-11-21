@@ -14,10 +14,10 @@ after creating a binary tree, and traversing from root, we observed that -
 
 code -
 
-int low = 0, high = 2^(n+1) - 2
+int low = 0, high = 2^(n+1) - 2 // first and last character position
 bool bit = false;
 while (low <= high) {
-    mid =
+    mid = low + (high - low)/2;
     if (mid == k) return bit;
     else if (mid < k) {
         low = mid+1;
