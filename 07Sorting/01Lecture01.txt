@@ -28,7 +28,7 @@ bool cmpr(int x, int y) {
     return x < y;
 }
 
-// if we want to sort in ascending order then
+// if we want to sort in descending order then
 bool cmpr(int x, int y) {
     return x > y;
 }
@@ -44,4 +44,3 @@ bool cmpr(int x, int y) {
     if (x.first == y.first) return x.second < y.second;
     else x.first < y.first;
 }
-
