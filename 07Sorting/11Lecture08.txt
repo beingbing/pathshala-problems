@@ -20,8 +20,12 @@ if (x-1 >= 0) {
     }
 }
 
+TC = O(n)
+SC = O(1)
+
 try generating all permutation by inputing an ascending order list and applying
 above function for every result until we have the string in descending order
+in that case TC = O(n !n)
 
 many libraries has this functionality in-built, and this is how exactly they are
 implement.
