@@ -24,4 +24,7 @@ for (i{0}; i<n; i++)
             }
         }
 
-now sort rhsArr and for every element of lhsArr use BS and fint its frequency in rhsArr
+now sort rhsArr and for every element of lhsArr use BS and find its frequency in rhsArr
+
+TC = O((n^3)logn)
+SC = O(n^3)
