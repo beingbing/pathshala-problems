@@ -1,6 +1,7 @@
 ~~ maximize the index difference ~~
 
-given int arr, find two arr i and j such that a[j] >= a[i] and j-i is maximum possible, here i != j
+given int arr, find two arr indexes i and j such that a[i] =< a[j] and j-i is maximum possible,
+here i != j
 
 M1-
 for (int i{0}; i<n; i++) {
