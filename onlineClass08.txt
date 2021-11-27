@@ -1,0 +1,150 @@
+~~ low level design patterns - 6/11/2021 ~~
+
+Immutability - 
+
+It is not a technical restriction, rather it is imposed by the programmers on themselves.
+we try to make the objects such that, once they are created, we do not modify them, rather we try to
+replace it.
+
+setters - getters also do modify the existing object. hence, we man times use 'final' keyword
+which indeed makes the object immutable. but it makes the reference immutable, suppose we have
+a container in our object, then reference to it is immutable not the elements contained in it
+hence element can still be modified for the existing object.
+
+why we introduced the concept of Immutability ?
+- thred safety
+scalability => concurrency => race condition.
+race condition: when multiple threads try to modify the same object at the same time, then we do
+not allow modifying variables, we urge them to replace the whole object, so that the state stays
+afresh and anew for the next thread.
+
+
+
+Builder Design pattern -
+
+but if we have optional arguments then we need 2^n constructors where n is the number of optional
+arguments, otherwise do away with Immutability.
+so, to avoid this scenario, we use an intermediate builder class and try to accumulate data in it.
+
+Design Pattern: solution to the re-occuring design problems.
+
+class Main {
+    public static void main(string args[]) {
+        User samar = new User.Builder("123", "samar", "7898506696").setAdmin(false).build();
+    } 
+}
+
+class User {
+    private final string id;
+    private final string name;
+    private final string phoneNumber;
+    private final string address;
+    private final bool isAdmin;
+
+    User(string id, string name, string phoneNumber, string address, bool isAdmin) {
+        this.id = id;
+        this.name = name;
+        this.phoneNumber = phoneNumber;
+        this.address = address;
+        this.isAdmin = isAdmin;
+    }
+
+    static class Builder {
+
+        private final string id;
+        private final string name;
+        private final string phoneNumber;
+        private string address;
+        private bool isAdmin;
+
+        Builder(string id, string name, string phoneNumber) {
+            this.id = id;
+            this.name = name;
+            this.phoneNumber = phoneNumber;
+        }
+
+        public Builder setAddress(string address) {
+            this.address = address;
+            return this;
+        }
+
+        public Builder setAdmin(bool isAdmin) {
+            this.isAdmin = isAdmin;
+            return this;
+        }
+
+        public User Build() {
+            return new User(id, name, phoneNumber, address, isAdmin);
+        }
+    }
+}
+
+
+Decorator Design pattern -
+Problem: 
+base + decorations (doesn't change the base only build on it)
+e.g. -
+Pizza base -> decorate with onion -> with tomato -> with cheese -> final product
+
+class main {
+    public static void main(string args[]) {
+        Pizza pizza = new TomatoDecoration(new OnionDecoration(new WheatBase()));
+        s.o.p(pinna.name());
+    }
+}
+
+interface Pizza {
+    string name();
+    double price();
+}
+
+class WheatBase implements Pizza {
+
+    @Override
+    public string name() {
+        return "WheatBase";
+    }
+
+    @Override
+    public double price() {
+        return 100;
+    }
+}
+
+class OnionDecoration implements Pizza {
+
+    private final Pizza pizza;
+
+    OnionDecoration(Pizza pizza) {
+        this.pizza = pizza;
+    }
+
+    @Override
+    public string name() {
+        return pizza.name + "\t" + "onion";
+    }
+
+    @Override
+    public double price() {
+        return pizza.price + 20;
+    }
+}
+
+class TomatoDecoration implements Pizza {
+
+    private final Pizza pizza;
+
+    OnionDecoration(Pizza pizza) {
+        this.pizza = pizza;
+    }
+
+    @Override
+    public string name() {
+        return pizza.name + "\t" +  "tomato";
+    }
+
+    @Override
+    public double price() {
+        return pizza.price + 30;
+    }
+}
