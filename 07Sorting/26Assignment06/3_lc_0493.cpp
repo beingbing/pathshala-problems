@@ -7,13 +7,13 @@ class Solution {
 
     void merge(vector<int>& a, int& s1, int& e1, int& e2) {
         int s2{e1+1};
-        int i = s1, j = s2, c = s1;
+        int i = s1, j = s2;
         for (; i<=e1; i++) {
             while (j <= e2 && a[i] > 2LL*a[j]) j++;
             cnt += j-s2;
         }
-        i = s1, j = s2, c = s1;
-        int tmp[e2];
+        i = s1, j = s2;
+        int c = s1, tmp[e2+1];
         while (i <= e1 && j <= e2)
             if (a[i] <= a[j]) tmp[c++] = a[i++];
             else tmp[c++] = a[j++];
