@@ -10,7 +10,6 @@ public:
         sort(a1.begin(), a1.end());
         sort(a2.begin(), a2.end());
         while (i < n && j < m) {
-            cout << i << " " << a1[i] << " " << j << " " << a2[j] << endl;
             if (a1[i] < a2[j]) i++;
             else if (a1[i] > a2[j]) j++;
             else {
