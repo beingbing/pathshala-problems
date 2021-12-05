@@ -20,10 +20,11 @@ TC = O(n^2)
 M2 -
 i = 0, j = 0
 freq[s[0]]++
+ans = 1
 while (j < n-1) {
     if (freq[s[j+1]] == 0) {
-        j++
         freq[s[j+1]]++
+        j++
     } else {
         freq[s[i]]--
         i++
