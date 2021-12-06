@@ -1,6 +1,7 @@
 ~~ smallest substring with all characters ~~
 
-given 2 string s[m] and t[n], find min length of s that contains all characters of t
+given 2 string s[m] and t[n], find min length of s that contains all characters of t.
+if no such window exists then return an empty string.
 
 string minWindow(string s, string t) {
     if (t.size() == 0) return "";
@@ -32,3 +33,4 @@ string minWindow(string s, string t) {
 }
 
 TC = O(n)
+SC = O(1)
