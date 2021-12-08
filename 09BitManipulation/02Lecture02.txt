@@ -4,8 +4,12 @@
 - add 0 at right most bit and shift all present bits towards left
 - whenever we left shift a number, we multiply it by 2
 
+Note: bit operations are fastest
+
+precedence order
+§. arithematic operators
+-. bitwise operators
+
 5. right shift operator (>>)
 - all bits move towards right and the left most bit is eliminated
 - whenever we left shift a number, we divide it by 2
-
-Note: bit operations are fastest
