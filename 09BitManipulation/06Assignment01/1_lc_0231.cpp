@@ -6,7 +6,7 @@ typedef long long int ll;
 class Solution {
 public:
     bool isPowerOfTwo(int n) {
-        if (n == 0) return false;
+        if (n <= 0) return false;
         ll num = (ll) n;
         return !(num&(num-1));
     }
