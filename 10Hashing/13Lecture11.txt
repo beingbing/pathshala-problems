@@ -17,3 +17,5 @@ for (i{0}; i<n) {
     ans = max(ans, len);
 }
 return ans;
+
+TC = O(n)
