@@ -8,26 +8,24 @@ modifications
 here value will denote the index of first occurence of that prefix sum
 
 unordered_map<int, int> m;
-int ans = 0;
-m.insert({ans, -1});
-int psum = 0
+int ans = 0, psum = 0
+m.insert({psum, -1});
 for (i{0}; i<n) {
     psum += a[i]
     if (m.find(psum) == m.end()) m.insert({psum, i});
     else ans = max(ans, i-m[psum])
 }
-return false;
+return ans;
 
 
 modification find sum = k
 so,
 unordered_map<int, int> m;
-int ans = 0;
-m.insert({ans, -1});
-int psum = 0
+int ans = 0, psum = 0
+m.insert({psum, -1});
 for (i{0}; i<n) {
     psum += a[i]
     if (m.find(psum-k) != m.end()) ans = max(ans, i-m[psum-k]);
     if (m.find(psum) == m.end()) m.insert({psum, i});
 }
-return false;
+return ans;
