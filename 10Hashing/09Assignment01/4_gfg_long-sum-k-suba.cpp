@@ -6,14 +6,14 @@ class Solution {
 public:
     int lenOfLongSubarr(int a[], int n, int k) {
         unordered_map<int, int> pfSumIdx;
-        int curSum{0}, len{0};
-        pfSumIdx[0] = -1;
+        int pfSum{0}, ans{0};
+        pfSumIdx[pfSum] = -1;
         for (int i{0}; i < n; i++) {
-            curSum += a[i];
-            if (pfSumIdx.find(curSum - k) != pfSumIdx.end()) len = max(len, i - pfSumIdx[curSum - k]);
-            if (pfSumIdx.find(curSum) == pfSumIdx.end()) pfSumIdx[curSum] = i;
+            pfSum += a[i];
+            if (pfSumIdx.find(pfSum - k) != pfSumIdx.end()) ans = max(ans, i - pfSumIdx[pfSum - k]);
+            if (pfSumIdx.find(pfSum) == pfSumIdx.end()) pfSumIdx[pfSum] = i;
         }
-        return len;
+        return ans;
     }
 };
 
