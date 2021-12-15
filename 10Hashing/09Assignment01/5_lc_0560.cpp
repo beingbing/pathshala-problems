@@ -7,12 +7,12 @@ class Solution {
 public:
     int subarraySum(vector<int>& nums, int k) {
         unordered_map<int, int> mp;
-        int curSum = 0, cnt{0};
+        int pfSum = 0, cnt{0};
+        mp[cnt] = 1;
         for (int i{0}; i<nums.size(); i++) {
-            curSum += nums[i];
-            if (curSum == k) cnt++;
-            if (mp.find(curSum-k) != mp.end()) cnt += mp[curSum-k];
-            mp[curSum]++;
+            pfSum += nums[i];
+            if (mp.find(pfSum-k) != mp.end()) cnt += mp[pfSum-k];
+            mp[pfSum]++;
         }
         return cnt;
     }
