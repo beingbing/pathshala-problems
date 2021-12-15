@@ -1,6 +1,7 @@
 ~~ longest consecutive sequence ~~
 
 given an array, find length of longest consecutive sequence.
+streak of an element -> size of the consecutive chunk in which it is present.
 ls -> left streak
 rs -> right streak
 a -> given array
@@ -15,7 +16,7 @@ for (i{0}; i<n) {
     if (m.find(a[i]-1) != m.end()) ls = m[a[i]-1];
     if (m.find(a[i]+1) != m.end()) rs = m[a[i]+1];
     ans = max(ans, ls+rs+1)
-    m[a[i]] = ls+rs+1
+    m[a[i]] = 1+ls+rs;
     m[a[i]-ls] = 1+ls+rs;
     m[a[i]+rs] = 1+ls+rs;
 }
