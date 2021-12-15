@@ -3,17 +3,15 @@
 using namespace std;
 
 int maxLen(int arr[], int n) {
-    unordered_map<int, int> presum;
-    int sum = 0;
-    int max_len = 0;
+    unordered_map<int, int> mp;
+    int ans = 0, psum = 0;
+    mp[psum] = -1;
     for (int i = 0; i < n; i++) {
-        sum += arr[i];
-        if (arr[i] == 0 && max_len == 0) max_len = 1;
-        if (sum == 0) max_len = i + 1;
-        if (presum.find(sum) != presum.end()) max_len = max(max_len, i - presum[sum]);
-        else presum[sum] = i;
+        psum += arr[i];
+        if (mp.find(psum) == mp.end()) mp[psum] = i;
+        else ans = max(ans, i - mp[psum]);
     }
-    return max_len;
+    return ans;
 }
 
 int main() {
