@@ -5,14 +5,13 @@ using namespace std;
 class Solution{
     public:
     bool subArrayExists(int arr[], int n) {
-        int pfSum[n];
-        pfSum[0] = arr[0];
-        for (int i{1}; i<n; i++) pfSum[i] = pfSum[i-1] + arr[i];
-        unordered_map<int ,int> mp;
+        unordered_map<int, int> mp;
+        int pfSum{0};
+        mp[pfSum] = -1;
         for (int i{0}; i<n; i++) {
-            if (pfSum[i] == 0 && i != 0) return true;
-            if (mp.find(pfSum[i]) != mp.end()) return true;
-            mp[pfSum[i]] = i;
+            pfSum += arr[i];
+            if (mp.find(pfSum) != mp.end()) return true;
+            mp[pfSum] = i;
         }
         return false;
     }
