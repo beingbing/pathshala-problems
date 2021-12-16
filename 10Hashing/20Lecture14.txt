@@ -27,7 +27,7 @@ both should be 2/3.
 for this we need to find gcd of numerator and denominator, then divide both of them by gcd.
 
 here 0/1, 0/14, 5/0, 6/0, ... will also be taken care of, as there gcd will be 1, 14, 5, 6, ...
-which after getting divided by gcd becoe 1,0 or 0,1
+which after getting divided by gcd become 1,0 or 0,1
 
 if duplicate points are present then we get (0,0), we can not let them getting divided by gcd.
 for this we will keep track of duplicate points.
@@ -35,8 +35,8 @@ for this we will keep track of duplicate points.
 another problem, (2, -3) should be considered either as (-2, 3) or identical to it.
 and for (-2, -3) it need to be converted to (2, 3)
 
-so if olp stores all duplicate points of p, and maxm has the maximum frequency then total number
-of points will be 1(due to point p) + olp + maxm
+so if olp (overlapping points) stores all duplicate points of p, and maxm has the maximum frequency
+then total number of points will be 1(due to point p) + olp + maxm
 
 
 code -
@@ -57,21 +57,21 @@ void standardise(int& numerator, int& denominator) {
 }
 
 int maxPoints(vector<vector<int>>& points) {
-    if (points.size() == 0) return 0;
+    int n = points.size();
+    if (n == 0) return 0;
     int ans = 1;
     map<pair<int, int>, int> m;
-    for (i{0}; i<points.size()) {
+    for (int i{0}; i<n; i++) {
         int olp = 0, maxm = 0;
-        for (j{i+1}; j<points.size()) {
-            if (points[i][0] == points[j][0] && points[i][1] == points[j][0]) olp++;
+        for (int j{i+1}; j<n; j++) {
+            if (points[i][0] == points[j][0] && points[i][1] == points[j][1]) olp++;
             else {
-                int xdiff = points[j][0] - points[i][0], ydiff = points[j][1] - points[i][1]
+                int xdiff = points[j][0] - points[i][0], ydiff = points[j][1] - points[i][1];
                 int g = gcd(abs(xdiff), abs(ydiff));
                 int f = xdiff/g, s = ydiff/g;
-                standardise(f, g);
-                if (m.find({f,g}) != m.end()) m[{f,g}]++;
-                else m[{f,g}] = 1;
-                maxm = max(maxm, m[{f,g}]);
+                standardise(f, s);
+                m[{f,s}]++;
+                maxm = max(maxm, m[{f,s}]);
             }
         }
         ans = max(ans, 1+olp+maxm);
