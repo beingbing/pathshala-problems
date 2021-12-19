@@ -2,10 +2,24 @@
 
 implement two stacks within same array
 
+using same array but with two top variables running in opposite direction on opposite ends of array.
+All the operaitions will be separately available for both top variables.
+
+stack has a free end and a fixed end, every operation is available only for free end.
+
 struct stack {
     int a[n]
     int top1 = -1, top2 = n
 }
 
+stack1
 push1 top1++
+pop1 top1--
+
+stack2
 push2 top2--
+pop2 top2++
+
+to detect overflow in this implementation, occurs when both top1 and top2 variables are already
+standing side by side.
+This overflow situation will be common for both the stacks.
