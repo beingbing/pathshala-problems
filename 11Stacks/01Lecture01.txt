@@ -3,3 +3,56 @@
 LIFO/FILO
 
 it's a single ended data structure
+
+when we do UNDO we pop off the most recent snapshot from top and push it to REDO stack, just in case
+if we ever want to redo it again.
+
+stack can be easily implemented using array.
+we keep a top pointer, which will point to the recently added element at the back of array.
+when array is empty, top will have value as -1.
+pop operation on an empty stack will result in stack underflow.
+push operation on a full stack will result in stack overflow.
+
+struct stack {
+    int a[N];
+    int top = -1;
+}
+
+operations on stack -
+
+void push(int x);
+void pop();
+int top();
+
+bool isFull();
+bool isEmpty();
+
+bool isFull() {
+    return top == N-1;
+}
+
+bool isEmpty() {
+    return top == -1;
+}
+
+void push(int x) {
+    if (isFull()) cout << "overflow" << endl;
+    else {
+        s.top++;
+        s.a[s.top] = x;
+    }
+}
+
+void pop() {
+    if (isEmpty()) cout << "underflow" << endl;
+    else s.top--;
+}
+
+int top() {
+    if (isEmpty()) cout << "underflow" << endl;
+    else return s.a[s.top];
+}
+
+TC of all these methods is O(1)
+
+for inbuilt stack, perform pop() and top() only after confirming that stack is not empty.
