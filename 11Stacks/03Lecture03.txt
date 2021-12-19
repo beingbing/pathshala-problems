@@ -9,12 +9,15 @@ s.push()
 s.pop()
 s.top() => int
 
+s.full() is not that much needed in dynamic stacks.
+
 implement push bottom to given stack;
 
 - use a temporary stack to empty given stack
 - push the required element
 - push back the elements from temporary stack into original stack;
 
+// code for iterative implementation
 void pushBottom(int x, stack<int>& s) {
     stack<int> tmp;
     while (!s.empty()) {
@@ -30,7 +33,7 @@ void pushBottom(int x, stack<int>& s) {
     }
 }
 
-// recursive code
+// code for recursive implementation
 void pushBottom(int x, stack<int>& s) {
     if (s.empty()) s.push(x), return;
     int y = s.top()
