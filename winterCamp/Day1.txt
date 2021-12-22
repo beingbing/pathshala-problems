@@ -1,0 +1,31 @@
+I. structure
+    practice        =>      1. pattern recognition
+                            2. observation and proving the observation
+
+
+II. clean coding => it gives you ability to collaborate. OOPS, design pattern and principles
+
+III. CS fundamentals => OS, networking, databases
+
+IV. high level design / system design => how system scale ?
+
+V. soft skills => communication
+
+VI. confidence
+
+V. projects => latest tech, E2E build a website/app
+
+
+Q. from a given array, find three numbers such that there product is maximum.
+algo:
+    1. sort array
+    2. print max(a[0]*a[1]*a[n-1], a[n-1]*a[n-2]*a[n-3]);
+
+Q2. find k numbers such that there product is maximum.
+algo:
+    1. prefix product
+    2. suffix product
+    3. loop over them (0 -> k) elements from prefix products * (k -> 0) elements from suffix product
+
+
+HW: study Time and Space complexity lectures and recursion topic
