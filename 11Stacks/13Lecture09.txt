@@ -2,6 +2,9 @@
 
 given an array, find the sum of minimum elements of all the subarrays
 
+psoee => previous smaller or equal element
+nse => next smaller element
+
 vector<int> a;
 int m = 10^9+7, n = a.size()
 vector<int> nse(n), psoee(n);
