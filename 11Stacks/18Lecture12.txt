@@ -1,7 +1,18 @@
 ~~ design min stack - 2 ~~
 
 - encode both current and previous minimum in a single value.
+    and then store that value in stack as element, what will be unique about this value is,
+    we will be storing the original value in curMin and modified value in stack.
 - recognise the point of change
+    point of change will come whenever we get an element which is smaller than our curMin.
+
+proxyElement = 2*realElement - curMin
+curMin = realElement
+(and, proxyElement < curMin)
+so, whenever, s.top() < curMin (it's a proxyElement)
+so, retrace back to prevMin and pop it off, for this -
+prvMin = 2*curMin - proxyElement
+curMin = prvMin
 
 encoding => 2*curMin - prevMin = st.top()
 
