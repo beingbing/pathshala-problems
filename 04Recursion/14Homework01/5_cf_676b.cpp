@@ -17,8 +17,8 @@ int main() {
     int n,t;
     cin >> n >> t;
     vector<vector<double>> mat(n, vector<double>(n, 0));
-    int cnt = 0, tme = 0;
-    for (int i{0}; i<t; i++) fillGlasses(mat, n, 0, 0, 1);
+    fillGlasses(mat, n, 0, 0, t);
+    int cnt = 0;
     for (int i{0}; i<n; i++) for (int j{0}; j<=i; j++) if (mat[i][j] == 1) cnt++;
     cout << cnt << endl;
     return 0;
