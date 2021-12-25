@@ -2,10 +2,11 @@
 
 void push(x)
 int pop()
-int peek() // front
+int peek() // get from front
 bool empty()
 
-q.push(x) == s.push(x)
+q.push(x) == s.push(x) but q.pop() != s.pop()
+
 
 class QueueByStack {
     stack<int> stk, auxStk;
@@ -39,6 +40,8 @@ class QueueByStack {
     }
 
     bool empty() {
-        return stk.top()
+        return stk.empty();
     }
 }
+
+not much useful, you can completely ignore this video lecture
