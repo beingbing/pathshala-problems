@@ -45,3 +45,5 @@ class QueueByStack {
         return pushStack.empty() && popStack.empty();
     }
 }
+
+unnecessarily made complicated, you can ignore this lecture as well and see assignment 1 Q2 implementation
