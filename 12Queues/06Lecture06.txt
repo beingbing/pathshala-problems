@@ -40,3 +40,5 @@ class StackByQueue {
         return q.empty();
     }
 }
+
+assignment 1 Q3 has a better implementation, although logic is same
