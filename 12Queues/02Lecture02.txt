@@ -2,7 +2,11 @@
 
 if array is circular
 we can achieve it by -
-b = (b+1)%n instead of b = b+1
+b = (b+1)%n instead of b = b+1, both for front and back indices
+n is size of array
 
-overflow => front = (back+1)%n
+overflow/underflow => front = (back+1)%n
+so it may create confusion, hence to distinguish between these two conditions
+you can keep a 'count' variable and then
+overflow => count = n
 underflow => count = 0
