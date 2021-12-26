@@ -36,6 +36,6 @@ public:
 int main() {
     vector<int> nums = {2,3,1,2,4,3};
     Solution obj;
-    cout << obj.minSubArrayLen(7, nums);
+    cout << obj.minSubArrayLen(7, nums) << endl;
     return 0;
 }
