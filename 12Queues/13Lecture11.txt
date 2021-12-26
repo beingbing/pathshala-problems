@@ -3,5 +3,18 @@
 given int a[n], and k, k < n.
 consider every window of size k and find maximum element in that window.
 
+starting index of last window will be (n-1) - (k-1) = n - k
+hence there will be n-k+1 total windows with each window size being k
+
+brute force approach -
+
+for (int i{0}; i<(n-k); i++) {
+    getMax(i, i+k-1);
+}
+
+so, our brute force approach will have TC = O((n-k+1)*k)
+thus if k = n/2, our TC == O(n^2), which will not be good.
+
+our approach using deque will have
 SC = O(k)
 TC = O(n)
