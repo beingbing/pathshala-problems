@@ -1,19 +1,24 @@
 ~~ reverse linked list (recursively) ~~
 
+we need to break larger problems into smaller sub problems
+
+1->2->3->4
+
 recursive steps -
-- delink the head from remainder.
-- newHead = make recursive call on remainder
-- link back
-- return new head.
+- delink the head from remainder.               1   2->3->4
+- newHead = make recursive call on remainder    1   2<-3<-4
+- link back                                     1<-2<-3<-4
+- return new head.                              4
 
 Node* rev(Node* p) {
     if (!p) return p;
     if (!(p->next)) return p;
-    Node* tmp = p->next;
-    p->next = NULL;
-    Node* head = rev(tmp);
-    tmp->next = p;
-    return head;
+    Node* tmp = p->next;        // step 1.1
+    p->next = NULL;             // step 1.2
+    Node* head = rev(tmp);      // step 2
+    tmp->next = p;              // step 3
+    return head;                // step 4
 }
+
 TC = O(n)
 SC = O(n)
