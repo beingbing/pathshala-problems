@@ -74,15 +74,13 @@ Node *subLinkedList(Node *l1, Node *l2) {
     int l2len = calLen(l2);
     if (l1len < l2len) return subLinkedList(l2,l1);
     else if (l1len == l2len && sumDigit(l1) < sumDigit(l2)) return subLinkedList(l2,l1);
-
     Node *cur1 = l1, *cur2 = l2;
     Node* stkHead = nullptr;
     int borrow = 0;
     if (l1len == 0) return l2;
     if (l2len == 0) return l1;
     while (l1len > 0 && l2len > 0) {
-        // cout << "l1len: " << l1len << " l2len: " << l2len << endl;
-        int val = borrow * 10 + 0;
+        int val = 0;
         if (l1len >= l2len) {
             val += cur1->data; 
             cur1 = cur1->next; 
@@ -94,10 +92,8 @@ Node *subLinkedList(Node *l1, Node *l2) {
             --l2len;    
         }
         if (val < 0) val += 10, borrow++;
-        // cout << "val: " << val << endl;
         Node *cur = new Node(val);
         cur->next = stkHead;
-        // cout << "borrow: " << borrow << endl;
         Node* tmp = stkHead;
         while (borrow > 0) {
             (tmp->data)--;
