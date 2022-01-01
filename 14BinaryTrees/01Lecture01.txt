@@ -52,5 +52,5 @@ struct Node {
 
 every tree is made up of 3 components - root, left subtree, right subtree.
 
-hierarchy always leads to decomposed which can easy be conquered latter, hence, tree DS
+hierarchy always leads to decomposition which can easily be conquered latter, hence, tree DS
 is inherently recursive in nature and can be solved mostly by divide and conquer.
