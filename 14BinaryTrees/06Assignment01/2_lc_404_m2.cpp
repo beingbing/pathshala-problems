@@ -11,19 +11,17 @@ struct TreeNode {
 };
 
 class Solution {
-    int sum{0};
-
-    void countLeaves(TreeNode *root) {
-        if (!root) return;
-        if (root && root->left && !(root->left->left) && !(root->left->right)) sum += root->left->val;
-        countLeaves(root->left);
-        countLeaves(root->right);
+    int countLeftLeaves(TreeNode *node, bool isLeft) {
+        if (!(node->left) && !(node->right)) return isLeft ? node->val : 0;
+        int total = 0;
+        if (node->left) total += countLeftLeaves(node->left, true);
+        if (node->right) total += countLeftLeaves(node->right, false);
+        return total;
     }
 
 public:
     int sumOfLeftLeaves(TreeNode *root) {
         if (!root) return 0;
-        countLeaves(root);
-        return sum;
+        return countLeftLeaves(root, false);
     }
 };
