@@ -16,7 +16,6 @@ class Solution {
     
     void countGoodNodes(TreeNode* root, int mx) {
         if (!root) return;
-        // cout << mx << " " << root->val << endl;
         if (mx <= root->val) {
             ans++;
             mx = root->val;
