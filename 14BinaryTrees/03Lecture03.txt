@@ -13,7 +13,7 @@ intt countLeaf(Node* root) {
 
 void countLeaf(root) {
     if (!root) return;
-    if (!(root->left) && !(root->right)) cnt++;
+    if (!(root->left) && !(root->right)) cnt++, return;
     countLeaf(root->left);
     countLeaf(root->right);
 }
