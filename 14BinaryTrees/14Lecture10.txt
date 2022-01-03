@@ -1,5 +1,10 @@
 ~~ diameter of binary tree - 2 ~~
 
+the bottleneck we had in our last approach was that we are calculating height of both subtrees for
+every node, so we need to optimize this redundant operation such that in single attempt we get
+ht of all the different subtrees that exists.
+
+code -
 int getHt(Node* root, unordered_map<Node*, int> height) {
     if (!root) return 0;
     int lh = getHt(root->left, height);
