@@ -4,11 +4,30 @@ given a binary tree, find it's diameter
 
 diameter -> longest path between any two nodes
 
-diameter will be some path that will be taking turn about a particular node
+it is not necessary that both ends of diameter are leaf nodes
 
 it is not necessary that diameter will pass through root.
 
-diameter of a tree = max(diameter of LST, diameter of RST, ht of tree);
+diameter will be some path that will be taking turn about a particular node
+
+
+subproblem: the length of longest path that take turn about a particular node, and connects any two nodes
+belonging to that tree
+
+answer: pathLength = 1 + ht of LST  + ht of RST
+
+
+solving the above subproblem for all the nodes will give us the length of longest path passing through
+a given node, and max of all of them will be our answer.
+
+but this is just one way of looking at things, the logic which we can build upon our above approach if
+we try to generalize our subproblem in terms of our actual problem then possible options for diameter are -
+a. passes throug given node.
+b. entirely contained in LST
+c. entirely contained in RST
+
+so,
+diameter of a tree = max(diameter of LST, diameter of RST, 1 + ht of LST + ht of RST);
 
 int getDia(root) {
     if (!root) return 0;
