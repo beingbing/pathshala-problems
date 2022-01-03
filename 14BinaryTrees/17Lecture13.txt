@@ -31,3 +31,6 @@ public:
         return getMaxPath(root).first;
     }
 };
+
+TC = O(n)
+SC = O(h)
