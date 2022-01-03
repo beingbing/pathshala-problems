@@ -1,8 +1,17 @@
 ~~ diameter of binary tree - 3 ~~
 
-key idea: diameter will be some path that will be taking turn about a particular node
+the problem we had in our last approach was its space complexity, we do not want to use extra map to
+store the ht, also, what if there is a possibility to calculate the diameter at the time of height
+calculation only, this will resolve our dependency on height of subtrees of each node.
 
-maintain a global variable mx, and check for max(mx, 1+ ht(lst) + ht(rst));
+key idea with which we started was:
+diameter will be some path that will be taking turn about a particular node
+
+since at every node, we know the ht of its subtrees then why don't we calculate the dia there itself
+and just pass on both ht and maxDia to parent.
+This way we won't be needing to keep a map to do this computation latter.
+
+for above approach, maintain a global variable mx, and check for max(mx, 1+ ht(lst) + ht(rst));
 
 int getHt(Node* root) {
     if (!root) return 0;
@@ -12,8 +21,10 @@ int getHt(Node* root) {
     return 1 + max(lh, rh);
 }
 
-----------------------------------------
+here we solved the problem, TC = O(n) and SC = O(h)
 
+----------------------------------------
+another way to implement,
 
 d = max(1 + h1 + h2, d1, d2)
 
@@ -24,8 +35,8 @@ node to its parent.
 
 pair<int, int> func(root) {
     if (!root) return {0,0};
-    lst = func(root->left)
-    rst = func(root->right);
+    pair<int, int> lst = func(root->left)
+    pair<int, int> rst = func(root->right);
     h1 = lst.first
     d1 = lst.second
     h2 = rst.first
