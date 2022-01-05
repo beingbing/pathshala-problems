@@ -1,5 +1,11 @@
 ~~ all possible binary trees - 2 ~~
 
+In our last solution we were solving the same problem repeatedly, so for this we can keep a count[i]
+which represents count of structurally different trees having i nodes.
+
+here we are doing memoization for keeping track of trees with nodes count which we have previously
+encountered.
+
 vector<Node*> allPossibleTrees(int n) {
     vector<vector<Node*>> trees;
     trees.push_back({NULL});
