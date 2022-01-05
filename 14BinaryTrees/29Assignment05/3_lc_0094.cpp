@@ -1,4 +1,3 @@
-#include <iostream>
 #include <vector>
 using namespace std;
 
@@ -16,12 +15,13 @@ class Solution {
 
     void traverse(TreeNode* root) {
         if (!root) return;
-        ans.push_back(root->val);
         traverse(root->left);
+        ans.push_back(root->val);
         traverse(root->right);
     }
+
 public:
-    vector<int> preorderTraversal(TreeNode* root) {
+    vector<int> inorderTraversal(TreeNode* root) {
         traverse(root);
         return ans;
     }
