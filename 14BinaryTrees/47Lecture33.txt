@@ -1,6 +1,10 @@
 ~~ reconstructing tree from preorder traversal ~~
 
-can we reconstruct a tree from only by a preorder ?
+although we have seen that only availability of preorder/postorder or availability of preorder and postorder
+is not enough to construct a tree but can we make some modifications in the way we do preorder traversal
+and then try to reconstruct tree with that.
+
+so, can we reconstruct a tree from only by a preorder ?
 
 1   2   3   7   4   5   6
 
