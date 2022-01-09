@@ -1,12 +1,14 @@
 ~~ reconstructing tree from given traversals - 1 ~~
 
+this approach will not work if we have duplicate values
+
 vector<int> preorder, inorder
 
 Node* build(int i1, int j1, int i2, int j2) { // i1, j1 - subarray of preorder, i2, j2 - subarray of inorder
     if (i1 > j1) return NULL;
     Node* root = new Node(preorder[i1], NULL, NULL);
     int i;
-    for (i{i2}; i<=j2) if (inorder[i] == preorder[i2]) break;
+    for (i{i2}; i<=j2) if (inorder[i] == preorder[i1]) break;
     root->left = build(i1+1, i1+i-i2, i2, i-1);
     root->right = build(i1+i-i2+1, j1, i+1, j2);
     return root;
