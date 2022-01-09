@@ -1,13 +1,18 @@
 ~~ Count of Nodes in Complete Binary Tree - 3 ~~
 
+no of nodes in a tree = 1 + cnt(LST) + cnt(RST)
+
+here, as our input will always be a complete binary tree, hence either one of LST or RST will be a perfect
+tree, so instead of traversing that, we can just calculate its node via formula (2^h - 1)
+
 Q. count number of nodes in a binary tree.
 
 pair<bool, int> isPerfect(Node* root) {
     Node* tmp = root;
-    int hleft = 0;
-    while (tmp) hleft++, root = root->left;
+    int hleft = 0; // ht in left direction
+    while (tmp) hleft++, tmp = tmp->left;
     tmp = root;
-    int hright = 0;
+    int hright = 0; // ht in right direction
     while (tmp) hright++, tmp = tmp->right;
     return {hleft == hright, hleft};
 }
@@ -15,11 +20,13 @@ pair<bool, int> isPerfect(Node* root) {
 int countNodes(Node* root) {
     if (!root) return 0;
     int cnt = 1; // contribution of root
-    pair<bool, int> pleft = isPerfect(root);
-    pair<bool, int> pright = isPerfect(root);
+    pair<bool, int> pleft = isPerfect(root->left);
+    pair<bool, int> pright = isPerfect(root->right);
     if (pleft.first) cnt += pow(2, pleft.second) - 1;
     else cnt += countNodes(root->left);
     if (pright.first) cnt += pow(2, pright.second) - 1;
     else cnt += countNodes(root->right);
     return cnt;
 }
+
+TC = O((logn)^2)
