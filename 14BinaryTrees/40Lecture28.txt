@@ -7,9 +7,9 @@ as, nodes of last level will be present as left as possible, we can use this inf
 
 ans = count of nodes till second but last level + count of nodes in last level.
 
-Note: number of nodes in last level of a perfect binary tree of height h is 2^(h-1).
+Note: number of nodes in last level of a perfect binary tree of height h is 2^(h-1). (0 indexed)
 
-for Complete BT, 2^(h-1) = count of NULL nodes + count of non NULL nodes.
+for Complete BT, 2^(h-1) = count of NULL nodes + count of non NULL nodes in last level
 
 we can use binary search to find the last NON-NULL node. range: [1, 2^(h-1)]
 
