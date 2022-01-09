@@ -6,7 +6,7 @@ if partially full then all the nodes do appear as left as possible (there should
 perfect binary tree - all levels are full.
 
 Q. count number of nodes in a perfect binary tree.
-A. 2^(h) - 1, h => height.      2^(i+1) - 1, i => level.
+A. 2^(h) - 1, h => height. (h is 0 index)      2^(i+1) - 1, i => level.
 
 h = logn, n => no of nodes.
 so,
