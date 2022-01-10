@@ -2,6 +2,8 @@
 
 subtree -> completely contained in a tree and is not a cut out portion of a path.
 
+"cut out portion" -> only some nodes and their edges are considered
+
 check if 2nd tree is a subtree of 1st.
 
 bool areSame(Node* t1, Node* t2) {
