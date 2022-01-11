@@ -45,32 +45,35 @@ Node *buildTree(string str) {
 
 class Solution {
     vector<int> vec;
+    int idx{0};
 
-    void ioTraverse(Node* root) {
-        if(!root) return;
-        ioTraverse(root->left);
+    void traverse(Node *root) {
+        if (!root) {
+            vec.push_back(-1);
+            return;
+        }
         vec.push_back(root->data);
-        ioTraverse(root->right);
+        traverse(root->left);
+        traverse(root->right);
     }
 
 public:
     vector<int> serialize(Node *root) {
-        ioTraverse(root);
+        traverse(root);
         return vec;
     }
 
     Node *deSerialize(vector<int> &a) {
-        Node *dmy = new Node(-1);
-        Node* temp = dmy;
-        int n = a.size();
-        for(int i{0}; i < n; i++) {
-            temp->right = new Node(a[i]);
-            temp = temp->right;
+        if (idx >= a.size() || a[idx] == -1) {
+            idx++;
+            return nullptr;
         }
-        return dmy->right;
+        Node *root = new Node(a[idx++]);
+        root->left = deSerialize(a);
+        root->right = deSerialize(a);
+        return root;
     }
 };
-
 
 void inorder(Node *root) {
     if (root == NULL) return;
