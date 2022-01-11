@@ -1,5 +1,7 @@
 ~~ LCA - 2 ~~
 
+LCA -> node at which path to reach both our node gets separated
+
 Node* LCA(Node* root, Node* r1, Node* r2) {
     if (!root) return NULL;
     if (root->val == r1->val || root->val == r2->val) return root;
@@ -12,3 +14,12 @@ Node* LCA(Node* root, Node* r1, Node* r2) {
 
 TC = O(n)
 SC = O(h)
+
+if while looking for r1 and r2 our code returns r1/r2 then we need to check whether r2/r1 is present in tree
+or not, it will not affect the time complexity but we need to do that because if both the nodes are present
+along the same path, then, the node found first will be returned and it will be assumed that the other would
+also have been present in that subtree, but here one edge case is, what if only one node was present in
+the all along, the other do not exist, so to handle this edge case we need to traverse once again for the
+confirmation.
+but if problem is confirming that both the node will be present in the tree then we need not to do the above
+process.
