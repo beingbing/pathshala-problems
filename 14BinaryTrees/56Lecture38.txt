@@ -1,6 +1,7 @@
 ~~ distance between nodes ~~
 
-given a BT, and two nodes n1 and n2, find distance between these two nodes.
+given a BT, and two nodes n1 and n2, find distance (number of edges required to connect them)
+between these two nodes.
 
 - find levels of both n1 and n2.
 - find LCA
