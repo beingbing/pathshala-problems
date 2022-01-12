@@ -16,9 +16,10 @@ TC = O(H)
 SC = O(1)
 
 recursive -
-Node* search(Node* root, int k) {
-    if (!root) return NULL;
-    //
+Node* searchBST(Node* root, int val) {
+    if (!root || val == root->val) return root;
+    if (val < root->val) return searchBST(root->left, val);
+    return searchBST(root->right, val);
 }
 
 Q. on the basis of search can we perform insertion also ?
