@@ -9,16 +9,8 @@ struct TreeNode {
 };
 
 class Solution {
-public:
-    
     vector<vector<int>> ans;
-    
-    vector<vector<int>> pathSum(TreeNode* root, int sum) {
-        vector<int> path;
-        currStatus(root, path, sum);
-        return ans;
-    }
-    
+
     void currStatus(TreeNode* root, vector<int> &path, int sum) {
         if (!root) return;
         path.push_back(root->val);
@@ -27,4 +19,12 @@ public:
         currStatus(root->right, path, sum - root->val);
         path.pop_back();
     }
+
+public:
+    vector<vector<int>> pathSum(TreeNode* root, int sum) {
+        vector<int> path;
+        currStatus(root, path, sum);
+        return ans;
+    }
+    
 };
