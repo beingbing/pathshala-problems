@@ -5,7 +5,7 @@ given a BT, check if it is a BST.
 Note: given a BST, it's inorder traverse will be sorted.
 reversing this logic,
 if an inorder traverse is sorted then it is BST.
-Although we can not re-create a BST from it's inorder traversal, but it is enough to conclude
+Although we can not re-create a unique BST from it's inorder traversal, but it is enough to conclude
 that whether a BT is BST.
 
 bool isBST(Node* root) {
