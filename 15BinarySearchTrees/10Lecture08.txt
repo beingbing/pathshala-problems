@@ -9,13 +9,13 @@ but this won't work as LST should have all the elements smaller w.r.t. root vis-
 instead if we get minVal(RST) maxVal(LST) and if maxVal(LST) < root < minVal(RST) then we can guarantee
 that the current node is following BST criteria.
 
-pair<pair<int, int>, bool> check(Node* root) {
+pair<pair<long, long>, bool> check(Node* root) {
     if (!root) return {{LONG_MAX, LONG_MIN}, true};
     left = check(root->left);
     right = check(root->right);
-    bool flag = left.second && right.second && root->val > left.first.second && right.first.first;
-    long mn = min(root->val, left.first.first, right.first.first);
-    long mx = max(root->val, left.first.second, right.first.second);
+    bool flag = left.second && right.second && root->val > left.first.second && root->val < right.first.first;
+    long mn = min((long) root->val, left.first.first, right.first.first);
+    long mx = max((long) root->val, left.first.second, right.first.second);
     return {{mn, mx}, flag};
 }
 
