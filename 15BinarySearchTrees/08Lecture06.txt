@@ -2,6 +2,8 @@
 
 given a BST and an integer k(1 indexed), find the kth smallest integer.
 
+in BST, inorder traversal will give us the data in sorted order.
+
 int getKthVal(Node* root, int k) {
     int cnt = 1, ans;
     traverse(root, k, cnt, ans);
