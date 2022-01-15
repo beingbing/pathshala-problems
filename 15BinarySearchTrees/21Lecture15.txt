@@ -22,21 +22,21 @@ TC = O(n)
 SC = O(h)
 
 void moveLeft(Stack<Node*>& stk) {
-    Node* n = stk1.top();
-    stk1.pop();
+    Node* n = stk.top();
+    stk.pop();
     Node* tmp = n->right;
     while (tmp) {
-        stk1.push(tmp);
+        stk.push(tmp);
         tmp = tmp->left;
     }
 }
 
 void moveRight(Stack<Node*>& stk) {
-    Node* n = stk1.top();
-    stk1.pop();
+    Node* n = stk.top();
+    stk.pop();
     Node* tmp = n->left;
     while (tmp) {
-        stk1.push(tmp);
+        stk.push(tmp);
         tmp = tmp->right;
     }
 }
@@ -50,7 +50,7 @@ bool isPresent(Node* root, int& target) {
     }
     node = root;
     while (node) {
-        stk1.push(node);
+        stk2.push(node);
         node = node->right;
     }
     while (stk1.top() != stk2.top()) {
