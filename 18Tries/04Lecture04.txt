@@ -16,11 +16,20 @@ TrieNode* createNode() {
     return node;
 }
 
-void insert(TrieNode* cur, string& word, int pos) {
+void insertWord(TrieNode* cur, string& word, int pos) {
     if (pos > word.size()) return cur;
     if (!cur) cur = new TrieNode();
     cur->subTreeStings++;
     if (pos == word.size()) cur->end = true;
     else cur->children[word[pos]-'a'] = insertWord(cur->children[word[pos]-'a'], str, pos+1);
     return cur;
+}
+
+alternately,
+
+void insert(TrieNode* cur, string& word, int pos) {
+    if (pos == word.size()) cur->end = true, return;
+    cur->subTreeStings++;
+    if (!cur->children[word[pos]-'a']) cur->children[word[pos]-'a'] = createNode();
+    insert(cur->children[word[pos]-'a'], word, pos+1);
 }
