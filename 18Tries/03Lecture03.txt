@@ -11,11 +11,6 @@ find how many nodes in its subtree have isString == true.
 so, while creating the tree if we store the count of isString == true nodes up until that node then our
 answer can be obtained in O(1) TC.
 
-or,
-we can also have a boolean stringEnd = true/false signifies whether at particular prefix we form a
-string candidate of not.
-
-
 struct TrieNode {
     int subTreeStings;
     TrieNode* children[26];
@@ -28,3 +23,8 @@ int find(string& prefix, int pos, Node* root) {
 }
 TC = O(l)
 SC = O(l)
+
+and in addition to this implementation,
+we can also have a boolean stringEnd = true/false, which signifies whether at particular prefix
+on which we stand currently is in itself a string candidate or not.
+This will help us in preventing the case where we try to add a string again which is already present.
