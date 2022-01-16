@@ -1,0 +1,38 @@
+~~ diameter and height - 2 ~~
+
+diameter = 1 + max subtree ht + second max subtree ht
+
+int main() {
+    int nodesCnt, edgeStrt, edgeEnd;
+    cin >> nodesCnt;
+    vector<vector<int>> adjacencyList(n+1);
+    adjacencyList[1].push_back(0);
+    while (nodesCnt--) {
+        cin >> edgeStrt >> edgeEnd;
+        adjacencyList[edgeStrt].push_back(edgeEnd);
+        adjacencyList[edgeEnd].push_back(edgeStrt);
+    }
+    int ans{0};
+    getHt(adjacencyList, ans, 1, 0);
+    cout << ans << endl;
+    return 0;
+}
+
+vector<int> hts;
+
+int getHt(vector<vector<int>>& adjacencyList, int& ans, Node* rootNode, Node* parentNode) {
+    if (adjacencyList[rootNode].size() == 1) return 0;
+    hts.clear();
+    for (int j{0}; j < adjacencyList[rootNode].size(); j++) {
+        if (adjacencyList[rootNode][j] != parentNode) {
+            hts.push_bacl(getHt(adjacencyList, ans, adjacencyList[rootNode][j], rootNode));
+        }
+    }
+    sort(hts.begin(), hts.end());
+    int x = 1 + hts.back();
+    if (hts.size() > 1) x += hts[hts.size()-2];
+    ans = max(ans, x);
+    return 1 + hts.back();
+}
+
+TC = O(n)
