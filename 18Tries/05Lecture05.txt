@@ -1,13 +1,15 @@
 ~~ deletion in tries ~~
 
+steps to delete a string -
+1. find if the string is present in trie or not. (endStr flag)
+2. if found, decrease counter for each node in the path.
+3. if any nodes counter becomes zero, delete that node completely.
+
 void deletion(TrieNode* root, string str, int pos) {
     if (!root) return;
     bool found = false;
     if (pos == str.size()) {
-        if (root->isPresent) {
-            found = true;
-            root->prefixCnt--;
-        }
+        if (root->isPresent) found = true, root->prefixCnt--;
         return;
     }
     deletion(root->next[str[pos]-'a'], str, pos+1);
@@ -15,6 +17,25 @@ void deletion(TrieNode* root, string str, int pos) {
     if (root->next[str[pos]-'a']->prefixCnt == 0) {
         TrieNode* temp = root->next[str[pos]-'a'];
         root->next[str[pos]-'a'] = NULL;
+        delete(temp);
+    }
+}
+
+alternately,
+
+bool found = false;
+
+void deletion(TrieNode* cur, string& word, int pos) {
+    if (!cur) return;
+    if (pos == word.size()) {
+        if (cur->end) found = true, cur->subTreeStings--;
+        return;
+    }
+    deletion(cur->children[word[pos]-'a'], word, pos+1);
+    if (found) cur->subTreeStings--;
+    if (cur->children[word[pos]-'a']->subTreeStings == 0) {
+        TrieNode* temp = cur->children[word[pos]-'a'];
+        cur->children[word[pos]-'a'] = NULL;
         delete(temp);
     }
 }
