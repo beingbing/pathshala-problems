@@ -1,12 +1,23 @@
 ~~ shortest unique prefixes ~~
 
+given a list of strings, for every string give a shortest unique prefix.
+
+also given, no string present will in itself be a prefix of other string, because if for any string this
+happens, then that string is completely present in any other string.
+
+1. insert all the strings in trie.
+2. for each string, traverse trie till we find a node with subTreeStings == 1, our prefix till that node
+is our answer.
+
+run below code snippet for each string,
+
 string ans = ""
 void findUniquePrefix(string &s, node* cur, int pos) {
     if (cur->strings == 1) ans = s.substr(0, pos), return;
     findUniquePrefix(s, cur->children[s[pos]-'a'], pos+1);
 }
 
-for building trie TC = O(nl)
-for finding TC = O(nl)
+for building trie, TC = O(nl)
+for finding, TC = O(nl)
 so, TC = O(nl)
 SC = O(nl)
