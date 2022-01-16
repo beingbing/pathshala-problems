@@ -18,11 +18,11 @@ class Trie {
     TrieNode* root;
 
     void insert(TrieNode* cur, string& word, int pos) {
+        cur->subTreeStrCnt++;
         if (pos == word.size()) {
             cur->isStrPresent = true;
             return;
         }
-        cur->subTreeStrCnt++;
         if (!cur->children[word[pos]-'a']) cur->children[word[pos]-'a'] = new TrieNode();
         insert(cur->children[word[pos]-'a'], word, pos+1);
     }
