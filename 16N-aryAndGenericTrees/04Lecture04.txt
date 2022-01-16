@@ -1,0 +1,21 @@
+~~ diameter and height - 1 ~~
+
+a tree with n nodes, find the diameter.
+
+diameter: longest distance between any two nodes.
+
+we do not know the root, also doesn't say about directed/undirected edges.
+
+int getHt(vector<vector<int>>& adjacencyList, Node* rootNode, Node* parentNode) {
+    if (adjacencyList[rootNode].size() == 1) return 0;
+    int mx = -1;
+    for (j{0}; j< adjacencyList[rootNode].size(); j++) {
+        if (adjacencyList[rootNode][j] != parentNode) {
+            mx = max(getHt(adjacencyList, adjacencyList[rootNode][j], rootNode), mx);
+        }
+    }
+    return 1 + mx;
+}
+
+TC = O(n)
+SC = O(E)
