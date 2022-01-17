@@ -1,15 +1,17 @@
 ~~ storing binary numbers in trees ~~
 
-given array a[n], 0 <= a[i] <= (2^m - 1)
+given array a[n], 0 <= a[i] <= (2^m - 1), m is given
 
 - this will always make a binary tree
 - non-leaf nodes will never become valid strings.
 - preorder traversal will release numbers in sorted order.
 - all the leaves will be located at the same level which is m.
 
-Node* left for 0
-Node* right for 1
-int numb // storing leaves.
+struct Node {
+    Node* left; // for 0
+    Node* right; // for 1
+    int num // storing leaves.
+}
 
 Node* createNode() {
     Node* temp = new Node();
@@ -39,6 +41,12 @@ void insert(string& s, int pos, Node* cur) {
         else {
             cur->left = createNode();
             insert(s, pos+1, cur->left);
+        }
+    } else {
+        if (cur->right) insert(s, pos+1, cur->right);
+        else {
+            cur->right = createNode();
+            insert(s, pos+1, cur->right);
         }
     }
 }
