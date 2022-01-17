@@ -7,6 +7,11 @@ max xor of query element with any element from array.
 
 MSB -> LSB
 
+the number with earliest one will always be greater in binary representation, hence if we want to maximize
+something then we should proceed from MSB to LSB and look for the first occurence of 1.
+
+so, vis-a-vis to minimize something, attack its most significant 1s.
+
 algo -
 - convert given query number into binary
 - traverse query binary number 
