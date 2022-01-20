@@ -14,6 +14,7 @@ an undirected graph can be represented using a directed graph.
 
 - complete graph: every node is connected to every other node.
 no of edges in an undirected complete graph = nC2
+no of edges in an undirected complete graph = nC2 * 2
 
 adjacent nodes: directly connected via an edge
 reachable nodes: there is a path between them, connecting them.
