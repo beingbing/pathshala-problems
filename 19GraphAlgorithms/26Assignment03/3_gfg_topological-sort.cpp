@@ -7,15 +7,9 @@ class Solution {
 public:
     vector<int> topoSort(int n, vector<int> adj[]) {
         vector<int> indegree(n, 0);
-        for (int i{0}; i<n; i++) {
-            for (int j{0}; j< adj[i].size(); j++) {
-                indegree[adj[i][j]]++;
-            }
-        }
+        for (int i{0}; i<n; i++) for (int j{0}; j< adj[i].size(); j++) indegree[adj[i][j]]++;
         queue<int> possibleNodes;
-        for (int i{0}; i<n; i++) {
-            if (indegree[i] == 0) possibleNodes.push(i);
-        }
+        for (int i{0}; i<n; i++) if (indegree[i] == 0) possibleNodes.push(i);
         vector<int> topologicalOrder;
         while (!possibleNodes.empty()) {
             int x = possibleNodes.front();
