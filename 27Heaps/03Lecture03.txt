@@ -1,12 +1,42 @@
 ~~ building a max heap - 2 ~~
 
-if we have n elements then our last non-null node will be n/2.
+can heapification be done in O(n) ?
+
+rule: if a BT is a max-heap then it's root will be the max element, but it also follows that both LST and RST
+are in themselves also a maxHeap.
+let's reverse this rule, then, if we have two trees as LST and RST which both are maxHeap then if we just place
+a root greater than the roots of LST and RST then the whole structure will be a maxHeap.
+
+using this rule, we can say that if we have two subtrees as maxHeap and if we place a random root above them,
+then by recursively replacing the root with the greatest among its children we can get a maxHeap in O(logn)
+time as we follow only any one root-to-leaf path.
+
+further extending on this idea, if we want to convert a given array into a maxHeap representation, then we will
+start from last non-leaf node (as we all know that all leaf nodes are maxHeap already).
+
+if we have n elements then our last non-leaf node will be n/2.
+
+so, starting from last non-leaf node we will traverse up till root and will leverage the above discussed
+process to convert the current-tree encountered at every node into a maxHeap until we hit a leaf node for
+that current-tree.
+
+how can we check whether we are at one of the leaf nodes or not ?
+check its index, if node index > n/2 then we are at one of the leaf nodes.
+
+The above discussed procedure is called maxHeapify.
 
 void maxHeapify(int i);
 
-// buildMaxHeap
-for (i{n/2}; i>=1) {
-    maxHeapify(i);
+when you call maxHeapify procedure at index i, it will convert the BT rooted at that index into a maxHeap.
+pre-requisite to use this procedure on any index is that both LST and RST of BT rooted at that index
+should already be maxHeap.
+
+so to build MaxHeap from an array we just can call the maxHeapify process from n/2 till 1 index of that array.
+
+void buildMaxHeap(int n) {
+    for (i{n/2}; i>=1) {
+        maxHeapify(i);
+    }
 }
 
 void maxHeapify(int i) {
@@ -16,4 +46,5 @@ void maxHeapify(int i) {
     if (2*i+1<=n && a[2*i+1] > a[max]) max=2*i+1;
     if (max != i) swap(a[i], a[max]), maxHeapify(i);
 }
+
 TC = O(n)
