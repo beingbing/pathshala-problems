@@ -1,10 +1,34 @@
 ~~ building a max heap - 1 ~~
 
+Q. given an array convert it into a max heap ?
+
+20 1 4 30 16 9 7 15 41 5 11 3 29 25 40
+
+if we sort an array in descending order then it's complete binary tree representation will give us max heap
+but it will give TC = O(nlogn)
+
+can we further optimize this process ?
+for this, we need to understand that we do not need to sort the complete array we just need to make sure that
+in tree representation of it, all parents are greater than both it's children (if it has any)
+
+int BT representation of the array every node to root path should be presnt in descending order.
+
+- take original array
+- do level order traversal on BT (iterate over the array)
+- if at any node
+    - if that node is greater than its parent, swap, and bubble-up this operation till you need to or reach root.
+
 the building of max heap is similar to insertion algo of insertion sort.
 
 for (i{1}; i<=n) {
+    j = i
     while (j>1 && a[j] > a[j/2]) {
         swap(a[j], a[j/2]);
+        j /= 2;
     }
 }
+
 TC = O(nlogn)
+
+but our approach didn't optimzed it down.
+can heapification be done in O(n) ?
