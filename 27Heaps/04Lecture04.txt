@@ -1,23 +1,38 @@
 ~~ heap operations ~~
 
+to create our own heap, we will be needing -
+- large enough array.
+- size variable to keep track of number of elements in the array.
+
+operations -
+
 getMax() - return first element of max-heap array.
+TC = O(1)
+
 
 insert(x) -
+TC = O(logn)
 - insert at the bottom
 - do maxHeapify
 
 a[size] = x;
 size++;
-while (i > 1 && a[i] ? a[i/2]) {
+i = size;
+while (i > 1 && a[i] > a[i/2]) {
     swap(a[i], a[i/2])
     i = i/2;
 }
 
+
 deleteRoot() -
+TC = O(logn)
 - swap root with last element
 - do size--;
+- invoke maxHeapify at index 1
+
 
 deleteAtIndex(i) -
+TC = O(logn)
 - replace element at that index with INF.
 - do maxHeapify
 - do deleteRoot()
