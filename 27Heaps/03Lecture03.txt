@@ -44,7 +44,7 @@ void maxHeapify(int i) {
     int max = i;
     if (a[2*i] > a[max]) max = 2*i;
     if (2*i+1<=n && a[2*i+1] > a[max]) max=2*i+1;
-    if (max != i) swap(a[i], a[max]), maxHeapify(i);
+    if (max != i) swap(a[i], a[max]), maxHeapify(mx);
 }
 
 TC = O(n)
