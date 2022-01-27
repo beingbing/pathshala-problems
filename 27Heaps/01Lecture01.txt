@@ -5,7 +5,27 @@ create a DS to support following operations -
 - delete at a given positions
 - get maximum of those elements
 
+an array can be perceived as a binary tree, with every root i has it's left chilf as 2*i and right child
+as 2*i+1
+and for each node j it's parent will be floor(j/2)
+
+The above arrangement will always result in a complete binary tree.
+
+Note: there can only possibly be one non-leaf node with 1 child and that child will always be a left child
+Note: that non-leaf node will be the last non-leaf node in level order traversal.
+Note: you can always get position of that non-leaf node from last node, as it will always be the case that
+the particular non-leaf node is parent of last node. so if there are n nodes that last non-leaf node will
+be at n/2. so nodes from 1 till n/2 will all be non-leaf nodes and nodes from n/2+1 till n will all be leaf
+nodes.
+
 Heap => an array perceived as a complete binary tree. 
+
+heap can be of two types -
+- minHeap   - maxHeap
 
 minHeap -
 every parent <= both its direct children
+smallest value will always be the root.
+for kth smallest we need to keep deleting root k times and then do heapification so that it stays a minHeap.
+
+Q. given an array convert it into a min/max heap ?
