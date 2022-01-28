@@ -26,6 +26,6 @@ while (pq.size() != 1) {
     int min2 = pq.top();
     pq.pop();
     ans += min1+min2;
-    pq.push(ans);
+    pq.push(min1+min2);
 }
 return ans;
