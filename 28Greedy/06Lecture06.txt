@@ -2,6 +2,19 @@
 
 maximum number of trains that can be present on the station at any instant.
 
+we can keep a single array in which we store all the arrival and departure times with a flag which
+specifies whether it's an arrival time or it's a departure time, then sort them.
+them keep a curCounter and a maxSeenSoFar, then for each new element visited increase the curCounter
+if it's arrival time and decrease for departure time, and after every encounter update the maxSeenSoFar.
+that maxSeenSoFar is our final answer.
+
+here, one edge could be that, what if we have two identical entries, one with arrival and other with
+departure, in that case we need to keep the departure entry first.
+
+instead of creating a common array of both arrival and departure we can use two-pointers approach and
+give every array a pointer after sorting them, and move the pointer which is pointing to the smaller
+among both, and if both values pointed by are same then give preference to departure array.
+
 int ans = 0, i = 0, j = 0, cnt = 0;
 while (i < n && j < n) {
     if (arrival[i] < departure[j]) i++, cnt++;
