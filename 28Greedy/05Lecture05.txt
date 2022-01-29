@@ -9,13 +9,19 @@ imagine platform == person
 and, train == activities
 then question become, min no of people needed to finish all activities.
 
+lets keep an array which tracks departure time of each arriving train, and if that train cannot be
+accomodated in current array then we increase array size to cater to that train, at the end the size
+of array is our count of platforms.
+
 sort(vec.begin(), vec.end(), Comp);
 vector<int> endTimes = {0};
 for (i{0}; i<n) {
     int closest = INT_MIN, k = -1;
     for (int j{0}; j<endTimes.size()) {
-        if (endTimes[j] <= vec[i].first);
-        k = j;
+        if (endTimes[j] <= vec[i].first) {
+            closest = max(closest, depTimes[j]);
+            if (closest == depTimes[j]) k = j;
+        }
     }
     if (k == -1) endTimes.push_back(vec[i].second);
     else endTimes[k] = vec[i].second;
