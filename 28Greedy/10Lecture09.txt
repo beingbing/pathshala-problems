@@ -7,10 +7,12 @@ that prize can be maximum.
 
 we will need a custom greed - price/weight ratio
 
+need to sort the data in decreasing order of price/weight ratio.
+
 bool Comp(pair<int, int>& a, pair<int, int>& b) {
     return a.first*b.second > b.first*a.second;
 }
-
+        {price, weight}
 vector<pair<int, int>> vec;
 int W;
 sort(vec.begin(), vec.end(), Comp);
