@@ -5,8 +5,13 @@ it's one of its kind.
 - assign a byte code to a character
 - no code can be a prefix of another code (two code can have some chars as prefix)
 
+- a complete byte code of a character can not be a prefix to another byte code, there can be some
+common prefixes but never a complete byte code representation of a character can be a prefix to another
+character representation of byte code.
+
 implemented using binary prefix tree.
 
+greed is -
 - most frequent character - smallest length of byte code.
 - least frequent character - largest length of byte code.
 
