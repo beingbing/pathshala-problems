@@ -5,7 +5,19 @@ given a stream of running integers, find median at any instant.
 - maintain minHeap for n/2 largest items
 - maintain maxHeap for n/2 smallest items
 
-- if heaps are of different size, then heap with more elements will have root as our answer.
+- if heaps are of different size (elements count is odd), then heap with more elements will have root as
+our answer.
+- if heaps are of same size (elements count is even), then mean of roots of both the heaps will be our ans.
+
+for coming number, if it is <= curMean, will go into the maxHeap and then new median will be calculated
+and vice versa.
+
+decide for new upcoming element -
+    -> compare newEle with curMedian
+ - if both heaps are of same size, insert in respective head fearlessly
+ - if inserting in smaller in size heap, insert fearlessly.
+ - if inserting in larger in size heap, then kick out root to smaller heap then insert newEle
+    -> update curMedian
 
 class MedianInStream {
     MedianInStream() {
