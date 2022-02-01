@@ -9,6 +9,7 @@ optimal substructure =>  table[i] = table[i] + table[i - 3] + table[i - 5] + tab
 */
 
 #include <iostream>
+#include <vector>
 using namespace std;
 #define ll long long int
 
@@ -16,9 +17,9 @@ ll count(ll n) {
     ll table[n + 1], i;
     memset(table, 0, sizeof(table));
     table[0] = 1;
-    for (i = 3; i <= n; i++) table[i] = table[i-3];
-    for (i = 5; i <= n; i++) table[i] = table[i-5];
-    for (i = 10; i <= n; i++) table[i] = table[i-10];
+    vector<int> vec = {3,5,10};
+    for (int j{0}; j<3; j++)
+        for (i = vec[j]; i <= n; i++) table[i] += table[i-vec[j]];
     return table[n];
 }
 
