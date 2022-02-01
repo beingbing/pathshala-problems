@@ -5,6 +5,8 @@ given number of stairs, we want to reach the top. we are allowed to make followi
 - 2 unit jump
 count total number of distinct ways to reach the top.
 
+// elements of choice - either consider an element or skip it.
+
 to solve it, we need -
 - optimal substructure (recurrence relation)
 - find out overlaping problems.
@@ -19,7 +21,7 @@ top to bottom approach -
 vector<long> ways(n+1, -1);
 
 int totalWays(int i) {
-    if (i>0) return 0;
+    if (i > n) return 0;
     if (i == n) return 1;
     if (ways[i] != -1) return ways[i];
     ways[i] = totalWays(i+1) + totalWays(i+2);
@@ -35,7 +37,7 @@ f(i) = f(i-1) + f(i-2) // how many ways are there to reach ith stair from 0th st
 vector<long> ways(n+1, -1);
 
 int totalWays(int i) {
-    if (i<0) return 0;
+    if (i < 0) return 0;
     if (i == 0) return 1;
     if (ways[i] != -1) return ways[i];
     ways[i] = totalWays(i-1) + totalWays(i-2);
