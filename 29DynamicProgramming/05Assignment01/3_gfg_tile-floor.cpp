@@ -2,14 +2,13 @@
 using namespace std;
 
 class Solution {
-    long long int mod = 1000000007;
 public:
-    int countWays(int n) {
-        long long int ans{0}, f{1}, s{2};
+    long long numberOfWays(long long n) {
+        long long ans{0}, f{1}, s{2};
         if (n == 1) return f;
         if (n == 2) return s;
-        for (int i{2}; i<n; i++) {
-            ans = (f%mod + s%mod) % mod;
+        for (long long i{2}; i<=n; i++) {
+            ans = f + s;
             f = s;
             s= ans;
         }
@@ -21,10 +20,10 @@ int main() {
     int t;
     cin >> t;
     while (t--) {
-        int m;
-        cin >> m;
+        long long N;
+        cin >> N;
         Solution ob;
-        cout << ob.countWays(m) << endl;
+        cout << ob.numberOfWays(N) << endl;
     }
     return 0;
 }
