@@ -4,15 +4,15 @@ using namespace std;
 class Solution {
 public:
     long long numberOfWays(long long n) {
-        long long ans{0}, f{1}, s{2};
+        if (n == 0) return 0;
+        long long int f{1}, s{2}, tmp;
         if (n == 1) return f;
-        if (n == 2) return s;
-        for (long long i{2}; i<=n; i++) {
-            ans = f + s;
+        for (int i{3}; i<=n; i++) {
+            tmp = f + s;
             f = s;
-            s= ans;
+            s= tmp;
         }
-        return ans;
+        return s;
     }
 };
 

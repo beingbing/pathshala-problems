@@ -5,15 +5,15 @@ class Solution {
     long long int mod = 1000000007;
 public:
     int countWays(int n) {
-        long long int ans{0}, f{1}, s{2};
+        if (n == 0) return 0;
+        long long int f{1}, s{2}, tmp;
         if (n == 1) return f;
-        if (n == 2) return s;
-        for (int i{2}; i<n; i++) {
-            ans = (f%mod + s%mod) % mod;
+        for (int i{3}; i<=n; i++) {
+            tmp = (f%mod + s%mod) % mod;
             f = s;
-            s= ans;
+            s= tmp;
         }
-        return ans;
+        return s;
     }
 };
 
