@@ -15,7 +15,7 @@ class Solution {
 
 public:
     int FindMaxSum(int arr[], int n) {
-        vector<int> ans(n+1, -1);
+        vector<int> ans(n, -1);
         return maxSum(0, arr, n, ans);
     }
 };
