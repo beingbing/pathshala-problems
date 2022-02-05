@@ -3,8 +3,8 @@
 a tree is acyclic and a tree with n nodes will always have n-1 edges
 
 generic n-ary trees:
-as any can have any number of children with it, so we can not define a tree-node with a specific
-amount of pointers, it is only at runtime we will now as how many pointers are needed for children
+as any node can have any number of children with it, so we can not define a tree-node with a specific
+amount of pointers, it is only at runtime we will know as how many pointers are needed for children
 hence unlike binary tree where we had *left and *right as pointers for two possible children that
 node can have, we will be using an *arr[n] where each element of array will be a pointer to the
 children.
