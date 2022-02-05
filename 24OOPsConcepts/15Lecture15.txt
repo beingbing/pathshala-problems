@@ -1,0 +1,21 @@
+~~ intro to inheritance ~~
+
+what if we have definition of some methods of an interface exactly identical in all the classes which
+implements that interface.
+
+as we know, interface do not allow to have body of a method, so how can we get rid of that redundancy.
+
+so, to resolve that, we can have a class with the definition of that redundant method, and let all
+other classes extend that class.
+
+so, here we can see that one usage of inheritance is that, it causes code reduction.
+
+inheritance holds an 'is-a' relationship.
+
+so, in a way it is a type of polymorphism.
+
+but, what if similar to Animal interface in last lecture we want to access a method which was defined
+in child classes, in that case, we can just create a dummy body for that method in parent class and
+let child class override it by using @Override annotation.
+
+so, method overriding is one way of achieving polymorphism.
