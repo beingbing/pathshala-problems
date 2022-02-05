@@ -1,0 +1,74 @@
+~~ more on polymorphism ~~
+
+If a class implements an interface then other than the methods defined in that interface, a class should
+also be allowed to define its own methods.
+
+e.g. -
+
+Animal - speak() - move()
+
+goat implements Animal
+
+goat - graze()
+
+but,
+    Goat g = new Goat()
+    g.graze()           is accepted
+
+but,
+    Animal a = new Goat()
+    a.graze()           will give us a compile-time error.
+
+
+it means,
+
+compiler --checks--> class/interface --of--> reference variable
+(here, a and g are reference variables)
+
+to summarize, we are allowed to call some method on a reference variable if and only if the class/interface
+of that variable has the method inside it.
+
+how to resolve this issue ?
+we can resolve it by doing type casting a into g.
+
+Goat g = (Goat) a;
+
+but what if there are different animals (like, cow, buffalo, deer) which all have graze() method, can we
+do typecasting for them too, if yes, then how will we know to which type the Animal reference need to be
+typecasted to.
+
+for that we can make use of 'instanceOf' keyword, this keyword checks the type of instance which is pointed
+by the reference variable, and depending on that we can convert the type of reference variable into
+corresponding type of instance which is pointed by that variable.
+
+if (a instanceOf cow) {
+    Cow c = (Cow) a;
+    c.graze();
+} else if (a instanceOf deer) {
+    Deer d = (Deer) a;
+    d.graze();
+}
+
+but it is not a generic code, depending on the instance, we are choosing what our next step should be, thus,
+if more types are added (e.g., camel, yak), then we will be required to update the above if-else code
+to accomodate those new types as well.
+
+Also, if the reference variable is of type Animal then we should not be knowing that buffalo, cow or goat 
+are some classes which implements Animal, I should not be aware of this information. Our code doesn't follow
+a contract for Animal type, it modifies the ref.variable depending on the instance it has at hand.
+
+So, simply, if Animal do not have a graze() method then we should never be in a situation where we be
+needing to call graze() on Animal object.
+
+Also if we do not follow the contract, we can not guarantee that all the class implementing the Animal
+interface will have a graze() with the same functionality, it may happen that someone may name the
+method grazeGround() for the same functionality. It may happen and we can not deny that it is wrong
+implementation. Furthermore, we need to be aware of the name of method for each class type which has
+a functionality for Animal to graze (like in this case, grazeGround()).
+
+so, to resolve this conflict we should have a new interface by the name Grazeable, and while defining
+the class, we can make them implement Grazeable interface as well.
+
+This implementation will not allow someone to pass an object which do not have Grazeable implemented,
+hence, we do not anymore need to know the type of object, we can be insured that whatever objects
+we are getting will have a graze().
