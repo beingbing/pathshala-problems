@@ -1,0 +1,69 @@
+~~ decorator pattern - 2 ~~
+
+public abstract class Pizza {
+    private final string name;
+    private final double cost;
+
+    protected Pizza(string name, double cost) {
+        this.name = name;
+        this.cost = cost;
+    }
+
+    public string getName() { return name; }
+
+    public string getCost() { return cost; }
+}
+
+public class WheatBase extends Pizza {
+    public WheatBase() {
+        super('Wheat-base', 10);
+    }
+}
+
+public class ThinCrust extends Pizza {
+    public ThinCrust() {
+        super('thin-crust', 7);
+    }
+}
+
+public abstract class Topping extends Pizza {
+    private final Pizza pizza;
+
+    public Topping(string name, double cost, Pizza pizza) {
+        super(name, cost);
+        this.pizza = pizza;
+    }
+
+    @Override
+    public string getName() {
+        return super.getName() + " " + pizza.getName();
+    }
+
+    @Override
+    public double getCost() {
+        return super.getCost() + pizza.getCost();
+    }
+}
+
+public class Olive extends Topping {
+    public Olive(Pizza pizza) {
+        super('olive', 5, pizza);
+    }
+}
+
+public class Onion extends Topping {
+    public Onion(Pizza pizza) {
+        super('onion', 7, pizza);
+    }
+}
+
+here we are doing delegation of work for underlying class
+
+creating a new topping is this easy -
+
+public class Mushroom extends Topping {
+    public Mushroom(Pizza pizza) {
+        super('mushroom', 4, pizza);
+    }
+}
+
