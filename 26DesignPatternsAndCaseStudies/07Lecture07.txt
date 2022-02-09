@@ -1,0 +1,256 @@
+~~ abstract factory pattern ~~
+
+public abstract class Coffee {
+    private final Bean bean;
+    private final Sugar sugar;
+    private final Milk milk;
+
+    protected Coffee(Bean b, Sugar s, Milk m) {
+        this.bean = b;
+        this.sugar = s;
+        this.milk = m;
+    }
+
+    abstract void brew();
+    abstract void boil();
+}
+
+public class Cappuccino extends Coffee {
+
+    public Cappuccino(Bean b, Sugar s, Milk m) { super(b, s, m); }
+
+    @Override
+    public void brew();
+
+    @Override
+    public void boil();
+}
+
+public class Espresso extends Coffee {
+
+    public Espresso(Bean b, Sugar s, Milk m) { super(b, s, m); }
+
+    @Override
+    public void brew();
+
+    @Override
+    public void boil();
+}
+
+public class Robusta implements Coffee {
+
+    public Robusta(Bean b, Sugar s, Milk m) { super(b, s, m); }
+
+    @Override
+    public void brew();
+
+    @Override
+    public void boil();
+}
+
+public interface Bean {
+    //
+}
+
+public class AmericanBean implements Bean {
+    //
+}
+
+public class FrenchBean implements Bean {
+    //
+}
+
+public interface Milk {
+    //
+}
+
+public class PowderedMilk implements Milk {
+    //
+}
+
+public class CowMilk implements Milk {
+    //
+}
+
+public interface Sugar {
+    //
+}
+
+public class RegularSugar implements Sugar {
+    //
+}
+
+public class BrownSugar implements Sugar {
+    //
+}
+
+public class CoffeeFactory {
+    public Coffee getCoffee(string coffeeType) {
+        Coffee coffee;
+        if (coffeeType.equals("Cappuccino"))
+            coffee = new Cappuccino(new AmericanBean(), new RegularSugar(), new CowMilk());
+        else if (coffeeType.equals("Espresso"))
+            coffee = new Espresso(new FrenchBean(), new BrownSugar(), new PowderedMilk());
+        else if (coffeeType.equals("Robusta"))
+            coffee = new Robusta(new AmericanBean(), new BrownSugar(), new CowMilk());
+        return coffee;
+    }
+}
+
+now factory has two responsibilities -
+- creational responsibility w.r.t. coffee.
+- remembering the recipe/ingredients.
+
+for second responsibility we need a separate factory. Better, have a factory for every ingredient.
+And all factories will only be concerned about coffeeType.
+
+our other factories will help in abstracting out ingredients knowledge, such that, if latter we need to
+add some more ingredients in coffee, then CoffeeFactory shouldn't be tampered because of that.
+
+let e be the entity which has knowledge of ingredients needed in a coffeeType.
+such that, new Cappuccino(e) is the dependency structure.
+
+let's name that entity as IngredientFactory
+
+public interface IngredientFactory {
+    Bean getBean();
+    Sugar getSugar();
+    Milk getMilk();
+}
+
+public abstract class Coffee {
+    private final Bean bean;
+    private final Sugar sugar;
+    private final Milk milk;
+    private final IngredientFactory ingredientFactory;
+
+    protected Coffee(IngredientFactory ingredientFactory) {
+        this.ingredientFactory = ingredientFactory;
+        this.bean = ingredientFactory.getBean();
+        this.sugar = ingredientFactory.getSugar();
+        this.milk = ingredientFactory.getMilk();
+    }
+
+    abstract void brew();
+    abstract void boil();
+}
+
+public class Cappuccino extends Coffee {
+
+    public Cappuccino(IngredientFactory ingredientFactory) { super(ingredientFactory); }
+
+    @Override
+    public void brew();
+
+    @Override
+    public void boil();
+}
+
+public class Espresso extends Coffee {
+
+    public Espresso(IngredientFactory ingredientFactory) { super(ingredientFactory); }
+
+    @Override
+    public void brew();
+
+    @Override
+    public void boil();
+}
+
+public class Robusta implements Coffee {
+
+    public Robusta(IngredientFactory ingredientFactory) { super(ingredientFactory); }
+
+    @Override
+    public void brew();
+
+    @Override
+    public void boil();
+}
+
+public class CappuccinoIngredientFactory implements IngredientFactory {
+    
+    @Override
+    public Bean getBean() {
+        return new AmericanBean();
+    }
+
+    @Override
+    public Sugar getSugar() {
+        return new RegularSugar();
+    }
+
+    @Override
+    public Milk getMilk() {
+        return new CowMilk();
+    }
+}
+
+public class EspressoIngredientFactory implements IngredientFactory {
+    
+    @Override
+    public Bean getBean() {
+        return new FrenchBean();
+    }
+
+    @Override
+    public Sugar getSugar() {
+        return new BrownSugar();
+    }
+
+    @Override
+    public Milk getMilk() {
+        return new PowderedMilk();
+    }
+}
+
+public class RobustaIngredientFactory implements IngredientFactory {
+    
+    @Override
+    public Bean getBean() {
+        return new AmericanBean();
+    }
+
+    @Override
+    public Sugar getSugar() {
+        return new BrownSugar();
+    }
+
+    @Override
+    public Milk getMilk() {
+        return new CowMilk();
+    }
+}
+
+public class DefaultIngredientFactory implements IngredientFactory {
+    
+    @Override
+    public Bean getBean() {
+        return new AmericanBean();
+    }
+
+    @Override
+    public Sugar getSugar() {
+        return new RegularSugar();
+    }
+
+    @Override
+    public Milk getMilk() {
+        return new PowderedMilk();
+    }
+}
+
+public class CoffeeFactory {
+    public Coffee getCoffee(string coffeeType) {
+        Coffee coffee;
+        if (coffeeType.equals("Cappuccino"))
+            coffee = new Cappuccino(new CappuccinoIngredientFactory());
+        else if (coffeeType.equals("Espresso"))
+            coffee = new Espresso(new EspressoIngredientFactory());
+        else if (coffeeType.equals("Robusta"))
+            coffee = new Robusta(new RobustaIngredientFactory());
+        return coffee;
+    }
+}
+
+the above design is known as Abstract Factory Pattern.

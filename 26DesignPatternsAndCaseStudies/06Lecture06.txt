@@ -11,7 +11,7 @@ how to get rid of new keyword ?
 - dependency injection.
 when we do DI with polymorphic type then we can use the code in several ways.
 
-public introduce Coffee {
+public interface Coffee {
     void brew();
     void boil();
 }
@@ -24,7 +24,7 @@ public class Cappuccino implements Coffee {
     public void boil();
 }
 
-public class Expresso implements Coffee {
+public class Espresso implements Coffee {
     @Override
     public void brew();
 
@@ -45,8 +45,8 @@ public class CoffeeServer {
         Coffee coffee;
         if (coffeeType.equals("Cappuccino"))
             coffee = new Cappuccino();
-        else if (coffeeType.equals("Expresso"))
-            coffee = new Expresso();
+        else if (coffeeType.equals("Espresso"))
+            coffee = new Espresso();
         else if (coffeeType.equals("Robusta"))
             coffee = new Robusta();
         coffee.brew();
@@ -72,8 +72,8 @@ public class CoffeeFactory {
         Coffee coffee;
         if (coffeeType.equals("Cappuccino"))
             coffee = new Cappuccino();
-        else if (coffeeType.equals("Expresso"))
-            coffee = new Expresso();
+        else if (coffeeType.equals("Espresso"))
+            coffee = new Espresso();
         else if (coffeeType.equals("Robusta"))
             coffee = new Robusta();
         return coffee;
@@ -111,8 +111,8 @@ public class CoffeeFactory implements AbstractFactory {
         Coffee coffee;
         if (coffeeType.equals("Cappuccino"))
             coffee = new Cappuccino();
-        else if (coffeeType.equals("Expresso"))
-            coffee = new Expresso();
+        else if (coffeeType.equals("Espresso"))
+            coffee = new Espresso();
         else if (coffeeType.equals("Robusta"))
             coffee = new Robusta();
         return coffee;
