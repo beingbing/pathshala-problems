@@ -1,0 +1,45 @@
+~~ Fragmentation ~~
+
+Fragmentation: when OS tries to provide space to processes, then parts of RAM gets left out which are
+empty and are not being utilized.
+
+it is of two types -
+- external Fragmentation : when spaces are available but none of them is big enough to accomodate the
+current space requirement.
+- internal Fragmentation : processes over-estimate their space requirement when requesting from OS. then
+that extra space which remained unused leads to internal Fragmentation.
+
+internal Fragmentation is insignificant hence we do not get ourselves much concerned about it.
+
+to resolve external fragmentation -
+
+- compaction: After some time t, we compact all running processes to the top of the RAM. hence all
+available spaces gets accumulated at the bottom where new processes can come into being.
+drawbacks: it wastes time. and there is no easy way to estimate time t.
+
+- based on history, we can come up with an average size of segment which processes usually ask for. e.g. -
+if 2MB is the size that mostly processes go for, hence we fix a part of RAM and divide it into chunks of
+2MBs and then we will give out space there in size of 2MB only. and then 1MB are more common, then we 
+further break down another part of RAM into chunks of 1MB and give it spaces there in that configuration
+only.
+by this we make sure that these fixed parts will never go into fragmentation. Now only the non reserved part
+is prone to fragmentation.
+drawbacks: if we keep reserving and making chunks then an ad hoc requirement may not get met even if we have
+space available overall, but a considerable part of that available space is reserve under above said chunking.
+What history should we consider, this is also not easy to answer to.
+
+- buddy allocation: not every custom type of space requirement will be entertained. process will be
+instructed to demand space in a particular configuration. e.g. - processes are said to ask spaces only
+in the order of 2^n. 
+Then, how it is handled is, let us assume that the total RAM size is 256KB and requirement came by two
+processes p1 and p2 for 8MB and 16MB then, total RAM will be broken down as -
+256 -> 128 + 128 -> 64 + 64 + 64 + 64 -> 32 + 32 + .... -> 16 + 16 + .... -> 8 + 8 + ...
+                                                                ^            ^
+                                                                |            |   
+                                                                p2           p1
+and a particular node of that size will be allowed after that when that node gets freed, it's adjacent
+node will be checked, if that is also freed then both of them will be combined and considered as one Unit
+which is available. here, if p2 exits, then we will say that 32MB of space is available in one node, if
+adjacent node is also available, and it will be further breakdown into chunks of 16,8,4, and then 2, if a
+processes demands for 2MB. here, we check for availability of adjacent node hence it is called buddy
+allocation.
