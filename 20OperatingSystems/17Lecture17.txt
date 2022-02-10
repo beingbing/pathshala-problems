@@ -1,0 +1,48 @@
+~~ memory hierarchy model ~~
+
+** memory virtualization/management (new topic)
+
+before it, let's discuss memory hierarchy -
+
+(simply) different types of memory, and which memory we talk about when we talk about virtualization.
+
+different kinds are -
+- HDD (hard disk drive)
+- SSD 
+- RAM
+- cache (tere are different types of cache as well)
+- register
+
+speed of access     and cost of manufacture
+register > cache > RAM > SSD > HDD
+
+why we do not use register for everything then ?
+A. Cost. The memory architecture (and hardware(semiconductors)) of register is very expensive. To store a
+file in RAM which occasionally gets accessed is a wastage of money.
+
+important : whatever is needed right now.
+that type of important stuff is stored in RAM. and moving beyond it, more crucial data is stored in cache
+and then the memory addresses of variables which are needed in current calculation or expression are then
+stored in register. So, higher the importance of data, more expensive memory is used for it.
+
+register - right now.
+cache - data around what's going on currently.
+RAM - information of current process.
+HDD/SSD - stores almost everything.
+
+volatile: when hardware gets shut down, memory is lost. e.g. - register, cache, RAM
+persistent (non-volatile): memory which exists even if hardware is shut down. e.g. - HDD, SSD.
+
+----- here ends our discussion on memory hierarchy.
+
+topics which will be discssing in memory management -
+- RAM (limited hence needs to be shared)
+
+Q. should we give the complete RAM to currently running process.
+A. no, the most primary problem which will be encountered if we did this is - what will happen at the
+time of context switching ?, in this case, we would need to copy the complete RAM to HDD/SSD and then
+re-initialize the RAM for new process. context switching will become very time consuming.
+
+hence, it is better to make processes share the RAM, and have a limit to the amount of RAM a process can
+have. It is called need-based assigning.
+In this case OS manages the resource allocation and privacy.
