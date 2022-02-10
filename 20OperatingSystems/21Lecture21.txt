@@ -1,0 +1,35 @@
+~~ paging ~~
+
+There is another way of segmentation, which is called paging.
+
+we will divide process space requirement into fix sized chuncks called pages. Then we will divide our RAM
+also into same fix sized chuncks called frames. then we do 1 : 1 mapping from page to frame.
+OS maintains a free frame list for further allocation.
+This automatically solves both the problems which were generated due to segmentation.
+
+once concern is, how do we ensure security now ?
+to restrict unauthorized access by a process, we maintain a page table for each process in which all the
+pages of process which are in RAM has a record with page::frame mapping.
+
+page table has record as => page no. :: offset
+now,
+CPU takes this entry and goes to allocated frame and travel through the offset given to access the
+particular memory.
+
+logical memory address                  =>                  physical memory address
+pageNo + offset           (frameNo-1)*pageSize + offset           actual address.
+
+what should be the page-size ?
+- too big page size will lead to internal fragmentation
+- too small page size will make page table of considerable size which is again a waste of memory.
+OS calculates an optimal value for it.
+
+page table exists inside RAM. location of page table is stored in a register and it is called 'Page Table
+Base Register'.
+every variable access = getting frame number + getting that variable
+
+hence there is an extra step of getting frame number added unnecessarily.
+so, to avoid the step of 'knowing frame number', we keep frame number in cache to access it quickly.
+
+for quick access we use 'translation look aside buffer' (TLB). it halps in quick access of the page
+which we have accessed previously. 
