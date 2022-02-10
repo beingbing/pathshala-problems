@@ -1,0 +1,41 @@
+~~ Address Translation ~~
+
+How does a memory look from the perspective of a process and how it is mapped to the RAM.
+
+p1 allocated 16kb for it to work.
+
+assume p1 memory breakdown is:
+
+code                1KB
+
+global data         1KB
+
+heap space          3KB (from 2KB till 5KB)
+    |   grows down
+
+    |   grows up
+stack space         1KB (from 15KB till 16KB)
+
+the above representation is called Address-space of process.
+
+this 0-16 KB allocation is what RAM thinks it has, but this 16KB can be allocated anywhere, e.g. -
+100-116 KB.
+
+so, this 0-16 KB is virtual address. its physical address can be e.g. - 100 MB - 100.016 MB
+
+so, this mapping of virtual address to physical address is called 'Address Translation'.
+
+physical address = virtual address + base address (stored in base register)
+
+Q. p1 should not venture beyond the 16KB allocated to it. How can we ensure that ?
+A. for this we maintain another register called 'limit register' which keeps the last point till
+which p1 can access the memory. It is also called as bound address.
+
+Base Register and Limit Register of all the processes are a part of CPU and called as Memory Management Unit. 
+
+whenever a process a tries to go beyond its bound, it leads to a 'trap' and 'Segmentation Fault' error will
+be thrown.
+
+two major issue with above allocation is -
+- there is a lot of empty space among heap and stack space, whose amount is fixed and mostly un-utilized.
+- What if a process space requirement is more than the RAM size.
