@@ -1,0 +1,64 @@
+~~ page replacement policies ~~
+
+page fault: when RAM has x pages in it and all of it are taken with different processes.
+and there is a process which want to access a page p1, which is not currently in RAM, this absence leads
+to page fault.
+we understand that p1 needs to move in RAM, but if RAM is already filled to its capacity then how
+and which page to take out. 
+This lead to a necessity of 'page replacement policy', which tells us to accomodate p1, which page
+we can remove.
+
+- optimal replacement:
+remove that page, which will be used as late as possible from current time.
+drawback: it is very good but, we can not see the future. hence, it is practically not possible
+to implement it.
+
+note: page fault is also called as page misses.
+there are two type of page faults.
+1. cold/compulsory page misses. (it happens for the first time when process is being loaded in RAM)
+they can not be avoided. they are guaranteed to happen.
+2. capacity misses. it happens when we access a page which is not in RAM and RAM is full.
+When we try to move a page in, RAM is full hence something has to be moved out.
+
+so, we can only reduce capacity misses.
+
+- FIFO page replacement policy:
+we keep a pointer indicating the first (oldest) page which was entered in RAM, and whenever we need to add
+a new page in memory, we remove the page which is pointed by that pointer.
+drawback:
+- not an intelligent policy, as it does not take in account the importance and frequent access of pages.
+This sometimes lead to more misses then usually expected. e.g. - if we are iterating over an array, and
+we try to access an element whose page is not in RAM, so to accomodate it, FIFO may even remove the page
+which is iterating over that array. It may become dumb.
+- belady's anomaly: according to this, increasing the capacity may lead to more misses in FIFO policy.
+e.g. -
+1, 2, 3, 4, 1, 2, 5, 1*, 2*, 3, 4, 5*  and capacity is 3
+we were able to save only 3 pages with page-miss.
+now,
+1, 2, 3, 4, 1*, 2*, 5, 1, 2, 3, 4, 5  and capacity is 4
+we were only able to save 2 pages from misses.
+
+- random page replacement:
+it performed better than FIFO on averaging the cases.
+
+next two algorithm made use of history and based on that, they decide which one to remove.
+
+- most frequently used page replacement:
+those pages which had maximum usage in history will be removed first. It works on the philosophy that
+the pages which were used mostly till now, will have their work done and will not be that important 
+going forward.
+drawback: it doesn't consider spatial/temporal locality.
+that array example can be used here too.
+
+- least frequently used page replacement:
+those pages which are less used, probably are not that important and can be removed to accomodate more
+important pages. e.g. - if a page had math.h and a function from this library is used only once, then
+it can be predicted that it's usage will not be too much in future too.
+It takes into consideration spatial/temporal locality.
+This algo is good and can be easily implemented too.
+drawback: we are only taking in account the frequency of a page, but we are not considering when was
+that frequency high, because if something was used frequently recently then it might be important but 
+if something was used frequently a long while back, then it is possible that we have actually moved
+on from that code part.
+
+so, there is a better policy then this too which is 'least recently used', will study that next.
