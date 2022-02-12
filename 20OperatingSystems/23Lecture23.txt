@@ -1,0 +1,29 @@
+~~ hierarchical and inverted page tables ~~
+
+can we use page table efficiently or we need extra structure over them to make them useable.
+
+in a 32 bit system, a page table with page size of 4kb will take around 4mb of space, which is too much.
+
+so, how can we reduce it ?
+
+A.
+1. increase page size.
+drawback: will lead to internal fragmentation.
+
+2. avoid pages that are empty. (do not create pages for free/unused memory)
+drawback: - what if they get used (coz we can't know it beforehand). so it will lead to creation of pages
+during running, which is bad.
+- how will process know while running that it has pages left which are empty.
+
+3. lets use a multi-tier page system.
+we keep a page directory, which will keep entry of a group of pages :: location of first page entry of that group.
+e.g. - 1-64 pages :: Empty/(location of first page).
+so, its like we created a page table for a page table.
+drawback: - there will be an extra step to access a variable, hence a TLB miss will be more expensive.
+
+4. inverted page table.
+instead of mapping page::frame we map frame::page. frame: (PID, page no.).
+here, if we want to access a page in memory which is broken down into frames, every page lookup will become a
+linear search, hence we get space optimization at the expense of time.
+
+hence, no single approach is good enough, so we use a mix of them.
