@@ -1,0 +1,87 @@
+~~ semaphores ~~
+
+mutex were boolean values. so semaphores are enhancement over them for k parallel connections.
+
+semaphores: they are integer variables but with atomic statement, i.e. - there updation is
+an atomic statement.
+
+just like acquire and release in mutex, semaphores has wait and signal.
+
+semaphores is initialized with the number of connections which will be allowed.
+
+semaphores s = k;
+
+wait (s) {
+    if (s <= 0) admit the process in queue
+    s--;
+}
+
+signal (s) {
+    s++;
+    if (s <= 0) wake up first process from queue.
+}
+
+this was one use of semaphores, let us see another use case -
+
+interprocess communication:
+
+assume there are two process p1 and p2, which has statement s1 and s2.
+
+condition: p2 will execute s2 only when p1 has executed s1.
+
+one way is what we learn earlier, which was, sending a signal to a port and listening that
+signal then execting further actions.
+
+other way is using semaphores,
+
+we will initializ semaphores with 0.
+s = 0  // indicating there is one process waiting in the queue.
+        //and that process will be p2
+
+as soon as s1 starts s will be -1 and once s will again become 0, s2 will be ready
+to get executed.
+
+this is how semaphores is used for IPC.
+
+lets see some problems caused by this type of synchronization solutions -
+
+1. deadlock
+
+p1              p1
+wait(r1)        wait(r2)
+wait(r2)        wait(r1)
+    CS              CS
+signal(r1)      signal(r2)
+signal(r2)      signal(r1)
+
+p1 indicated other processes to wait if they want to access r1
+at the same time,
+p2 indicated other processes to wait if they want to access r2
+
+now, p1 wants to enter in r2 and p2 wants to enter in r1.
+but they both can't because other process is already in it.
+
+so, this is the deadlock condition, in which neither of the process can now proceed further.
+
+
+2. priority inversion
+
+three processes L, M and H with low, medium and high priority.
+
+now, both L and H wants to access a CS. and L entered first, now H will wait for L to release the
+lock so that it can enter.
+
+now, as soon as OS got aware of H being waiting, it enturrupts L and let M enter the CS (M has 
+nothing to do with CS, but as H wanted to entered so, OS take the cognizance of the situation
+and scheduled M also, so that turn of H can come quickly)
+
+but because of that H has to wait more, first for L then for M.
+
+this is called priority inversion.
+
+there is a fix for it as well, called priority inheritance.
+
+if there is a higher priority process which wants to enter the CS and there is already a process
+which has entered with lower priority then that lower priority process will get its priority
+gets upgraded to the same priority as of what the priority is of the process which is waiting
+outside.
