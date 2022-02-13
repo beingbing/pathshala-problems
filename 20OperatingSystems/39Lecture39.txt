@@ -1,0 +1,42 @@
+~~ deadlock detection and recovery ~~
+
+how can we detect a deadlock ?
+
+ideas of resource-allocation-graph and bankers algorithm can be extended to deadlock detection
+as well.
+
+but both of those algorithms are expensive in terms of time, so after every allocation
+we can not use them to detect whether we are going into a deadlock or not.
+
+so, Although we can use both those algorithm to detect a deadlock as well, but to decide
+when to run them for a potential hazard is also an issue which needs to be resolved.
+
+so, we can design some metrics which indicates to use that we should now go and check for a
+possible deadlock.
+
+metrics:
+- if CPU utilization drops
+- if the system becomes slow.
+- wait time for some of the resource is considerably high.
+
+we can have a threshold for them, and when that threshold is breached we can go and look
+for a deadlock.
+
+now, once we have detected a deadlock then how to recover from it ?
+
+- terminate processes that are part of the deadlock cycle.
+But that means all those process will start from beginning, this can again be expensive
+as termination and restarting of some of those processes can be expensive both in terms
+of time and resources that they already have modified.
+
+- terminate one process of deadlock cycle at a time and then check for deadlock.
+the repeatative run of deadlock detection will again make this apporach also expensive.
+
+- apart from termination, we can also just try to take away all the resources of some processes
+which are involved in detection cycle.
+in other words, try to pre-empt the deadlock resources.
+what if all the resources are such that they can not be pre-empted. this will again bring us to
+previous two apporaches.
+
+apart from these 3, the fourth apporach is to ignore the deadlock and let it happen and then
+let user to restart the machine.
