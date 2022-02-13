@@ -1,0 +1,47 @@
+~~ monitors ~~
+
+as we already discussed about semaphores and how they can be used to resolve the problem
+of synchronization, so now we will talk about the problems caused by semaphores and how
+can we solve them.
+
+to be clear, we are not trying to establish issues with semaphores, we will discuss
+on when semaphores are not a good option to be considered and what other mechanisms
+we have as other options.
+
+- we use same semaphore multiple times.
+so, if we use same semaphore for multiple CS which are completely unrelated to each other.
+then if a thread is in one of those CS, then neither of the threads can get into other
+CS as well, which as we have already establish shouldn't be the case, as all CS have
+nothing to do with each other.
+hence, it may lead to bugs and/or slowness. as something which could be done in parallel
+can no longer be done in parallel.
+ 
+- when CS and semaphore variable used to synchronization it, are not linked properly
+together (the code is not properly written).
+e.g. - although two threads are not allowed to enter the deposit() at the same time
+but that mutual exclusion should also be established over withdraw() as well.
+
+this is why semaphores are unpopular with developers as it is very tedious to establish
+proper synchronization between CS and them.
+
+so, instead, developers go with monitors.
+
+monitors: they are just like a class which contains 3 things -
+- data: which needs to be synchronized.
+- functions: that access those data.
+- synchronization information.
+
+Monitor account {
+    double amount;
+    double withdraw(amount) {
+        //
+    }
+    double deposit(amount) {
+        //
+    }
+}
+
+now, monitors automatically ensure synchronization, so if one thread is trying to access
+one function of that class, then other functions automatically become mutually exclusive.
+
+hence, monitors does the same thing with a more user-friendly interface.
