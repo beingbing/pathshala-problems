@@ -1,0 +1,32 @@
+~~ introduction to DBMS ~~
+
+data: any raw input, e.g. - samar, cohor4, 200
+
+information: writing a complete sentence using that data. (processed data)
+
+knowledge: conclusion based on information.
+
+we store data in our database management system
+
+DBMS: software that will maintain, manipulate, manages and stores the data.
+
+whatever software written over DBMS, it runs some query on it to get some information.
+
+knowledge is totally derived by user.
+
+why DBMS ?
+
+other alternatives -
+- maintain data in memory.
+as RAM is volatile in nature, and we might not want to loss it.
+
+- maintain data in files.
+    - complex to retrieve information from stored data.
+    - for even a simple change in retrieval, we need to re-write a chunck of code.
+    - very slow in terms of time.
+    - securit issue.
+
+so we cant have either data in RAM nor in files. and also we want a system with easier data
+retrieval system.
+
+this is where DBMS comes into picture. it's whole job is to maintain and give easy access to data.
