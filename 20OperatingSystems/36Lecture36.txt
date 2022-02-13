@@ -1,0 +1,58 @@
+~~ deadlock prevention ~~
+
+- preventing mutual exclusion
+this can not be ensured, as there will be some code which will have mutual exclusion.
+so we can just try to prevent unnecessary mutual exclusion.
+
+- preventing hold and wait among processes
+ask processes to request for all the required resources at once and initiate execution only
+after they have all the needed resources
+OS will also allow any process to run if they have all the requested resources
+
+drawback:
+its very inefficient. 
+assume that a process need three different resources, 1 at the beinning, 2 after 1 hr. and
+the third resource after 10 hour, then it doesn't make to hold on to the other 2 resources
+when it is not required immediately.
+It can also said that reason of inefficiency is unnecessary holding of resources.
+
+another idea is to release all the holding resources and ask them again with the new resource
+which you need now, whenever you need a new resource
+
+drawback:
+sometimes releasing resources is not possible. e.g. - if a process is writing in a file and is
+in middle of that work, now for further completing the job, it needs access of another file
+so to request for that new file, the process can not let go the file which process already had
+because it is simply not possible.
+
+both of this ideas may lead to starvation if multiple resources are requesting the same
+popular resource, as we are not guaranting their bounded waiting.
+
+- allowing pre-emption.
+if process p1 is waiting for a long time, and stuck, so we should allow p1 to release its
+resources or,
+if OS detects that p1 is waiting for resource r2, then OS should try to figure out who is
+holding onto r2, and pre-empt that process and get r2 released, if those resources were
+hold onto for a long time.
+
+as we saw earlier pre-emption is sometimes simply not possible, if a process is holding
+onto a resources and is using to do complete a job.
+
+
+- avoid circular wait.
+we will number the resources from 1 to n. Now if a process p1 need r2, r5 and r9, then
+it can request them only in ascending order.
+now assume if p1 got hold of r5 but not of r2, then p1 will release r5 and try to acquire
+r2 first.
+
+we will do numbering such that those resources which are hard to be released once acquired and
+job started. those kind of resources will get numbering first.
+
+drawback:
+this resource numbering is practically very hard to implement and is very dynamic in nature.
+
+Although it can still be done with some common resources.
+
+
+as you can see none of those preventive measures were full proof, hence, with these OS developers
+further came up with some avoidance/recovery/ignorance mechanisms.
