@@ -1,0 +1,32 @@
+~~ resource allocation graph ~~
+
+- deadlock avoidance:
+don't ever let a condition happen which can lead to deadlock.
+do not give those resources which in future may lead to deadlock.
+
+first idea of doing this is by using resource allocation graph.
+
+resource allocation graph:
+nodes of these graphs are all processes and resources
+edges of these graphs are either requests (arrow from process to resource) (also called wait edge) or
+assignments-of-resources (arrow from resource to process) (also called hold edge)
+
+a cycle in this graph indicates that there maybe a deadlock
+
+and, if we confirm that any edge is leading to a cycle which indicates a deadlock, then i will
+not allocate that resource.
+
+a dashed line in the graph represents a requirement which a process has already declared but
+haven't made a request for it yet.
+These kind of requests are called claim edges.
+
+so, if we try to fulfill any of the claim edge and it leads to a deadlock cycle, then we would
+not allow that resource to the process.
+
+some OS implement a stricter check:
+whatever resources a process require, it has to declare them first. then with that claim edges,
+OS tries to figure out the possibility of deadlock. So if existing processes and claim edges of
+new processes can create a deadlock then OS do not allow that process to run at all.
+
+All this ideas are only valid if we have single instances of each resource, but with multiple
+instances we have bankers algorithm which we will discuss next.
