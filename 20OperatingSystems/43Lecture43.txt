@@ -1,0 +1,40 @@
+~~ dining philosopher problem ~~
+
+one other synchronization problem -
+
+assume that there are 5 philosophers sitting on a round table. And there are 5 chopstixs
+situated one between each philosopher.
+These philosophers only do two things, they either meditate or they eat.
+
+for eating, every philosopher need both the chopstixs available on both sides.
+
+so, we need to come up with a solution which is deadlock free and well synchronized.
+
+so,
+we clearly understand that, we need 5 semaphore one for each chopstick
+
+semaphore chopstick[5];
+
+// philosopher:
+
+while (true) {
+    // meditating
+    wait(chopstick[i]);
+    wait(chopstick[(i+1)%5]);
+    // eat
+    signal(chopstick[i]);
+    signal(chopstick[(i+1)%5]);
+}
+
+if each of them wakes up at the same time and grab their left chopstick then we are in a deadlock.
+
+fix:
+
+- only allow 4 philosophers at a time to wake up.
+we can do this by introducing a counting semaphore.
+
+- make any 1 philosopher grab first right and then the left chopstick.
+
+- ask both the chopstixs together.
+
+out of these 3 solutions, the first one is easiest to implement.
