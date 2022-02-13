@@ -1,0 +1,72 @@
+~~ mutexes ~~
+
+as we understood now, perterson's solution can not be extended for more than 2 threads.
+So, we need to find a better solution which can work with any number of threads.
+
+Mutex locks: they are lock variables that are present with OS
+
+Mutex : mutual exclusion
+
+updation of these variables is atomic, so in essesnce, mutex are some special variables that are provided
+by OS with atomic updation.
+
+so, for any process which want to enter the CS has to acquire (take the key) the mutex lock. and release the
+lock (giveaway the key)
+
+acquire lock (get key)          // nobody else can enter
+    enter CS
+ release lock (giveaway key)     // i am done, now whoever wants can enter.
+
+mutex available = true;
+
+acquire () {                // spinlock waiting
+    while (!available);
+    available = false;      // atomic statement
+}
+
+release () {
+    available = true;
+}
+
+as soon as a process which is already in CS, comes out and releases the lock, there is a race between
+other processes which were waiting for the lock to acquire it.
+
+let's talk about the parameters for confirming it -
+
+1. mutual exclusion is ensured.
+If one process has entered the CS, then no other process can enter until that process comes out.
+We saw that, this property is fulfilled.
+
+2. there is progress.
+If no one is in CS then if someone wants to enter the CS, then it should be allowed to enter.
+so this is also fulfilled.
+
+3. there is bounded waiting.
+No process should wait for infinite time.
+It is not fulfilled.
+
+race for all the processes to acquire lock, until it is random, there might be some processes which
+gets starved waiting.
+
+for it we can maintain a queue, so whoever comes asking for the lock, we let them enter the
+queue and make them wait for infinite time.
+
+so the queue will make the bounded waiting possible.
+
+acquire () {
+    if (!available) put the process in queue
+    available = false;      // atomic statement
+}
+
+so now after introduction of queue, we fulfill 3rd property as well.
+
+also our first solution which make processes wait by indulging them in while loop, is called
+spinlock waiting, and it wasts CPU time, as CPU is actively involved in a process which is
+stuck in loop, and we do not want that, hence, keep the processes in queue and let them sleep
+by moving them out of RAM. and as soon as there turn comes we move them back in RAM and let
+them enter CS. 
+
+mutex work perfectly well for single resource, but what if we can allow atMax 5 processes to enter
+the CS, and if any more come then we make them wait, how will we handle that ?
+
+so we use semaphores for this. they are also provided by OS.
