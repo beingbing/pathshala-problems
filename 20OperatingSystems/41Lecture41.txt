@@ -1,0 +1,78 @@
+~~ bounded buffer problem ~~
+
+one other synchronization problem -
+
+producer consumer problem:
+
+we have a bounded buffer which can be represented as a circular array, It can store a limited
+amount of elements.
+
+size is BUFFER_SIZE
+
+now, there are two different threads -
+producer: which puts item in the buffer.
+consumer: takes an item and consume it.
+
+counter: stores number of item in buffer. items which are already produced but not yet consumed
+by the consumer.
+
+in: position where the producer will insert the item.
+out: position from where the consumer consumes the item.
+
+producer:
+
+while (true) {
+    // piece of code that produces an item.
+    while (counter == BUFFER_SIZE);
+    buffer[in] = newItem;
+    in = (in+1)%BUFFER_SIZE;
+    counter++;
+}
+
+consumer:
+
+while (true) {
+    while (counter == 0);
+    nextToConsume = buffer[out];
+    out = (out+1)%BUFFER_SIZE;
+    counter--;
+    // consume nextToConsume
+}
+
+issue that can arise if the above code runs in a multi-threaded environment -
+
+- updation of counter variable.
+we can put the codes under mutex to ensure mutual exclusion.
+
+- infinite loops in both producer and consumer.
+we can use semaphore for the IPC, to let consumer start if producer has started and vice versa.
+semaphore full{0} // number of buffer spaces that are full.
+semaphore empty{BUFFER_SIZE} // number of buffer spaces that are empty.
+
+producer:
+
+while (true) {
+    wait(empty);
+    wait(mutex);
+    // piece of code that produces an item.
+    while (counter == BUFFER_SIZE);
+    buffer[in] = newItem;
+    in = (in+1)%BUFFER_SIZE;
+    counter++;
+    signal(mutex);
+    signal(full);
+}
+
+consumer:
+
+while (true) {
+    wait(full);
+    wait(mutex);
+    while (counter == 0);
+    nextToConsume = buffer[out];
+    out = (out+1)%BUFFER_SIZE;
+    counter--;
+    // consume nextToConsume
+    signal(mutex);
+    signal(empty);
+}
