@@ -1,0 +1,13 @@
+~~ types of database ~~
+
+two kinds of DB -
+- relational DBMS ( every noun is a table ) (more efficient) (preferred)
+- non-relational DBMS
+
+generally, if you a defined structure of your data, then go for relational DBMS.
+
+non-relational DBMS -
+- key value store (e.g. - cache) (product: redis)
+- graph DBMS (e.g. - neo4j) (product: facebook, linkedin)
+- time series DBMS (e.g. - prometheus)
+- document based DBMS (e.g. - mongoDB, casandra): unstructured json stored in document
