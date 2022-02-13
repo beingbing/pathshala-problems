@@ -1,0 +1,28 @@
+~~ database evolution in software ~~
+
+- enterprise softwares - runs separately on a machine.
+e.g. - cashier machine.
+it has an in-machine DB which maintains data for all the things which have been bought.
+
+benifits -
+- security of data
+
+problem -
+- amount of data totally depends on machine size.
+- also dependent on other softwares installed on machine.
+- new updates of software installed need to be managed.
+- technitian team will be involved.
+- trust had to be maintained on the client.
+
+- apps/websites
+no data on client machine, 
+it follows client-server architecture.
+
+client      ------>         server          ------>             DB
+(dumb)      <------      (API)              <------
+
+although it resolves many of the problems introduced by above in-machine softwares, but it
+introduces a lot of problem of its own, like,
+- it is slower and depends upon internet connectivity.
+- privacy/security issues, as a third-party is maintaining and managing our data for us.
+- third parties need DB administrators to manage them.

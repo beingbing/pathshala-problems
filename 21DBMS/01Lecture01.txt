@@ -24,7 +24,7 @@ as RAM is volatile in nature, and we might not want to loss it.
     - complex to retrieve information from stored data.
     - for even a simple change in retrieval, we need to re-write a chunck of code.
     - very slow in terms of time.
-    - securit issue.
+    - security issue.
 
 so we cant have either data in RAM nor in files. and also we want a system with easier data
 retrieval system.
