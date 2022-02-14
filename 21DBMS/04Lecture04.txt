@@ -1,0 +1,56 @@
+~~ entity relationship diagram ~~
+
+how to structure information in tables of a given problem.
+
+before designing a table we create ER diagram.
+
+problem: design renaissance dashboard
+- sections
+    - module inside sections
+        - videos
+        - assignments/HW - questions
+- users make payments
+- payment is on subscription model
+- user watch videos (we track %)
+- user submit code for questions - verdict
+
+Entity: objects identified in problem statement
+
+objects (nouns) -
+- sections
+- modules
+- videos
+- assignments/HW
+- questions
+- payments
+- users
+- subscription model
+- submissions
+- verdict
+
+attributes: information (data) that we need to store about each entity.
+
+- questions: difficulty level, ID, name, link, author
+- users: email, phoneNumber, name, college, graduation year
+
+types of attributes -
+- simple attributes (email)
+- composite attributes (fullName = firstName + lastName)
+- derived attributes (% problems solved => problems solved / total problems * 100)
+
+categorisation of attributes -
+- single valued attributes (college name)
+- multi valued attributes (phoneNumber)
+- null valued attributes (if value is nullable, e.g. - middle name)
+
+Relationship: it is something that links two entities
+- user makes payment.
+- topics will have videos
+
+how to model them in a diagram
+
+- entities goes into rectangular boxes
+- attributes goes into oval boxes
+- relationship between two entities is made using a diamond shaped box.
+* relationship can have attributes as well, e.g. - user makes payment, makes can have 'time'
+as attribute.
