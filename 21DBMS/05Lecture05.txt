@@ -1,0 +1,12 @@
+~~ types of relations ~~
+
+these types are based on cardinality.
+
+cardinality: how two entities are related, there are 4 types -
+
+one - one
+one - many
+many - one
+many - many
+
+partial or total participation of an entity in a relationship
