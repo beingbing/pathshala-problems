@@ -1,23 +1,28 @@
 #include <algorithm>
 #include <iostream>
+#include <string>
 #include <stack>
 using namespace std;
 
+class Solution {
+	public:
+	string removeConsecutiveIdentical(string str) {
+		stack<char> stk;
+		for (auto &ele : str) {
+			if (!stk.empty() && stk.top() == ele) stk.pop();
+			else stk.push(ele);
+		}
+		string ans = "";
+		while (!stk.empty()) ans += stk.top(), stk.pop();
+		reverse(ans.begin(), ans.end());
+		return ans;
+	}
+};
+
 int main() {
-    string s;
-    cin >> s;
-    int n = s.size();
-    stack<char> st;
-    for (int i{0}; i<n; i++) {
-        if (st.empty()) st.push(s[i]);
-        else {
-            if (st.top() == s[i]) st.pop();
-            else st.push(s[i]);
-        }
-    }
-    string ans;
-    while (!st.empty()) ans += st.top(), st.pop();
-    reverse(ans.begin(), ans.end());
-    cout << ans << endl;
-    return 0;
+	string str;
+	cin >> str;
+	Solution obj;
+	cout << obj.removeConsecutiveIdentical(str) << endl;
+	return 0;
 }

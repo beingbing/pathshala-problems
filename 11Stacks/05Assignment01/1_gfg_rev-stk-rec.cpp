@@ -5,13 +5,14 @@ using namespace std;
 
 
 void insertAtBottom(stack<char>& st, char x) {
-    if (st.empty()) st.push(x);
-    else {
-        char a = st.top();
-        st.pop();
-        insertAtBottom(st, x);
-        st.push(a);
+    if (st.empty()) {
+        st.push(x);
+        return;
     }
+    char a = st.top();
+    st.pop();
+    insertAtBottom(st, x);
+    st.push(a);
 }
 
 void reverse(stack<char>& st) {

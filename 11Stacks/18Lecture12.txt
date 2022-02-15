@@ -6,6 +6,7 @@
 - recognise the point of change
     point of change will come whenever we get an element which is smaller than our curMin.
 
+when realElement < curMin
 proxyElement = 2*realElement - curMin
 curMin = realElement
 (and, proxyElement < curMin)

@@ -6,12 +6,18 @@ class Solution {
 public:
     bool isValid(string s) {
         stack<char> stk;
-        int n = s.size();
-        for (int i{0}; i < n; i++)
-            if (!stk.empty() && s[i] == ']' && stk.top() == '[') stk.pop();
-            else if (!stk.empty() && s[i] == ')' && stk.top() == '(') stk.pop();
-            else if (!stk.empty() && s[i] == '}' && stk.top() == '{') stk.pop();
-            else stk.push(s[i]);
+        for (auto &ele : s) {
+            if (ele == ')') {
+                if (stk.empty() || stk.top() != '(') return false;
+                stk.pop();
+            } else if (ele == '}') {
+                if (stk.empty() || stk.top() != '{') return false;
+                stk.pop();
+            } else if (ele == ']') {
+                if (stk.empty() || stk.top() != '[') return false;
+                stk.pop();
+            } else stk.push(ele);
+        }
         return stk.empty();
     }
 };

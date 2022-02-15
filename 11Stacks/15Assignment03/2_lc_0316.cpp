@@ -24,7 +24,7 @@ public:
         string str;
         while (!stk.empty()) str += stk.top(), stk.pop();
         reverse(str.begin(), str.end());
-        cout << str << endl;
+        // cout << str << endl;
         return str;
     }
 };
