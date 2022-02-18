@@ -2,29 +2,30 @@
 #include <queue>
 #include <vector>
 using namespace std;
+typedef long long int ll;
 
-vector<long long> printFirstNegativeInteger(long long int arr[], long long int n, long long int k);
+vector<ll> printFirstNegativeInteger(ll arr[], ll n, ll k);
 
 int main() {
-    long long int t, i;
+    ll t, i;
     cin >> t;
     while (t--) {
-        long long int n;
+        ll n;
         cin >> n;
-        long long int arr[n];
+        ll arr[n];
         for (i = 0; i < n; i++) cin >> arr[i];
-        long long int k;
+        ll k;
         cin >> k;
-        vector<long long> ans = printFirstNegativeInteger(arr, n, k);
+        vector<ll> ans = printFirstNegativeInteger(arr, n, k);
         for (auto it : ans) cout << it << " ";
         cout << endl;
     }
     return 0;
 }
 
-vector<long long> printFirstNegativeInteger(long long int a[], long long int n, long long int k) {
-    vector<long long int> ans;
-    queue<long long int> q;
+vector<ll> printFirstNegativeInteger(ll a[], ll n, ll k) {
+    vector<ll> ans;
+    queue<ll> q;
     for (int i{0}; i<k; i++) if (a[i] < 0) q.push(i);
     for (int i{k}; i<n; i++) {
         if (q.empty()) ans.push_back(0);

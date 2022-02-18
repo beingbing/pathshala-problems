@@ -1,3 +1,16 @@
+/*
+
+What is the purpose of second while loop?
+To keep pfSum[dq[i]] increasing in the deque.
+
+
+Why keep the deque increase?
+If pfSum[i] <= pfSum[dq.back()] and moreover we already know that i > dq.back(), it means
+that compared with dq.back(), pfSum[i] can help us make the subarray length shorter (as it will be
+the starting index of our subarray in first while loop and) and sum bigger.
+So no need to keep d.back() in our deque.
+
+*/
 #include <iostream>
 #include <deque>
 #include <vector>
@@ -12,19 +25,11 @@ public:
         deque<int> dq;
         int ans = n + 1;
         for (int i = 0; i < n + 1; ++i) {
-            // cout << "    i: " << i << endl;
-            // for (auto ele : dq) cout << ele << " ";
-            // cout << endl;
             while (!dq.empty() && pfSum[i] - pfSum[dq.front()] >= k) {
-                // cout << "frnt " << dq.front() << endl;
                 ans = min(ans, i - dq.front());
-                // cout << "ans: " << ans << endl;
                 dq.pop_front();
             }
-            while (!dq.empty() && pfSum[dq.back()] >= pfSum[i]) {
-                // cout << "bck " << dq.back() << endl;
-                dq.pop_back();
-            }
+            while (!dq.empty() && pfSum[dq.back()] >= pfSum[i]) dq.pop_back();
             dq.push_back(i);
         }
         return ans <= n ? ans : -1;

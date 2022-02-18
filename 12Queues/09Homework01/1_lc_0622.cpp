@@ -37,7 +37,7 @@ public:
     
     int Rear() {
         if (isEmpty()) return -1;
-        return data[(tail + sz - 1) % sz];
+        return data[(tail + sz - 1) % sz]; // -1 because rear is pointing to next empty cell
     }
     
     bool isEmpty() {

@@ -1,11 +1,6 @@
 #include <iostream>
 using namespace std;
 
-struct QueueNode {
-    int data;
-    QueueNode *next;
-};
-
 class MyQueue {
 private:
     int arr[100005];
