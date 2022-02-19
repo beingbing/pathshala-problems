@@ -1,10 +1,11 @@
 #include <iostream>
 #include <vector>
 using namespace std;
+typedef long long int ll;
 
-vector<long long int> transformation;
+vector<ll> transformation;
 
-bool transform(long long int a, long long int& b) {
+bool transform(ll a, ll& b) {
     if (a == b) return true;
     if (a > b) return false;
     a *= 2;
@@ -23,7 +24,7 @@ bool transform(long long int a, long long int& b) {
 }
 
 int main() {
-    long long int a, b;
+    ll a, b;
     cin >> a >> b;
     bool possible = false;
     transformation.push_back(a);

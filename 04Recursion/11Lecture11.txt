@@ -16,4 +16,3 @@ so it will have a binary tree with one side for Inclusion and other with Exclusi
     2 * 2 * 2 * 2 * 2  number of choices
 
 by rule of product, we have 2^n results
-

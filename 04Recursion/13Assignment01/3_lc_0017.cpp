@@ -47,6 +47,9 @@ public:
 };
 
 int main() {
-    //
+    string digits = "47";
+    Solution obj;
+    vector<string> ans = obj.letterCombinations(digits);
+    for (auto &ele : ans) cout << ele << endl;
     return 0;
 }

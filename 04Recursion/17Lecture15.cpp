@@ -6,6 +6,7 @@
 
 // every closing brace has an opening counter part which preceeds it.
 // so, cnt(opening-braces) >= cnt(closing-braces)
+
 #include <iostream>
 #include <vector>
 using namespace std;
@@ -13,16 +14,16 @@ using namespace std;
 class Solution {
 
     void generateParenthesis(string str, int l, int r, int &n) {
-        if (str.size() == 2*n) {
+        if (str.size() == 2 * n) {
             ans.push_back(str);
             return;
         }
-        if (l == r) generateParenthesis(str+'(', l+1, r, n);
+        if (l == r) generateParenthesis(str + '(', l + 1, r, n);
         else if (l > r)
-            if (l == n) generateParenthesis(str+')', l, r+1, n);
+            if (l == n) generateParenthesis(str + ')', l, r + 1, n);
             else {
-                generateParenthesis(str+'(', l+1, r, n);
-                generateParenthesis(str+')', l, r+1, n);
+                generateParenthesis(str + '(', l + 1, r, n);
+                generateParenthesis(str + ')', l, r + 1, n);
             }
     }
 

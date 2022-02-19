@@ -25,22 +25,36 @@ part should it delegate to the child functions
 #include <iostream>
 using namespace std;
 
+// going from n  -> 1 print from 1 -> n
+// print top of the stack first
 void printTill(int n) {
     if (n < 1) return;
     printTill(n-1);
     cout << n << endl;
 }
 
+// going from n -> 1 print from n -> 1
+// print current stack then go further to top
+void printReverse(int n) {
+    if (n < 1) return;
+    cout << n << endl;
+    printReverse(n-1);
+}
+
+// going from 1 -> n print from 1 -> n
+// print current stack then go further to top
 void printTill2(int x, int n) {
     if (x > n) return;
     cout << x << endl;
     printTill2(x+1, n);
 }
 
-void printReverse(int n) {
-    if (n < 1) return;
-    cout << n << endl;
-    printReverse(n-1);
+// going from 1 -> n print from n -> 1
+// print top of the stack first
+void printReverse2(int x, int n) {
+    if (x > n) return;
+    printTill2(x+1, n);
+    cout << x << endl;
 }
 
 int main() {

@@ -1,4 +1,4 @@
-// count number of sesets whose sum equals target,
+// count number of subsets whose sum equals target,
 // all elements are positive and distinct
 // and repetation in subset is allowed
 

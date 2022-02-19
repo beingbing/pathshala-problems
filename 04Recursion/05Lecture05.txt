@@ -9,4 +9,3 @@ variable of caller function
 
 2. content of variable get referenced to the called function, changes made will be permanent
 and will be reflected in caller function
-
