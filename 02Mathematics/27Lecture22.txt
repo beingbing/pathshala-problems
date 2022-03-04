@@ -4,7 +4,14 @@
 need to reach (n-1, n-1), give the count of all possible paths.
 (rat in the maze problem - solution using iterative approach)
 
+so, we have only two choices at every step, either move right (R) or move down (D)
+and the total number of steps will be (row-1)+(col-1) hence, the size of each answer will be this
 
+so, in other words, we have to find all the valid strings containing R and D which are of size
+(row-1)+(col-1). And the rules of validity will be -
+    - total(R) in string = row - 1, similarly, total(D) in string = col - 1
+
+so, we just need to pick any row-1 slots and assign them R, so
 answer =>  (2n-2)C(n-1)
 
 if m*n matrix => (m+n-2)C(m-1) or (m+n-2)C(n-1)
@@ -24,3 +31,8 @@ instant of time should be >=  ')'
 
 so, our problems become => count of balanced parantheses combinations with n-1 parantheses. Which
 was our previous problem.
+
+the final answer will be -
+f(n-1) = {i -> 0, n-2} ∑ (f(i)*f(n-i-1))
+where,
+f(0) = 1 and f(1) = 1

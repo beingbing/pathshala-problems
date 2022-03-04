@@ -4,12 +4,14 @@
 #include <iostream>
 #include <vector>
 using namespace std;
+typedef long long int ll;
 
  // } Driver Code Ends
 // User function Template for C++
 
 class Solution{
 
+// TC = O(sqrt(r) loglog(sqrt(r)))
 vector<int> getPrimes(const int& n) {
     vector<bool> isPrime(n+1, true);
     isPrime[1] = false;
@@ -24,7 +26,8 @@ vector<int> getPrimes(const int& n) {
 }
 
 public:
-    long long primeProduct(long long l, long long r){
+    // TC = (R-L) (loglog(sqrt(r)))
+    ll primeProduct(ll l, ll r){
         vector<int> primes = getPrimes(sqrt(r));
         vector<bool> isPrime(r-l+1, true);
         for (int i{0}; i < primes.size(); i++) {
@@ -33,8 +36,8 @@ public:
                 isPrime[primes[i]*j - l] = false;
             }
         }
-        long long int ans{1};
-        long long int mod = 1000000007;
+        ll ans{1};
+        ll mod = 1000000007;
         for (int i{0}; i< isPrime.size(); i++)
             if (isPrime[i] == true) ans = ((ans%mod) * (((i%mod)+(l%mod))%mod))%mod;
         return ans;
@@ -47,9 +50,8 @@ int main(){
     int t;
     cin>>t;
     while(t--){
-        long long L, R;
+        ll L, R;
         cin>>L>>R;
-        
         Solution ob;
         cout<<ob.primeProduct(L, R)<<"\n";
     }

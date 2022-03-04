@@ -16,10 +16,7 @@ class Solution {
 public:
     bool hasGroupsSizeX(vector<int>& deck) {
         unordered_map<int, int> mp;
-        for (auto ele : deck) {
-            if (mp.find(ele) == mp.end()) mp.insert({ele, 1});
-            else mp[ele]++;
-        }
+        for (auto ele : deck) mp[ele]++;
         vector<int> vec;
         for (auto kvp : mp) vec.push_back(kvp.second);
         int gcd = vec[0];

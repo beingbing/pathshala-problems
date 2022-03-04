@@ -5,27 +5,26 @@ using namespace std;
 
 class Solution {
 public:
-    int atMostNGivenDigitSet(vector<string> &D, int N) {
-        string NS = to_string(N);
-        int digit = NS.size(), dsize = D.size(), rtn = 0;
-        for (int i = 1; i < digit; ++i)
-            rtn += pow(dsize, i);
-
-        for (int i = 0; i < digit; ++i) {
+    int atMostNGivenDigitSet(vector<string> &dgtsList, int numLimit) {
+        string numStr = to_string(numLimit);
+        int numSz = numStr.size(), dgtsCnt = dgtsList.size(), ans = 0;
+        for (int i = 1; i < numSz; ++i) ans += pow(dgtsCnt, i); // for every position we have all digits as option available
+        for (int i = 0; i < numSz; ++i) {
             bool hasSameNum = false;
-            for (string &d : D) {
-                if (d[0] < NS[i])
-                    rtn += pow(dsize, digit - i - 1);
-                else if (d[0] == NS[i])
-                    hasSameNum = true;
+            for (string &d : dgtsList) {
+                if (d[0] < numStr[i]) ans += pow(dgtsCnt, numSz - i - 1);
+                else if (d[0] == numStr[i]) hasSameNum = true;
             }
-            if (!hasSameNum)
-                return rtn;
+            if (!hasSameNum) return ans;
         }
-        return rtn + 1;
+        return ans + 1;
     }
 };
 
 int main() {
+    vector<string> dgts = {"1", "2", "6"};
+    int num = 2536;
+    Solution obj;
+    cout << obj.atMostNGivenDigitSet(dgts, num) << endl;
     return 0;
 }

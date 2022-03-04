@@ -16,7 +16,6 @@ Prime factors should be printed in increasing order.
 
 #include <iostream>
 #include <vector>
-#include <cmath>
 #include <map>
 using namespace std;
 
@@ -24,8 +23,7 @@ vector<int> primes(1000001, 1), spf(1000001, -1);
 
 void primesTill() {
     primes[1] = 0;
-    int val = sqrt(1000001);
-    for (int i{2}; i <= val; i++)
+    for (int i{2}; i * i <= 1000001; i++)
         if (primes[i] == 1)
             for (int j = i; i * j <= 1000001; j++)
                 if (primes[i * j] == 1) {
@@ -47,16 +45,14 @@ vector<int> primeFactorsM2(int n) {
 int main() {
     primesTill();
     int t;
-    scanf("%d", &t);
+    cin >> t;
     while (t--) {
         int n;
-        scanf("%d", &n);
+        cin >> n;
         vector<int> ans = primeFactorsM2(n);
         map<int, int> mp;
-        for (auto ele : ans)
-            if (mp.find(ele) == mp.end()) mp.insert({ele, 1});
-            else mp[ele]++;
-        for (auto ele : mp) printf("%d %d\n", ele.first, ele.second);
+        for (auto ele : ans) mp[ele]++;
+        for (auto ele : mp) cout << ele.first << " " << ele.second << endl;
     }
     return 0;
 }

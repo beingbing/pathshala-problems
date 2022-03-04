@@ -4,15 +4,16 @@
 #include <iostream>
 #include <vector>
 using namespace std;
+typedef unsigned long long int ull;
 
-vector<vector<unsigned long long int>> vec;
+vector<vector<ull>> vec;
 
-void generate() {
-    vector<unsigned long long int> row(1, 1);
+void generatePascalTriangle() {
+    vector<ull> row(1, 1);
     vec.push_back(row);
     row = {};
-    for (unsigned long long int i{1}; i<=30; i++) {
-        for (unsigned long long int j{0}; j<=i; j++)
+    for (ull i{1}; i<=30; i++) {
+        for (ull j{0}; j<=i; j++)
             if (j == 0) row.push_back(vec[i-1][j]);
             else if (j == i) row.push_back(vec[i-1][j-1]);
             else row.push_back(vec[i-1][j-1]+vec[i-1][j]);
@@ -22,14 +23,14 @@ void generate() {
 }
 
 int main() {
-    generate();
+    generatePascalTriangle();
     int t;
     cin >> t;
     while (t--) {
-        unsigned long long int n, m, x;
+        ull n, m, x;
         cin >> n >> m >> x;
-        unsigned long long int ans{0};
-        for (unsigned long long int i{4}; i<x; i++) {
+        ull ans{0};
+        for (ull i{4}; i<x; i++) {
             if (i <= n && x-i <= m) ans += (vec[n][i]*vec[m][x-i]);
         }
         cout << ans << endl;

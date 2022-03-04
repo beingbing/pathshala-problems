@@ -3,6 +3,8 @@
 for finding gcd of numbers > 2, find for first 2 numbers,
 then go on finding the gcd of previously found gcd and the next number.
 
+TC = O(n * log(max(ar[i])));
+
 the application of this lecture can be found in Homework#1 Q1
 
 Q. given an array, return 1 if any subsequence of array has gcd == 1, otherwise return 0

@@ -21,35 +21,37 @@ Constraints
 #include <vector>
 #include <cmath>
 using namespace std;
+typedef long long int ll;
 
-vector<long long int> primes(1000001, 1);
-vector<long long int> primesCnt(1000001, 0);
+vector<ll> primes(1000001, 1);
+vector<ll> primesCnt(1000001, 0);
 
 void primesTill() {
 	primes[0] = 0;
-    primes[1] = 0;
-    int val = sqrt(1000001);
-    for (int i{2}; i<=val; i++)
-        if (primes[i] == 1)
-            for (int j=i; i*j<=1000001; j++) primes[i*j] = 0;
+	primes[1] = 0;
+	int val = sqrt(1000001);
+	for (int i{2}; i <= val; i++)
+		if (primes[i] == 1)
+			for (int j = i; i * j <= 1000001; j++)
+				primes[i * j] = 0;
 }
 
 void countPrimesTill() {
-		primesCnt[0] = 0;
-		primesCnt[1] = 0;
-		for (long long int i{2}; i<1000001; i++)
-				primesCnt[i] = primesCnt[i-1] + primes[i];
+	primesCnt[0] = 0;
+	primesCnt[1] = 0;
+	for (ll i{2}; i < 1000001; i++)
+		primesCnt[i] = primesCnt[i - 1] + primes[i];
 }
 
 int main() {
-		primesTill();
-		countPrimesTill();
-		int t;
-		cin >> t;
-		while (t--) {
-				long long int n;
-				cin >> n;
-				cout << primesCnt[n] << endl;
-		}
-    return 0;
+	primesTill();
+	countPrimesTill();
+	int t;
+	cin >> t;
+	while (t--) {
+		ll n;
+		cin >> n;
+		cout << primesCnt[n] << endl;
+	}
+	return 0;
 }

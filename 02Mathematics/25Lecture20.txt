@@ -15,4 +15,20 @@ to calculate nCr, create pascal's triangle
 
 then do the computation
 
+long long pasc[61][61]
+pasc[0][0] = 1;
+for (i{1}; 60) {
+    for (j{1}; 60) {
+        if (j == 0 || j == i) pasc[i][j] = 1;
+        else pasc[i][j] = pasc[i-1][j] + pasc[i-1][j-1]
+    }
+}
+ans = 0;
+ans += pasc[n+m][t]
+if (t <= m) ans -= pasc[m][t]
+.
+.
+.
+return ans;
+
 SC = O(m*n) TC = ~~ O(1)

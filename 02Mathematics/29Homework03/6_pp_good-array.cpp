@@ -18,10 +18,10 @@ class Solution {
 
 public:
     bool isGoodArray(vector<int>& nums) {
-        int res = nums[0];
+        int gcd = 0;
         for (int ele: nums)
-            res = calcGCD(res, ele);
-        return res == 1;
+            gcd = calcGCD(gcd, ele);
+        return gcd == 1;
     }
 };
 

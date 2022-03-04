@@ -29,7 +29,7 @@ multiplying by !(n-r) in both numberator and denominator we get,
 
 2. Given n bits, find number of distinct bit string of size n that have exactly k 1s.
 
-choose any k slots from available n slots and assign 1 to them. so, answer will be - nCr
+choose any k slots from available n slots and assign 1 to them. so, answer will be - nCk
 
 
 
