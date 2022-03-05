@@ -1,6 +1,3 @@
-// samar try it with sliding window technique, that would be fun to implement on this problem
-// samar do its recursive version too
-
 #include <iostream>
 #include <vector>
 using namespace std;
@@ -8,31 +5,15 @@ using namespace std;
 class Solution {
 public:
     vector<int> sequentialDigits(int low, int high) {
-        string str = to_string(low);
-        int n = str.size();
-        string tmp = "";
-        int i;
-        for (i = 1; i<=n; i++) tmp += to_string(i);
-        while (i < 10 && stoll(tmp) < low) {
-            tmp.erase(tmp.begin());
-            tmp += to_string(i);
-            i++;
-        }
+        string digit = "123456789";
         vector<int> ans;
-        if (low <= stoll(tmp) && stoll(tmp) <= high) ans.push_back(stoll(tmp));
-        int lim = to_string(high).size();
-        while (n <= lim) {
-            while (i < 10) {
-                tmp.erase(tmp.begin());
-                tmp += to_string(i);
-                if (low <= stoll(tmp) && stoll(tmp) <= high) ans.push_back(stoll(tmp));
-                else break;
-                i++;
+        int mnSz = to_string(low).size();
+        int mxSz = to_string(high).size();
+        for (int i{mnSz}; i <= mxSz; i++) {
+            for (int j{0}; j < 10-i; j++) {
+                int num = stoi(digit.substr(j, i));
+                if (num >= low && num <= high) ans.push_back(num);
             }
-            n++;
-            tmp = "";
-            for (i = 1; i<=n; i++) tmp += to_string(i);
-            if (low <= stoll(tmp) && stoll(tmp) <= high) ans.push_back(stoll(tmp));
         }
         return ans;
     }
