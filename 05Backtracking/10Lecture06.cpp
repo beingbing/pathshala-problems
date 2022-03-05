@@ -8,12 +8,9 @@ class Solution {
     vector<vector<string>> ans;
     
     bool isSafe(vector<string>& board, int r, int c) {
-        for (int i{r-1}; i>=0; i--)
-            if (board[i][c] == 'Q') return false;
-        for (int i{r-1}, j{c-1}; i>=0 and j>=0; i--, j--)
-            if (board[i][j] == 'Q') return false;
-        for (int i{r-1}, j{c+1}; i>=0 and j<board.size(); i--, j++)
-            if (board[i][j] == 'Q') return false;
+        for (int i{r-1}; i>=0; i--) if (board[i][c] == 'Q') return false;
+        for (int i{r-1}, j{c-1}; i>=0 and j>=0; i--, j--) if (board[i][j] == 'Q') return false;
+        for (int i{r-1}, j{c+1}; i>=0 and j<board.size(); i--, j++) if (board[i][j] == 'Q') return false;
         return true;
     }
     

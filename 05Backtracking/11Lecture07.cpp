@@ -24,9 +24,11 @@ whenever a number is placed, all this three frequency mats need to be updated.
 using namespace std;
 
 class Solution {
+    vector<vector<char>> ans;
+    bool ansFound = false;
+
 public:
     void solveSudoku(vector<vector<char>>& board) {
-        bool ansFound = false;
         vector<vector<int>> rowFreq, colFreq, matFreq;
         for (int i{0}; i<9; i++) {
             vector<int> vec(9,0);
@@ -43,12 +45,11 @@ public:
             for (int i1{i}; i1<i+3; i1++) for (int j1{j}; j1<j+3; j1++) if (board[i1][j1] != '.') vec[board[i1][j1]-'1']++;
             matFreq.push_back(vec);
         }
-        vector<vector<char>> ans;
-        solve(board, 0, 0, ansFound, rowFreq, colFreq, matFreq, ans);
+        solve(board, 0, 0, rowFreq, colFreq, matFreq);
         board = ans;
     }
     
-    void solve(vector<vector<char>>& board, int i, int j, bool& ansFound, vector<vector<int>>& rowFreq, vector<vector<int>>& colFreq, vector<vector<int>>& matFreq, vector<vector<char>>& ans) {
+    void solve(vector<vector<char>>& board, int i, int j, vector<vector<int>>& rowFreq, vector<vector<int>>& colFreq, vector<vector<int>>& matFreq) {
         if (ansFound) return;
         if (i == 9) {
             ansFound = true;
@@ -56,8 +57,8 @@ public:
             return;
         }
         if (board[i][j] != '.') {
-            if (j < 8) solve(board, i, j+1, ansFound, rowFreq, colFreq, matFreq, ans);
-            else solve(board, i+1, 0, ansFound, rowFreq, colFreq, matFreq, ans);
+            if (j < 8) solve(board, i, j+1, rowFreq, colFreq, matFreq);
+            else solve(board, i+1, 0, rowFreq, colFreq, matFreq);
             return;
         }
         int m = getMatNum(i, j);
@@ -69,8 +70,8 @@ public:
                 colFreq[j][val-'1']++;
                 matFreq[m][val-'1']++;
                 // recurse
-                if (j < 8) solve(board, i, j+1, ansFound, rowFreq, colFreq, matFreq, ans);
-                else solve(board, i+1, 0, ansFound, rowFreq, colFreq, matFreq, ans);
+                if (j < 8) solve(board, i, j+1, rowFreq, colFreq, matFreq);
+                else solve(board, i+1, 0, rowFreq, colFreq, matFreq);
                 // undo
                 board[i][j] = '.';
                 rowFreq[i][val-'1']--;
