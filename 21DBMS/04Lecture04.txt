@@ -14,6 +14,8 @@ problem: design renaissance dashboard
 - user watch videos (we track %)
 - user submit code for questions - verdict
 
+step 1: note down entities
+
 Entity: objects identified in problem statement
 
 objects (nouns) -
@@ -28,6 +30,8 @@ objects (nouns) -
 - submissions
 - verdict
 
+step 2: define attributes
+
 attributes: information (data) that we need to store about each entity.
 
 - questions: difficulty level, ID, name, link, author
@@ -38,16 +42,18 @@ types of attributes -
 - composite attributes (fullName = firstName + lastName)
 - derived attributes (% problems solved => problems solved / total problems * 100)
 
-categorisation of attributes -
+categorization of attributes (depending upon quantity of information stored) -
 - single valued attributes (college name)
 - multi valued attributes (phoneNumber)
 - null valued attributes (if value is nullable, e.g. - middle name)
+
+step 3: establish relationship
 
 Relationship: it is something that links two entities
 - user makes payment.
 - topics will have videos
 
-how to model them in a diagram
+# how to model them in a diagram
 
 - entities goes into rectangular boxes
 - attributes goes into oval boxes
