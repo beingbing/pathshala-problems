@@ -1,0 +1,56 @@
+~~ groupings and aggregations ~~
+
+# aggregation operations
+sum(), max(), min(), avg(), cnt()
+
+e.g. -
+Users table             payments table
+UID email name          email  PID  pDate
+
+calculate for every payment we want to know total duration a user has subscribed for till now.
+so,
+we want to calculate, for every      email =>  total duration
+
+# GROUP BY clause -
+it makes groups based on column which you provide: GROUP BY (email)
+
+abc@gmail.com   30  40  50  ...
+def@gmail.com   10  15  12  ...
+
+then on each group you can apply some aggregations to get an answer
+now, if we want sum of durations in each group then,
+
+SELECT email, sum(duration) from payments GROUP By (email);
+
+we get as answer -
+abc@gmail.com   120
+def@gmail.com   37
+
+Note: while grouping, only two columns can be formed -
+- column containing attribute on which grouping is done.
+- column containing attribute on which aggregation is done.
+
+Note: we can use multiple attributes in GROUP BY clause.
+SELECT email, sum(duration) from payments GROUP By (email, month_of_payment);
+
+# HAVING clause -
+we can filter on groups using it.
+e.g. -
+SELECT email, sum(duration) from payments GROUP BY (email) HAVING max(year_of_payment) >= 2020;
+so, here,
+- group by email
+- check if a group has earliest payment made in 2020 or not (if not then discard that group)
+- for every group, print sum of duration (those group will be printed with first payment in 2020)
+
+Note: how it is different from WHERE clause ? It is used for filtering out rows. 
+e.g. -
+SELECT email, sum(duration) from payments where year_of_payment = 2020 GROUP BY (email);
+so, here,
+- filter out rows that were not in 2020
+- GROUP BY (email)
+- for every group, print sum of durations (this sum will not include any payment which is not done
+in 2020)
+
+Q. List for every cohort, max problem solved by any student in that cohort excluding those cohort that
+have less than 5 students.
+A. SELECT cohort, max(problem_solved) from Users GROUP BY (cohort) HAVING count(DISTINCT UserID) >= 5;
