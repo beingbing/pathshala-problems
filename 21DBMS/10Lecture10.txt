@@ -1,0 +1,34 @@
+~~ Joins in SQL ~~
+
+when we take two tables and try to join them based on a certain column. For that have have to have
+a common column between them.
+
+every row of table1 will be tried with every row of table2 and if their common column value matches
+then that row will be printed.
+
+e.g. -
+SELECT * FROM Topics JOIN Videos ON Topics.TID = Videos.TID WHERE name = 'arrays';
+
+# types of join -
+- inner join (regular join)
+do not give preferential treatment to any side.
+if table1 contain TID7 but table2 do not contain, then TID7 will not be present in final table.
+similarly, if table1 do not contain TID7 but table2 contain, then TID7 will not be present in final table. 
+
+- left join
+SELECT * FROM Topics LEFT JOIN Videos ON Topics.TID = Videos.TID WHERE name = 'arrays';
+if table1 contain TID7 but table2 do not contain, then TID7 will be present in final table with empty values.
+so, left join give preferential treatment to left table.
+
+- right join
+similar to left join, right join gives preferential treatment to right table.
+
+- outer join
+it gives preferential treatment to both sides.
+if table1 contain TID7 but table2 do not contain, then TID7 will be present in final table with empty values.
+similarly, if table1 do not contain TID7 but table2 contain, then TID7 will be present in final table with empty values.
+
+- natural join
+we will not right ON clause. We will let the table merge automatically on the basis of common column.
+use it carefully, if there are more than 1 column with common names in those two tables then it will try to join
+on the basis of all those columns.
