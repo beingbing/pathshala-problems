@@ -1,0 +1,71 @@
+~~ CREATE command and keys ~~
+
+query to write tables in DBMS -
+
+CREATE command -
+CREATE TABLE Users( .... attributes .... )
+
+defining attributes -
+
+attribute name  :   attribute type (also called domain)  :   constraints (if any)
+
+email varchar(50) NOT NULL,
+first_name varchar(20),
+marks int default 0,
+userID int, ....
+
+so, above command becomes -
+
+CREATE TABLE Users( 
+    email varchar(50) NOT NULL,
+    first_name varchar(20),
+    marks int default 0,
+    PRIMARY KEY (userid)
+    unique(email)           ||      unique(email, phoneNumber) {their combinations should stay unique}
+);
+
+# different types of domain in SQL -
+- numeric domain: int, smallint, long, float, double (precision(5)), decimal(num, denominator)
+- character domain: char(n) (fixed n sized string ), varchar(n) (variable sized string with maxlen n), text
+- boolean
+- date: (timestamp with timezone)
+- array/json (not found in al DBMS)
+
+# different types of constraints in SQL -
+- not null
+- default
+- unique
+
+# Keys -
+
+## super key -
+a set of columns that can be used to uniquely identity a row.
+
+- subset of super key: candidate key
+a super key without extra columns e.g. -
+(email, phoneNumber) is a candidate key
+(userId, firstName) is not a candidate key
+on removing a column from a super key, if it looses the designation of super key then it is
+called candidate keys.
+There can be multiple candidate keys.
+
+## primary key -
+out of all the candidate keys, we select one key and designate as the unique identification
+of that row, then it is termed as primary key.
+
+## foreign key -
+to manage a relation, we use primary key of one table in another table then it is called foreign key.
+
+CREATE TABLE User_payment_map (
+    UID int not null,
+    PID int not null,
+    PRIMARY KEY(UID, PID),
+    FOREIGN KEY(UID) references Users(UID),
+    FOREIGN KEY(PID) references Payments(PID)
+);
+
+# ways to represent an ID -
+- It can be an auto incremented number. (it can have synchronization problem)
+so we need make sure that inserts happen in atomic form.
+- use UUID (use random string of big size instead of an incrementing number)
+(if collision happens then new ID is generated and insertion attempted again)
