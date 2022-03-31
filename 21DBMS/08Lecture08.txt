@@ -1,0 +1,78 @@
+~~ CRUD operations using SQL ~~
+
+# create rows -
+for creation of new rows in table -
+INSERT INTO Users(email, UserID, firstName)
+    Values ('abc@gmail.com', 001, 'abc'), (def@gmail.com, 002, 'def');
+
+if we not provide values for any column, then either NULL is placed there automatically or if we have
+a default value set then it will be used.
+
+If for a column, it is non-null attribute with no default value set then an error will be thrown.
+
+
+
+# read rows -
+for reading an existing row in table -
+SELECT email, name FROM Users;
+
+for filtering in SELECT, we have WHERE clause -
+SELECT email, name FROM Users WHERE year_of_graduation = 2020;
+
+WHERE clause is implemented on table then SELECT is applied.
+
+Note: <> => !== operator
+
+conjunctions in WHERE clause => OR, AND
+
+- Regex match -
+SELECT email, name FROM Users WHERE email LIKE '%@gmail.com';
+% -> match infinite characters
+
+SELECT email, name FROM Users WHERE name LIKE '_____';
+_ -> matches any single character
+
+DISTINCT clause with SELECT operator -
+It will De-duplicate rows.
+
+SELECT DISTINCT(email, phoneNumber) FROM Payments;
+even if a user has made multiple payments, but by using above query, the email ID will appear only once.
+It will look for distinct combinations of email and phoneNumber.
+
+ORDER BY clause with SELECT operator -
+by default SQL query results do not follow any particular results.
+
+SELECT * FROM Users WHERE cohort = 5 ORDER BY problem_solved DESC, year_of_graduation ASC;
+
+BETWEEN clause with SELECT operator -
+SELECT * from Users WHERE year_of_graduation > 2020 AND year_of_graduation < 2022;
+can be written as -
+SELECT * from Users WHERE year_of_graduation BETWEEN 2020 AND 2022;
+
+Note: = do not work for NULL values.
+
+IS clause with SELECT operator -
+SELECT * FROM Users WHERE resume IS NOT NULL;
+
+Note: IS works on NULL.
+
+## renaming a column (AS clause) -
+SELECT email, (problem_solved/attempted_problem * 100) AS percent_solved FROM Users WHERE cohort = 5;
+
+
+
+# UPDATE queries on rows -
+UPDATE Users Set email='abc@gmail.com', phoneNumber = '1234' WHERE UserID = 10;
+
+# DELETE queries on rows -
+DELETE FROM Users WHERE userID = 4;
+
+# UNION, INTERSECT, EXCEPT(set difference) -
+(SELECT email, name FROM Users WHERE year_of_graduation = 2020) UNION (SELECT email, name FROM Users WHERE problem_solved > 200);
+
+UNION -> run both queries and remove common rows
+INTERSECT -> run both queries and keep only common rows
+EXCEPT -> run first query and remove from it all the rows which also appeared in second query.
+
+Note: attribute order should exactly match in both the queries, otherwise attribute conflict error will
+be thrown.
