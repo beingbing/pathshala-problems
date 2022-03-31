@@ -22,7 +22,7 @@ as RAM is volatile in nature, and we might not want to loss it.
 
 - maintain data in files.
     - complex to retrieve information from stored data.
-    - for even a simple change in retrieval, we need to re-write a chunck of code.
+    - for even a simple change in retrieval, we need to re-write a chunk of code.
     - very slow in terms of time.
     - security issue.
 
