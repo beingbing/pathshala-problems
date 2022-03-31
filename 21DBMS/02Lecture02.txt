@@ -2,16 +2,17 @@
 
 - enterprise softwares - runs separately on a machine.
 e.g. - cashier machine.
-it has an in-machine DB which maintains data for all the things which have been bought.
+it has an in-machine DB (maintained in files) which maintains data for all the things which have
+been bought.
 
-benifits -
+benefits -
 - security of data
 
 problem -
 - amount of data totally depends on machine size.
 - also dependent on other softwares installed on machine.
 - new updates of software installed need to be managed.
-- technitian team will be involved.
+- technician team will be involved.
 - trust had to be maintained on the client.
 
 - apps/websites
@@ -19,7 +20,11 @@ no data on client machine,
 it follows client-server architecture.
 
 client      ------>         server          ------>             DB
-(dumb)      <------      (API)              <------
+(dumb)      <------         (API)           <------
+
+servers exposes some functions (called APIs) which are called by client to request some data.
+To provide data, server queries DB, retrieves data, do processing on it and then returns data
+to client (browser).
 
 although it resolves many of the problems introduced by above in-machine softwares, but it
 introduces a lot of problem of its own, like,
