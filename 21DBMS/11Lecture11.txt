@@ -1,0 +1,27 @@
+~~ nested queries in SQL ~~
+
+If the problem we trying to solve is so big that we need to break it down in multiple smaller parts, and apply
+queries again on those smaller parts.
+
+Q. find person with maximum problems solved in each cohort.
+A. SELECT name FROM Users WHERE (problem_solved, cohort) IN (SELECT max(problem_solved), cohort from Users GROUP By cohort);
+
+Note: nested queries always executed in bottom up manner. That means, inner most query will run first.
+
+# IN clause in nested queries -
+It check existence of a value in the result of a query.
+
+# set comparison operators -
+=, <=, >=, >, <, <>
+with these operators we can use terms like ANY/ALL
+
+Q. find persons from cohort 1 which has solved less problems than any person present in cohort 2.
+A. SELECT email FROM Users WHERE problem_solved <= ANY (SELECT DISTINCT problem_solved FROM Users WHERE cohort = 2);
+
+until now we discussed un-correlated sub-queries. As whatever was happening in outer query wasn't affecting the inner query.
+
+# correlated queries using operators EXIST / NOT EXIST -
+Q. select all those students who have watched atleast one video on trees.
+A. SELECT name, email FROM Users WHERE EXIST (SELECT * from video_tracker WHERE topic = 'trees' AND users.email = video_tracker.email);
+
+EXIST will look for non empty results FROM internal query.
