@@ -33,6 +33,11 @@ Note: while grouping, only two columns can be formed -
 Note: we can use multiple attributes in GROUP BY clause.
 SELECT email, sum(duration) from payments GROUP By (email, month_of_payment);
 
+Q. Given the CITY and COUNTRY tables, query the names of all the continents (COUNTRY.Continent)
+and their respective average city populations (CITY.Population) rounded down to the nearest integer.
+A. SELECT COUNTRY.CONTINENT, FLOOR(AVG(CITY.POPULATION))
+    FROM CITY JOIN COUNTRY ON CITY.COUNTRYCODE = COUNTRY.CODE GROUP BY COUNTRY.CONTINENT;
+
 # HAVING clause -
 we can filter on groups using it.
 e.g. -

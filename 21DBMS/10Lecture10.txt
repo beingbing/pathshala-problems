@@ -9,6 +9,14 @@ then that row will be printed.
 e.g. -
 SELECT * FROM Topics JOIN Videos ON Topics.TID = Videos.TID WHERE name = 'arrays';
 
+Q. Given the CITY and COUNTRY tables, query the sum of the populations of all cities where the
+CONTINENT is 'Asia'.
+Note: CITY.CountryCode and COUNTRY.Code are matching key columns.
+
+A. SELECT SUM(CITY.POPULATION)
+    FROM CITY JOIN COUNTRY ON CITY.COUNTRYCODE = COUNTRY.CODE
+    WHERE COUNTRY.CONTINENT = 'ASIA';
+
 # types of join -
 - inner join (regular join)
 do not give preferential treatment to any side.

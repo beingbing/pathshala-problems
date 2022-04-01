@@ -44,6 +44,12 @@ by default SQL query results do not follow any particular results.
 
 SELECT * FROM Users WHERE cohort = 5 ORDER BY problem_solved DESC, year_of_graduation ASC;
 
+Q. Query the Name of any student in STUDENTS who scored higher than 75  Marks. Order your output by
+the last three characters of each name. If two or more students both have names ending in the same
+last three characters (i.e.: Bobby, Robby, etc.), secondary sort them by ascending ID.
+
+A. SELECT NAME FROM STUDENTS WHERE MARKS > 75 ORDER BY RIGHT(NAME, 3), ID ASC;
+
 BETWEEN clause with SELECT operator -
 SELECT * from Users WHERE year_of_graduation > 2020 AND year_of_graduation < 2022;
 can be written as -
