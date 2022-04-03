@@ -3,6 +3,11 @@
 given a primes array, find the nth natural number whose prime factorization contains prime from
 given array.
 
+in last problem we were taking out an element from min heap and were inserting its multiple on
+multiplication with 2, 3 and 5. But here we will be doing just reverse, we will be keeping elements
+present in primes array in min heap along with a pointer indicating till which index of answer array
+we have generated a multiple.
+
 struct Comp {
     bool operator() (pair<int, int>& p1, pair<int, int>& p2) {
         return p1.first * nums[p1.second] > p2.first * nums[p2.second];
