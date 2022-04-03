@@ -1,7 +1,7 @@
 ~~ Numbers with Limited Prime Factors - 1 ~~
 
 consider a family of natural numbers, where prime factorization of every number is of the form
-2^x * 3^y * 5*z.
+2^x * 3^y * 5^z.
 find nth number of this family.
 
 TC = O(log(1st n odds))
