@@ -1,43 +1,42 @@
 #include <iostream>
+#include <vector>
 using namespace std;
 
 class Solution {
-
-    void deleteRoot(int a[], int& sz) {
-        swap(a[0], a[sz-1]);
+    vector<int> a = {-1};
+    int sz;
+    
+    int deleteRoot() {
+        int x = a[1];
+        swap(a[1], a[sz]);
         sz--;
-        heapify(a, sz, 0);
+        a.pop_back();
+        heapify(1);
+        return x;
     }
-
+    
 public:
-    void heapify(int a[], int n, int i) {
-        if (i >= n/2) return;
+    void heapify(int i) {
+        if (i > sz / 2) return;
         int mn = i;
-        int l = 2 * i + 1;
-        if (a[l] < a[mn]) mn = l;
-        int r = 2 * i + 2;
-        if (r < n && a[r] < a[mn]) mn = r;
-        if (mn != i) {
-            swap(a[i], a[mn]);
-            heapify(a, n, mn);
-        }
+        if (a[2 * i] < a[mn]) mn = 2 * i;
+        if (2 * i + 1 <= sz && a[2 * i + 1] < a[mn]) mn = 2 * i + 1;
+        if (mn != i) swap(a[i], a[mn]), heapify(mn);
     }
 
 public:
-    void buildHeap(int a[], int n) {
-        int startIdx = (n / 2) - 1;
-        for (int i = startIdx; i >= 0; i--) heapify(a, n, i);
+    void buildHeap(int n) { 
+        for (int i{n/2}; i>=1; i--) heapify(i);
     }
 
 public:
-    void heapSort(int arr[], int n) {
-        int a[n];
-        for (int i{0}; i<n; i++) a[i] = arr[i];
-        buildHeap(a, n);
-        int sz = n;
+    void heapSort(int ar[], int n) {
+        for (int i{0}; i<n; i++) a.push_back(ar[i]);
+        sz = n;
+        buildHeap(sz);
         for (int i{0}; i<n; i++) {
-            arr[i] = a[0];
-            deleteRoot(a, sz);
+            ar[i] = a[1];
+            deleteRoot();
         }
     }
 };
