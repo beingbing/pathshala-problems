@@ -11,7 +11,7 @@ can we further optimize this process ?
 for this, we need to understand that we do not need to sort the complete array we just need to make sure that
 in tree representation of it, all parents are greater than both it's children (if it has any)
 
-int BT representation of the array every node to root path should be presnt in descending order.
+in a maxHeap, every root-node path should be sorted in descending order (we need to make sure only this)
 
 - take original array
 - do level order traversal on BT (iterate over the array)
@@ -30,5 +30,5 @@ for (i{1}; i<=n) {
 
 TC = O(nlogn)
 
-but our approach didn't optimzed it down.
+but our approach didn't optimized it down.
 can heapification be done in O(n) ?
