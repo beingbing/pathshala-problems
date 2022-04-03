@@ -4,5 +4,5 @@ given two sorted arrays a and b. given an integer k, find k smallest inter_array
 inter_array_pairs(x, y) : x from array a, y from array b
 
 the DS which will be using are -
-- map<pair<int, int>, bool> to track whether a pair sum is already seen or not (to avoid repetation).
+- map<pair<int, int>, bool> to track whether a pair sum is already seen or not (to avoid repetition).
 - min heap of pairs (the solution will be very similar to the last problem).
