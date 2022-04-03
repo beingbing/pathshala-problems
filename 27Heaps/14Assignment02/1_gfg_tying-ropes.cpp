@@ -1,22 +1,23 @@
 #include <iostream>
 #include <queue>
 using namespace std;
+typedef long long int ll;
 
 struct Comp {
-    bool operator() (long long& a, long long& b) {
+    bool operator() (ll& a, ll& b) {
         return a > b;
     }
 };
 
 class Solution {
 public:
-    long long minCost(long long ar[], long long n) {
-        priority_queue<long long, vector<long long>, Comp> pq(ar, ar + n);
-        long long ans = 0;
+    ll minCost(ll ar[], ll n) {
+        priority_queue<ll, vector<ll>, Comp> pq(ar, ar + n);
+        ll ans = 0;
         while (pq.size() != 1) {
-            long long min1 = pq.top();
+            ll min1 = pq.top();
             pq.pop();
-            long long min2 = pq.top();
+            ll min2 = pq.top();
             pq.pop();
             ans += min1+min2;
             pq.push(min1+min2);
@@ -26,12 +27,12 @@ public:
 };
 
 int main() {
-    long long t;
+    ll t;
     cin >> t;
     while (t--) {
-        long long n;
+        ll n;
         cin >> n;
-        long long i, a[n];
+        ll i, a[n];
         for (i = 0; i < n; i++) cin >> a[i];
         Solution ob;
         cout << ob.minCost(a, n) << endl;
