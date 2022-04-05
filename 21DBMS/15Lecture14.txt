@@ -1,0 +1,56 @@
+~~ conflict serialisability ~~
+
+take an example of a transaction -
+
+read(A)     // may lead to problem
+A += 50     // do not lead to problem
+write(A)    // may lead to problem
+
+so intertwining of problem causing statements with similar statements of other transactions leads to
+trouble.
+so, lets create a table, let us assume we have two transactions and -
+
+    T1              T2
+read(A)             read(A)     // will not cause any trouble
+read(A)             write(A)    // will cause conflict
+write(A)            read(A)     // will not cause any trouble
+write(A)            write(A)    // will cause conflict
+
+so, we just need to take care of above two possible conflicts.
+
+If two transactions are conflict wise equivalent then it means that, only by swapping two non-conflicting
+adjacent instructions, i can convert one into another.
+
+Schedules S                         Schedules S'
+    T1          T2                          T1          T2
+    r(a)                                    r(a)
+    w(a)                                    w(a)
+                r(a)                                    r(a)
+                w(a)                        r(b)
+    r(b)                                    w(b)
+    w(b)                                                w(a)
+                r(b)                                    r(b)
+                w(b)                                    w(b)
+
+Schedules S and S' are conflict equivalent.
+
+so,
+If S and S' are CE and S' is serial then S is conflict serialisable.
+
+then S can also be written as -
+
+S''
+    T1          T2  
+    r(a)                
+    w(a)               
+    r(b)                           
+    w(b)                                   
+                r(a)             
+                w(a)        
+                r(b)
+                w(b)
+
+S'' is an ideal serial schedule and S can be achieved from it by doing 4 adjacent swaps, hence, as
+S'' is serial then S is conflict serailisable.
+
+Q. given a schdule. How can we judge if it is Conflict Serailisable or not ?
