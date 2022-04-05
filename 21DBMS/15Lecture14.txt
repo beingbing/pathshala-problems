@@ -53,4 +53,4 @@ S''
 S'' is an ideal serial schedule and S can be achieved from it by doing 4 adjacent swaps, hence, as
 S'' is serial then S is conflict serailisable.
 
-Q. given a schdule. How can we judge if it is Conflict Serailisable or not ?
+Q. given a schedule. How can we judge if it is Conflict Serailisable or not ?
