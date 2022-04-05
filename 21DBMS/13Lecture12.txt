@@ -1,0 +1,41 @@
+~~ Transactions: ACID properties ~~
+
+Transaction: a unit of code where you are trying to updating/querying a DB. And this process must be
+taken as 1 atomic unit.
+
+If all the statements will happen all together, or nothing will happen.
+
+to make guarantee the above statements, we need to -
+- handle system crashes efficiently. (ability to Rollback(reverting of already processed statement)).
+- handling concurrency issues.
+
+to take care of above 2 points, we have 4 properties in place -
+- A: atomicity - either everything will happen or nothing will happen (need rollback strategy).
+
+- C: consistency - database should be in a consistent state before and after transaction.
+    - explicit consistency: using primary key, placing some constraints on what and how value to
+        be processes and procured.
+    - implicit consistency: (e.g.) total money involved should be same before and after the transaction.
+If all the above consistency constraints satisfies then we commit otherwise we rollback.
+
+- I: isolation - if there are multiple transactions happening at the same moment, then all of them
+should happen in isolation with one another. No transaction should affect the other ongoing transaction.
+
+- D: durability - once you have informed/committed the user that transaction is done, then it should
+persist even if some failure happen in future.
+
+The most difficult among 4 is to ensure isolation, for this we have different approaches -
+- schedules             - serial schedules
+
+# Transaction lifecycle (states) -
+
+ACTIVE   --- success --->   PARTIALLY COMMITTED   --- constraints valid --->  COMMITTED
+    \                      /
+     \  failure           /  integrity
+      \ occurs           /   constraints
+       \                /    violated
+        \              /
+         \            /
+          \          /
+           \        /
+             FAILED    --- rollback --->  ABORTED
