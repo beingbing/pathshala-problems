@@ -1,0 +1,25 @@
+~~ Isolation property: transaction schedules ~~
+
+If different threads are running different transactions which are worked on the same DB. Then how to
+ensure Isolation so that one transaction doesn't affect other transaction.
+
+for that we defined -
+Schedules: a series of instructions that are happening in multiple transactions in sequential order.
+
+We need to make sure that every schedule is valid, hence we need a way to check validity of a schedule
+if that is done then we are good to go.
+
+so, what kind of schedule do we actually require -
+ans,
+serial schedule: if multiple transactions are bound to happen then they happen completely in a serial
+order.
+
+# Equivalent schedules -
+two schedules are called equivalent if their effect/impact(final result) is same.
+
+To ensure isolation, what we need to make sure is that the schedule in which the actual transaction
+occur is equivalent schedule to one of the serial schedule.
+
+To check this equivalence, there are multiple ways -
+- checking conflict serialisability
+- checking view serialisability
