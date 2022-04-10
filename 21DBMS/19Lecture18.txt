@@ -1,0 +1,53 @@
+~~ bad vs good DB design ~~
+
+Normalization process (using different normal forms) -
+
+let's understand it with an example -
+
+a.
+
+student_dept table  =====
+
+r.no.   name    marks   dept.name   hod     office no.
+
+                        vs
+
+b.
+
+student table   ====
+
+r.no.   name    marks   dept.name
+
+dept. table     ====
+
+dept.name   hod     ph.no.
+
+
+b. is a better design than a.
+reasons -
+- a. stores redundant data (for every student we will be storing hod name and office no. which is not required)
+- insertion anomaly: if a new dept is started with no students then that dept. cant be stored.
+- deletion anomaly: to close a dept we have to remove its alumni students as well.
+- updation anomaly: if dept hod got changed then for every student of that dept we need to update the record.
+- as updation become expensive then transactions also become expensive.
+
+how to break a bad design into a good design ?
+- whatever data you have, make a single huge table out of it.
+- try to decompose table into parts
+
+decomposition:
+- lossy: losing information on decomposition
+- loss less: no loss due to decomposition
+
+how to decompose ?
+- for that we have normal forms, certain rules that our table should follow to have a good design.
+
+if you try to make sure that normal forms are there in your decomposed database then that will give you
+a clue for how should you break it.
+
+violation of normal forms will give you an idea of how to break a table so that you can convert your
+table back according to the normal forms.
+
+1NF: there should not be any non atomic attribute in any table.
+
+further we will talk about more rules.
