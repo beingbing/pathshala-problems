@@ -1,142 +1,15 @@
-~~ decorator pattern - 1 ~~
+~~ Library management system: requirements ~~
 
-design Domino's Pizza
-
-- create different varieties of Pizza and compute cost based on ingredients used.
-
-requirements -
-- based can be of different variety.
-- there can be multiple toppings.
-- there can be only one base in a pizza which can have multiple layers of toppings.
-
-Pizza: base | base+toppings
-
-public abstract class Pizza {
-    private Mushroom mushroom;
-    private Onion onion;
-    private Olive olive;
-
-    private double getCost() {
-        double cost = 0;
-        if (mushroom != null) cost += mushroom.getCost();
-        if (onion != null) cost += onion.getCost();
-        if (olive != null) cost += olive.getCost();
-        return cost;
-    }
-
-    public string getName() {
-        string name = '';
-        if (mushroom != null) name += mushroom.getName() + ' ';
-        if (onion != null) cost += onion.getName() + ' ';
-        if (olive != null) cost += olive.getName();
-        return name;
-    }
-
-    public void setMushroom(Mushroom mushroom) {
-        this.mushroom = mushroom;
-    }
-
-    public void setOnion(Onion onion) {
-        this.onion = onion;
-    }
-
-    public void setOlive(Olive olive) {
-        this.olive = olive;
-    }
-}
-
-public class Mushroom {
-    public double getCost() {
-        return 3.0;
-    }
-
-    public string getName() {
-        return "Mushroom";
-    }
-}
-
-public class Onion {
-    public double getCost() {
-        return 2.0;
-    }
-
-    public string getName() {
-        return "Onion";
-    }
-}
-
-public class Olive {
-    public double getCost() {
-        return 1.0;
-    }
-
-    public string getName() {
-        return "Olive";
-    }
-}
-
-public class ThinCrustPizza extends Pizza {
-    @Override
-    public double getCost() {
-        return 7.0 + super.getCost();
-    }
-
-    @Override
-    public string getName() {
-        return super.getName() + " Thin Crust Pizza";
-    }
-}
-
-public class WheatBasePizza extends Pizza {
-    @Override
-    public double getCost() {
-        return 7.0 + super.getCost();
-    }
-
-    @Override
-    public string getName() {
-        return super.getName() + " Wheat Base Pizza";
-    }
-}
-
-we are violating open/close principle: our code should be open for extension but close for modification.
-here, our code is doing just opposite, it is open for modification but close for extension.
-
-scenarios like double mushroom, triple onion are also not supported.
-
-public abstract class Pizza {
-    private abstract double getCost() {}
-    public abstract string getName() {}
-}
-
-public class MushroomOnionWheatBasePizza extends Pizza {
-    @Override
-    public double getCost() {
-        return 8;
-    }
-
-    @Override
-    public string getName() {
-        return null;
-    }
-}
-
-this type of design will lead to class explosion.
-but the good thing here is it promotes extension rather than modification
-
-pizza + olive topping -> pizza
-
-pizza p = new oliveTopping(piz);
-
-here we are decorating an object into something different without loosing its originality.
-
-        pizza (abstract class)
-        ^           ^       ^
-        /           \        \   
-    wheat base  thin Crust   topping(abstract class)
-                                ^           ^
-                                /           \
-                            olive           onion
-
-
-pizza p = new Onion(new Olive(new Mushroom(pizza)));
+gathering concrete requirements -
+- Library consists of many books and each book has its own attributes: name, authorName, publicationDate.
+- A book can have multiple copies and each copy will have a unique ID.
+- Everyone should be able to search on the basis of book name and author name. and find out if there is any copy
+available of that book.
+- There are two types of users: member and librarian
+- Librarian has ability to issue a book copy to a member.
+- Librarian has ability to accept book submission from a member.
+- A member should be allowed to keep a copy only for 30 days beyond which a fine should be charged on per day basis.
+- Librarian should be able to add/remove a book copy from inventory/stock/library.
+- Librarian should be able to mark a member as blocked.
+- Librarian should be able to check which copy is issued by which member.
+- Librarian should be able to check which books were issued by a particular member.
