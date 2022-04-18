@@ -1,0 +1,15 @@
+~~ structure ~~
+
+now we need to write LLD code between DB and GUI.
+
+now, any LLD implementation has three layers -
+- API layer
+e.g. - writing /issueBook APi
+
+- business class layer
+e.g. - user authenticator class to verify that book issuer is a librarian.
+searcher class which accepts book ID and return number of copies present in library.
+
+- data access layer: it takes the needed data from request and query on DB.
+e.g. - we get member id and search all the books issued by that member in DB.
+converter class exist here which converts DAO (data access object) that we got from DB into a business object.
