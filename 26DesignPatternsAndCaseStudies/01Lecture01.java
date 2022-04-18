@@ -38,7 +38,7 @@
 
 // step 3: write a rough code.
 
-// //      game (will get everything in motion)
+//      game (will get everything in motion)
 //         /   \
 //     player  board
 //     /

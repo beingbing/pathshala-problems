@@ -1,31 +1,47 @@
-~~ design tic-tac-toe 2 ~~
+// ~~ design tic-tac-toe 2 ~~
 
-class diagram: create boxes for entities and show the relationship between them using arrows.
+// class diagram: create boxes for entities and show the relationship between them using arrows.
 
-by drawing this diagram we can clearly see as why top-bottom approach is simpler, as going from
-bottom-top it's hard to come up with all we need and dependencies between classes.
+/*
 
-in last class, we established that our design is not abidding by OCP.
+                             TicTacToe
+                           / |      |   \
+                          /  |      |    \
+                         ↓   |      ↓     ↓
+                    Result---|--→Player  Board
+                             |   /      /
+                             |  /      /
+                             ↓ ↓      /
+                             Move    ↩
 
-extension means: identifying the entities which can behave differently when extended and write them
-accordingly so that when we extend it in future, the extension can be done easily and without any
-hastle.
+*/
 
-bet we are not also following DIP (dependencies inversion principle)
-it says, high level classes should depend on abstraction and not on concretion.
-here,
-Move being a concrete class is understandable as it is a data class which definetly won't change.
-but,
-something which you know might change frequently in future, should depend upon its abstraction
-rather than its concrete implementation.
+// always go for class diagram after covering all the steps thought in lecture 1.
 
-so now we will be working on creating an interface for classes which can be extended.
+// by drawing this diagram we can clearly see as why top-bottom approach is simpler, as going from
+// bottom-top it's hard to come up with all we need and dependencies between classes.
 
-first of all we will try to create interface out of Player class.
+// in last class, we established that our design is not abiding by OCP.
 
-while creating an interface we are actually defining a contract.
-contract means that any class which wishes to implement that interface must have the mentioned
-methods inside it.
+// extension means: identifying the entities which can behave differently when extended and write them
+// accordingly so that when we extend it in future, the extension can be done easily and without any
+// hassle.
+
+// but we are also not following DIP (dependencies inversion principle)
+// it says, high level classes should depend on abstraction and not on concretion.
+// here,
+// Move being a concrete class is understandable as it is a data class which definitely won't change.
+// but,
+// something which you know might change frequently in future, should depend upon its abstraction
+// rather than its concrete implementation.
+
+// so now we will be working on creating an interface for classes which can be extended.
+
+// first of all we will try to create interface out of Player class.
+
+// while creating an interface we are actually defining a contract.
+// contract means that any class which wishes to implement that interface must have the mentioned
+// methods inside it.
 
 public interface Player {
     Move play();
@@ -82,19 +98,19 @@ public class TicTacToeSimulator {
     }
 }
 
-the above implementation makes TicTacToe class highly robust in terms of what type of players are playing
-the game.
+// the above implementation makes TicTacToe class highly robust in terms of what type of players are playing
+// the game.
 
-now our implementation follows OCP and DIP.
+// now our implementation follows OCP and DIP.
 
-what if we have a requirement where we want an nxn board.
-for this,
+// what if we have a requirement where we want an nxn board.
+// for this,
 
 public interface Board {
     void applyMove(Move move, char symbol);
     boolean isFull();
     boolean hasWinningLine(char symbol);
-    int getDimension();
+    int getDimension();     // it will make validation check for invalid x and y easy
 }
 
 public class GeneralBoard implements Board {
@@ -211,8 +227,8 @@ public class CustomBoard implements Board {
     }
 }
 
-it is obvious that we can not foresight all the upcoming extension but still we should write our code in a way
-that we leave scope for some of the generic extensions which we know that might come in future.
+// it is obvious that we can not foresight all the upcoming extension but still we should write our code in a way
+// that we leave scope for some of the generic extensions which we know that might come in future.
 
 public class TicTacToeSimulator {
     public static void main(String[] args) {
@@ -223,11 +239,14 @@ public class TicTacToeSimulator {
     }
 }
 
-here we can see that TicTacToe class is no more capable of only playing tictactoe to two player,
-it can now orchestrate any two player board game with alternate attempts. so, why not we change its name
-from TicTacToe -> TwoPlayerBoardGame 
+// here we can see that TicTacToe class is no more capable of only playing tictactoe to two player,
+// it can now orchestrate any two player board game with alternate attempts. so, why not we change its name
+// from TicTacToe -> TwoPlayerBoardGame 
 
-Note: explore Generics in java
+// when you see that you are needing different data classes implementation of same class for different
+// requirements then go for Generics
+
+// Note: explore Generics in java
 
 public interface Game {
     Result start();
@@ -235,10 +254,46 @@ public interface Game {
 
 public class TwoPlayerBoardGame implements Game { 
     @Override
-    public Result start() { // }
+    public Result start() { 
+        Player currentPlayer = this.player1;
+        while (!this.board.isFull) {
+            Move currentMove = currentPlayer.play();
+            this.board.applyMove(currentMove, currentPlayer.getSymbol());
+            if (this.board.hasWinningLine(currentPlayer.getSymbol())) {
+                System.out.println("Player with symbol " + currentPlayer.getSymbol() + " Won");
+                return new Result(false, currentPlayer);
+            }
+            if (currentPlayer == player1) currentPlayer = player2;
+            else currentPlayer = player1;
+        }
+        return new Result(true, null);
+     }
 }
 
-now we can change TicTacToeSimulator -> GameSimulator
+// now we can change TicTacToeSimulator -> GameSimulator
 
-now tictactoe game depends on abstraction Player and Board, which in return has concrete implementation
-and as now there is no direct link between tictactoe and move, hence we can say that DIP is also followed.
+public class GameSimulator {
+    public static void main(String[] args) {
+        Game tictactoe = new TicTacToe(new HumanPlayer('X'), new ComputerPlayer('0'), new CustomBoard(9));
+        Result result = tictactoe.start();
+        if (result.isDraw()) print('match ended in a draw');
+        else System.out.println("Player with symbol " + currentPlayer.getSymbol() + " Won");
+    }
+}
+
+// now tictactoe game depends on abstraction Player and Board, which in return has concrete implementation
+// and as now there is no direct link between tictactoe and move, hence we can say that DIP is also followed.
+
+// new class diagram (after we introduced changes to follow all design principles)
+
+/*
+
+                        TicTacToe
+                        |     \
+                        |      \
+                        ↓       ↓
+                    Player      Board
+                ↗        ↑
+            Human      computer
+            Player     player
+*/
