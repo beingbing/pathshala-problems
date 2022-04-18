@@ -1,157 +1,25 @@
-~~ builder pattern ~~
+~~ right way to approach problem ~~
 
-pulic class User {
-    private final int id;
-    private final string name;
-    private final string phoneNumber;
-    private final int age;
+LLD is all about your common sense and your perspective towards the system.
 
-    public User(int id, string name, string phoneNumber, int age) {
-        this.id = id;
-        this.name = name;
-        this.phoneNumber = phoneNumber;
-        this.age = age;
-    }
-}
+If you find an LLD problem hard then there maybe two reasons behind it -
+- not sure what to make
+You can forgo this problem by properly gathering concrete requirements.
 
-the above implementation takes two many things to create an object of type User, which at times
-can confust the user.
+- unstructured thinking
+You are trying bottom-top approach to the problem. As all the individual entities wouldn't be coming along together
+in desired manner.
+For this you need to imply top-down approach.
 
-what if we decided to make phoneNumber and age as optional arguments.
+How to channel our thought process in a top-down approach ?
+Every system has to have a GUI component. And when we start thinking from that perspective the very first thing that comes
+to our mind is how will user interaction happen.
+Establish look and feel of GUI.
+Establish user interaction points.
+Establish data which will be traveling from UI to backend, and data needed from backend to render a UI.
+Do DBMS design. Clarify entities and establish relation between them.
+Then,
+after doing all that, your LLD of system will be connecting your UI with your DB, which you can easily sketch out now.
 
-then, one very brute force way to resolve this is by doing constructor overloading.
-but depending on the scenarios we need to write 4 constructors for each case (11,00,10,00)
-
-this is a very bad approach, because what if a new requirement comes to input weight of the User as well
-and that too an optional argument then this makes in total 8 constructors which we need to write to handle
-all possible scenarios, and in that also we need to be cautious about the order of arguments.
-
-this phenomenon is called combinatorial explosion. which is not good.
-
-can we make use of getters and setters instead ?
-
-yes we can, we can have just a single constructor for compulsory arguments and for all other optional
-requirements i will expose setters.
-
-but to make this modification, we need to get rid of 'final' keyword from both phoneNumber and age.
-what 'final' keyword does is, it ensures immutability.
-now what has happened it, both age and phoneNumber can be updated at any moment of time using
-their setters.
-now suppose if you have a multi-threaded program then this implementation can lead to race condition
-and stale/inconsistent data.
-
-so, we can not sacrifice 'final' keyword.
-then think of an elegant solution to this problem -
-
-Solution:
-Having an intermediate class that holds the arguments.
-
-this intermediate class can be something like an inner static class. It will be like an inner for loop.
-
-the User class can contain an inner class Builder
-(I named it builder because it will help us in building an object of User class)
-
-we will keep that Builder class as static, coz it can exist without having an User object in existence.
-
-I will make it as a carbon copy of the User class
-
-pulic class User {
-    private final int id;
-    private final string name;
-    private final string phoneNumber;
-    private final int age;
-
-    public User(Builder builder) {
-        this.id = builder.id;
-        this.name = builder.name;
-        this.phoneNumber = builder.phoneNumber;
-        this.age = builder.age;
-    }
-
-    public static class Builder {
-        private final int id;
-        private final string name;
-        private final string phoneNumber;
-        private final int age;
-
-        public Builder(int id, string name) {
-            this.id = id;
-            this.name = name;
-            this.phoneNumber = '';
-            this.age = 0;
-        }
-
-        public Builder setPhoneNumber(string phoneNumber) {
-            this.phoneNumber = phoneNumber;
-            return this;
-        }
-
-        public Builder setAge(int age) {
-            this.age = age;
-            return this;
-        }
-    }
-}
-
-the inner Builder class doesn't have any significance by itself but is just used to hold the contents of
-actual object of User which i intend to create.
-
-so, here if i sacrifice of 'final' keyword in Builder class, then its fine by me, coz it holds not much
-significance to me, but in exchange of that i can maintain immutability of my User class which is what
-my desire was to do, and am to accomplish that.
-
-public class Tester {
-    public static void main(String[] args) {
-        User.Builder b = new user.Builder(2, 'samar');
-        b.setAge(18);
-        b.setPhoneNumber('79087980');
-        User usr = new User(builder);
-    }
-}
-
-but here we increased work for client, instread of writing just one line to create an object, now
-client has to write almost 4 lines, which we need to mitigate.
-
-we can do that by using the concept of chaining. it is just a style of coding, which is much more
-intutive and robust.
-
-for our Builder class to be able to do chaining we need its non static methods to return an object
-of type Builder. for that we just need to return the current object from those member methods.
-
-public class Tester {
-    public static void main(String[] args) {
-        User.Builder b = new user.Builder(2, 'samar').setAge(18).setPhoneNumber('79087980');
-        User usr = new User(builder);
-    }
-}
-
-we can extend this to return us a final User object as well,
-
-pulic class User {
-    
-    ...
-    private User(...)
-    ...
-
-    public static class Builder {
-        
-        ...
-
-        public User build() {
-            return new User(this);
-        }
-    }
-}
-
-public class Tester {
-    public static void main(String[] args) {
-        User usr = new User.Builder(2, 'samar').setAge(18).setPhoneNumber('79087980').build();
-    }
-}
-
-The implementation is a design pattern known as Builder pattern.
-
-core idea of Builder pattern is -
-we should use it when we have -
-1. too many optional arguments
-2. immutability
+The above steps will give you a functionally correct implementation. Now you do iteration over it to make it follow SOLID
+design principles and refine that first rough design.

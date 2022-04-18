@@ -284,7 +284,7 @@ public class GameSimulator {
 // now tictactoe game depends on abstraction Player and Board, which in return has concrete implementation
 // and as now there is no direct link between tictactoe and move, hence we can say that DIP is also followed.
 
-// new class diagram (after we introduced changes to follow all design principles)
+// a part of new class diagram (after we introduced changes to follow all design principles)
 
 /*
 
