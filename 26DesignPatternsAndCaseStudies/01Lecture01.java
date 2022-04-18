@@ -1,55 +1,55 @@
-~~ design tic-tac-toe 1 ~~
+// ~~ design tic-tac-toe 1 ~~
 
-3x3 board, 2 players, symbol -> x or o
+// 3x3 board, 2 players, symbol -> x or o
 
-if a player has it's symbol in a continuous row of 3 cells, either horizontal, vertical or diagonal first
-then that player wins.
+// if a player has it's symbol in a continuous row of 3 cells, either horizontal, vertical or diagonal first
+// then that player wins.
 
-step 1: gather concrete requirements
+// step 1: gather concrete requirements
 
-Players should take turn one after another -> vague (count of players not specified)
-Players take turn -> vague (no information on board, not specified how many turns a player take at a time)
-game either ends in a draw or a win -> vague (condition for draw/win not clearly specified)
-
-
-requirements -
-- 3x3 board
-- 2 player to play the game
-- each player makes a turn alternatively
-- either a symbol 'X' or '0' is assigned to a player, and each player needs to have a unique symbol
-associated with them.
-- in every turn a player puts its symbol on the board and fills an empty cell on the board with symbol
-assigned to that player.
-- game termination scenarios -
-    - if board is full then it's a draw
-    - if there is a straight line of 3 cells either vertical, horizontal or diagonal filled with the same
-    symbol, then its a victory, and owner of that symbol is the winner.
+// Players should take turn one after another -> vague (count of players not specified)
+// Players take turn -> vague (no information on board, not specified how many turns a player take at a time)
+// game either ends in a draw or a win -> vague (condition for draw/win not clearly specified)
 
 
-step 2: identification of entities
-- board
-- player
-- game
-- symbol
-- turn/move
+// requirements -
+// - 3x3 board
+// - 2 player to play the game
+// - each player makes a turn alternatively
+// - either a symbol 'X' or '0' is assigned to a player, and each player needs to have a unique symbol
+// associated with them.
+// - in every turn a player puts its symbol on the board and fills an empty cell on the board with symbol
+// assigned to that player.
+// - game termination scenarios -
+//     - if board is full then it's a draw
+//     - if there is a straight line of 3 cells either vertical, horizontal or diagonal filled with the same
+//     symbol, then its a victory, and owner of that symbol is the winner.
 
-Note: 'players play game' shows us that game is dependent on players.
+
+// step 2: identification of entities (classes)
+// - board
+// - player
+// - game
+// - symbol
+// - turn/move
+
+// Note: 'players play game' shows us that game is dependent on players.
 
 
-step 3: write a rough code.
+// step 3: write a rough code.
 
-//      game (will get everything in motion)
-        /   \
-    player  board
-    /
-symbol
+// //      game (will get everything in motion)
+//         /   \
+//     player  board
+//     /
+// symbol
 
-while we get to writing the actual classes, there are two strategies -
-- top bottom approach
-- bottom top approach
+// while we get to writing the actual classes, there are two strategies -
+// - top bottom approach (go with this instead)
+// - bottom top approach (theoretically looks more practical but it isn't)
 
-bottom to top is very hard to execute, as many-a-times it happens that top level entities gives us an idea
-about how and what should be in lower level entities but vice versa is very hard to come up with.
+// bottom to top is very hard to execute, as many-a-times it happens that top level entities gives us an idea
+// about how and what should be in lower level entities but vice versa is very hard to come up with.
 
 public class TicTacToe {
     public static void main(String[] args) {
@@ -71,12 +71,12 @@ public class TicTacToe {
     }
 }
 
-Move will be a data-class, it will not have any methods other than getters and setters.
+// Move will be a data-class, it will not have any methods other than getters and setters.
 
-board is a behaviour based entity, we need to check it's behaviour after every move.
+// board is a behavior based entity, we need to check it's behavior after every move.
 
-all this logic is orchestrating our game, main() should not have it. game class should have all this
-and should be responsible to start the game.
+// all this logic is orchestrating our game, main() should not have it. game class should have all this
+// and should be responsible to start the game.
 
 public class TicTacToe {
     private final Player player1, player2;
@@ -104,18 +104,18 @@ public class TicTacToe {
     }
 }
 
-why i introduced new entity 'Result'
+// why i introduced new entity 'Result'
 
-because our last code was not testable, as our code should be highly testable.
+// because our last code was not testable, as our code should be highly testable.
 
-testable means -
+// testable means -
 
---i/p--> method --o/p-->
+// --i/p--> method --o/p-->
 
-this process must be testable for every scenario. (the output should match with expected output)
+// this process must be testable for every scenario. (the output should match with expected output)
 
-as main() is not testable (void in nature), to validate if we are getting expected results we felt the
-need to introduce a new entity 'Result'.
+// as main() is not testable (void in nature), to validate if we are getting expected results we felt the
+// need to introduce a new entity 'Result'.
 
 public class Result {
     private final boolean isDraw;
@@ -231,14 +231,15 @@ public class TicTacToeSimulator {
     }
 }
 
-we haven't covered any validations like -
-- what if player enters already filled cells (applyMove() should have it)
-- what if player enters out of bound cells
+// we haven't covered any validations like -
+// - what if player enters already filled cells (applyMove() should have it)
+// - what if player enters out of bound cells
 
-out implementation satisfies
-- single responsiblility principle
+// our implementation satisfies
+// - single responsibility principle    -> yes
+// - open close principle               -> no
+// as player class should be extensible to support computer player also.
+// because if i want to support different types of players then Player should be a polymorphic type.
+// Player should be an interface in that case.
 
-- open close principle - no
-as player class should be extensible to support computer player also
-
-Next we will see how can we convert our code into an extensible code.
+// Next we will see how can we convert our code into an extensible code.
