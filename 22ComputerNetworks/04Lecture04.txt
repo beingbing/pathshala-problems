@@ -1,0 +1,27 @@
+~~ modem device ~~
+
+We need to understand how communication is done between two heterogeneous devices.
+
+As we know that medium of communication has two types, light and electricity. and both of them are continuous propagation
+medium. Which means there is a continuous stream of data sent in analog form. But some devices possibly can understand only
+digital form of communication (binary).
+Hence we need to convert signal from digital to analog (demodulation) and vice versa (modulation).
+
+To make that conversion possible we have a device called modem. It is a physical layer device.
+
+nowadays, we do not use a modem device separately, normally our routers has in-build modem capabilities now.
+
+so, with all those discussions above we made sure that a pier to pier communication is happening. So, data link layer is
+just ensures that this communication has happened properly. Signal/information is not lost due to any interference. simply put,
+this layer does error control.
+
+second responsibility of data link layer is to ensure there is no congestion and there is a proper flow control.
+
+responsibility of data link layer -
+- error control
+- flow control
+
+congestion: one device among the two present is capable of producing signals of high intensity while other is not capable
+of working on that high capacity.
+
+but, before we move on to data link layer, there are two more concepts which we need to discuss.
