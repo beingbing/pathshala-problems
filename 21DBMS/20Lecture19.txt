@@ -1,0 +1,19 @@
+~~ functional dependencies ~~
+
+X                   --->                Y
+subset of                           subset of
+table columns                       table columns
+
+functional dependency: if for two rows r1 and r2, values of X is same then it implies that values of Y will also be same.
+
+so, X determines Y, but it is not necessary that vice versa is also true.
+
+these functional dependencies makes candidate keys legit. Hence, we can say,
+candidate keys      ---->       everything else in a row of a table.
+                    determines
+theses are of two types -
+- trivial dependencies
+if X -> Y then Y is a subset of X
+
+- non trivial dependencies
+if X -> Y then Y is not a subset of X
