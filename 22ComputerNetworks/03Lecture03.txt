@@ -1,0 +1,19 @@
+~~ Introduction to physical layer ~~
+
+for communication to happen between two piers, we need -
+- medium. It can be either electricity or light. or, wifi/radio signals.
+- form of connection -
+    - guided connection (there is a physical wire that connects the two components). We do it using -
+        - twisted pair cable (used in earlier days)
+        - coaxial cable
+        - fibre (optical) cable (mostly used nowadays)
+
+    - unguided connection (no direct physical connection). These connections are not 100% end to end secure. We do it using -
+        - Wi-Fi
+        - bluetooth
+    
+If we are doing one way communication then it is called half-duplex connection.
+whereas, if we can communicate both ways then it is called full-duplex connection.
+
+If both the piers are of same type and understand same protocols then it is easy to establish communication between them but
+what if we want to establish a communication between two heterogeneous piers ?
