@@ -1,0 +1,15 @@
+~~ introduction to computer networks ~~
+
+hosting: putting your code on a machine and exposing it to the outside world.
+
+1. software (browser) knows / gets to know where the page is hosted.
+2. we establish a connection with that machine.
+3. we make a request
+4. we get a response.
+
+so, if we want to access a webpage hosted on a machine then our browser makes a connection with that machine and then
+makes a request to get a response.
+
+parameters about which we should care about is -
+- speed
+- reliability
