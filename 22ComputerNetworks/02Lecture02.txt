@@ -1,0 +1,28 @@
+~~ OSI (open systems inter-communication) Model ~~
+
+by applying Single Responsibility Principle, we have divided internet into layers. Each layer has a specific responsibility
+and every new layer abstract out the lower layers.
+
+so, the only job of internet is, to establish a connection and send the data across it.
+
+lowest layer talks about connection between adjacent nodes (pier to pier data transfer)
+it is split into two layers -
+- data link layer
+- physical layer
+
+finding a route from source to destination path and then transferring data between them.
+it is split into two layers -
+- transport layer
+- network layer
+
+the transfer data should be converted into understandable form.
+for transferring data, we use protocols, so, every type of communication/data-transfer might be using different protocols.
+It is handled by -
+- application layer
+- presentation layer
+- session layer
+
+protocol: if two entities want to communicate then they need to establish some set of rules that they will follow in their
+communication.
+
+Every layer will only communicate with immediate lower and upper layer.
