@@ -1,0 +1,43 @@
+~~ flow control ~~
+
+Q1. how to identify that a packet sent is dropped and not received at destination.
+
+- destination returns confirmatory signal that indicates that a packet is received. it is called ACK (acknowledgement) message.
+- source will have a timer for which it will wait for that ACK message. If timer runs out a duplicate packet will be dispatched.
+
+drawbacks
+- ACK message got dropped.
+- destination do not have a way to distinguish between new and duplicate packet.
+
+to resolve above drawbacks we introduce sequence numbers.
+
+
+* algos we use to send out packets:
+
+# stop and wait:
+send a packet, wait for acknowledgement, then send out a new packet.
+We need only 0 and 1 as sequence numbers.
+
+drawbacks
+- very slow
+- traffic is twice of packet count.
+
+# go back n
+send packets in a bunch of n. destination will send an ACK (called cumulative ACK) once it received n packets.
+We need n + 1 digits as sequence numbers.
+
+drawbacks
+- if a packet is lost, then no ACK is sent hence whole bunch will be send again
+for this, we did a modification and introduced a partial ACK(1), which tells till which sequence number it received.
+so that we can start new bunch from next sequence.
+
+Note: the packets count can be huge, hence sequence numbers can also grow with the same amount. To minimize maximum range of sequence
+number, we circle back to 1 once we know that sending of initial packets are completed.
+What determines we circle back to 1 for sequence numbers ?
+this limit is determined by the algorithm we are using and when we can be 99% sure that there is no harm in reusing my sequence no.
+
+Note: selective repeat: in go back n approach, if we drop 1 and receive 2 and 3 then still we request for all three again. As 
+there is no way to tell the sender that only 1 is dropped which needs to be sent again.
+so to overcome this problem,
+if we drop 1 and receive 2 and 3, we send ACK(3) with NACK(1) (not acknowledgement), which tells that 2 and 3 received but 1 is
+not received. This is called selective repeat.
