@@ -1,0 +1,22 @@
+~~ devices in physical and data link layer ~~
+
+discussing devices before moving on to the next layer.
+
+- modem: modulation and demodulation device. already discussed.
+
+- repeater: to send signal over long range, they face loss in energy (amplitude), which is called attenuation. To remedy this,
+we use repeater. it reads the message, amplify its amplitude and then forward it.
+It's a simple hardware device available in physical layer with not software attached to it.
+It has two ports, one for input and other for output.
+
+- hub: same as repeater but has multiple ports. If a port receive a message, it will be amplified and sent across all the wires.
+It simply broadcast the received message. No logic is involved, its a hardware device, present in physical layer.
+
+- switch: similar to hub but it has a logic associated with it. It will not broadcast the received message. It will read the
+address on the message and then send it to that port only. kind of selective hub, only send messages to those who are destined
+for it. its a part of DLL.
+
+Note: All these devices are a part of single LAN.
+
+control mechanism can differ from LAN to LAN. So, there frame type and their understanding can be totally different. So to link
+these LANs we have a device called Bridge. It is also a DLL device.
