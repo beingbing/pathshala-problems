@@ -1,0 +1,53 @@
+~~ access control ~~
+
+How to deal with signal collision ?
+- avoid collision
+- detect collision and resend by making sure that there are even less chance of collision next time.
+
+to do the above, placing a controlling body in network: example, operators connecting calls in telephone lines. Controlling body
+ensures which signal to let pass and vice versa.
+
+# polling (mostly used in bus topology): one of the node in the network will be a polling manager. Whoever wants to send a message
+will send a poll to polling manager. Manager will be deciding whom to give priority and let them send a signal. When multiple
+nodes send a poll to manager, the node which is allowed to send a signal will receive a poll back indicating that the node have
+permission to go ahead.
+
+Q. what if polling message itself collides.
+no issue, let that happen.
+
+drawbacks:
+establish a polling manager can be expensive
+
+# token ring (mostly used in star topology): a token is circulated and whoever has that token will have the access to send a signal.
+Token moves in a circular fashion giving each node one chance to have the authority to send message.
+In bus topology we have a token bearer (manager) which will govern circulation of token.
+
+Assumption - node are working in a fair manner and will not keep a token unnecessarily for themselves.
+
+# pure aloha (no mediator involved) protocol: lets whoever wants to send a message sends it, then it will wait for ACK from receiver.
+If ACK is not received then collision is assumed. After that node will wait for random amount of time and will retry.
+
+drawbacks:
+- consumption of double bandwidth for single message.
+- due to which as more amount of packets will be flowing in the network, hence there will be more chances of collision.
+- with more packets, there will be more collisions which in turn will increase amount of packets hence further increase in 
+collision, then we will fall in a never ending loop.
+- under utilization of network due to heavy waiting period (even if no other node is sending a message). hence, random waits
+causes unnecessary delays.
+
+# slotted aloha: fixed sized messages wil be sent at a time interval of T instead of randomly sending a message anytime. 
+The size and T are decided such that any message send in network at time T is gone from the network at 2T and vice versa.
+
+drawbacks:
+not that efficient in a heavy network.
+
+# CSMA/CD (Carrier Sensor Multiple Access / Collision Detection) protocol:
+- we will be sensing carrier of network
+- detect if a message is already flowing in network carrier
+- if a node detects a message already flowing in the network, then it will not be sending any.
+(sense carrier wire and dont make it a multiple access)
+
+drawbacks:
+- if a node do not detect a message being sent then collision might happen. (very less likely to happen)
+Even if collision happens then no ACK will be received for new transformed message hence the messages will be resent after
+a random amount of time.
