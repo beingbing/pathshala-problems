@@ -1,0 +1,28 @@
+~~ Link State Routing and Hierarchical Routing ~~
+
+Distance Vector Routing was too slow hence we have this method.
+
+Every node calculates its adjacency list and flood it across network, hence, every other node will know about it now.
+Hence, every node will know about the complete graph.
+
+These were the two algorithms, giving us shortest path in a network.
+
+Downsides of above two (DVR and LSR) algos -
+- as internet has huge number of nodes so their routing tables will be very big, with millions of entries. So, not practical.
+
+Then, what we use to actually connect the whole internet ?
+so, to actually connect the whole network, we follow a Hierarchical form of routing.
+- in LANs DVR or LSR is used
+- we create a bigger internet by using one edge router from each LAN (called gateway routers).
+- node from each LAN first check presence of address in their LAN, if not they pass the packet to gateway router.
+- now the gateway will look for a LAN which has that address and pass the packet to gateway router of that LAN.
+- these blueprint will be replicated over MAN and WAN.
+
+# information stored by each router -
+- LAN internal routers only stores information about gateway node and other internal nodes
+- gateway router will store information about other gateways and its LAN internal nodes.
+
+Note: all these algorithms we discussed till now were for a single-source-single-destination model, also called unicast (1v1)
+algorithms.
+
+then, how broadcast (send to everyone), multicast (send to a selected group) and anycast (send to any one of selected) happen ?
