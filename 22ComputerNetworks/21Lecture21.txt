@@ -1,0 +1,29 @@
+~~ Multicasting and Anycasting Algorithms ~~
+
+multicast: broadcast to a selected people.
+
+# do broadcast and assume that only relevant nodes will read.
+drawbacks:
+- security: we are assuming that other nodes will not try to read it if the packet is not intended for them.
+- unnecessary transfers
+
+# do multicast using unicast
+drawbacks:
+- if group is too big, then too many unnecessary transfers.
+
+# create multicast groups: group of nodes that belong to a multicast group
+practically not always a perfect group can be formed, so we try to create a sub network which has all the nodes of a multicast
+group with least possible extra nodes.
+by using this we can reduce security and unnecessary transfer risk to as minimum as possible.
+
+How to setup such sub network ?
+for that we have a concept of rendezvous point.
+
+rendezvous point: amongst the member of multicast group, they decide a node which will be a rendezvous point.
+
+then, all other nodes will try to find shortest path to rendezvous point.
+
+
+* Anycast:
+all the packets of anycast have all the destinations listed so each router can decide which destination is closer to it and
+then send the packet in that direction.
