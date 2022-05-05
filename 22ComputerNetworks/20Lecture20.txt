@@ -1,0 +1,16 @@
+~~ broadcasting algorithms ~~
+
+# unicast to every node one by one
+drawbacks:
+- extra packets
+- unnecessary transfers
+
+# DFS / flooding: we send packets to our neighbors, they will send it to their neighbors and goes on.
+drawbacks:
+- if graph has cycles then it may go into an infinite loop.
+- keeping of visited array for not do not make much sense. Instead we keep a visited packets table to keep record of packets
+forwarded so that we do not forward a packet on loop. But this too is very memory intensive.
+so,
+impractical for broadcast
+
+# reverse path forwarding: router will forward only those packets which come from shortest path from source.
