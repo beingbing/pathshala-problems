@@ -1,0 +1,11 @@
+~~ IP Addressing ~~
+
+Internet Protocol address: every machine's address over the internet. which is unique for everyone.
+
+why do we need them ?
+- MAC address is very huge
+- MAC address is very random
+- so that we can shrink the size of routing table
+- to be able to implement regulations over IP addresses. like 12.__.__.__ is for india.
+
+IP addresses are dynamic in nature and are allocated via routers using DHCP (dynamic host control protocol).
