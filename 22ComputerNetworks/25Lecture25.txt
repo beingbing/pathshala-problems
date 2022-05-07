@@ -1,0 +1,25 @@
+~~ Introduction To Transport Layer ~~
+
+layers -
+
+7. application
+6. presentation
+5. session
+4. Transport
+3. network      discussed
+2. data link    discussed
+1. physical     discussed
+
+Till now we have establish pier to pier communication and reliability and creating a path from source to destination to
+establish a communication over a distance.
+
+But, what about the reliability of that path establish, how can we make sure that packet which is received at destination
+is not manipulated or hampered with on the way by some node. We haven't ensured reliability over the path established.
+
+This is where Transport layer comes in.
+
+First it does error control just like DLL, but on the complete path (DLL error control was for pier to pier).
+then, Flow Control
+then, congestion Control (responsibility of network + transport layers): reroute packets to some other path if congestion.
+
+we will also discuss, TCP and UDP protocols used in Transport layer.
