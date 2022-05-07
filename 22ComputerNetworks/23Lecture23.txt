@@ -1,0 +1,12 @@
+~~ public vs private IP and firewall ~~
+
+proxy pattern: someone pretends to be you on behalf of you.
+
+IANA has provisioned certain IPs for only private use. They can be only used as private IP addresses.
+
+When in an organization, there are a few public facing IP addresses called public IPs which accepts packets on behalf of
+complete organization and then forward them to company machines via some private IPs which are only known to them. Then
+those public IPs can shield those private IPs from receiving messages from any specific non trusted IP address from outside
+world. These feature is called firewall.
+
+VPN is one way by using which we can avoid firewalls, lets discuss it next.
