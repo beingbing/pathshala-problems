@@ -1,0 +1,35 @@
+~~ VPNs and Firewalls ~~
+
+There are different types of VPNs with different working.
+
+We will be discussing only how VPNs are able to bypass firewalls.
+
+main function of a VPN is that it changes your location somehow. It shows your IP address and location of somewhere else.
+
+How is VPN able to do that ?
+
+when a machine connects to a network, router allocates it an IP, what IP can be allocated to a machine is in accordance with
+IANA that are allocated to be a permitted IP address for that region. And that's how that router can work as firewall as well
+blocking the access of that machine to some blacklisted IP address.
+
+VPN is a private network present somewhere else in the world. When you connect to a VPN, you become part of that private network,
+you will be alloted a private IP of that network and will be added to the list of public facing router of that VPN.
+
+so, when a machine is connected to internet via VPN, that Network behaves like a proxy for you, and talks to the outside world
+on your behalf. So, as you are not directly accessing a blocked IP, hence router present in your region can not block it now
+for you as it will be sending that to that public facing IP of VPN, and that VPN will be sending the data from blocked IP to you.
+
+similarly, when VPN will be sending you data from a blocked source, the router present in your region, will see that it is coming
+from an IP which is not in blacklist hence, it will allow that data to reach you.
+
+In fight between governments and VPN providers, as VPNs has limited nodes which work as gateways to access public network, regional
+routers have IPs of those gateways added to blacklist as well. And a VPN can have only a limited range of public IPs which it can
+have depending on the region it is present. To counter this, VPNs keep switching their region, locality, architecture to bypass
+the blockade.
+
+* ARP (address resolution protocol) / RARP (reverse ARP) protocol -
+MAC address in DLL
+IP in Network layer
+
+when an IP address is given to ARP, it returns us related MAC address associated with it.
+RARP does reverse of ARP.
