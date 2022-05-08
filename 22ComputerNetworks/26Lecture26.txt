@@ -1,0 +1,21 @@
+~~ error and flow control ~~
+
+will dwell deeper into functionalities provided by transport layer -
+- error control:
+packets received by destination are the same as what were sent by source.
+
+packet      -- + header -->   frame     -- + headers -->   IP packet   -- + headers -->   packet
+
+physical                    data link                       network                      transport
+layer                       layer                           layer                           layer
+
+header in transport layer includes a hash which is obtained by passing the complete packet through a hash function.
+Very similar to DLL error control.
+
+- flow control:
+Again very similar to DLL flow control but working for over a complete path. The only difference maybe that the timer value
+is higher
+
+- congestion control:
+
+we will discuss them one by one.
