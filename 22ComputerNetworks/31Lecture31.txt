@@ -1,0 +1,3 @@
+~~ three way handshake ~~
+
+It helps us have reliable transport layer communication. 

@@ -1,23 +1,26 @@
 ~~ Understanding web architecture - backend ~~
 
-Data storage and retrieval from DB happens via backend. which in turn goes through
-frontend for storage.
+Client data storage and retrieval from DB happens via backend, but client can request for that
+only via frontend.
+client -> frontend -> backend -> storage
 
-So, backend needs to provide a facility to client so that client can store/update data.
+So, backend needs to provide a facility to frontend/client so they can store/update data.
 so, this facility can be thought of as a function which is exposed by backend, so that
-the function can be called and client can access the exposed functionality.
+the function can be called and frontend/client can access the exposed functionality.
 And that is what exactly backend does.
 
 Note: normal functions which we write in a language can only be expressed in a certain
 environment for that language, but these functions which are provided by backend
 needs to be available on overall internet.
 So, these kind of functions which are available to be called on the internet are
-called as API (application programming interface).
+called as API (application programming interface -> its an interface using which
+we can programme our application from internet).
 So, API is nothing but a function exposed over the internet to be called by a client
 or a frontend.
 
 client can approach DNS to access backend and can then called the respective 
 function with appropriate parameters (like data and image) to get the job done.
+client -> DNS -> ... -> backend -> exposed function (API) -> assigned process starts
 
 Note: the data which is sent across is composed generally in a particular format
 known as JSON.
@@ -29,32 +32,46 @@ so, 1. validation (request is well formed and valid)
 and will store/update.
 
 
-These exposed functions can have certain types associated with them.
+These exposed functions (API) can have certain types associated with them.
  - GET   - POST     - PUT      - DELETE
 
 if we mismatch the type, generally things still proceed as intended but this is the convention.
 
 so, as these are the functions, hence, these have ability to return something.
-Generally, these functions return the status code.
+Generally, these functions return data along with a status code.
 
 These status codes also has certain convention associated with them -
 - 2xx : everything is fine
 - 4xx : client sent a request that couldn't be understood. (client side issue)
 - 5xx : backend side issue (nothing wrong with request)
 
+With more concurrent users, responsibility comes to accomodate their requests and give timely
+responses, which is called Scaling.
 
-Scalling - 
-1. scalling DB and FS
-issues if a lot of users try to access DB and FS -
- - amount of data will be huge and can't be stored in single machine
- - due to huge data then data access can be slow.
- - failure of DB server due to external issues. (single point of failure)
+Scaling is needed on every tier -
+1. scaling DB, FS and cloud storage
+issues if a lot of users try to access DB, FS and cloud storage concurrently -
+ - amount of data made available by users to be stored concurrently will be huge and can't be stored
+ in a single machine
+ - due to presence of huge amount of data retrieval/access can be slow.
+ - physical failure of DB server due to external issues can be a problem. (single point of failure)
 
-2. scalling backend issues -
- - handling millions of requests as every request takes time and if DB is slow that time can
-   shoot up, which can be a problem. It will eventually be using too much memory, space to run
-   the code and eventually it will die down.
- - backend goes down. (single point failure at backend level).
+2. scaling backend
+issues if a lot of users try to access backend concurrently -
+ - handling millions of requests as every request takes time and if DB is slow then time can
+   shoot up, which can be a problem. It will eventually be using too much memory/space to run
+   the code and eventually backend will die down.
+ - physical failure of backend server due to external issues can be a problem. (single point failure).
 
-3. scalling frontend issues -
- - if website size is huge, frontend server might be not able to bear the requests load.(slowness)
+3. scaling frontend
+issues if a lot of users try to access frontend concurrently -
+ - if website size is huge, frontend server might not be able to bear the requests load. (slowness)
+
+
+In future lectures, we will address above issues and try to solve them with certain mechanisms.
+Those mechanisms may lead to further more unique kind of specific issues.
+Or via those mechanisms we will be introducing new multiple layers in our 3-tier architecture.
+And we will try to come up with the best possible solution.
+
+Note: There is no one perfect solution to a particular type of problem, it will always be a trade off.
+So, we will approach every issue in a particular scenario.

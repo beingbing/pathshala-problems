@@ -2,7 +2,7 @@
 
 Let's say, you wrote a website using HTML, CSS and JS, which you want to provide to users
 on myblogs.com
-how will you use it ?
+how will you do it ?
 
 1. basic idea
 if this files are on my machine then it won't be available 24x7, and not everyone will contact
@@ -35,7 +35,7 @@ approaches DNS to know the actual IP address of the machine on which the corresp
 websites file are hosted. Then browser go to that machine and ask for the relevant files so that
 browser can show it on the screen.
 
-browser is a software which unerstands those files, browser knows what to do with HTML, CSS and
+browser is a software which understands those files, browser knows what to do with HTML, CSS and
 JS files, or how to render them. So, as you can see, different browser sometimes interpret
 the same files differently.
 

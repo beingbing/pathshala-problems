@@ -29,7 +29,7 @@ data is sensitive, hence we need to guard it with a layer of authentication.
 
 Apart from DB server you need certain files which are dynamic in nature but can't be stored
 inside DB. for example, a users profile picture. We do not store them in DB because these
-files are normally in KB/MBs due to which a DBs accomodation size can increase tremendously,
+files are normally in KB/MBs due to which a DBs accommodation size can increase tremendously,
 which will make DB bulky and slow to work with, so even retrieval of small data will take time
 as this bulky file will get associated with it.
 
