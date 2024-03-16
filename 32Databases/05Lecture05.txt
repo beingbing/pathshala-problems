@@ -1,36 +1,58 @@
 ~~ multiple leader replication model ~~
 
 as, Leaderless application was too complex and single leader application is not suitable
-for when there are two many write actions.
+for when there are too many write actions.
 hence, we have this model
 also called as master-master replication.
 
-here, there are more than one leaders which supports write and others which just support
+here, there are more than one leader which supports write and others which just support
 reads.
 
+benefits -
+- increased write throughout
+- decreased write latency
+
 problem -
-synchronous updates.
-1.solved exactly the same way as done in the leaderless application.
+The major problem here is again what we experienced in Leaderless replication model,
+which is of synchronous update and to decide which Leader has the most recent update
+on the same value.
+1.solved exactly the same way as done in the leaderless application. (using NTP - LWW)
 the only difference is this responsibility is not shared by all the replica, shared
 only among masters.
-2. manual intervention - latest write wins might not always be correct as an earlier
-value might restrict the latest update from completing hence in this case the earlier
-value is the legit value.
+2. manual intervention - latest write wins might not always be correct. Because In case of
+a failed write, where not all the DBs from quorum are updated but some of them
+do, there is no way of rolling back the write operation completely, hence, in this case the
+earlier value is the legit value.
 An on-call person look at the conflicts and decide which update need to be kept.
 
 now,
 how these masters will communicate with each other.
 
-different topologies -
+Leaders can pass on writes among themselves using different topologies -
+- circle topology
+every Leader in this accepts write updates from only one adjacent node and transfer write
+updates to another adjacent node.
+drawback - no durability if any Leader fails
 
-1. All masters connected to each other, 1.e., each servers is connected to all n-1 servers.
-drawback -
-we need to maintain the order of commands. command with earlier Timestamp will happen first.
+- star topology
+There is one central node and all others will be outer nodes, they all will be transferring
+write updates to central node which will propagate it to all other outer nodes.
+drawback - if central node goes down then system loses durability
 
-
-2. star topology - among masters also there will be a master among masters which will decide on
-all the conflicts
-any updation received will be communicated to master do decide upon them.
-here again single point of failure problem reappears.
+- all to all topology
+every node sends write updates to every other node.
+drawback - causality - if node B receives * from node A and change it to # meanwhile,
+node A also sends * to node C but this transfer is slow, and before it could be completed
+node B sends # to it, but # was updated from * and C haven't received * yet. Which creates
+problem at C. To solve it, we need to maintain the order of commands. Command with earlier
+Timestamp will happen first.
+Unrelated to above problem, we also need to keep track of which writes is seen by which
+node so as not to be bouncing a write update from node to node forever.
 
 couchDB uses this model.
+
+So, till now we discussed three architecture for handling DB replication and maintaining reliability
+and consistency in a distributed DB system.
+
+So now we will be moving on to handle 2. problem of reliability which was "if DB goes down,
+what will happen to the transactions going on ?"

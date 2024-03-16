@@ -1,23 +1,48 @@
 ~~ CAP theorem ~~
 
-Consistency : All clients see same view
-Availability : All cleints can perform their jobs (read / write)
-Partition : system continues to work even in partial failure/fault.
+The CAP theorem in distributed databases states that it's challenging for a system to simultaneously
+provide three guarantees:
 
-out of these three we can ensure at max two.
+Consistency : All nodes in the system see the same data at the same time.
+Availability : Every request to the system gets a response without a guarantee that it contains the
+most recent version of the information.
+Partition tolerance: The system continues to operate despite network partitions that may cause
+communication failures between nodes.
 
-replication is derived from partition.
+Note: Partition tolerance is just another way of saying reliability.
 
-with replication with had issues with write for which we had -
+out of these three we can ensure at max two at the same time.
+
+This theorem helps guide decisions when designing distributed systems based on the priorities of
+consistency, availability, and fault tolerance.
+
+Note: a "network partition" refers to a situation where some computers in a distributed system are unable
+to communicate with each other. It's like a temporary "communication breakdown" between different parts
+of the system. This breakdown can occur due to network issues, hardware failures, or other reasons that
+prevent the normal flow of information between the computers. In the context of CAP theorem, the system
+needs to decide how to handle situations where parts of the network are temporarily disconnected from each
+other.
+
+Lets recap -
+As we discussed earlier, to ensure reliability we do replication, out of which problem of trade off 
+between consistency and availability originates. Which is in accordance with CAP theorem.
+
+So, scaling -> reliability -> replication/partitioning -> trade off b/w consistency and availability
+
+with replication we had issues with write for which we had -
  - synchronous update -> Consistency and partition ensured
  - asynchronous update -> partition and Availability ensured
 
-in it there are some Consistency patterns -
+ after reviewing what we learned till now from CAP theorem perspective, lets discuss about consistency
+ patterns in CAP theorem. (These patterns are a designation to a state indicating how much trade off is
+ done w.r.t. consistency)
+
+Consistency Patterns -
  - Weak Consistency: if you update any one replica, you do not care if that value is communicated
-    to others (no worry of Consistency), like, a database which stores analytics
-    because the analytics data stored on US servers if not properly communicated to India
-    servers then still it won't create any big issue.
-    (if we can then we will update it)
+    to other replicas (no worry of Consistency), like, a database which stores analytics (e.g. -
+    meta information of working of servers)
+    If the analytics data stored on US servers is not properly communicated to India
+    servers then still it won't create any big issue. (if we can then we will update it)
 
  - Eventual Consistency: Async updates - After some time the system will be eventually 
  consistent. example, email services, twitter posting.
@@ -25,20 +50,39 @@ in it there are some Consistency patterns -
  - Strong Consistency: synchronous updates - we need to make sure that every replica has same
  information. example, banking and financial services.
 
-These were important.
+These were important Patterns discussed in the context of the CAP theorem but there are variations and
+additional patterns that are not as widely known but are still relevant. 
 
-another types of Consistency
- - read your write Consistency: Whatever you have written, if you try to read that across
- replicas then that should be consistent. example, If you post a tweet on twitter and your
- location changes such that you are accessing another replica DB, other than what on which
- you had posted your tweet, then when you try to access it, the tweet should be there, 
+ - read your write Consistency: This pattern ensures that once a write operation is acknowledged, any
+ subsequent read operation will reflect that write. example, If you post a tweet on twitter and your
+ connection changes such that you are accessing a different replica DB in cluster, other than on which
+ you had posted your tweet, then when you try to access your Post, it should be there, 
  irrespective of the DB on which you have posted it.
-To ensure it, when we are doing writing, we can note down the replica on which we are writing it
-so that until Consistency is achieved, we connect to the same server on which we have written.
+To ensure it, there are many strategies, one of them is 'Session Management' or 'Sticky Sessions', when
+we are writing, we can note down the replica on which we are writing it, so that until Consistency is
+achieved, we connect to the same server on which we have written.
 
- - Monotonic read Consistency: If someone is reading any value multiple times from different
- replicas then still the value should be consistent, it should not happen that replicas
- among themselves have different data stored for same value.
-We can ensure it by ensuring that whenever repeated readings are done throughout the session,
-they are done from the same server, until something bad happen and we need to switch replica.
+ - Monotonic read Consistency: If a process reads a particular value, it will never see a non-monotonic (older)
+ version of that value in the future. In simpler terms, the system guarantees that the data read by a
+ process will always be at least as recent as the data it has read before.
+ It should not happen that replicas among themselves have different versions of data stored for same value.
+ And an older version is read on one and newer on another to the same user.
+To ensure it, there are many strategies, but we can again use 'Session Management' or 'Sticky Sessions',
+by ensuring that whenever repeated readings are done throughout the session,
+they are done from the same server, until something bad happen, and we need to switch replica.
 
+
+now, coming back to reliability we will discuss how updation should be done so that consistency can be ensured.
+
+For that, lets discuss a scenario where we can lose consistency permanently in a distributed DB cluster while doing
+write operation.
+
+Assume that there are 5 servers A, B, C, D and E. Now, an update request is received on A, and it is fulfilled
+simultaneously another (completely different and unique) update request is received by B, and it is fulfilled.
+Not both A and B have most recent but different value for same data. Now when this change is communicated to
+remaining 3 servers, some received request from A first and then from B, so they will have value contained in B
+as most recent value while others received request from B first and then from A, so they will have value contained
+in A as most recent And no server is sure of the correct most recent value.
+
+Hence, we will see next how can we ensure consistency while simultaneously accepting updation requests in a
+distributed DB cluster.

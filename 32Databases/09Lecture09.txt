@@ -1,22 +1,31 @@
 ~~ database scalability : denormalisation ~~
 
-scalability: maintain acceptable performance with increasing load.
+After completing our discussion on Reliability and Maintainability of a DB server tier, we
+will discuss Scalability. Because there is a difference between ensuring Reliability and
+Scalability which shouldn't be confused. For reliability, we keep multiple replica of same
+data, which is not equal to keeping a lot of data or keeping unique data on each DB server
+in a cluster. 
+
+scalability: maintain acceptable performance with increasing request load. (concurrent users)
 
 techniques to ensure scalability -
 - improving the performance
-1. to actually go for the right DB which is more suitable for your use case
-2. with SQL, denormalisation can be done
-3. go for some kind of indexing.
+    1. to actually go for the right DB which is more suitable for your use case
+    2. with relational DBs, denormalisation can be done
+    3. go for some kind of indexing.
+- if we can't improve performance then split the load
+    1. using Federation
+    2. Sharding - splitting the same DB into multiple portions
 
-if we can't improve performance then split the load
-- Federation
-- Scharding - splitting the same DB into multiple portions
+So, ways to improve performance to reach desired scalability are -
 
+1. Denormalisation -
+As we know, we use Normal forms to help us design a good DB, also to inform us what not to do
+while designing a DB.
+So, denormalisation states sometimes it is needed to break normal form rules to get better performance,
+even though we introduce some redundancy because of it.
+The most simplest meaning of denormalisation can be, we might need to keep a derived field so that our
+application do not choke while processing a query if dataset is huge.
 
-Denomalisation -
-Normal forms: we are able to create good DB designs
-
-it states that, sometimes it is better to break normal form rules to get better performance.
-
-we might need to keep a derived field so that our application do not choke while processing
-a query if dataset is huge.
+Caution, do not denormalisation just for the sake of it, unless you are sure that ongoing scalability
+issues can be mitigated then only go with it.

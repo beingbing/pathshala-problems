@@ -68,9 +68,9 @@ issues if a lot of users try to access frontend concurrently -
  - if website size is huge, frontend server might not be able to bear the requests load. (slowness)
 
 
-In future lectures, we will address above issues and try to solve them with certain mechanisms.
-Those mechanisms may lead to further more unique kind of specific issues.
-Or via those mechanisms we will be introducing new multiple layers in our 3-tier architecture.
+In future lectures, we will address above issues and try to solve them with certain strategies.
+Those strategies may lead to further more unique kind of specific issues.
+Or via those strategies we will be introducing new multiple layers in our 3-tier architecture.
 And we will try to come up with the best possible solution.
 
 Note: There is no one perfect solution to a particular type of problem, it will always be a trade off.

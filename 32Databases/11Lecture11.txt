@@ -1,17 +1,26 @@
 ~~ types of indices ~~
 
-- unordered map -> hash table
+Data structures used to create indices in databases can be categorized into two main types:
+A. unordered map
+    - hash table
+        - Maps keys to values using a hash function.
+        - Provides constant-time lookup in ideal scenarios.
+        - Suitable for exact match queries within a limited set but not good for range queries
+        or ordered retrieval.
+        - hash values might have pointer to different files at which all the list of keys with
+        same hash-key are present
 
-hash value is generated within a range for given keys, for which we used to store corresponding
-keys
+    - bitmap index
+    - inverted index
 
-hash values might have pointer to different files at which all the list of keys with
-same hask-key are present
+B. ordered map (called TreeMap in Java)
+    - B-tree (balanced BST)
+        -  Hierarchical structure with sorted keys and pointers to child nodes.
 
-- ordered map(balanced BST implemented under hood) -> B-tree which is extended to B+ tree
+    - B+ tree (balanced BST with enhancements)
+    - suffix tree/array
 
-we will have a structure for the root that will point to different entries.
+Note: introduction of any kind of indexing make insertion and deletion costlier.
 
-The tree can also be having 3 children at each node called ternary tree.
-
-So, insertion and deletion is expensive with indexing.
+Note: with indexing we are making a tradeoff between time and space. With having
+an extra DS in memory we are trying to reduce the query time.

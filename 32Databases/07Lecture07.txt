@@ -1,23 +1,27 @@
 ~~ Database maintainability: Federation ~~
 
-SRP: single responsibility principle
+As we discussed that DB s/w maintainability is not something we need to worry about, that
+comes out of the box, but when our DB usage increases and it has data of millions of users
+then we need to maintain reliability and availability of DB servers, as keeping single DB
+servers with this many records can slow down queries execution.
 
-whenever it is violated, it might lead to issues and difficulty in maintainance, hence, 
-the idea of Federation (functional responsibility) comes in -
+At this point, we need different DB servers for each utility of our application which has
+a DB tier as its architecture. example, a separate DB to handle order related data,
+another for handling product related data, one for keeping user data etc.
 
-in this, we even divide DB also in smaller modules instead of keeping one huge DB.
+hence, the idea of Federation (functional responsibility) comes in -
+we divide DB also in modules instead of keeping one huge DB. Every module will have its own DB server.
 But, keep in mind that it should not be overdone.
 
-we do Federation, once we reach around 10M users (approximately)
+as a ballpark figure of scaling, we do Federation, once we reach around 10M active users (approximately)
 
 advantages -
  - easy to maintain, find bugs and upgrades.
  - reduction of traffic
  - increase in scalability
- - horizontal scalling high, vertical scalling low
+ - horizontal scaling high, vertical scaling low
 
 disadvantages -
- - amount of hardware increases with that, the application side is more complex.
+ - amount of hardware increases, the application side is more complex.
  - maintainability of application decreases
  - Joins queries is difficult across DB
-
