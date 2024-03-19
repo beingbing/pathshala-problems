@@ -1,5 +1,6 @@
 ~~ Consistent Hashing ~~
 
+random load balancing: Consistent Hashing technique ->
 How to maintain consistency in terms of requests coming from a same user.
 (in normal situation, if a server is down or a new server is up).
 
@@ -23,4 +24,4 @@ To avoid this -
 1. lets increase the size of the hash and hash multiple numbers to the same server.
 so, lets assume, 3 servers with hash range of 100, each server has 5-10 number hashed To
 its name then if a server goes down then its load is distributed among others randomly
-dpending upon which server was next to it's hashed value at different places.
+depending upon which server was next to it's hashed value at different places.

@@ -1,39 +1,48 @@
 ~~ frontend system design: content delivery network ~~
 
-- if server is in US and request from india, then it will take long.
-- different pages for different countries.
-- different variations for different screen sizes.
-- updates need to go to every client.
+after completing system design at DB server and backend server tier, we will be
+start our discussion on frontend server.
 
-solution -
-- for first 3 we can make replicas 
-- we can distribute code according to the region, as server in india do not need to have
-pages which only need to be shown in US.
+As we know, FE mostly serves content to a client request which are mostly static
+in nature, as all dynamic data is progressively fetched from backend.
 
+issues faced at frontend in ensuring scalability, reliability and maintainability -
+- if server is in US and request from india, then it will take long (high latency)
+- different pages for different countries (data localisation)
+- different variations for different screen sizes (responsiveness)
+- updates need to go to every client (push notification)
 
-- every region has it's own regulations, so every updates need to apply them.
-- machines need to be acquired to be used as server at each location.
+solution for first three issues -
+we can create region wise replicas and then distribute code according to the region,
+as server in india do not need to have pages which only need to be shown in US.
 
-So,
-to solve all this issues, we have CDNs like, AWS cloudFront or akamai. 
+for 4th issues -
+every region has it's own regulations, so every updates need to apply to a locality.
+Hence, machines need to be acquired to be used as server at each location.
 
-types of CDNs -
+For large static files and localized updates we can use CDNs like, AWS cloudFront, akamai, etc.
+
+there are many good CDN services available which we can utilise, but focusing our
+discussion on them, there are two types of CDNs -
 1. push CDN -
 whenever main website gets updated, the updates are also pushed on the server available
 on CDN immediately.
 if a business is organizing a sale, then this architecture can also dictate for how long
 the latest pushed update will live.
-it will have very few network calls until pushed from businss.
-cons -
-- takes up more storage
+it will have very few network calls to business until pushed from businss.
+Preferrable for businesses working on smaller scale and/or with lesser updates.
+
+disadvantage -
+    - takes up more storage on CDN server, hence will cost more
 
 2. pull CDN
 whenever a client requests for webpages, the CDN will contact main servers get it from there
 and then give it to client.
 This CDN will keep every fetched page for a particular amount of time, after that, it will
 refetch it.
-it requires less storage.
-good for regular updates and more traffic webpages.
-cons -
-- unnecessary more network calls (as there was no update and page was valid but still got
-invalidated and re-fetched)
+it requires less storage, as everything is chached only for a particular amount of time.
+Good for regular updates and more traffic webpages.
+
+disadvantage -
+    - unnecessary more network calls (as there was no update and page was valid but still got
+    invalidated and re-fetched)

@@ -1,48 +1,59 @@
 ~~ polling and websockets ~~
 
-how the token made available to client are processed.
+Now, moving our discussion back to communications part which takes place once processing
+is done and backend is ready with a response.
 
-1. polling -
-after client gets token, they will ping servers to check on the status of their requests.
-so, the status will be communicated by backend server to the enquirer only on receiving
-a ping.
+Continuing with our polling explanation -
+after client gets token, they will ping servers to check on the status of their requests
+at a regular interval of time. So, the status will be communicated by backend server to the
+enquirer only after receiving a ping.
 
-types -
+types of polling -
 - long polling
-when client makes a request, server will keeps the request even if it is not currently processed,
-once it is processed, it will be responded. The request will be kept till client times it out as
-server took too long to respond. (three way handshake). The kept request connection wasn't getting
-processed only the connection was kept alive, hence it doesn't utilise a lot of resources, so
-many(in thousands) connections like this can be maintained at a time. 
-If they would have been utilising resources then we would have to keep them in queues and we will
-be back to our previous lecture.
+    When a client sends a request to the server, the server holds onto the request even if
+    it's not immediately processed. Once the server processes the request, it responds
+    accordingly. The request remains stored until either the server sends a response or the
+    client times out due to a delayed response.
+    
+    During this time, the connection for the request is kept alive, but it doesn't consume
+    many resources. This allows the server to handle thousands of such connections simultaneously
+    without overloading. If these connections were resource-intensive, they would need to be
+    managed in queues, leading to the process discussed in our previous lecture.
 
-benifits -
-- real time updates received
-- comparatively there will be less amount of network calls.
+    benefits -
+        - real time updates received
+        - comparatively there will be less amount of network calls.
 
-cons -
-- design a system to hold those connections.
-- machine should not go to overload with a lot of connections.
+    cons -
+        - design a system to hold those connections.
+        - machine should not go to overload with a lot of connections.
 
 - short polling (almost never used)
-after some time i will keep on pinging the server, if my request is completed i will get
-the response other i will get not-yet-completed status.
-it is not used much because, too many variables, time-interval between each ping, if time
-interval is too short, too many request, and if it is too long, result is delayed a lot.
-It was the simplest polling implementation.
+    as already discussed, I'll periodically ping the server to check if my request is completed.
+    If it's done, I'll get a response; otherwise, I'll receive a "not-yet-completed" status. 
+    
+    However, this method isn't commonly used due to various factors like determining the time
+    interval between each ping. If the interval is too short, it results in too many requests,
+    and if it's too long, the response is significantly delayed.
 
+    Despite being the simplest form of polling, it's not very practical.
 
+Note: overhead in establishing a new TCP connection: DNS lookups, TCP handshake, SSL/TLS handshake, etc.
+Without a keep-alive, every HTTP request has to establish a new TCP connection, and then close the
+connection once the response has been sent/received. A keep-alive allows an existing TCP connection
+to be re-used for multiple requests/responses, thus avoiding all of that overhead. That is what makes
+the connection "persistent".
 
-long polling was so good, it was taken to a next level and the implementation become -
-why not keep a connection all the time and make this connection duplex (communication can happen
-both ways) in nature. that is, client can query anytime and server can respond any time. This 
+long polling was so good, it was taken to a next level and combined with push communication so that
+the implementation become -
+why not keep a connection all the time (make it persistent) and make this connection full-duplex 
+in nature. that is, client can query anytime and server can push response any time. This 
 concept is known as websockets.
 
-websockets: client and server have a permanenet duplex connection between them. and, both sides
+websockets:
+client and server have a permanent duplex connection between them. and, both sides
 are listening. (example, notification system)
 
 cons -
 as it is a duplex connection, LB can't do much here, if you have thousands of connections 
 then server has to maintain them and handle them, they can't be delegated to another servers.
-
