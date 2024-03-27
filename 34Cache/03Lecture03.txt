@@ -1,50 +1,57 @@
 ~~ cache invalidation and cache eviction ~~
 
-cache Invalidation: 
-Assume that a lot of queries are happening for a particular data then we have 
-cached it and that data is time dependent, getting updated every few minutes.
-Now, assume that after 10-20 mins if another query comes asking for same
-data, then we can not relying on cache because it is possible that data configuration
-has changed with time and the data stored in cache do not anymore represent
-correct results.
-formally speaking, stale data maybe served to a client.
-because cache do not gets updated, we do not keep any process to check recentness of
-the cache, we only check for it's presence.
-So, the procedure to check the recentness of cache and update it if not find correct that
-is called as cache Invalidation.
+before monving on to cache level patterns and how cache is organised, let's discuss two
+important terms -
 
-to achieve it we have -
-- cache expiry: with every cache we have an associated TTL -> time to live with it.
-so, as soon as cache expires, either cache removes the data itself or if server sees that
-the associated data has expired, so, data gets discarded and it is re-computed and again
-stored in cache with new TTL.
-cons -
-to come up with an appropriate TTL for a cache is hard.
+A. cache Invalidation:
+When frequent queries are made for specific data, it's cached to improve performance.
+However, if source data changes over time then the cached data becomes outdated, there's
+a risk of serving stale information to clients. To address this issue, we need a process
+to check the freshness of the cached data (if found) and update it (if necessary).
+Cache invalidation is the process of removing or updating cached data when it becomes
+outdated or no longer valid. It is essential for ensuring that clients receive accurate
+and up-to-date information from the cache.
 
-one approach is that the data we calculate using a process to store in cache, we can keep
-a flag if any associated data which is used in calculation of cached data is updated,
-then flag gives us indication that, i think, it's time to re-calculate the cache data
-and renew it.
-The problem with this approach is the process which has the responsibility to raise the flag,
-might become heavy with logic and a side responsibility and can itself becomes slow.
+Techniques used for cache invalidation -
+ - Time-Based Invalidation:
+ Cached data is assigned a time-to-live (TTL) or expiration time. When the TTL expires,
+ the cache either removes the data automatically or marks it as expired. Upon expiry,
+ if the server detects outdated data, it discards it and re-computes the data, storing
+ the updated information in the cache with a new TTL. However, determining the right TTL
+ for a cache can be challenging as it requires balancing factors such as data freshness
+ and cache performance.
 
+ - Event-Based Invalidation:
+ Cached data is invalidated based on specific events or triggers, such as database updates
+ or changes to related data. Using a flag to indicate whether any associated data used in
+ the calculation of cached data has been updated. When the flag is raised, it signals that
+ it's time to recalculate and renew the cached data. However, this approach can introduce
+ complexity and slowdowns, as the process responsible for raising the flag may become burdened
+ with additional logic and responsibilities.
 
-cache Eviction:
-cache storing is expensive, so, whatever is stored in cache must be extremely useful. and count
-of cache hits is way more than cache misses.
-So, sometimes it happens that cache memory is full, and we need to keep a new data in cache.
-so, we need to make a decision on out of the N cache already stored and 1 new cache present to
-be stored, out of these n+1, which cache i can evict.
+Strategies used for cache invalidation -
+1. Cache-Control Headers: HTTP cache-control headers can specify caching directives, such as
+max-age and must-revalidate, to control cache behavior and invalidation.
+2. Cache Invalidation Patterns: Implementing cache invalidation patterns, such as write-through
+or write-behind caching, helps ensure that cached data remains consistent with the source of truth.
+3. Cache Monitoring and Alerts: Monitoring tools can detect changes in data or system status and
+trigger cache invalidation processes as needed.
 
-algos for this are -
-1. first in first out -
-cache which came earliest will go out and newly coming data will be stored.
+Considerations to be done while designing a cache invalidation strategy -
+Granularity: Determine the granularity of cache invalidation based on the application's requirements.
+In some cases, invalidating entire caches may be necessary, while in others, more granular invalidation
+strategies can be employed.
+Performance Impact: Cache invalidation operations should be efficient and minimize the impact on
+system performance. Avoid excessive invalidations that could degrade application performance or
+overload backend systems.
 
-2. least frequently used -
-the cache whose query comes the least will be evicted.
+B. cache Eviction:
+Cache storage is valuable, limited and designed with the goal of having more cache hits than
+misses. So, when the cache reaches its capacity, cache eviction is the process of removing/replacing
+data from the cache to make space for new or more frequently accessed data.
 
-3. least recently used -
-note down when was the last time each cache was used, so, the one which was used the last will
-be evicted.
-
-4. hybrid of above 3.
+There are several eviction policies that can be used -
+ - First In, First Out (FIFO): The earliest cache entries are removed to make room for new data.
+ - Least Frequently Used (LFU): The least accessed cache entries are evicted.
+ - Least Recently Used (LRU): Cache entries are tracked based on when they were last accessed,
+ and the least recently used ones are evicted first.

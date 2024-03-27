@@ -1,32 +1,31 @@
 ~~ cache positions in web architecture ~~
 
-1. broswer cache - 
-some of the static/dynamic data might be stored at broswer level, so that when user opens same
-website again, its content can be accessed without making an API call.
+In a three-tier system architecture, you can implement a cache layer at various points to
+improve performance:
 
-cons -
-for a polling API, whenever application tries to check whether response is processed or not,
-broswer will look into cache and respond with 'no'
-so, sometimes we need to set 'no-cache' policy in header, so that the result of API call
-comes from server, and do not cache this data, this need to be fetched fresh everytime
-it enquired.
+A. Presentation Tier (Frontend):
+1. browser cache -
+ - Cache static assets such as images, scripts, and stylesheets in the user's browser.
+ - Cache frequently accessed data on the client-side to reduce the need for repeated
+   requests to the server.
 
-forward proxy also can use cache to respond to same queries from different clients.
+Note: For a polling API, when the application checks if the response is processed, the browser
+may respond with 'no' if it looks into the cache. To ensure that the API call result comes
+directly from the server and is not cached, we sometimes need to set a 'no-cache' policy in the
+header. This ensures that the data is fetched fresh every time it's requested.
 
-pull CDN also works as a cache layer for a lot of repeated queries for same resource.
+Note: A pull CDN also acts as a cache layer for frequently requested resources.
 
-reverse proxy also can use cache to respond to same queries from different clients.
+B. Application Tier (Backend):
+1. API Responses: Cache frequently requested API responses at the server-side to reduce latency
+and improve response times for subsequent requests.
+2. Session Management: Cache session data to optimize user authentication and session management
+processes, reducing the need to access session databases frequently.
 
-application (server) level cache:
-If for every user query we need to check whether user has appropriate permissions or not,
-for that we need to go through a bunch of tables to confirm.
-And if there are a lot of requests like this where we need to check same users access
-rights. So, once we have confirmed that the user is a valid user, we store it in
-server level cache for an amount of time so that remaining requests can be responded
-more faster.
-So, it is taking a huge computational query response and cache it for a valid amount of time.
+Note: Both forward proxies and reverse proxies can utilize cache to respond to identical queries
+from multiple clients.
 
-DB level cache:
-DB level cache will be across queries, example, if there are a lot of queries around some
-data from a particular table then we cache that data and then if a similar query comes then
-we can respond to it using cache.
+C. Data Tier (Database):
+1. Database Query Results: Cache frequently accessed database query results (like database objects
+or entities) in memory to reduce the need for repeated execution of complex queries, hence, reduce
+database load and improve overall system performance.

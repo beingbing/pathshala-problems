@@ -1,21 +1,22 @@
 ~~ introduction to cache ~~
 
-If we have calculated value for some case then store it then when someone else again ask
-for the same information, do not do the calculation, just return it from the storage.
-just like memoization.
+If the data is not in the cache, the system retrieves it from the original source, stores it in
+the cache for future requests, and then returns it to the requester. This process helps speed
+up operations and reduce the load on the underlying system.It helps improve performance by
+reducing the need to fetch or compute the same data repeatedly from the original source. When a
+request is made for data, the system first checks the cache. If the data is found in the cache,
+it is returned quickly without accessing the original source, saving time and resources. If the
+data is not in the cache, the system retrieves it from the original source, stores it in the cache
+for future requests, and then returns it to the requester. This process helps speed up operations
+and reduce the load on the underlying system. This process is similar to memorization.
 
-cache: a simple s/w or h/w components that stores data for fast retrieval by avoiding
-recomputation.
-s/w example - map
-h/w example - redis
+A cache is a software or hardware component that stores data to speed up retrieval and avoid
+recomputation. For example, a software cache could be a map, while a hardware cache could be Redis.
 
-cache hit: whenever a query comes, first check if it is present in cache, if it is then its a
-cache hit.
+A cache hit occurs when a query finds the requested data in the cache, while a cache miss occurs when
+the data is not found in the cache. It's preferable to have a higher cache hit rate, meaning more
+queries are satisfied from the cache rather than needing to fetch data from the original source.
 
-cache miss: if you can not find the data in cache then its a cache miss.
-
-we generally tries to keep cache hit rate higher.
-
-cache hit rates depend on your system, some examples are -
-1. recency bias
-2. avg over a long period
+Cache hit rates vary based on system requirements. Some examples include:
+1. Recency bias (timeline of social networks)
+2. Average over a long period (analytics results)
