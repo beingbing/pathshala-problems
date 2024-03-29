@@ -1,0 +1,11 @@
+~~ Designing URL Shortener: Scaling It Further ~~
+
+To scale our system for 10x -
+- we need to implement sharding. Range-based partitioning might not be suitable if most URLs fall
+within a single range. Consistent hashing can be a better option, where we hash the shortened URL
+to determine which shard it should belong to.
+- With the monitoring service in place, we don't need to worry about load balancing and backend
+servers.
+- To enhance performance, caching can be implemented. Caching at the reverse proxy level for GET
+requests and a write-through cache between server-DB interactions can be beneficial. Using an LRU
+cache eviction mechanism would be sensible.

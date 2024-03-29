@@ -1,0 +1,23 @@
+~~ designing URL shortener: functional and non functional requirements ~~
+
+Design a URL shortener like bit.ly -
+
+Functional Requirements:
+1. Shorten URL Function (write function):
+    Input: Long URL
+    Output: Shortened URL
+
+Characteristics of Shortened URL:
+    - Limited character length
+    - Guarantee of uniqueness
+    - Expiration feature
+    - User authorization for accessing shortened URLs
+
+2. Expand URL Function  (read function):
+    Input: Shortened URL
+    Output: Long URL
+
+Non-Functional Requirements:
+- Target User Base: College or company departments, potentially using the shortener for feedback forms or promotional posts.
+- High Availability and Low Latency: Both the URL shortening and expanding functions should be readily accessible with minimal delay.
+- Eventual Consistency: The system should eventually ensure that all replicas of data are consistent across different nodes or regions.

@@ -1,0 +1,48 @@
+~~ tackling system design problems ~~
+
+how to tackle system design problems ?
+
+DSA problems has a definite correct/incorrect solution but system design problems do not.
+There can be multiple solutions, you need to discuss and improve as no design problems is
+perfect. Problems on it are more of a discuss where both interviewer and interviewee come
+up with a best solution. you need to drill down the scope, give some solution and then discuss
+further on it to improve it on the basis of requirement. To help you with that, following
+steps can be a roadmap of a system design interview -
+
+1. Understand Requirements: clarify functional and non-functional requirements
+functional requirements (exposed API)
+    ->input     f(x)    ->output
+    ->userId    f(x)    ->timeline
+    ->tweet     f(x)    ->posted or not
+
+non-functional requirements (system metrics) , e.g. -
+    - system should be highly available (availability)
+    - it should have low latency (latency)
+    - consistency
+
+2. Back-of-the-Envelope Calculations: e.g. -
+    - system might be producing 20GB/month
+    - no of requests need to be handled per seconds
+    - data handled per seconds
+    - storage of data
+    - how much load will be balanced
+    - read/write ratio
+
+3. Design High-Level Architecture: start with a three-tier design (frontend - backend - database)
+and discuss its details -
+a. database -
+    what DB ?
+    Data model, making some ER diagrams
+    indexing, partition-tolerant, federation.
+
+4. Deep Dive into Components: Modify the three-tier design based on specific requirements,
+diving deep into each component. Focus on backend and database details, discussing aspects
+like scaling, data consistency, and fault tolerance.
+
+Note: we generally do not dive deep in frontend, as in most of the cases it is much simpler except
+a very few cases.
+
+5. Scaling Considerations: Plan for system scalability based on changes in various parameters
+like user base, data volume, and request load.
+
+Note: Sometimes, step 2 may be skipped by the interviewer.
