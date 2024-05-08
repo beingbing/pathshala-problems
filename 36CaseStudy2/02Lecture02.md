@@ -14,5 +14,6 @@ rounding off ~ 30 req / sec
 - restricting each file size to be 1MB, it makes 3MB data / req
 - storing every submission for just a few days (assume for 5 days)
 
-> [!R/W ratio] : It will be a write heavy system.
-> Each uniquely submitted code only shared to at max 2 users, so read is very low, so, r:w::1:1
+### R/W ratio
+- It will be a write heavy system.
+- Each uniquely submitted code only shared to at max 2 users, so read is very low, so, R:W::1:1

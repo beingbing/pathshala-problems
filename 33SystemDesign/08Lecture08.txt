@@ -16,7 +16,8 @@ Asynchronous communication is broadly of two types -
 1. Push Communication: data or events are initiated and transmitted from the sender (server)
 to the receiver (client) without the receiver explicitly requesting for them. It is commonly
 used for real-time updates, notifications, and event-driven architectures.
-- Server-sent events (SSE) example, WebHooks [Half-duplex]
+- Server-sent events (SSE), sent from server to Client [Half-duplex]
+- webHooks, sent from server to server [Half-duplex]
 - webSockets [full-duplex] (also sometimes called an extension of long pooling due to persisted connection)
 
 2. Pull Communication: the receiver (client) initiates the request for data or events from
