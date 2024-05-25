@@ -18,7 +18,7 @@ submitted code is more reliable and preferable.
 
 But, process only have independent execution ability. They are not isolated, as multiple processes
 can modify same document at a given time, As FS is shared among processes. So, to be exclusively
-isolted, every process needs to be on a separate machine. But, we are accepting 30 req/sec, hence
+isolated, every process needs to be on a separate machine. But, we are accepting 30 req/sec, hence
 we will need 30 machines each second, which is too far fetched. Hence, we can go with Virtualization.
 Whose better alternative is Containerisation.
 
@@ -44,7 +44,7 @@ tasks and are ready to create new containers. Workers will save completed tasks 
 
 <samp>- Kafka Queue and Consumers to Create Containers Asynchronously</samp>
 
-Now, our current Architecture is scalable, reliable and higly available.
+Now, our current Architecture is scalable, reliable and highly available.
 
 Q. Will we have only 1 server accepting the requests ?
 

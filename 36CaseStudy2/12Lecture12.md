@@ -33,7 +33,7 @@ adjusted to maintain performance and reliability.
 - **Result-Service**:
   - Implement multiple replicas to handle 300 concurrent connections.
   - Use sharding with consistent hashing to distribute connections across replicas. For example,
-  based on hasing 50 connections go to the first replica, the next 50 to the second, and so on.
+  based on hashing 50 connections go to the first replica, the next 50 to the second, and so on.
   - This ensures that each machine maintains a manageable number of connections.
 
 By implementing these adjustments, we can efficiently scale our system to handle a 10x increase in

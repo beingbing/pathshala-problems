@@ -8,7 +8,7 @@ Three stages of a container -> config-text-file -> Image -> container-runtime
 **A container-runtime is a sandbox for a process**. Sandbox: process have a separate namespace and
 cgroups. Each container has only one main process, which only knows about processes existing within
 the same container, like, threads it initiated or running daemon process, its life-cycle is tied to
-container. Starting/stoping container will start/stop the process and vice versa. When a container
+container. Starting/stopping container will start/stop the process and vice versa. When a container
 is instantiated, nothing is installed on the OS, so when the container is removed, it leaves behind
 a clean environment without any leftover files.
 
@@ -81,12 +81,12 @@ multiple machines and handling complexities like networking, secret management, 
 
 Designed for high availability, it can maintain replica-sets for microservices and ensures disaster
 recovery by replacing failed machines without losing application state in a system
-deployed on Kubernetes called Cluster comprised of mulitple Worker Nodes and one Master Node.
+deployed on Kubernetes called Cluster comprised of multiple Worker Nodes and one Master Node.
 
 The Control-plane, the brain behind it, manages the cluster, deployed on Master (although it can be
 installed on a worker Node as well, it's ideally kept separate). It exposes an API server (also a
 container) for internal and external requests, the only entry point into the Cluster. All Client
-communication via UI, API or CLI are received here. It has Schedular to assign node to newly
+communication via UI, API or CLI are received here. It has Scheduler to assign node to newly
 created pods, a Control-Manager responsible for managing the cluster's state, and ETCD, a key-value
 database storing the cluster's current state.
 

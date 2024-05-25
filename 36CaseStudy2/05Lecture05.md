@@ -1,18 +1,18 @@
 # Process vs Thread
 
-Before delving deep into our submission service, as it will be spunning an independent thread to
+Before delving deep into our submission service, as it will be spun an independent thread to
 execute our submission code, so lets first understand as why we went with this approach. Why we
 chose to have a new thread instead of starting a completely new process, for this lets understand
 more about Threads and Processes, and how an actual computer executes our code -
 
 ### Process -
 
-Computer is a set of Hardwares, with an OS managing them and running programs on them. Any program
-that we want to run (example, Google Chrome) will be first given to OS, which will convert the
-binary code stored in memory into a process and give it a spun and space in RAM. In order to provide
-execution space, which is termed as PCB (Process Control Block) and contains metadata of the process
-which contains, CPU understandable binary code, necessary data, heap and stack memory chunk. all
-this is given to CPU and then a process starts.
+Computer is a set of Pieces of hardware, with an OS managing them and running programs on them. Any
+program that we want to run (example, Google Chrome) will be first given to OS, which will convert
+the binary code stored in memory into a process and give it a spun and space in RAM. In order to
+provide execution space, which is termed as PCB (Process Control Block) and contains metadata of
+the process which contains, CPU understandable binary code, necessary data, heap and stack memory
+chunk. all this is given to CPU and then a process starts.
 
 In short, application which needs to be run, is converted into a PCB in RAM by OS and given to CPU,
 which allots a Core and starts its execution, which is termed as a Process.

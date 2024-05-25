@@ -7,7 +7,7 @@ can handle the expected traffic.
 - daily active users: 1,000,000
 - if every user make 2 submission daily then 2,000,000 write requests daily ~ 24 req/sec, which on
 rounding off ~ 30 req/sec
-- assuming each request taking 2 sec (python code can go upto 10 sec each)
+- assuming each request taking 2 sec (python code can go up to 10 sec each)
 
 ### Data Storage:
 - with every submission, - Input file, - Output file, - code file
