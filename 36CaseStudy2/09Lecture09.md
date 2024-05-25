@@ -56,4 +56,4 @@ will distribute the requests evenly among these replicas using a Round Robin app
 <samp>- Load Balancer manage 4 server replicas with Round Robin approach</samp>
 
 So, here we discussed, code submission, processing, generating results and storing it back in DB.
-Next we will discuss, how can stored calculated result can be sent back to the requester.
+Next we will discuss, how stored calculated result can be sent back to the requester.
