@@ -40,4 +40,6 @@ frontend server hosts files known at development time.
 | | <--------- | |
 | | Response | |
 
-> Note: A browser is software that understands how to process and render HTML, CSS, and JS files. Different browsers may interpret these files slightly differently, leading to variations in how websites are displayed.
+> Note: A browser is software that understands how to process and render HTML, CSS, and JS files.
+> Different browsers may interpret these files slightly differently, leading to variations in how
+> websites are displayed.
