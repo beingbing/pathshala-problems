@@ -54,6 +54,7 @@ separate microservices, so, we will have,
 - submission service
 - result fetcher service
 - url service
+
 Now, all these services will be deployed on a separate machine.
 similarly,
 we will be dividing our DBs as well, hence we will get -
@@ -69,4 +70,4 @@ from submission DB and result of submission from result DB.
 ---
 ###
 
-Let's now focus on our submission service and submission DB.
+Let's now focus on our submission service and submission DB in Lecture 09

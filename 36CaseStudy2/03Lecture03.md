@@ -8,7 +8,7 @@ submission_id submitCode(language, code, code_input);
 - backend server will first run the code to generate an output against given input, then save it
 against a unique submission_id in DB, and respond with both output and submission_id.
 - we will make two APIs, one for generating unique submission_id and one for submitting the code.
-- we won't make client to wait for indefinite time when code is waiting processed, as soon as
+- we won't make client to wait for indefinite time when code is getting processed, as soon as
 code is submitted, we will display a message that 'your code is in queue' and keep polling to
 check if code execution is done or not.
 - so to summarise, journey of this API will be to get the code in request, save it in DB against

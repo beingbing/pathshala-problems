@@ -14,7 +14,7 @@
 3. ability to share code and its output using a unique URL.
 
 #### Non-Functional Requirements:
-1. submitted code should be highly available.
+1. Server should be highly available.
 2. results should be consistent. Same output for same input.
 3. performance - code execution should be quick.
 4. security - user code should be sandboxed. Code submitted should not be allowed to access other users submitted code.
