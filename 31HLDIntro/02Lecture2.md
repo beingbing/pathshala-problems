@@ -41,9 +41,10 @@ To prevent clients from directly accessing the DB and file system, a backend lay
 This layer handles the secure access and authentication required for dynamic data. The architecture
 is as follows:
 
-| | | | | | | |
+|        |         |          |         |         |         |              |
 |    -   |    -    |    -     |    -    |    -    |    -    |      -       |
-| client | ------> | frontend | ------> | backend | ------> | DB/FS server |
+|        | ------> |          | ------> |         | ------> |              |
+| client |         | frontend |         | backend |         | DB/FS server |
 |        | <------ |          | <------ |         | <------ |              |
 
 This forms a three-tier architecture with the backend acting as a security layer. This setup is
