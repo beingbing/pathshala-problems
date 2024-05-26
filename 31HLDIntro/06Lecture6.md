@@ -14,7 +14,8 @@ structure and code easy to understand and work with.
 
 - **KISS (Keep It Simple, Stupid)**: Avoid unnecessary complexity.
 - **DRY (Don't Repeat Yourself)**: Reuse code to avoid redundancy.
-- **YAGNI (You Aren't Gonna Need It)**: Focus on the current requirements rather than over-engineering for future extensibility.
+- **YAGNI (You Aren't Gonna Need It)**: Focus on the current requirements rather than
+over-engineering for future extensibility.
 
 #### Evolvability
 
