@@ -15,7 +15,7 @@ Reliability ensures that the application/software continues to run and provide v
 regardless of circumstances. Ideally, even in catastrophic situations, the system should remain
 operational and fault-tolerant.
 
-**Fault Types**:
+### Fault Types:
 
 1. **Hardware Faults**:
    - Examples: Power outages, connectivity loss, hardware failures (e.g., hard disk/RAM failure).

@@ -1,6 +1,4 @@
-# Scalability
-
-## Definition
+## Scalability
 
 Scalability is the ability of a system to handle an increasing load. Load can vary depending on the
 application and for example, may include the number of concurrent users, the number of requests per
