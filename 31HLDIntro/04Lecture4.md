@@ -1,4 +1,4 @@
-# Reliability
+# Key Principles of System Design
 
 Before discussing specific issues and solutions in a given scenario, we need to understand some key
 concepts. Good systemic design in software relies on three basic principles:
@@ -13,7 +13,7 @@ issues to be debugged efficiently.
 
 Reliability ensures that the application/software continues to run and provide valid outputs
 regardless of circumstances. Ideally, even in catastrophic situations, the system should remain
-operational and fault-tolerant, meaning it can handle various types of errors and issues.
+operational and fault-tolerant.
 
 **Fault Types**:
 
