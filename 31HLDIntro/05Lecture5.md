@@ -1,7 +1,7 @@
 ## Scalability
 
 Scalability is the ability of a system to handle an increasing load. Load can vary depending on the
-application and for example, may include the number of concurrent users, the number of requests per
+application, for example, may include the number of concurrent users, the number of requests per
 user, or the size of data processed.
 
 ### Measuring Scalability
@@ -16,11 +16,11 @@ the 99th percentile delay. Scalability is measured by the system's ability to ma
 performance as the number of users increases.
 
 ### Steps to Determine Scalability:
-1. Define performance mertric.
-2. Define acceptable performance per user.
-3. Set a passing percentage criterion (e.g., 90% of users get acceptable performance).
-4. Test the system against criterion declared in 3 for x concurrent users.
-5. If the system meets the criterion set in 3 for user volume set in 4, it is scalable.
+1. Define Load and its maximum value in worst situation
+2. Define performance mertric in terms of acceptable performance per user.
+3. Set a passing percentage criterion (e.g., 90% of users meet acceptable performance decided in 2).
+4. Test the system for metric set in 2 against max value of Load declared in 1.
+5. If the system meets the criteria set in 3 for the metric set in 2, it is scalable.
 
 ### Performance Metrics:
 1. **Latency**: Time taken for a request to get a response.
@@ -51,12 +51,13 @@ throughput of a system and then determine acceptable performance.
 
 Latency -> Throughput -> Performance -> Scalability
 
-1. Start with the best latency.
-2. Compromise latency to achieve good throughput.
-3. Define acceptable performance per user with compromised latency found in 2.
-4. Set a passing percentage criterion based on throughtput found in 2.
-4. Set the scale by defining passing percentage criteria for performance for x users.
-5. Declare the scale of the system.
+[comment]: The below steps are unclear, leaving it
+1. Start with the best latency, x0
+2. Increase latency to a particular value x to achieve a good throughput value.
+3. Define acceptable latency per user, latency = x sec/user
+4. Set a passing percentage criterion to find throughput, like 0.9y should have latency x/user.
+5. Set the scale by defining passing percentage criteria for performance for x users.
+6. Declare the scale of the system.
 
 ### Methods of Scaling
 
