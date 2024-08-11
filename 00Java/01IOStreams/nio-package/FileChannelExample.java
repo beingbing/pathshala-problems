@@ -7,19 +7,21 @@ public class FileChannelExample {
     public static void main(String[] args) {
         try (FileChannel inChannel = FileChannel.open(Paths.get("example.txt"), StandardOpenOption.READ)) {
 
+            //create buffer with capacity of 48 bytes
             ByteBuffer buf = ByteBuffer.allocate(48);
-            int bytesRead = inChannel.read(buf);
+            int bytesRead = inChannel.read(buf); // read into buffer.
 
             while (bytesRead != -1) {
               System.out.println("Read " + bytesRead);
 
+              //make buffer ready for read
               buf.flip(); // buf in which data is being written from file now will allow application read that data
         
               while(buf.hasRemaining()) {
-                  System.out.print((char) buf.get());
+                  System.out.print((char) buf.get()); // read 1 byte at a time
               }
         
-              buf.clear();
+              buf.clear(); // make buffer ready for writing
               bytesRead = inChannel.read(buf);
               System.out.println();
             }
