@@ -13,6 +13,11 @@ public class PathAndFileExample {
     System.out.println(destFile.getAbsolutePath());
 
     try {
+        // check if file exsits
+        Path path = Paths.get("src", "main", "java", "data/logging.properties");
+        boolean pathExists = Files.exists(path, new LinkOption[]{LinkOption.NOFOLLOW_LINKS});
+        System.out.println("does file represented by path exists ? - " + pathExists);
+      
         // Copy file
         Files.copy(sourcePath, destinationPath, StandardCopyOption.REPLACE_EXISTING);
         System.out.println("File copied to: " + destinationPath);
