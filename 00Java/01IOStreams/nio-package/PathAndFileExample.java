@@ -17,6 +17,13 @@ public class PathAndFileExample {
         Files.copy(sourcePath, destinationPath, StandardCopyOption.REPLACE_EXISTING);
         System.out.println("File copied to: " + destinationPath);
 
+        // get relative Path
+        Path srcTodestPath = sourcePath.relativize(destinationPath); // path from src -> dest
+        Path destToSrcPath = destinationPath.relativize(sourcePath); // path from dest -> src
+
+        System.out.println("src -> dest path: " + srcTodestPath);
+        System.out.println("dest -> src Path: " + destToSrcPath);
+
         // Move file to a new directory
         Path newDir = Paths.get("new_directory"); // absolute Path for new directory
         Files.createDirectories(newDir); // // create new directory at root
