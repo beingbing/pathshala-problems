@@ -93,6 +93,9 @@ Package:
 jar -cvf  mods/zoo.staff.jar -C staff/ .
 ```
 
+### Note:
+- Requiring transitively mean, if C required B, then all requires of B are also seeded.
+
 # Diving into the module-info file
 
 ## Exporting a Package
