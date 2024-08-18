@@ -5,9 +5,13 @@ See the feeding folder for module zoo.animal.feeding
 Compile program
 ```
 javac --module-path mods -d feeding feeding/zoo/animal/feeding/*.java feeding/module-info.java
-
 ```
-Alternate forms of javac command
+
+### Note:
+- `-d` option specifies the directory to place the class files in.
+- After spedifying directory name, we list down all `.java` files to compile.
+- `module-path` or `-p` indicates location of any custom module files. In this case, it could be omitted as there are no dependencies. It is a substitute of `classpath` option while working with modular program
+- Some alternate forms of above javac command
 ```
 javac -p mods -d feeding feeding/zoo/animal/feeding/*.java feeding/*.java
 
@@ -17,6 +21,7 @@ javac -p mods -d feeding feeding/zoo/animal/feeding/Task.java feeding/module-inf
 
 javac -p mods -d feeding feeding/zoo/animal/feeding/Task.java feeding/*.java
 ```
+
 ## Running our First Module
 Run program
 ```
