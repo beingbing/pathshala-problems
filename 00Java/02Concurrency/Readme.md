@@ -43,3 +43,25 @@ It allows tasks to be scheduled for future execution. Has 4 main methods -
 Also, it has 2 implementation -
 - `ScheduledExecutorService newSingleThreadScheduledExecutor()`
 - `ScheduledExecutorService newScheduledThreadPool(int)`
+
+# Thread safety
+Ensuring that threads do not interfere with each other's results and lead to wrong results. For that we limit or organize access available to data for threads. For this tools availabe in Java are -
+- java.util.concurrent.atomic package for making operations on a variable atomic
+- A monitor/locking-system that support mutual exclusion on a group of commands or methods
+
+Two ways to implement locking-system are -
+- using `synchroized` keyword on a method/object wrapping a group of commands (implicit monitor lock)
+- using `ReentrantLock` object wrapping a group of commands
+
+### Note:
+1. always synchronize/monitor the execution of threads, if implemented at the time of the thread creation, then it won't work.
+2. The object on which the lock is applied should be accessible to all the threads.
+3. synchroized keyword makes thread BLOCKED and let them wait, but what if we want the Thread to perform some other task and do not stay blocked/waiting. That's why `ReentrantLock` is preferred in that case, as it gives us more control over threads execution process and mutual exclusion.
+
+### Reentrancy
+It is a property of locks where the thread that currently holds the lock can re-enter the same lock without getting blocked. The lock keeps track of how many times it has been acquired by the same thread, and the thread must release the lock the same number of times to fully unlock it.
+
+# CyclicBarrier
+It is a synchronization facilitator that allows a set of threads to wait for each other to reach a common barrier point. It is used in scenarios where you have multiple threads performing parallel tasks, and you want all of them to reach a certain point before any of them proceeds further. Once all participating threads have reached the barrier, the barrier is "broken," and all threads are released to continue their execution. It can take an optional `Runnable` task that is executed once per barrier point, after the last thread reaches the barrier but before the threads are released
+
+It is called "Cyclic" because of reusability. You can define multiple such barriers, once a barrier is released, another can be worked on. If you want a one-time use synchronization mechanism then go with `CountDownLatch`.
