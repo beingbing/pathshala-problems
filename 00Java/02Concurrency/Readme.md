@@ -56,12 +56,64 @@ Two ways to implement locking-system are -
 ### Note:
 1. always synchronize/monitor the execution of threads, if implemented at the time of the thread creation, then it won't work.
 2. The object on which the lock is applied should be accessible to all the threads.
-3. synchroized keyword makes thread BLOCKED and let them wait, but what if we want the Thread to perform some other task and do not stay blocked/waiting. That's why `ReentrantLock` is preferred in that case, as it gives us more control over threads execution process and mutual exclusion.
+3. synchroized keyword makes thread BLOCKED and let them wait, but what if we want the Thread to perform some other task and not stay blocked/waiting. That's why `ReentrantLock` is preferred in that case, as it gives us more control over threads execution process and mutual exclusion.
 
 ### Reentrancy
-It is a property of locks where the thread that currently holds the lock can re-enter the same lock without getting blocked. The lock keeps track of how many times it has been acquired by the same thread, and the thread must release the lock the same number of times to fully unlock it.
+It is a property of locks where the thread that currently holds the lock can re-enter the same lock without getting blocked. The lock keeps track of how many times the same thread has acquired it, and the thread must release the lock the same number of times to fully unlock it.
 
 # CyclicBarrier
-It is a synchronization facilitator that allows a set of threads to wait for each other to reach a common barrier point. It is used in scenarios where you have multiple threads performing parallel tasks, and you want all of them to reach a certain point before any of them proceeds further. Once all participating threads have reached the barrier, the barrier is "broken," and all threads are released to continue their execution. It can take an optional `Runnable` task that is executed once per barrier point, after the last thread reaches the barrier but before the threads are released
+It is a synchronization facilitator that allows a set of threads to wait for each other to reach a common barrier point. It is used in scenarios where you have multiple threads performing parallel tasks, and you want them to reach a certain point before any of them proceeds further. Once all participating threads have reached the barrier, the barrier is "broken," and all threads are released to continue their execution. It can take an optional `Runnable` task that is executed once per barrier point, after the last thread reaches the barrier but before the threads are released
 
 It is called "Cyclic" because of reusability. You can define multiple such barriers, once a barrier is released, another can be worked on. If you want a one-time use synchronization mechanism then go with `CountDownLatch`.
+
+# Concurrent Collection
+In-memory information holding data-structures interaction with concurrent threads may have Memory Consistency errors. They occur due to the complex interaction between threads, the CPU, and memory, particularly when optimizing compilers and hardware updation optimizations come into play. Concurrent Collections use data synchronization techniques, such as volatile variables, locks, or other low-level concurrency primitives to prevent issues that arise from these CPU/compiler instruction reordering, caching, and visibility of updates across threads.
+
+We should use a concurrent collection whenever multiple threads modify a collection outside a synchronized block even if we do not expect a concurrency problem. List of Classes are -
+- `ConcurrentHashMap` - a thread-safe alternative to HashMap that allows high concurrency without locking the entire map.
+- `CopyOnWriteArrayList` - a thread-safe alternative to ArrayList for scenarios where reads are more frequent than writes.
+- `CopyOnWriteArraySet` - a thread-safe alternative to HashSet for scenarios where reads are more common than writes.
+- `ConcurrentSkipListMap` - a thread-safe, sorted map with better scalability than TreeMap in a concurrent environment.
+- `ConcurrentSkipListSet` - a thread-safe, sorted set with better scalability than TreeSet in a concurrent environment.
+- `LinkedBlockingQueue` - a thread-safe, blocking queue that can be bounded or unbounded.
+- `ConcurrentLinkedQueue` - a thread-safe, unbounded, non-blocking queue for high-concurrency environments
+- `DelayQueue` - a thread-safe, unbounded blocking queue that holds elements until a delay period has expired.
+- `PriorityBlockingQueue` - a thread-safe, unbounded blocking queue that orders elements according to their natural ordering or a provided comparator.
+- `ArrayBlockingQueue` - a thread-safe, bounded blocking queue with a fixed capacity.
+
+To obtain synchronized (thread-safe) versions of existing non-concurrent collection objects. Use below methods -
+- `public static <T> Collection<T> synchronizedCollection(Collection<T> c)`
+- `public static <T> List<T> synchronizedList(List<T> list)`
+- `public static <T> Set<T> synchronizedSet(Set<T> s)`
+- `public static <T> SortedSet<T> synchronizedSortedSet(SortedSet<T> s)`
+- `public static <K, V> Map<K, V> synchronizedMap(Map<K, V> m)`
+- `public static <K, V> SortedMap<K, V> synchronizedSortedMap(SortedMap<K, V> m)`
+- `public static <K,V> NavigableMap<K,V> synchronizedNavigableMap(NavigableMap<K,V> m)`
+- `public static <T> NavigableSet<T> synchronizedNavigableSet(NavigableSet<T> s)`
+
+# Liveness
+An application's ability to execute a process on time. Threading problems which can impact Liveness are -
+
+### Deadlock
+Deadlock happens when two or more threads are blocked forever, each waiting for the other to release a resource they need. Thread A locks Resource 1 and waits for Resource 2, while Thread B locks Resource 2 and waits for Resource 1. Neither thread can proceed.
+
+### Starvation
+Thread starvation occurs when a thread is perpetually denied access to resources because other threads are constantly taking the resources it needs.
+
+### Livelock
+Livelock is similar to deadlock, but instead of being stuck permanently, the threads keep changing their state in response to each other, but they still cannot make progress. Two threads keep yielding to each other, thinking the other will make progress, but both are stuck in a loop of yielding. They keep running but are not doing any useful work.
+
+# Parallel Streams
+A stream in Java is a sequence of elements supporting sequential and parallel aggregate operations. Parallel streams are a way to parallelize stream operations, allowing operations on collections to be executed simultaneously across multiple threads.
+
+### Create a parallel stream
+- Create a parallel stream from a collection using `parallelStream()`
+```java
+List<Integer> list = Arrays.asList(1, 2, 3, 4, 5);
+list.parallelStream().forEach(System.out::println);
+```
+- Convert a sequential stream to a parallel stream using `stream().parallel()`
+```java
+List<Integer> list = Arrays.asList(1, 2, 3, 4, 5);
+list.stream().parallel().forEach(System.out::println);
+```
