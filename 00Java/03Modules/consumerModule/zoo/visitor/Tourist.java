@@ -1,8 +1,10 @@
 package zoo.visitor;
 
-import java.util.*;
-import zoo.tours.api.*;
-import zoo.tours.reservations.*;
+import java.util.List;
+import zoo.tours.api.Tour;
+import zoo.tours.reservations.TourFinder;
+
+// a consumer/client module is one which obtains and uses a service
 
 public class Tourist {
 
