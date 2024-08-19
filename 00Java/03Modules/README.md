@@ -122,6 +122,19 @@ Don't need to be able to use in examples for this exam
 
 # Creating a Service
 
+### Note:
+- 'record' is a special kind of class came in JDK 14 and became standard in JDK 16.
+- Records are intended to be a simple, immutable by default, data carrier class.
+- They autoimatically generate several useful methods including a constructor, getters, equals(), hashCode() and toString() based on declared fields.
+- fields of a record are final and cannot be changed after the record is created. For every parameter a record automatically generates -
+    - a private final field
+    - a public accessor method (getter but without `get` prefix)
+    - a canonical constructor
+    - equals(), hashCode() and toString() methods
+- Records can not inherit/extend but can implement interfaces
+- Not additional state defining allowed apart from what is already done in record header
+- ideal for defining DTOs in APIs, simplifying data representation. 
+
 ## Declaring the Service Provider Interface
 Compile service provider interface module
 ```
