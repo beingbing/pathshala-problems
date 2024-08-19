@@ -1,7 +1,14 @@
 package zoo.tours.reservations;
 
-import java.util.*;
-import zoo.tours.api.*;
+import java.util.ServiceLoader;
+import java.util.ArrayList;
+import java.util.List;
+import zoo.tours.api.Tour;
+
+// This is a 'service locator'. It can find any class that implement a service
+// provider interface. A ServiceLoader call is expensive, cache if using in
+// real application.
+
 
 public class TourFinder {
 

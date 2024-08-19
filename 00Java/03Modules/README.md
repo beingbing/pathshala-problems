@@ -146,6 +146,10 @@ jar -cvf mods/zoo.tours.api.jar -C serviceProviderInterfaceModule/ .
 ```
 
 ## Creating a Service Locator
+
+### Note:
+learn more about ServiceLoader class of Java
+
 Compile service locator module
 ```
 javac -p mods -d serviceLocatorModule serviceLocatorModule/zoo/tours/reservations/*.java serviceLocatorModule/module-info.java
