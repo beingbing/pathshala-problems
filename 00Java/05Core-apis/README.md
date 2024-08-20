@@ -152,3 +152,61 @@ public class NumberFormattingExample {
     }
 }
 ```
+
+# ChoiceFormat
+It is used for formatting a number as a string based on a set of ranges. It’s useful when you want to format numbers differently depending on their value. Often used in conjunction with MessageFormat to handle pluralization.
+### Example
+```java
+import java.text.ChoiceFormat;
+import java.util.Locale;
+
+public class NumberFormattingExample {
+    
+    public static void main(String[] args) {
+        double[] limits = {0, 1, 5, 10, 20};
+        String[] formats = {"Free Shipping", "$5", "$10", "$20", "$50"};
+        ChoiceFormat shippingFormat = new ChoiceFormat(limits, formats);
+        System.out.println(shippingFormat.format(0));
+        System.out.println(shippingFormat.format(1));
+        System.out.println(shippingFormat.format(2));
+        System.out.println(shippingFormat.format(3));
+        System.out.println(shippingFormat.format(4));
+        System.out.println(shippingFormat.format(5));
+        System.out.println(shippingFormat.format(6));
+        System.out.println(shippingFormat.format(7));
+        System.out.println(shippingFormat.format(8));
+        System.out.println(shippingFormat.format(9));
+        System.out.println(shippingFormat.format(10));
+        System.out.println(shippingFormat.format(11));
+        System.out.println(shippingFormat.format(12));
+        System.out.println(shippingFormat.format(13));
+        System.out.println(shippingFormat.format(14));
+        System.out.println(shippingFormat.format(15));
+        System.out.println(shippingFormat.format(16));
+        System.out.println(shippingFormat.format(17));
+        System.out.println(shippingFormat.format(18));
+        System.out.println(shippingFormat.format(19));
+        System.out.println(shippingFormat.format(20));
+        System.out.println(shippingFormat.format(21));
+    }
+}
+```
+
+# CompactNumberFormat (Java 12+)
+It is used to format numbers in a compact form, such as 1K for 1,000 or 1M for 1,000,000. It is useful for displaying large numbers in a more readable way. The formatting adapts to the conventions of the specified locale and supports both short and long forms.
+### Example
+```java
+import java.text.NumberFormat;
+import java.util.Locale;
+
+public class NumberFormattingExample {
+    
+    public static void main(String[] args) {
+        NumberFormat shortFormat = NumberFormat.getCompactNumberInstance(Locale.US, NumberFormat.Style.SHORT);
+        NumberFormat longFormat = NumberFormat.getCompactNumberInstance(Locale.US, NumberFormat.Style.LONG);
+
+        System.out.println(shortFormat.format(1000));  // Output: 1K
+        System.out.println(longFormat.format(1000));   // Output: 1 thousand
+    }
+}
+```
