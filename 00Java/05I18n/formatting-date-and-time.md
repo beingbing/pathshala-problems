@@ -1,0 +1,401 @@
+# Introduction
+The main classes used for date and time formatting in Java are:
+- `DateFormat` and `SimpleDateFormat` (part of the `java.text` package)
+- `DateTimeFormatter` (part of the `java.time` package, introduced in Java 8, influenced by the popular third-party library Joda-Time)
+
+## `java.util.Date` v1.0
+The `Date` class was the primary option for handling dates and times in early Java, representing a specific instant of time with millisecond precision as a long value (milliseconds since the Unix epoch, January 1, 1970). The class had several design flaws, such as a lack of separation between date-only and time-only values, providing limited and basic date manipulation functionality, mutability leading to thread-safety issues, and poor support for time zones. Due to these poor design limitations, most of its methods were deprecated in later versions.
+#### Common Methods:
+- `Date()`: Creates a `Date` object representing the current date and time.
+- `getTime()`: Returns the number of milliseconds since the epoch.
+- `setTime(long time)`: Sets the date and time in milliseconds.
+- `toString()`: Returns a string representation of the date.
+```java
+import java.util.Date;
+
+public class DateExample {
+    public static void main(String[] args) {
+        Date currentDate = new Date();
+        System.out.println("Current Date: " + currentDate);
+
+        long currentTimeMillis = currentDate.getTime();
+        System.out.println("Milliseconds since epoch: " + currentTimeMillis);
+    }
+}
+```
+
+## `java.text.DateFormat` v1.1
+It is an abstract class for formatting and parsing dates and times in a locale-sensitive manner but is not thread-safe. It can convert `Date` to strings and parses strings into `Date` but has limited flexibility. It supports various date styles like SHORT, MEDIUM, LONG, and FULL, and can handle both dates and times.
+#### Common Methods:
+- `getDateInstance(int style)`: Returns a `DateFormat` object for formatting dates.
+- `format(Date date)`: Formats a date into a string.
+- `parse(String source)`: Parses a string into a date.
+```java
+import java.text.DateFormat;
+import java.util.Date;
+
+public class DateFormatExample {
+    public static void main(String[] args) {
+        Date currentDate = new Date();
+        DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.LONG);
+        String formattedDate = dateFormat.format(currentDate);
+        System.out.println("Formatted Date: " + formattedDate);
+    }
+}
+```
+
+## `java.text.SimpleDateFormat` v1.1
+`SimpleDateFormat` was introduced to assist with parsing and formatting the `Date` object. It is a concrete subclass of `DateFormat` that allows for locale-sensitive customizable pattern-based (e.g., "yyyy-MM-dd") date and time formatting and parsing, but it too suffered from thread-safety problems.
+
+#### Pattern Symbols:
+- y: Year (yyyy for 2024)
+- M: Month (MM for 08, MMM for Aug, MMMM for August)
+- d: Day of the month (dd for 10)
+- H: Hour in 24-hour format (HH for 16)
+- h: Hour in 12-hour format (hh for 4)
+- m: Minute (mm for 05)
+- s: Second (ss for 09)
+- a: AM/PM marker
+- z: Time zone (zzz for PDT)
+```java
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+public class SimpleDateFormatExample {
+    public static void main(String[] args) {
+        Date currentDate = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String formattedDate = sdf.format(currentDate);
+        System.out.println("Formatted Date: " + formattedDate);
+
+        try {
+            Date parsedDate = sdf.parse("2024-08-10 14:30:00");
+            System.out.println("Parsed Date: " + parsedDate);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+## `java.util.Calendar` v1.5
+It's an abstract class with `GregorianCalendar` being the most common implementation that provides better control over date and time manipulation than `Date` by providing methods for converting between specific instant in time, supports different calendar systems, handles logical calendar fields like `YEAR`, `MONTH`, `DAY_OF_MONTH`, `HOUR`, `MINUTE`, etc., allowing more complex operations like adding or subtracting days and months. However, it remained mutable and suffered from usage complexity due to less intuitive API and heavy legacy baggage, making it cumbersome with thread safety issues and localization challenges. While `Calendar` was an improvement over the `Date` class, it still relied on `SimpleDateFormat` for formatting, making it more powerful but error-prone and difficult to use.
+#### Common Methods:
+- `getInstance()`: Returns a `Calendar` object initialized with the current date and time.
+- `get(int field)`: Returns the value of the given calendar field.
+- `set(int field, int value)`: Sets the value of a specific calendar field.
+- `add(int field, int amount)`: Adds or subtracts time from a specific field.
+- `getTime()`: Converts the `Calendar` object to a `Date` object.
+```java
+import java.util.Calendar;
+
+public class CalendarExample {
+    public static void main(String[] args) {
+        Calendar calendar = Calendar.getInstance();
+        System.out.println("Current Date: " + calendar.getTime());
+
+        calendar.add(Calendar.DAY_OF_MONTH, 5);
+        System.out.println("Date after 5 days: " + calendar.getTime());
+
+        int year = calendar.get(Calendar.YEAR);
+        System.out.println("Year: " + year);
+    }
+}
+```
+## `java.time.LocalDate` v1.8
+`LocalDate` represents a date without a time or time zone. It's ideal for representing dates like birthdays, anniversaries, or any date-based event.
+#### Key Features:
+- Immutable and thread-safe.
+- Represents only the date, e.g., `2024-08-10`.
+- Useful for scenarios where only the date is needed, without concern for time or time zone.
+#### Common Methods:
+- `now()`: Returns the current date.
+- `of(int year, int month, int dayOfMonth)`: Creates an instance for a specific date.
+- `plusDays(long daysToAdd)`, `minusDays(long daysToSubtract)`: Adds or subtracts days.
+- `getYear()`, `getMonth()`, `getDayOfMonth()`: Extracts parts of the date.
+- `isBefore(LocalDate otherDate)`, `isAfter(LocalDate otherDate)`: Compares dates.
+```java
+import java.time.LocalDate;
+
+public class LocalDateExample {
+    public static void main(String[] args) {
+        LocalDate today = LocalDate.now();
+        System.out.println("Today's Date: " + today);
+
+        LocalDate specificDate = LocalDate.of(2022, 10, 1);
+        System.out.println("Specific Date: " + specificDate);
+
+        LocalDate nextWeek = today.plusDays(7);
+        System.out.println("Next Week: " + nextWeek);
+    }
+}
+```
+
+## `java.time.LocalTime` v1.8
+`LocalTime` represents time without a date and without a time zone. It's useful for scenarios where you need to work with time alone, such as setting an alarm, train scheduler or tracking store hours.
+#### Key Features:
+- Immutable and thread-safe.
+- Represents only the time, e.g., `14:30:00`.
+- Ideal for representing times like office hours, meal times, etc.
+#### Common Methods:
+- `now()`: Returns the current time.
+- `of(int hour, int minute)`: Creates an instance for a specific time.
+- `plusHours(long hoursToAdd)`, `minusMinutes(long minutesToSubtract)`: Adjusts the time.
+- `getHour()`, `getMinute()`, `getSecond()`: Extracts parts of the time.
+- `isBefore(LocalTime otherTime)`, `isAfter(LocalTime otherTime)`: Compares times.
+```java
+import java.time.LocalTime;
+
+public class LocalTimeExample {
+    public static void main(String[] args) {
+        LocalTime now = LocalTime.now();
+        System.out.println("Current Time: " + now);
+
+        LocalTime startOfDay = LocalTime.of(9, 0);
+        System.out.println("Start of Day: " + startOfDay);
+
+        LocalTime meetingTime = now.plusHours(1);
+        System.out.println("Meeting Time: " + meetingTime);
+    }
+}
+```
+
+## `java.time.LocalDateTime` v1.8
+`LocalDateTime` combines both `LocalDate` and `LocalTime` into a single class, representing both date and time without a time zone. Suitable for event scheduling, timestamps, etc.
+#### Key Features:
+- Immutable and thread-safe.
+- Represents both date and time, e.g., `2024-08-10T14:30:00`.
+- Useful when you need to work with both date and time, but without time zone information.
+#### Common Methods:
+- `now()`: Returns the current date and time.
+- `of(int year, int month, int dayOfMonth, int hour, int minute)`: Creates an instance for a specific date and time.
+- `plusDays(long daysToAdd)`, `minusHours(long hoursToSubtract)`: Adjusts the date and time.
+- `toLocalDate()`, `toLocalTime()`: Extracts the date or time part.
+- `isBefore(LocalDateTime otherDateTime)`, `isAfter(LocalDateTime otherDateTime)`: Compares date and time.
+```java
+import java.time.LocalDateTime;
+
+public class LocalDateTimeExample {
+    public static void main(String[] args) {
+        LocalDateTime currentDateTime = LocalDateTime.now();
+        System.out.println("Current Date and Time: " + currentDateTime);
+
+        LocalDateTime specificDateTime = LocalDateTime.of(2024, 8, 10, 14, 30);
+        System.out.println("Specific Date and Time: " + specificDateTime);
+
+        LocalDateTime tomorrowSameTime = currentDateTime.plusDays(1);
+        System.out.println("Tomorrow at the same time: " + tomorrowSameTime);
+    }
+}
+```
+
+## `java.time.DateTimeFormatter` v1.8
+`DateTimeFormatter` is used to format and parse date-time objects. It provides a way to customize how dates and times are displayed or interpreted from strings.
+#### Key Features:
+- Supports predefined and custom patterns for formatting and parsing.
+- Works with `LocalDate`, `LocalTime`, `LocalDateTime`, and other date-time classes.
+- Thread-safe and immutable.
+#### Common Methods:
+- `ofPattern(String pattern)`: Creates a formatter with a custom pattern.
+- `format(TemporalAccessor temporal)`: Formats a date-time object into a string.
+- `parse(CharSequence text)`: Parses a string into a date-time object.
+```java
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+public class DateTimeFormatterExample {
+    public static void main(String[] args) {
+        LocalDateTime dateTime = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+
+        String formattedDateTime = dateTime.format(formatter);
+        System.out.println("Formatted Date and Time: " + formattedDateTime);
+
+        LocalDateTime parsedDateTime = LocalDateTime.parse("10-08-2024 14:30:00", formatter);
+        System.out.println("Parsed Date and Time: " + parsedDateTime);
+    }
+}
+```
+#### Pattern symbols
+- yyyy: Year
+- MM: Month (two digits)
+- dd: Day of the month
+- HH: Hour (24-hour clock)
+- mm: Minute
+- ss: Second
+- SSS: Millisecond
+- a: AM/PM marker
+- VV: Time zone ID
+#### Predefined Formatters
+Java provides several predefined formatters in the DateTimeFormatter class:
+- DateTimeFormatter.ISO_LOCAL_DATE
+- DateTimeFormatter.ISO_LOCAL_TIME
+- DateTimeFormatter.ISO_LOCAL_DATE_TIME
+- DateTimeFormatter.ISO_ZONED_DATE_TIME
+
+## `java.time.ZonedDateTime` v1.8
+It combines a LocalDateTime with a time zone (ZoneId). It represents a date and time with full time zone rules, making it aware of Daylight Saving Time (DST) and other time zone transitions.
+#### Key Characteristics:
+- It is the most comprehensive date-time class in the java.time package.
+- Useful for applications that need to consider time zone differences and DST.
+#### Common Methods:
+- `now()`: Gets the current date and time with the default time zone.
+- `withZoneSameInstant(ZoneId zone)`: Converts this ZonedDateTime to a different time zone, keeping the same instant.
+- `toLocalDateTime()`: Converts this ZonedDateTime to a LocalDateTime.
+- `toOffsetDateTime()`: Converts this ZonedDateTime to an OffsetDateTime.
+- `getZone()`: Retrieves the time zone (ZoneId) of this ZonedDateTime
+```java
+import java.time.ZonedDateTime;
+import java.time.ZoneId;
+
+public class ZonedDateTimeExample {
+    public static void main(String[] args) {
+        // Current date-time with system default time zone
+        ZonedDateTime current = ZonedDateTime.now();
+        System.out.println("Current ZonedDateTime: " + current);
+
+        // ZonedDateTime with a specific time zone
+        ZonedDateTime nyTime = ZonedDateTime.now(ZoneId.of("America/New_York"));
+        System.out.println("New York Time: " + nyTime);
+
+        // Convert to a different time zone, preserving the same instant
+        ZonedDateTime parisTime = nyTime.withZoneSameInstant(ZoneId.of("Europe/Paris"));
+        System.out.println("Paris Time: " + parisTime);
+    }
+}
+```
+
+## `java.time.OffsetDateTime` v1.8
+It combines a LocalDateTime with an offset from UTC (e.g., +02:00). It represents a date and time with a fixed offset from UTC, but without any time zone information.
+#### Key Characteristics:
+- It includes a ZoneOffset, which represents the difference between the local time and UTC.
+- Useful for scenarios where you need to store a date and time with a specific offset, but not necessarily in a specific time zone
+#### Common Methods:
+- `now()`: Gets the current date and time from the system clock with the default time-zone offset.
+- `withOffsetSameInstant(ZoneOffset offset)`: Adjusts this OffsetDateTime to a different offset, keeping the same instant.
+- `toLocalDateTime()`: Converts this OffsetDateTime to a LocalDateTime.
+- `toInstant()`: Converts this OffsetDateTime to an Instant
+```java
+import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
+
+public class OffsetDateTimeExample {
+    public static void main(String[] args) {
+        // Current date-time with offset
+        OffsetDateTime current = OffsetDateTime.now();
+        System.out.println("Current OffsetDateTime: " + current);
+
+        // Create OffsetDateTime with a specific offset
+        OffsetDateTime customOffset = OffsetDateTime.of(2024, 8, 10, 10, 0, 0, 0, ZoneOffset.ofHours(-5));
+        System.out.println("Custom OffsetDateTime: " + customOffset);
+
+        // Convert to Instant
+        System.out.println("As Instant: " + customOffset.toInstant());
+    }
+}
+```
+
+## `java.time.Instant` v1.8
+It represents a specific point on the timeline, defined as the number of nanoseconds since the Unix epoch (January 1, 1970, 00:00:00 UTC). It is the closest class in Java to the concept of "machine time" or "absolute time."
+#### Key Characteristics:
+- Instant is immutable and thread-safe.
+- It has no concept of time zones or human calendar systems (e.g., years, months, days).
+- Often used for timestamping events.
+#### Common Methods:
+- `now()`: Returns the current instant from the system clock.
+- `ofEpochSecond(long epochSecond)`: Creates an Instant from the given number of seconds since the epoch.
+- `plusSeconds(long secondsToAdd)`: Returns a copy of this instant with the specified duration added.
+- `toEpochMilli()`: Converts this instant to the number of milliseconds from the epoch.
+```java
+import java.time.Instant;
+
+public class InstantExample {
+    public static void main(String[] args) {
+        // Current instant
+        Instant now = Instant.now();
+        System.out.println("Current Instant: " + now);
+
+        // Instant from a specific epoch second
+        Instant epoch = Instant.ofEpochSecond(0);
+        System.out.println("Epoch Instant: " + epoch);
+
+        // Instant after adding 10 seconds
+        Instant later = now.plusSeconds(10);
+        System.out.println("Later Instant: " + later);
+
+        // Convert to milliseconds since epoch
+        long millis = now.toEpochMilli();
+        System.out.println("Milliseconds since epoch: " + millis);
+    }
+}
+```
+
+## `java.time.temporal.TemporalAdjusters` v1.8
+It provides a set of utilities to adjust date and time objects. These adjusters allow you to perform common date-time calculations in a readable and efficient way, like finding the next Monday, the last day of the month, or the first day of the year.
+### `Temporal` interface
+It is the base interface for date-time types that can be adjusted using `TemporalAdjuster`. Classes like `LocalDate`, `LocalDateTime`, `ZonedDateTime`, `OffsetDateTime`, etc., implement this interface.
+### `TemporalAdjuster` interface
+It is a functional interface that can be implemented to adjust a temporal object (e.g., a LocalDate) according to some logic. It provides static methods returning common TemporalAdjuster implementations.
+#### Common Temporal Adjusters
+- `firstDayOfMonth()`: Adjusts the date to the first day of the current month.
+- `lastDayOfMonth()`: Adjusts the date to the last day of the current month.
+- `firstDayOfYear()`: Adjusts the date to the first day of the current year.
+- `lastDayOfYear()`: Adjusts the date to the last day of the current year.
+- `next(DayOfWeek dayOfWeek)`: Adjusts the date to the next occurrence of the specified day of the week.
+- `previous(DayOfWeek dayOfWeek)`: Adjusts the date to the previous occurrence of the specified day of the week.
+- `nextOrSame(DayOfWeek dayOfWeek)`: Adjusts the date to the next occurrence of the specified day, or returns the same date if it already falls on that day.
+- `previousOrSame(DayOfWeek dayOfWeek)`: Adjusts the date to the previous occurrence of the specified day, or returns the same date if it already falls on that day.
+- `firstInMonth(DayOfWeek dayOfWeek)`: Adjusts the date to the first occurrence of the specified day of the week in the current month.
+- `lastInMonth(DayOfWeek dayOfWeek)`: Adjusts the date to the last occurrence of the specified day of the week in the current month.
+- `dayOfWeekInMonth(int ordinal, DayOfWeek dayOfWeek)`: Adjusts the date to the nth occurrence of the specified day of the week in the current month (e.g., the second Friday).
+```java
+import java.time.LocalDate;
+import java.time.temporal.TemporalAdjusters;
+import java.time.DayOfWeek;
+
+public class NextMondayExample {
+    public static void main(String[] args) {
+        LocalDate today = LocalDate.now();
+
+        LocalDate nextMonday = today.with(TemporalAdjusters.next(DayOfWeek.MONDAY));
+        System.out.println("Next Monday: " + nextMonday);
+
+        LocalDate lastDayOfMonth = today.with(TemporalAdjusters.lastDayOfMonth());
+        System.out.println("Last Day of the Month: " + lastDayOfMonth);
+
+        LocalDate firstFriday = today.with(TemporalAdjusters.firstInMonth(DayOfWeek.FRIDAY));
+        System.out.println("First Friday of the Month: " + firstFriday);
+
+        LocalDate secondSaturday = today.with(TemporalAdjusters.dayOfWeekInMonth(2, DayOfWeek.SATURDAY));
+        System.out.println("Second Saturday of the Month: " + secondSaturday);
+    }
+}
+```
+### Custom Temporal Adjusters
+You can also create custom TemporalAdjuster implementations using a lambda expression or by implementing the TemporalAdjuster interface.
+```java
+import java.time.LocalDate;
+import java.time.temporal.TemporalAdjuster;
+import java.time.DayOfWeek;
+import java.time.temporal.ChronoUnit;
+
+public class CustomAdjusterExample {
+    public static void main(String[] args) {
+        TemporalAdjuster nextWorkingDay = temporal -> {
+            LocalDate date = LocalDate.from(temporal);
+            DayOfWeek dow = date.getDayOfWeek();
+            int daysToAdd = 1;
+            if (dow == DayOfWeek.FRIDAY) {
+                daysToAdd = 3;
+            } else if (dow == DayOfWeek.SATURDAY) {
+                daysToAdd = 2;
+            }
+            return date.plus(daysToAdd, ChronoUnit.DAYS);
+        };
+
+        LocalDate today = LocalDate.now();
+        LocalDate nextWorkingDayDate = today.with(nextWorkingDay);
+        System.out.println("Next Working Day: " + nextWorkingDayDate);
+    }
+}
+```
