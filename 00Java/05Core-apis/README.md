@@ -1,5 +1,5 @@
 # NumberFormat
-It is an abstract class that provides the interface for formatting and parsing numbers. It supports locale-specific number formats, allowing your code to handle different conventions for decimal points, thousands separators, and even non-decimal number systems, without being dependent on any specific locale. Additionally, NumberFormat includes methods to determine available locales and their respective number format names. `NumberFormat` instances are not thread-safe. If you need to use a `NumberFormat` object across multiple threads, consider synchronizing access or using separate instances for each thread.
+It is an abstract class that provides the interface for formatting and parsing numbers. It supports locale-specific number formats, allowing your code to handle different conventions for decimal points, thousands separators, and even non-decimal number systems, without being dependent on any specific locale. Additionally, NumberFormat includes methods to determine available locales and their respective number format names. `NumberFormat` instances are not thread-safe. If you need to use a `NumberFormat` object across multiple threads, consider synchronizing access or using separate instances for each thread. It has 3 main subclasses - `ChoiceFormat`, `CompactNumberFormat`, `DecimalFormat`.
 
 ### Formatting Methods:
 - `String format(double number)` - Formats a double value as a number.
@@ -118,6 +118,37 @@ public class NumberFormattingExample {
         // Grouping Separator: Decide whether to use grouping separators like commas
         format.setGroupingUsed(false);
         System.out.println(format.format(12345.6789));  // 12345.68
+    }
+}
+```
+
+# DecimalFormat
+ It provides greater control over formatting numbers, allowing you to specify custom patterns for formatting decimal numbers and handles locale-specific symbols like decimal separators, grouping separators, currency symbols, etc.
+
+### Pattern Symbols:
+- `0` - Digit (shows a digit, or zero if none).
+- `#` - Digit (shows a digit, or nothing if none).
+- `.` - Decimal separator.
+- `,` - Grouping separator.
+- `¤` - Currency symbol.
+- `%` - Percentage.
+- `E` - Scientific notation.
+
+### Example:
+```java
+import java.text.DecimalFormat;
+import java.util.Locale;
+
+public class NumberFormattingExample {
+    
+    public static void main(String[] args) {
+        double number = 1234567.8934;
+        
+        DecimalFormat df = new DecimalFormat("#,###.00");
+        System.out.println(df.format(number));          // Output: 1,234,567.89
+
+        DecimalFormat dfCurrency = new DecimalFormat("¤ #,###.00");
+        System.out.println(dfCurrency.format(number));  // Output: $ 1,234,567.89 (default locale)
     }
 }
 ```
