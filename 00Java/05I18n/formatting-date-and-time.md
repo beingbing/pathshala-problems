@@ -415,8 +415,11 @@ System.out.println("Age: " + age.getYears() + " years, " +
 ```java
 Period period1 = Period.ofYears(2);  // 2 years
 Period period2 = Period.ofMonths(3); // 3 months
+Period periodW = Period.ofWeek(2);   // 2 weeks
 Period periodD = Period.ofDays(2);   // 2 days
 Period period3 = Period.of(1, 6, 15); // 1 year, 6 months, and 15 days
+Period periodC = Period.of(0, 3, 0); // 3 months
+System.out.println(periodC); // Output: P3M
 
 LocalDate start = LocalDate.of(2020, 1, 1);
 LocalDate end = LocalDate.of(2023, 3, 15);
@@ -438,7 +441,7 @@ System.out.println("Years: " + period.getYears());  // Output: Years: 1
 System.out.println("Months: " + period.getMonths());  // Output: Months: 2
 System.out.println("Days: " + period.getDays());  // Output: Days: 10
 ```
-### Period and Date arithematics
+### Period and Date arithmetics
 ```java
 // addition of period in date
 LocalDate date = LocalDate.of(2022, 1, 1);
@@ -480,3 +483,168 @@ Period period1 = Period.of(1, 2, 15);
 Period period2 = Period.of(1, 2, 15);
 System.out.println(period1.equals(period2));  // Output: true
 ```
+
+## `java.time.Duration` v1.8
+It represents a time-based amount of time in terms of days, hours, minutes, seconds and nanoseconds. 
+### Creation
+```java
+Duration duration1 = Duration.ofDays(1);     // 1 day
+Duration duration2 = Duration.ofHours(5);    // 5 hours
+Duration durationM = Duration.ofMinutes(3);  // 3 minutes  
+Duration duration3 = Duration.ofSeconds(60); // 60 seconds
+Duration durationL = Duration.ofMinutes(20); // 20 milliseconds
+Duration durationN = Duration.ofNanos(400);  // 400 nanoseconds
+
+Duration duration1 = Duration.of(1, ChronoUnit.DAYS);     // 1 day
+Duration duration2 = Duration.of(5, ChronoUnit.HOURS);    // 5 hours
+Duration durationM = Duration.of(3, ChronoUnit.MINUTES);  // 3 minutes
+Duration duration3 = Duration.of(30, ChronoUnit.SECONDS); // 30 seconds
+Duration durationL = Duration.of(20, ChronoUnit.MILLIS);  // 20 milliseconds
+Duration durationN = Duration.of(400, ChronoUnit.NANOS);  // 400 nanoseconds
+
+Duration negativeDuration = Duration.ofHours(-2);  // -2 hours
+System.out.println(negativeDuration);  // Output: PT-2H
+
+Duration duration = Duration.ofHours(2);
+Duration negated = duration.negated();  // Output: PT-2H (negative 2 hours)
+System.out.println(negated);
+
+Duration Duration.between(Temporal startInclusive, Temporal endExclusive); // calculates the duration between two temporal objects, such as Instant, LocalTime, or LocalDateTime.
+Instant start = Instant.now();
+Instant end = start.plusSeconds(3600);  // Add 1 hour
+Duration durationBetween = Duration.between(start, end);
+System.out.println(durationBetween);  // Output: PT1H (1 hour)
+```
+
+### Accessing
+Note that these methods return whole values only (e.g., toHours() will truncate the minute and second components).
+```java
+Duration duration = Duration.ofHours(10);  // 10 hours
+System.out.println("Days: " + duration.toDays());      // Output: 0 days
+System.out.println("Hours: " + duration.toHours());    // Output: 10 hours
+System.out.println("Minutes: " + duration.toMinutes()); // Output: 600 minutes
+System.out.println("Seconds: " + duration.toSeconds()); // Output: 3600 seconds
+System.out.println("Milli Seconds: " + duration.toMillis()); // Output: 360000 milli seconds
+System.out.println("Nano Seconds: " + duration.toNanos()); // Output: 36000000 nano seconds
+```
+### Duration and Temporal arithmetic
+```java
+// addition
+Duration duration = Duration.ofHours(5);   // 5 hours
+Duration newDuration = duration.plusMinutes(30);  // Add 30 minutes
+System.out.println(newDuration);  // Output: PT5H30M (5 hours 30 minutes)
+
+// addition with time
+LocalDateTime now = LocalDateTime.now();
+Duration duration = Duration.ofHours(3);
+LocalDateTime newTime = now.plus(duration);  // Add 3 hours to the current time
+System.out.println(newTime);
+
+// subtraction
+Duration duration = Duration.ofHours(5);   // 5 hours
+Duration newDuration = duration.minusMinutes(60);  // Subtract 60 minutes
+System.out.println(newDuration);  // Output: PT4H (4 hours)
+```
+### Comparison
+```java
+Duration duration1 = Duration.ofHours(5);
+Duration duration2 = Duration.ofMinutes(300);  // Equivalent to 5 hours
+System.out.println(duration1.equals(duration2));  // Output: true
+
+Duration duration1 = Duration.ofHours(3);
+Duration duration2 = Duration.ofHours(5);
+System.out.println(duration1.compareTo(duration2));  // Output: -1 (duration1 is shorter)
+```
+### Parsing
+Duration strings use ISO-8601 format. P stands for "period." T separates the time components. H for hours, M for minutes, and S for seconds.
+```java
+Duration Duration.parse(CharSequence text);
+
+Duration parsedDuration = Duration.parse("PT1H30M");  // Represents 1 hour and 30 minutes
+System.out.println(parsedDuration);  // Output: PT1H30M
+```
+### Conversion
+You can convert a duration to different units using `toDays()`, `toHours()`, `toMinutes()`, `toSeconds()`, `toMillis()`, and `toNanos()`.
+```java
+Duration duration = Duration.ofDays(1);  // 1 day
+System.out.println("Hours: " + duration.toHours());    // Output: 24 hours
+System.out.println("Minutes: " + duration.toMinutes());  // Output: 1440 minutes
+```
+
+### Instant Vs Duration
+`Instant` represents a point in time in UTC, while `Duration` represents the amount of time between two instants. Use `Duration` for calculating the elapsed time between two `Instant` objects.
+```java
+Instant start = Instant.now();
+// Simulate some processing by adding delay
+Instant end = start.plusSeconds(1000);
+Duration elapsed = Duration.between(start, end);
+System.out.println(elapsed);  // Output: PT16M40S (16 minutes, 40 seconds)
+```
+### Period Vs Duration
+While both `Period` and `Duration` represent amounts of time. `Period` is date-based (years, months, days). `Duration` is time-based (hours, minutes, seconds, nanoseconds).
+### Duration with Java v9 `to...Part()`
+Java 9 introduced the `toDaysPart()`, `toHoursPart()`, `toMinutesPart()`, `toSecondsPart()`, `toMillisPart()`, and `toNanosPart()` methods to access specific parts of the duration.
+```java
+Duration duration = Duration.ofHours(25).plusMinutes(30);  // 25 hours, 30 minutes
+System.out.println("Days part: " + duration.toDaysPart());  // Output: 1
+System.out.println("Hours part: " + duration.toHoursPart()); // Output: 1
+System.out.println("Minutes part: " + duration.toMinutesPart()); // Output: 30
+```
+
+## `java.time.temporal.ChronoUnit`
+Enum representing unit of time supported in `java.time` package.
+### Enum list
+```java
+public enum ChronoUnit implements TemporalUnit {
+    NANOS("Nanos", Duration.ofNanos(1)),
+    MICROS("Micros", Duration.ofNanos(1000)),
+    MILLIS("Millis", Duration.ofNanos(1000_000)),
+    SECONDS("Seconds", Duration.ofSeconds(1)),
+    MINUTES("Minutes", Duration.ofSeconds(60)),
+    HOURS("Hours", Duration.ofSeconds(3600)),
+    HALF_DAYS("HalfDays", Duration.ofSeconds(43200)),
+    DAYS("Days", Duration.ofSeconds(86400)),
+    WEEKS("Weeks", Duration.ofSeconds(7 * 86400L)),
+    MONTHS("Months", Duration.ofSeconds(31556952L / 12)),
+    YEARS("Years", Duration.ofSeconds(31556952L)),
+    DECADES("Decades", Duration.ofSeconds(31556952L * 10L)),
+    CENTURIES("Centuries", Duration.ofSeconds(31556952L * 100L)),
+    MILLENNIA("Millennia", Duration.ofSeconds(31556952L * 1000L)),
+    ERAS("Eras", Duration.ofSeconds(31556952L * 1000_000_000L)),
+    FOREVER("Forever", Duration.ofSeconds(Long.MAX_VALUE, 999_999_999));
+
+    private final String name;
+    private final Duration duration;
+
+    private ChronoUnit(String name, Duration estimatedDuration) {
+        this.name = name;
+        this.duration = estimatedDuration;
+    }
+}
+```
+### Temporal arithematics
+```java
+// addition
+LocalDate date = LocalDate.of(2023, 10, 4);
+LocalDate newDate = date.plus(2, ChronoUnit.WEEKS);  // Add 2 weeks
+System.out.println(newDate);  // Output: 2023-10-18
+
+// subtraction
+LocalDate date = LocalDate.of(2023, 10, 4);
+LocalDate newDate = date.minus(3, ChronoUnit.DAYS);  // Subtract 3 days
+System.out.println(newDate);  // Output: 2023-10-01
+
+// finding elapsed duration
+LocalDate startDate = LocalDate.of(2020, 1, 1);
+LocalDate endDate = LocalDate.of(2023, 10, 4);
+long daysBetween = ChronoUnit.DAYS.between(startDate, endDate);
+System.out.println(daysBetween);  // Output: 1372 days
+
+long monthsBetween = ChronoUnit.MONTHS.between(startDate, endDate);
+System.out.println(monthsBetween);  // Output: 45 months
+```
+### Supported Temporal Types
+- **Date-based objects**: `LocalDate`, `YearMonth`, `Year`, etc.
+- **Time-based objects**: `LocalTime`, `OffsetTime`, etc.
+- **Combined date-time objects**: `LocalDateTime`, `ZonedDateTime`, `OffsetDateTime`, etc.
+- **Instant**: A point in time represented in UTC.
