@@ -399,3 +399,84 @@ public class CustomAdjusterExample {
     }
 }
 ```
+
+## `java.time.Period` v1.8
+It represents a date-based amount of time in terms of years, months, and days. Use it when date manipulation is involved.
+### Example
+```java
+LocalDate birthDate = LocalDate.of(1990, 10, 4);
+LocalDate currentDate = LocalDate.now();
+Period age = Period.between(birthDate, currentDate);
+System.out.println("Age: " + age.getYears() + " years, " +
+                   age.getMonths() + " months, " +
+                   age.getDays() + " days");
+```
+### Creation
+```java
+Period period1 = Period.ofYears(2);  // 2 years
+Period period2 = Period.ofMonths(3); // 3 months
+Period periodD = Period.ofDays(2);   // 2 days
+Period period3 = Period.of(1, 6, 15); // 1 year, 6 months, and 15 days
+
+LocalDate start = LocalDate.of(2020, 1, 1);
+LocalDate end = LocalDate.of(2023, 3, 15);
+Period periodBetween = Period.between(start, end);
+System.out.println(periodBetween);  // Output: P3Y2M14D: This gives a period of 3 years, 2 months, and 14 days.
+
+// Zero period
+Period zeroPeriod = Period.ZERO;
+System.out.println(zeroPeriod);  // Output: P0D (0 days)
+
+// negative period
+Period negativePeriod = Period.of(-1, -2, -10);
+System.out.println(negativePeriod);  // Output: P-1Y-2M-10D
+```
+### Accessing
+```java
+Period period = Period.of(1, 2, 10);  // 1 year, 2 months, and 10 days
+System.out.println("Years: " + period.getYears());  // Output: Years: 1
+System.out.println("Months: " + period.getMonths());  // Output: Months: 2
+System.out.println("Days: " + period.getDays());  // Output: Days: 10
+```
+### Period and Date arithematics
+```java
+// addition of period in date
+LocalDate date = LocalDate.of(2022, 1, 1);
+Period period = Period.of(2, 3, 5);  // 2 years, 3 months, and 5 days
+LocalDate newDate = date.plus(period);
+System.out.println(newDate);  // Output: 2024-04-06
+
+// addition of period in period
+Period period1 = Period.of(1, 2, 15);  // 1 year, 2 months, 15 days
+Period period2 = Period.of(2, 4, 10);  // 2 years, 4 months, 10 days
+Period totalPeriod = period1.plus(period2);
+System.out.println(totalPeriod);  // Output: P3Y6M25D
+
+// subtraction of period from date
+LocalDate date = LocalDate.of(2022, 1, 1);
+Period period = Period.of(1, 2, 10);  // 1 year, 2 months, and 10 days
+LocalDate newDate = date.minus(period);
+System.out.println(newDate);  // Output: 2020-10-22
+
+// subtraction of period from period
+Period period = Period.of(1, 2, 3);
+Period negated = period.negated();  // Inverts the period to -1 year, -2 months, -3 days
+System.out.println(negated);  // Output: P-1Y-2M-3D
+```
+### Normalization
+```java
+Period period = Period.of(0, 14, 0);
+System.out.println(period);  // Output: P1Y2M (1 year and 2 months)
+```
+### Parsing
+```java
+Period Period.parse(CharSequence text);
+Period parsedPeriod = Period.parse("P2Y3M5D");  // Represents a period of 2 years, 3 months, and 5 days
+System.out.println(parsedPeriod);  // Output: P2Y3M5D
+```
+### comparison
+```java
+Period period1 = Period.of(1, 2, 15);
+Period period2 = Period.of(1, 2, 15);
+System.out.println(period1.equals(period2));  // Output: true
+```
