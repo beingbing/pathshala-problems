@@ -1,8 +1,20 @@
 ~~ reverse lookup 2d ~~
 
-given a matrix, find the sum of all its sub-matrices.
+given a 2-d matrix of dimension mxn, find the sum of all its sub-matrices.
 
 brute force -
+in 1D we just needed all starting points and ending points of a subarray.
+
+We need to find something analogous to starting and ending points in 1D subarray for submatrix as well.
+
+Any submatrices will be a rectangle, which can be uniquely identified by its top-left (TL) and bottom-right (BR) coordinate points.
+
+Assuming, TL = (i1, j1) and BR = (i2, j2)
+so, i1 can go from 0 till n-1.
+    j1 can go from 0 till n-1
+    i2 can go from i1 till n-1
+    j2 can go from j1 till n-1
+
 consider every matrix and find it's sum then add it to overall sum. TC = O(n^6)
 
 code -
@@ -41,6 +53,37 @@ for (i1{0}; i1<n; i1++)
 
 
 better approach -
-check assignment #2 question #3
-same as previous lecture but for 2d matrix
+reverse lookup, same as previous lecture, but for 2d matrix
+
+instead of considering all the submatrices and then finding their sum, we should check what all submatrices will consider a particular cell and then evaluate it's contribution
+
+If coordinates of the cell under consideration is (i, j)
+then, all total valid choices for TL point will be (i+1) * (j+1)
+and all total valid choices for BR point will be (n - i) * (n - j)
+
+so, total number of submatrices which will have cell (i, j) as one of its cell are TL * BR = (i+1) * (j+1) * (n - i) * (n - j);
+
+hence, the contribution of cell (i, j) will be = mat[i][j] * (i+1) * (j+1) * (n - i) * (n - j);
+
+the summation of contribution of all such cells will give us the final answer.
+
+Note: whenever you get involved with too many multiplication, be careful of overflow.
+
+int matrixSum(int arr[][n]) {
+	int sum = 0;
+	for (int i = 0; i < n; i++)
+		for (int j = 0; j < n; j++) {
+			// Number of ways to choose
+			// from top-left elements
+			// top-left is starting point for a sub-matrix
+			int top_left = (i + 1) * (j + 1);
+			// Number of ways to choose
+			// from bottom-right elements
+			// it is ending point for a sub-matrix
+			int bottom_right = (n - i) * (n - j);
+			sum += (top_left * bottom_right * arr[i][j]);
+		}
+	return sum;
+}
+
 TC = O(n^2)

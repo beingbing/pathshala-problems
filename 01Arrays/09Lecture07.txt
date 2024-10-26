@@ -1,4 +1,48 @@
 ~~ sliding window technique ~~
 
-I believe no amount of notes would capture it's essence as good as what
-is explained in assignment#2 Q1 and homework#2 Q1 and Q2
+Given an integer array a[] of size n and an integer k. Print the sum of every subarray of size k.
+
+Solution:
+subarray starting and ending indices will be -
+[0. k-1], [1, k], [2, k+1], . . . . , [n-k, n-1]
+
+hence all  subarray after index n-k will have size < k
+
+so, total subarrays are n-k+1
+
+hence, for brute force time complexity will be O((n-k+1) * k)
+if k = n/2, then O(n^2)
+
+so, to do sum again for every subarray is futile, as every new consecutive subarray will not be much different from previous one. The difference only be an addition of 1 new element from front and removal of 1 element from back.
+
+So, instead of summing up elements for every new subarray if we just subtract outgoing element and add incoming element in sum of first subarray, then our time complexity will come down to O(n). This is called sliding window technique.
+
+pseudo code:
+```
+sum = 0;
+for (i -> 0 to k-1)
+    sum += a[i];
+for (j -> k to n-1) {
+    print sum;
+    sum += a[j];
+    sum -= a[j-k];
+}
+print sum;
+```
+
+problem 2: Given an integer array a[] of size n and integers k and x. Print the frequency of x in every window of size k.
+
+Solution: To solve this using sliding window technique, i can first find the answer for first window, then every time i see an outgoing x, i will subtract 1 from frequency and every time i see an incoming x, i wll add 1 in frequency.
+
+Problem 3: Given an integer array a[] of size n and an integer k. find min number of swaps to bring all elements <= k together.
+
+Solution: size of subarray created by all the elements present in array which are smaller than k will be equal to the count of such elements present.
+
+so, we will first find the count of all such elements and denote it by l, which will represent subarray size of legal elements.
+
+example: if a[] is [2, 5, 7, 9, 8, 7, 4] and k is 5, then count will be 3
+
+now we will inspect all subarray of size 3. And track count of legal elements in all such subarrays.
+
+So, maximum count of legal elements, represent by cnt in a window will give me maximum number of legal elements which are already together. So, my answer will be l - cnt.
+

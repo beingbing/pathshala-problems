@@ -1,36 +1,52 @@
 ~~ Lowest Common Multiple ~~
 
-multiple => divisible by both the number
+LCM: lowest common multiple
 
-max(a,b) <= lcm <= a*b 
+multiple: divisible by both the number
 
-M1 => iterate from max(a,b) to a*b and check if any number is divisible by both number
+max(a,b) <= lcm <= a*b
 
-M2 -
+Problem 1: Write a program which accepts two numbers a, b and generates their lowest common multiple.
 
+Approach 1:
+iterate from max(a,b) to a*b and check if any number is divisible by both numbers
+
+code:
+int findLCM(int a, int b) {
+    int i = max(a, b), lim = a*b;
+    for (; i<lim; i++) if (i%a == 0 and i%b == 0) return i;
+    return a*b;
+}
+
+Approach 2:
+There is an equation involving both gcd and lcm which is -
 GCD * LCM = a * b
 
-gcd finding takes logn time so same can be done for lcm
+so, if we find gcd, we can find lcm. GCD finding takes logn time hence the same can be said for lcm
 
+code:
+int findLCMM2(int a, int b) {
+    int gcd = findGCD(a, b);
+    return (a*b)/gcd;
+}
 
-Note: for finding gcd of numbers > 2, find for first 2 numbers,
-then go on finding the gcd of previously found gcd and the next number.
+Problem 2: given an array of n elements, find LCM of all the elements.
 
+Approach:
+we will find the LCM of first two elements then find LCM of LCM of first two elements with third element, and goes on for all array elements
 
-code for both methods is in assinment#1 Q1
-
--------------------------------------------------------
-
-Q. given a number N and two numbers A and B find all the numbers in [1, N] which
-are divisible by A or B
+Problem 3: given a number N and two numbers A and B find all the numbers in [1, N] which are divisible by A or B
 
 numbers divisible by A in [1, N] is N/A, which will be A, 2A, 3A, 4A, .....
 numbers divisible by B in [1, N] is N/B, which will be B, 2B, 3B, 4B, .....
 
-so, number divisible by A or B will be -
+but in doing so, we counted numbers which were divisible by both A and B twice, so, we need to subtract that to get the final answer.
+If a number is divisible by both A and B, then it is one of A and B's multiple. So, all such numbers will be multiples of A and B.
+So, we just need to find the LCM, and all common numbers which we need to subtract to get the final answer will be muliples of LCM.
+Hence, To find the count of numbers which are divisible by both A and B, we need to find the LCM, and subtract its multiples count.
+
+so, the equation to find number divisible by A or B will become -
         N/A + N/B - N/lcm(A,B)
 
-for three numbers -
+similarly, for three numbers -
         N/A + N/B + N/C - N/lcm(A,B) - N/lcm(B,C) - N/lcm(A,C) + N/lcm(A,B,C)
-
-this is hint for assignment#1 Q2

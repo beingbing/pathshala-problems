@@ -1,5 +1,5 @@
 ~~ maximum chunks ~~
-given an array with elements value belonging to [0, n-1], find max chunks
+given an array with elements value belonging to [0, n-1], not in sequence but a permutation of those values. find max chunks
 to split so that sorting and again concatenating the chunks give a sorted
 original array
 

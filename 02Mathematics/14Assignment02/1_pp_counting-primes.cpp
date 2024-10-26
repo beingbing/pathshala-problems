@@ -9,7 +9,7 @@ The description of T test cases follows.
 Next T lines each contain a single integer N.
 
 Output Format
-For each test case, output the number of prime numbers less than or equal to N on a seperate line.
+For each test case, output the number of prime numbers less than or equal to N on a separate line.
 
 Constraints
 1≤T≤10^5

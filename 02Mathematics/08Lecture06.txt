@@ -1,24 +1,20 @@
 ~~ Primality test ~~
 
-A number which has only 2 distinct divisors 1 and itself is called a prime number.
+Prime number: A number which has only 2 distinct divisors 1 and itself is called a prime number.
 
-Q. check if given number n is prime.
+Problem: check if given number n is prime.
 
+Approach 1:
+from 1 to N if a number is not divisible by any number, then it is a prime.
 
-M1 -
-
-from 1 to N if a number is not divisible by any number then it is a prime.
 TC - O(n)
 
-
-
-M2 -
-
+Approach 2:
 if a factor isn't present till sqrt(n), then no factor will be found after it also
-TC= O(sqrt(n))
 
-// find if a number is prime or not
+TC = O(sqrt(n))
 
+Code:
 #include <iostream>
 using namespace std;
 

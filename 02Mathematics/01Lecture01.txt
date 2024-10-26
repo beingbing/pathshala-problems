@@ -1,12 +1,26 @@
 ~~ Greatest Common Divisor ~~
 
-divisor => a number which can divide your given number
-
+divisor: a number which can divide your given number
 1 <= gcd <= min(a, b)
 
-M1 => iterate from 1 to min(a,b) and check if any number divides both number
+Problem: Write a program which accepts two numbers a, b and generates their greatest common divisor.
 
-M2 => 12, 18
+Approach 1:
+iterate from 1 to min(a,b) and check if any number divides both number
+
+code:
+int findGCDM1(int a, int b) { // tc = O(n)
+    int i = min(a, b);
+    if (i == 0) return max(a,b);
+    for (; i>1; i--) if (a%i == 0 and b%i == 0) return i;
+    return 1;
+}
+
+Time Complexity: O(n)
+
+Approach 2:
+
+Example: 12, 18
 
 12 ) 18 (1
      12
@@ -18,4 +32,30 @@ M2 => 12, 18
 
 so, gcd is 6
 
-code for both methods is in assinment#1 Q1
+We can find GCD by performing repeated division on the remainder. It is also called as Euclid's GCD algorithm.
+
+code:
+// recursive
+int findGCDM2(int a, int b) {
+    int x = min(a, b);
+    int y = max(a, b);
+    if (x == 0) return y;
+    if (y%x == 0) return x;
+    return findGCDM2(y%x, x);
+}
+
+// iterative
+int findGCDM2(int a, int b) {
+    int x = min(a, b);
+    int y = max(a, b);
+    if (x == 0) return y;
+    int tmp;
+    while (y%x != 0) {
+        tmp = y;
+        y = x;
+        x = tmp%y;
+    }
+    return x;
+}
+
+Time Complexity: O(log (base 2) max(a,b))

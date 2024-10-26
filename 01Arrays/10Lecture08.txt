@@ -4,6 +4,8 @@ given an array, find the sum of all its subarray.
 brute force -
 consider every array and find it's sum then add it to overall sum. TC = O(n^3)
 
+total number of possible subarrays - n(n+1)/2 [sum of first n natural numbers]
+
 code -
 
 sum = 0;
@@ -33,7 +35,6 @@ for (i{0}; i<n; i++)
         ans += sum
 
 
-
 better approach -
 think in reverse, instead of consider all the subarrays and then finding their sum,
 we should check what all subarray will consider a particular element and then
@@ -52,6 +53,27 @@ in other words,
 for element at index i, we have (i+1) options for starting point and (n-i) options for
 ending points
 
+int totalSum = 0;
+for (int i = 0; i < n; i++) {
+    totalSum += (i + 1) * (n - i) * arr[i];
+}
+return totalSum;
+
+
 code -
 for (int i{0}; i<n; i++)
     ans += (i+1)*(n-i)*a[i] // here a[i] is considered as we need sum of subarrays
+
+Modular arithmetic formulas -
+(a+b)/m = (a/m + b/m) /m
+(a*b)/m = (a/m * b/m) /m
+
+code (if instead of actual answer, i was asked for modular of final answer) -
+long long modulo = (10^9 + 7);
+long long totalSum = 0;
+long long prod = 0;
+for (i -> 0 to n-1) {
+    prod = ((a/m * b/m)/m * c/m )/m;
+    totalSum = (totalSum/m + prod/m)/m;
+}
+return totalSum;

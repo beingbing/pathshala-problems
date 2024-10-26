@@ -2,6 +2,49 @@
 
 same as lecture 2 (prefix sum finding part) but for 2 dimensions
 
-assignment#2 Q4 and homework#2 Q3, Q4
+given a 2-d matrix with dimensions m*n. Given Q queries, every query contains 4 integers, i1, j1, i2 and j2. It is guaranteed that i1 < i2 and j1 < j2. Hence we will be getting a submatrix with TL as i1,j1 and BR as i2, j2. For each such query, print sum of that submatrix.
 
+approach - 1: Brute force
+Given a submatrix, sum its element and return answer. Time complexity in this case will be O(Q*m*n)
+
+approach - 2: prefix sum for 2-d matrix
+But prefix was simple to understand in case if 1-d array, but what it mean for 2-d array.
+
+Make every cell represent BR corner of a submatrix whose TL is always (0,0) and then do prefix sum of all such submatrix
+
+so, to get a final prefix sum submatrix do -
+- row-wise prefix sum for all rows
+- do column-wise prefix sum for all rows
+
+precomputation(vector<vector<int> > &matrix) {
+    int n = matrix.size();
+    int m = matrix[0].size();
+    sumMat = vector<vector<int> >(n, vector<int>(m, 0));
+    for (int i{0}; i < n; i++)
+        for (int j{0}; j < m; j++)
+            if (i > 0 and j > 0)
+                sumMat[i][j] = matrix[i][j] + sumMat[i - 1][j] + sumMat[i][j - 1] - sumMat[i - 1][j - 1];
+            else if (i > 0 and j == 0)
+                sumMat[i][j] = matrix[i][j] + sumMat[i - 1][j];
+            else if (i == 0 and j > 0)
+                sumMat[i][j] = matrix[i][j] + sumMat[i][j - 1];
+            else
+                sumMat[i][j] = matrix[i][j];
+}
+
+- for answer a query -
 sumRegion[i2][j2]-[i1][j1] = sumMat[i2][j2] - sumMat[i2][j1-1] - sumMat[i1-1][j2] + sumMat[i1-1][j1-1]
+
+int sumRegion(int row1, int col1, int row2, int col2) {
+    if (row1 == 0 and col1 == 0) return sumMat[row2][col2];
+    if (row1 == 0 and col1 > 0) return sumMat[row2][col2] - sumMat[row2][col1 - 1];
+    if (row1 > 0 and col1 == 0) return sumMat[row2][col2] - sumMat[row1 - 1][col2];
+    return sumMat[row2][col2] - sumMat[row2][col1 - 1] - sumMat[row1 - 1][col2] + sumMat[row1 - 1][col1 - 1];
+}
+
+TC:
+precomputation - O(m*n + m*n) = O(m*n)
+answering query - O(Q)
+overall - O(Q + m*n)
+
+assignment#2 Q4 and homework#2 Q3, Q4

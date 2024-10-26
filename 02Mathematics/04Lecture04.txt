@@ -1,13 +1,12 @@
 ~~ generating all factors/divisors ~~
 
-find all the factors of a given number.
+Problem 1: find all the factors of a given number n.
 
-given N  - smallest factor => 1
-           largest factor => N (number itself)
+Discussion:
+given a number N its smallest factor will be 1 and its largest factor will be N (number itself). Hence, all the factors of N will lie between 1 and N.
 
-M1 -
-
-loop from 1 to N and record all numbers which perfectly divides N.
+Approach 1:
+loop from 1 to N and record all numbers that perfectly divides N.
 
 void printAllDivisorsM1(int n) {
     cout << 1 << '\t';
@@ -17,12 +16,10 @@ void printAllDivisorsM1(int n) {
     cout << n << endl;
 }
 
+Time Complexity is O(n)
 
-
-M2 -
-
-the biggest factor of N apart from N will be <= (N/2), so,
-we can reduce the looping limits as -
+Approach 2:
+the biggest factor of N apart from N will be <= (N/2), so, we can reduce the looping limits as -
 
 void printAllDivisorsM2(int n) {
     cout << 1 << '\t';
@@ -32,14 +29,11 @@ void printAllDivisorsM2(int n) {
     cout << n << endl;
 }
 
+Time Complexity is O(n)
 
-
-M3 -
-
-remember: factors of a number are symmetric about sqrt(N).
-
+Approach 3:
+observation: factors of a number N are symmetric about sqrt(N).
 that means if i is a factor then N/i will also be a factor.
-
 
 #include <iostream>
 using namespace std;
@@ -60,10 +54,12 @@ int main() {
     return 0;
 }
 
-----------------------------------------------------------------------------
+Time Complexity is O(sqrt(n))
 
-Note: perfect squares has odd number of factors and other numbers have
-even number of factors.
+Problem 2: given a number return false if it has even number of divisors, otherwise return true
+
+Approach:
+perfect squares has odd number of factors and other numbers have even number of factors.
 
 bool oddNumberOfFactors(int n) {
     int val = sqrt(n);

@@ -1,12 +1,35 @@
 ~~ more on GCD ~~
 
-for finding gcd of numbers > 2, find for first 2 numbers,
-then go on finding the gcd of previously found gcd and the next number.
+Problem 1: Given an array of n elements, find GCD of them all.
+
+Approach:
+for finding GCD of more than 2 numbers, then find GCD for any 2 numbers, then go on finding the gcd of previously found gcd and the next number.
+
+int GCD = gcd(gcd(a[0], a[1]), a[2]), a[3], ...
 
 TC = O(n * log(max(ar[i])));
 
-the application of this lecture can be found in Homework#1 Q1
+Problem 2:. given an array, return 1 if any subsequence of array has gcd == 1, otherwise return 0
 
-Q. given an array, return 1 if any subsequence of array has gcd == 1, otherwise return 0
+Approach 1: brute force
+Consider all 2^n subsequence and compute GCD of them all
 
-this question is asked to help with Homework#1 Q1
+Approach 2:
+If GCD of any subsequence is 1 then it will make GCD of  entier array to be 1. So, we just need to find the GCD of entire array, if it is 1 then return 1 otherwise return 0.
+
+code:
+int main() {
+    int t;
+    cin >> t;
+    while (t--) {
+        int n;
+        cin >> n;
+        vector<ll> a(n);
+        for (int i{0}; i<n; i++) cin >> a[i];
+        ll gcd = a[0];
+        for (int i{1}; i<n; i++) gcd = findGCDM2(gcd, a[i]);
+        if (gcd == 1) cout << 1 << endl;
+        else cout << 0 << endl;
+    }
+    return 0;
+}

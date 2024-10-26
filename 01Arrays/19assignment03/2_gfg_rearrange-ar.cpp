@@ -38,7 +38,7 @@ void rearrangeM3(vector<int>& a) {
         a[oldVal] = a[oldVal] + n*i;
         // a[a[i] % n] += i * n;
     }
-// divide with n, old_val will be discarded and new_val is what you get
+    // divide with n, old_val will be discarded and new_val is what you get
     for (int i = 0; i < n; i++) a[i] /= n;
 }
 

@@ -1,3 +1,29 @@
 ~~ array rearrangement : alternate technique ~~
 
-notes are recorded in assignment#3 Q2 M3
+Approach 3:
+We were jumping between indices and needed to run a cycle, because without running all elements together, if we just replace old value with new value and do this operation in sequential iteration then some old values will forever get lost.
+
+So, if we can modify existing array without loosing old values of replaced cells, then we can go through sequential iteration without needing to jump between indices to run through a cycle.
+
+So, if during transformation we replace the old value with something which keeps information of both old value and new value, then once all the tranformations are done, we can retrieve array with new values back from those intermediate values.
+
+so, intermediary value can be defined as - (n * new_val) + old_val
+
+so, intermediate transformation will be - a[old_val] = (n * j) + a[old_val]
+
+code:
+void rearrangeM3(vector<int>& a) {
+    int n = a.size();
+    for (int i = 0; i < n; i++) {
+        int oldVal = a[i]%n;
+        a[oldVal] = a[oldVal] + n*i;
+        // a[a[i] % n] += i * n;
+    }
+    // divide with n, old_val will be discarded and new_val is what you get
+    for (int i = 0; i < n; i++) a[i] /= n;
+}
+
+TC: O(n)
+SC: O(n)
+
+issue 1: if numbers are too big then overflow can occur

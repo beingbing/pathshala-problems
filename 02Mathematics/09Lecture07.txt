@@ -1,17 +1,46 @@
 ~~ Primality test in a range ~~
 
-given number N, print all numbers from 1 to N which are prime.
+Problem: given number N, print all numbers from 1 to N which are prime.
 
-
-M1 -
-
+Approach 1:
 if we use the method learned in previous lecture, then TC = (n*srqt(n));
 
-
-
-M2 -
+Approach 2:
 
 sieve of eratosthenes -
 TC = O(n*loglogn)
+SC = O(n)
 
-code will be discussed in next lecture.
+code:
+#include <iostream>
+#include <vector>
+using namespace std;
+
+vector<int> primesTill(int n) {
+    vector<int> primes(n+1, 1);
+    primes[1] = 0;
+    int val = sqrt(n);
+    for (int i{2}; i<=val; i++)
+        if (primes[i] == 1)
+            for (int j=i; i*j<=n; j++) primes[i*j] = 0;
+    vector<int> ans;
+    for (int i{2}; i<=n; i++) if (primes[i] == 1) ans.push_back(i);
+    return ans;
+}
+
+int main() {
+    int n = 100;
+    vector<int> ans = primesTill(n);
+    for (auto ele : ans) cout << ele << '\t';
+    cout << endl;
+    return 0;
+}
+
+
+Limitations -
+1. space constraints is concerning.
+2. if query is for a single number, the O(sqrt(n)) approach 1 discussed above is better.
+
+Advantages -
+1. preprocessing time for Q queries will be O(n*loglogn), so total time will be
+(n*loglogn + Q) ~~ (n*loglogn)

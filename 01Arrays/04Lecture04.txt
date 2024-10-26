@@ -1,5 +1,43 @@
 ~~ Histogram problem ~~
 
-You know this problem and it's solution very well, so skipping notes for this
+Problem: Given heights of n pillars as elements of an array. Find the total height of water that can be trapped in it during rainfall.
 
-it is leetcode 42 - rain water trapping; problem
+for example, if a given array is a[] = {0,1,0,2,1,3,0,2} then the total height of trapped water is 4.
+
+Solution:
+Water can be trapped only if there is a cavity. Created by longer pillars on both sides of a shorter pillar.
+
+Considering a specific pillar. There can be multiple pillars on each side of it whose heights are greater. But only the longest of them all will determine the actual value of height that can be trapped.
+
+But once the longest on each side is found. The shorter among those two will determine the actual height capacity that can be trapped.
+
+But if that shorter pillar is also shorter than your current pillar then current pillar won't be able to trap any water.
+
+So, for each pillar, check the longest pillar on each side, then shorter of those two candidates will give you the water trapping capacity for that particular pillar.
+
+sum capacity of each pillar and you will have the total height that can be trapped in the given array of pillars.
+
+so, if h is the height of the current pillar
+
+h1 is the height of tallest pillar on left (which can be found by prefix-max precomputation)
+
+h2 is the height of tallest pillar on right (which can be found by suffix-max precomputation)
+
+then capacity = min(h1, h2) - h
+
+sum all positive capacity values and we will have the final answer.
+
+code -
+preMax[0] = a[0];
+    for (int i{1}; i < n; i++)
+        preMax[i] = max(a[i], preMax[i - 1]);
+
+sufMax[n - 1] = a[n - 1];
+    for (int i{n - 2}; i >= 0; i--)
+        sufMax[i] = max(sufMax[i + 1], arr[i]);
+
+ans = 0;
+
+for (int i{1}; i < n-1; i++) {
+    capacity = min(preMax[i], sufMax[i]) - a[i];
+    if (capacity > 0) ans += capacity
