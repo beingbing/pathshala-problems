@@ -1,6 +1,3 @@
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Scanner;
 
 public class Main {
@@ -8,7 +5,7 @@ public class Main {
     static int[] spf = null;
 
     private static void processSpfTill(int n) {
-        spf = new int[n+1];
+        spf = new int[n + 1];
 
         for (int i = 0; i <= n; i++) spf[i] = i;
 
@@ -18,7 +15,7 @@ public class Main {
                     if (spf[multiple] == multiple) spf[multiple] = p;
     }
 
-    private static int printDivisorsCount(int x) {
+    private static int countUniquePrimeFactors(int x) {
         int divisorsCount = 0;
         while (x != 1) {
             int prime = spf[x];
@@ -28,23 +25,26 @@ public class Main {
         return divisorsCount;
     }
 
-    public static void main (String[] args) throws java.lang.Exception {
+    public static void main(String[] args) throws IOException {
         processSpfTill(MAX);
-        Scanner sc = new Scanner(System.in);
-        int t = sc.nextInt();
-
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        int t = Integer.parseInt(br.readLine().trim());
         while (t-- > 0) {
-            int n = sc.nextInt(), temp;
+            int n = Integer.parseInt(br.readLine().trim());
+            String[] inputs = br.readLine().trim().split(" ");
+            StringBuilder sb = new StringBuilder();
 
             for (int i = 0; i < n; i++) {
-                temp = sc.nextInt();
-                temp = printDivisorsCount(temp);
-                System.out.print(temp);
-                if (i != n-1) System.out.print(" ");
+                int temp = Integer.parseInt(inputs[i]);
+                int count = countUniquePrimeFactors(temp);
+                sb.append(count).append(" ");
             }
 
-            System.out.println();
+            bw.write(sb.toString().trim() + "\n");
         }
-        sc.close();
+        bw.flush();
+        bw.close();
+        br.close();
     }
 }

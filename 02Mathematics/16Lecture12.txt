@@ -1,3 +1,0 @@
-~~ segmented sieve ~~
-
-assignment#3 Q#1 is the implementation of this lecture
