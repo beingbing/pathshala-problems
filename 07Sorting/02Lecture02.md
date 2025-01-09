@@ -1,13 +1,12 @@
-~~ custom comparators ~~
+# custom comparators
 
-1. given n coordinates, find k closest points from origin.
+Problem 1: given n coordinates, find k closest points from origin.
 so, 
 bool cmpr(int x, int y) {
     return x.first*x.first + x.second*x.second < y.first*y.first + y.second*y.second;
 }
 
-
-2. given array a, such that 0 <= a[i] <= 100.
+Problem 2: given array a, such that 0 <= a[i] <= 100.
 - sort such that smallest frequency element comes first.
 - if same frequency, smallest value element should come first.
 - if value also same, then element with smaller index should come first.

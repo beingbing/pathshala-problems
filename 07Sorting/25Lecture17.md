@@ -1,7 +1,10 @@
-~~ application of inversion count ~~
+# application of inversion count
+## Problem 1
+given an integer array of n elements. Sort it using insertion sort and provide inversion count. A pair (a[i],a[j]) is said to be in inversion if: a[i] > a[j] and i < j with 0 <= i, j < n
 
-1. given an array, you are sorting using insertion sort. 
-count of swaps will give us count of inversion.
+### Solution
+- applying actually insertion sort will take quadratic time, and we need a way to do it with a better time complexity.
+- for insertion sort, number of swaps happening to put new number in its right position will give us the inversion count.
 
 Q. how to calculate inversion count in bubble sort
 

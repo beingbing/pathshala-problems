@@ -2,8 +2,8 @@
 
 special kind of BT -> BST
 
-Binary Searcy -> sortedness
-Tree -> heirarchical (dynamic) DS -> insertion/deletion in runtime.
+Binary Search -> sortedness
+Tree -> hierarchical (dynamic) DS -> insertion/deletion in runtime.
 
 in a sorted array -
 search - O(logn)

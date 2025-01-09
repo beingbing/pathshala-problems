@@ -68,3 +68,65 @@ int main() {
     }
     return 0;
 }
+
+import java.util.*;
+
+public class Solution {
+
+    // Helper function to count soldiers (1s) in a row using binary search
+    private int countSoldiers(int[] row) {
+        int left = 0;
+        int right = row.length;
+
+        // Binary search for the first 0 in the row
+        while (left < right) {
+            int mid = left + (right - left) / 2;
+            if (row[mid] == 1) left = mid + 1; // move right if mid is a soldier
+            else right = mid; // move left if mid is civilian
+        }
+        // `left` will be the count of soldiers (number of 1s)
+        return left;
+    }
+
+    public int[] weakestRows(int[][] mat) {
+        int n = mat.length;
+        int m = mat[0].length;
+
+        // List to store pairs of (soldierCount, rowIndex)
+        List<int[]> soldierCounts = new ArrayList<>();
+
+        for (int i = 0; i < n; i++) {
+            int soldiers = countSoldiers(mat[i]);
+            soldierCounts.add(new int[] {soldiers, i});
+        }
+
+        // Sort based on soldier count and then by row index
+        Collections.sort(soldierCounts, (a, b) -> {
+            if (a[0] == b[0]) return Integer.compare(a[1], b[1]);
+            else return Integer.compare(a[0], b[0]);
+        });
+
+        // Extract the row indices in the sorted order
+        int[] result = new int[n];
+        for (int i = 0; i < n; i++) result[i] = soldierCounts.get(i)[1];
+
+        return result;
+    }
+
+    // Main method for testing
+    public static void main(String[] args) {
+        Solution solution = new Solution();
+
+        // Test case input
+        int[][] mat = {
+            {1, 1, 0, 0, 0},
+            {1, 1, 1, 1, 0},
+            {1, 0, 0, 0, 0},
+            {1, 1, 0, 0, 0},
+            {1, 1, 1, 1, 1}
+        };
+
+        // Expected output: [2, 0, 3, 1, 4]
+        System.out.println(Arrays.toString(solution.weakestRows(mat)));
+    }
+}

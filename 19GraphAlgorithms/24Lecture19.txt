@@ -12,7 +12,7 @@ kahn's algorithm: algo to find topological sort.
 
 start off with nodes with indegree = 0.
 
-once a node is added to sotred order, it's outdegree which will be indegree for other nodes should
+once a node is added to stored order, it's outdegree which will be indegree for other nodes should
 be removed from other nodes resulting in reduction of indegree for other nodes. After that, if a
 node has indegree 0, then it's our next candidate.
 

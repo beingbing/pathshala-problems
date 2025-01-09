@@ -75,3 +75,57 @@ public:
         return -1;
     }
 };
+
+```java
+class Solution {
+    public int findInMountainArray(int target, MountainArray mountainArr) {
+        int length = mountainArr.length();
+
+        // Step 1: Find the peak element index
+        int peak = findPeakIndex(mountainArr, length);
+
+        // Step 2: Search in the increasing part (left of the peak)
+        int leftResult = binarySearch(mountainArr, target, 0, peak, true);
+        if (leftResult != -1) {
+            return leftResult;
+        }
+
+        // Step 3: If not found in left, search in the decreasing part (right of the peak)
+        int rightResult = binarySearch(mountainArr, target, peak + 1, length - 1, false);
+        return rightResult;
+    }
+
+    // Helper function to find the peak index using binary search
+    private int findPeakIndex(MountainArray mountainArr, int length) {
+        int left = 0, right = length - 1;
+        while (left < right) {
+            int mid = left + (right - left) / 2;
+            if (mountainArr.get(mid) < mountainArr.get(mid + 1)) left = mid + 1;
+            else right = mid;
+        }
+        // left == right is the peak index
+        return left;
+    }
+
+    // Helper function for binary search
+    // isAscending indicates if the section is sorted in ascending or descending order
+    private int binarySearch(MountainArray mountainArr, int target, int left, int right, boolean isAscending) {
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+            int midValue = mountainArr.get(mid);
+
+            if (midValue == target) return mid; // Found the target
+
+            if (isAscending) {
+                if (midValue < target) left = mid + 1;
+                else right = mid - 1;
+            } else {
+                if (midValue > target) left = mid + 1;
+                else right = mid - 1;
+            }
+        }
+
+        return -1;
+    }
+}
+```

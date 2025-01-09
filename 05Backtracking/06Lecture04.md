@@ -1,36 +1,53 @@
-// print all the valid paths that a rat can take in a maze to
-// reach it's destination with restricted movement allowed
+# Paths - 1
+## Problem
+Given a square maze represented by a 2D matrix, where:
+- `0` represents a safe cell.
+- `1` represents a poisonous cell.
+Print all valid paths for a rat to reach the destination at (n-1, n-1) starting from (0, 0), with movement restricted to only right or down.
 
-#include <iostream>
-#include <vector>
-using namespace std;
-vector<vector<pair<int, int>>> ans;
+## Solution
+```java
+import java.util.ArrayList;
+import java.util.List;
 
-void findPaths(vector<vector<int>> &maze, vector<pair<int, int>> &route, int i, int j) {
-    if (maze[i][j] == 1) return;
-    if (i == j and j == maze.size() - 1) {
-        route.push_back({i, j});
-        ans.push_back(route);
-        route.pop_back();
-        return;
+public class RatInMaze {
+
+    public static List<String> findPaths(int[][] maze) {
+        List<List<int[]>> paths = new ArrayList<>();
+        List<int[]> path = new ArrayList<>();
+        int n = maze.length;
+        backtrack(maze, n - 1, 0, 0, path, paths);
+        return paths;
     }
-    route.push_back({i, j});
-    if (i == maze.size() - 1) findPaths(maze, route, i, j + 1);
-    else if (j == maze[0].size() - 1) findPaths(maze, route, i + 1, j);
-    else {
-        findPaths(maze, route, i, j + 1);
-        findPaths(maze, route, i + 1, j);
+
+    private static void backtrack(int[][] maze, int boundary, int row, int col, List<int[]> path, List<List<int[]>> paths) {
+        if (maze[row][col] == 1) return;
+
+        if (row == boundary && col == boundary) {
+            path.add(new int[]{row, col});
+            paths.add(new ArrayList<>(path));
+            path.removeLast();
+            return;
+        }
+
+        path.add(new int[]{row, col});
+        if (isSafe(col, boundary)) backtrack(maze, boundary, row, col + 1, path, paths);
+        if (isSafe(row, boundary)) backtrack(maze, boundary, row + 1, col, path, paths);
+        path.removeLast();
     }
-    route.pop_back();
+
+    private static boolean isSafe(int val, int boundary) {
+        return val + 1 <= boundary; 
+    }
+
+    public static void main(String[] args) {
+        int[][] maze = {
+                {0, 0, 1},
+                {0, 0, 0},
+                {1, 0, 0}
+        };
+        List<List<int[]>> paths = findPaths(maze);
+        System.out.println(paths);
+    }
 }
-
-int main() {
-    vector<vector<int>> maze = {{0, 0, 1, 1}, {0, 0, 1, 1}, {1, 0, 1, 0}, {0, 0, 0, 0}};
-    vector<pair<int, int>> route;
-    findPaths(maze, route, 0, 0);
-    for (auto path : ans) {
-        for (auto cell : path) cout << "(" << cell.first << ", " << cell.second << ")\t";
-        cout << endl;
-    }
-    return 0;
-}
+```

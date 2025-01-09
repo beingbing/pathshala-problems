@@ -1,7 +1,6 @@
-~~ special edition ~~
+# special Election
 
-given n, number of people contesting an election
-every contestant has an influence level which will be supplied by an array
+given n, number of people contesting an election and every contestant has an influence level which will be supplied by an array
 - every contestant is also a voter and every voter is a contestant
 - every contestant can vote multiple times
 - contestant can't vote for himself

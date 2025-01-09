@@ -4,9 +4,6 @@
 a & b = 1 iff both a and b are 1
       = 0, otherwise
 
-e.g. -
-5 & 3 = 101 & 011 = 001 = 1
-
 2. bitwise OR (|)
 a | b = 0, iff both are 0
       = 1, otherwise

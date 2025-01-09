@@ -1,80 +1,64 @@
-~~ order of expressions and recurrence relations ~~
+# Time Complexity, Order of Expressions, and Recurrence Relations
+In time complexity analysis, we aim to understand the performance of algorithms in terms of input size. For a function representing operations as `an^3 + bn^2 + cn + d`, where `a`, `b`, `c`, and `d` are constants, the **order** for large `n` is driven by the term with the highest power. Here, it is `O(n^3)`.
 
-let us assume, for a code of input size n, we performed some operations which can be represented by the equation, an^3 + bn^2 + cn + d where a,b,c and d are constants.
-
-for a large input size the order of the expression will be,
-TC = O(n^3)
-
-let's try some sample questions in which we deduce number of operations from which we
-will retrieve the time taken for the code to run.
-
-Q1. 
-for (int i{0}; i<n; i++) {
-    for (int j{0}; j<=i; j++)
-        cout << i << " " << j << endl;
+## Example Problem: Nested Loops and Order of Expressions
+### Problem
+Calculate the time complexity for the following code:
+```java
+public class TimeComplexityExample {
+    public static void main(String[] args) {
+        int n = 5; // example input size
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j <= i; j++) {
+                System.out.println(i + " " + j);
+            }
+        }
+    }
 }
+```
+### Iterative Analysis
+1. **Operation Breakdown**:
+    - The outer loop runs `n` times.
+    - The inner loop runs `i+1` times for each `i`.
+    - Total operations = `1 + 2 + 3 + ... + n = n(n+1)/2 = O(n^2)` for large `n`.
+2. **Final Complexity**: `O(n^2)`
 
-    i:  0  1    2      3                ....        n-1               n
-
-    j:  0  0 1  0 1 2  0 1 2 3          ....        0 1 2 3 ... n-1   0 1 2 3 ... n-1 n
-
-no of:  1   2   3       4                           n-1               n
-operations
-
-so, total no of operations = n*(n+1) / 2    =   n^2 / 2     +   n/2
-now,
-for very high values of n, the order will become,
-
-    total no of operations = O(n^2) which will be our time taken
-
-
-
-
-recurrence equation -
-
-T(big problem)  =   T(small problem) + (some constant)
-
-e.g. -
-
-int arr[n];
-int s{0};
-for (i: 1 to n-1) {
-    s += arr[i];
-}
-
-T(n) = T(n-1) + O(1)
-
-substituting T(n-1) with T(n-2) + O(1), we get,
-
-T(n) = T(n-2) + 2*O(1)
-
-... goes on like this
-
-T(n) = T(0) + (n)*O(1)
-
-T(0) is time taken by code when n = 0, which will be 0, so,
-
-T(n) = n*O(1)       =>      T(n) = O(n)
-
-
-
-
-
-
-create recurrence relation for Q1.
-
+### Recursive Analysis
+For the nested loops, we observe that each level introduces one more operation, forming the recurrence:
+```
 T(n) = T(n-1) + O(n)
-
-substituting T(n-1) with T(n-2) + (n-1), we get,
-
+```
+Expand this relation by Substituting `T(n-1) = T(n-2) + (n-1)`:
+```
 T(n) = T(n-2) + (n-1) + n
+```
+Further substitution will make it to reach:
+```
+T(n) = T(0) + 1 + 2 + ... + n = n(n+1)/2 = O(n^2)
+```
+As T(0) is time taken by code when n = 0, which will be 0.
 
-... goes on like this
-
-T(n) = T(0) + 1 + 2 + ... + (n-2) + (n-2) + n
-
-T(0) is time taken by code when n = 0, which will be 0, so,
-
-T(n) = 1 + 2 + ... + n  =  n*(n+1)/2
-
-T(n)  =  O(n^2)
+## Understanding Recurrence Relations
+Recurrence relations describe the time complexity of recursive algorithms. A recurrence relation links the time complexity of a problem with that of a smaller subproblem. Hence, Time Complexity of main problem = Time Complexity of smaller sub problem + some constant operations time
+### Example 1: Simple Summation
+Consider:
+```cpp
+int arr[n];
+int sum = 0;
+for (int i = 1; i < n; i++) {
+    sum += arr[i];
+}
+```
+This has a recurrence relation:
+```
+T(n) = T(n-1) + O(1)
+```
+Expand this relation by substituting `T(n-1) = T(n-2) + O(1)`:
+```
+T(n) = T(n-2) + 2 * O(1)
+```
+Further substitution will make it to reach:
+```
+T(n) = T(0) + n * O(1) = O(n)
+```
+Since T(0) = 0, the final complexity is T(n) = O(n).

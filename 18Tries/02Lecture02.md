@@ -1,19 +1,10 @@
-~~ introduction to tries ~~
+### Introduction to Tries
+A Trie (also called a prefix tree) is a tree-based data structure where:
+- Each node represents a prefix of a string.
+- Every path from the root to a node corresponds to a prefix or a complete string in the list.
+- Each node has an isString flag that indicates whether the path from the root forms a valid string in the list.
 
-Trie is also known as prefix tree because every node in the tree represents a prefix of a string
-introduced in the list.
-
-every root to leaf path represents a string present in the given list.
-
-every node also has a variable isString present which denotes if the current path followed up until
-now is making a valid string which is present in the list of not.
-so, trie DS stores all the strings of given list in the form of a tree from root to some other node.
-
-hence, every new edge represents one new character introduced in the prefix string till that point.
-so, how many edges at max can a node has -
-if we consider all lowercase letters can be the only candidates of the string then maximum count
-of edges from any node will be 26.
-
-space taken by any trie of above explained kind -
-size = O(n*l) (in worst case scenario)
-but normally it is much less.
+### Key properties:
+- **Efficient Prefix Matching:** Tries allow prefix-based operations in O(l) time, where l is the length of the prefix.
+- **Edge Representation:** Each edge represents a character, and a node can have at most 26 edges if we consider lowercase English letters.
+- **Space Complexity:** The space required is O(n * l) in the worst case (one node for every character), but it is often much less due to shared prefixes.

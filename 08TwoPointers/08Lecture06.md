@@ -1,4 +1,4 @@
-~~ quadruplet sum ~~
+# quadruplet sum 
 
 given unsorted array with n elements, find distinct quadruplet a, b, c and d with unique indices such that a+b+c = 0
 

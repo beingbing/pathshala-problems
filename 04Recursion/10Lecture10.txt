@@ -1,3 +1,3 @@
 ~~ letter Combinations: saving space ~~
 
-not that important
+instead of string concatenation use char-array to save space.

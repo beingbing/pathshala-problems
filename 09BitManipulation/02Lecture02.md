@@ -9,6 +9,7 @@ Note: bit operations are fastest
 precedence order
 §. arithematic operators
 -. bitwise operators
+hence, always put bracket around bitwise operator operands when put in an expression along with arithmetic operators.
 
 5. right shift operator (>>)
 - all bits move towards right and the left most bit is eliminated

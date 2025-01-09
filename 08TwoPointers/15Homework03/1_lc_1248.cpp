@@ -9,21 +9,21 @@ class Solution {
 
 public:
     int numberOfSubarrays(vector<int> &nums, int k) {
-        int i = 0, j, cnt{0}, total{0};
+        int left = 0, right, prefixEven{0}, result{0};
         int n = nums.size();
-        for (j = 0; j < n; j++) {
-            if (isOdd(nums[j])) {
+        for (right = 0; right < n; right++) {
+            if (isOdd(nums[right])) {
                 k--;
-                cnt = 0;
+                prefixEven = 0;
             }
             while (k == 0) {
-                cnt++;
-                k += (isOdd(nums[i]) ? 1 : 0);
-                i++;
+                prefixEven++;
+                k += (isOdd(nums[left]) ? 1 : 0);
+                left++;
             }
-            total += cnt;
+            result += prefixEven;
         }
-        return total;
+        return result;
     }
 };
 

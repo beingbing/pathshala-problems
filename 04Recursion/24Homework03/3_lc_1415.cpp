@@ -34,3 +34,42 @@ int main() {
     cout << ans << endl;
     return 0;
 }
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class HappyStringGenerator {
+
+    private static final char[] CHARACTERS = {'a', 'b', 'c'};
+    private List<String> happyStrings;
+
+    public String getHappyString(int n, int k) {
+        happyStrings = new ArrayList<>();
+        generateHappyStrings("", n);
+        // Check if k is valid
+        if (k > happyStrings.size()) return ""; // Not enough happy strings
+        return happyStrings.get(k - 1); // Return kth happy string (1-indexed)
+    }
+
+    private void generateHappyStrings(String current, int n) {
+        // Base case: if the current string length is equal to n
+        if (current.length() == n) {
+            happyStrings.add(current);
+            return;
+        }
+
+        // Recursive case: iterate through 'a', 'b', and 'c'
+        for (char ch : CHARACTERS) {
+            // Check last character to maintain happy string conditions
+            if (current.isEmpty() || current.charAt(current.length() - 1) != ch)
+                generateHappyStrings(current + ch, n);
+        }
+    }
+
+    public static void main(String[] args) {
+        HappyStringGenerator generator = new HappyStringGenerator();
+        System.out.println(generator.getHappyString(1, 3)); // Output: "c"
+        System.out.println(generator.getHappyString(1, 4)); // Output: ""
+        System.out.println(generator.getHappyString(3, 9)); // Output: "cab"
+    }
+}

@@ -1,24 +1,13 @@
-~~ Introduction and representation ~~
+# Introduction to N-ary Trees and its Representation
 
-a tree is acyclic and a tree with n nodes will always have n-1 edges
+A **tree** is a connected, acyclic graph. For a tree with **n nodes**, there will always be exactly **n-1 edges**.
 
-generic n-ary trees:
-as any node can have any number of children with it, so we can not define a tree-node with a specific
-amount of pointers, it is only at runtime we will know as how many pointers are needed for children
-hence unlike binary tree where we had *left and *right as pointers for two possible children that
-node can have, we will be using an *arr[n] where each element of array will be a pointer to the
-children.
+## Representation of Generic N-ary Trees
+In a generic n-ary tree, a node can have any number of children, making it impractical to define a tree node with a fixed number of pointers. Unlike a binary tree, where each node has `left` and `right` pointers for its two children, an n-ary tree node must accommodate an arbitrary number of children at runtime.
 
-but not all nodes will have n children, as for a tree with E edges there can be atmost (2n-2) entries
-hence it is useless to keep a matrix of n^2. Instead, we will have a vector<vector<int>>
-which will be denoted as "Adjacency List".
+To handle this, we use a structure where each node maintains a list (or array) of pointers to its children. However, for efficient representation of the tree, especially when dealing with edge inputs, we rely on an **Adjacency List**.
 
-so, to create an Adjacency list from an input of edges.
-
-vector<vector<int>> adjacencyList(n+1);
-
-for (int i{1}; i<=n; i++) {
-    cin >> startNode >> endNode;
-    adjacencyList[startNode].push_back(endNode);
-    adjacencyList[endNode].push_back(startNode);
-}
+### Why Use an Adjacency List?
+An adjacency list efficiently represents trees:
+- Instead of using a fixed-size matrix (which would waste space for sparse trees), we use a vector of vectors.
+- For a tree with **n nodes** and **E edges** (where **E can go up to n-1**) we will have atmost 2n-2 entries, which is nowhere near the n^2 space we preserve in case of a matrix.

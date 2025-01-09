@@ -52,3 +52,49 @@ int main() {
     }
     return 0;
 }
+
+import java.util.Scanner;
+
+public class BinarySearchSolver {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        // Read the number of elements in the array
+        int N = scanner.nextInt();
+        int[] nums = new int[N];
+
+        // Read the sorted array elements
+        for (int i = 0; i < N; i++) {
+            nums[i] = scanner.nextInt();
+        }
+
+        // Read the number of test cases
+        int T = scanner.nextInt();
+        StringBuilder result = new StringBuilder();
+
+        // Process each test case
+        for (int i = 0; i < T; i++) {
+            int target = scanner.nextInt();
+            int index = binarySearch(nums, target); // Find target index using binary search
+            result.append(index).append("\n"); // Append result for this test case
+        }
+
+        System.out.print(result); // Print all results at once
+        scanner.close();
+    }
+
+    // Binary search function to find the index of target in a sorted array
+    private static int binarySearch(int[] nums, int target) {
+        int left = 0;
+        int right = nums.length - 1;
+
+        while (left <= right) {
+            int mid = left + (right - left) / 2; // Avoid overflow
+
+            if (nums[mid] == target) return mid; // Target found, return its index
+            else if (nums[mid] < target) left = mid + 1; // Discard the left half
+            else right = mid - 1; // Discard the right half
+        }
+        return -1; // Target not found
+    }
+}

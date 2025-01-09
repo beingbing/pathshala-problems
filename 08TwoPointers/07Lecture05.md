@@ -1,4 +1,4 @@
-~~ triplet sum ~~
+# triplet sum
 
 given unsorted array with n elements, find distinct triplet a, b and c with unique indices such that a+b+c = 0
 

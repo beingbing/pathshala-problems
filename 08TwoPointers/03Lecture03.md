@@ -27,7 +27,7 @@ Note: if diff is negative, do cur = a[i] - a[j] and change if else conditions of
 
 Note: if questions ask about all the pairs
 
--> if repeatations are allowed, then count all occurence apply rule of product.
+-> if reputations are allowed, then count all occurrence apply rule of product.
 
 -> edge case: diff = 0
 

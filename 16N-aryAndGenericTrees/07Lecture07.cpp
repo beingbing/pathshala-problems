@@ -4,7 +4,7 @@
 
 // depth of industry cities should be maximized w.r.t. capital
 // and if two cities has equal depth then that city should be selected which has least number of
-// industry cities.
+// industry cities beyond it.
 
 // for a node, no. of industries in its subtree will be equal to no. of nodes it has in its subtree
 

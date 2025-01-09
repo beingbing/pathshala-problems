@@ -2,5 +2,4 @@
 
 technique of mapping large range of data to small amount of space
 
-e.g. - to keep a few numbers with a varying range of magnitude, frequency array will not work,
-so hashing is the alternative to this.
+e.g. - to keep a few numbers with a varying range of magnitude, frequency array will not work, so hashing is the alternative to this.

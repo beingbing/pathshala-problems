@@ -1,7 +1,6 @@
-~~ custom sorting ~~
-
-given two strings s and t, both containing lowercase alphabets only. len(s) <= 26 with all distinct characters.
-sort characters of t based on order of characters in s.
+# custom sorting
+## Problem
+given two strings s and t, both containing lowercase alphabets only. len(s) <= 26 with all distinct characters. sort characters of t based on order of characters in s.
 
 bool cmpr(pair<int, int> x, pair<int, int> y) {
     return x.second < y.second;

@@ -52,3 +52,51 @@ int main() {
     }
     return 0;
 }
+
+import java.util.Scanner;
+
+public class InsertPositionFinder {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        // Read the size of the array
+        int N = scanner.nextInt();
+        int[] nums = new int[N];
+
+        // Read the sorted array elements
+        for (int i = 0; i < N; i++) {
+            nums[i] = scanner.nextInt();
+        }
+
+        // Read the number of test cases
+        int T = scanner.nextInt();
+        StringBuilder result = new StringBuilder();
+
+        // Process each test case
+        for (int i = 0; i < T; i++) {
+            int target = scanner.nextInt();
+            int index = searchInsertPosition(nums, target); // Get the index or insert position
+            result.append(index).append("\n"); // Append result for this test case
+        }
+
+        System.out.print(result); // Print all results at once
+        scanner.close();
+    }
+
+    // Binary search function to find the target index or the insert position
+    private static int searchInsertPosition(int[] nums, int target) {
+        int left = 0;
+        int right = nums.length - 1;
+
+        // Binary search loop to find the target or insertion point
+        while (left <= right) {
+            int mid = left + (right - left) / 2; // Calculate mid to avoid overflow
+
+            if (nums[mid] == target) return mid; // Target found, return its index
+            else if (nums[mid] < target) left = mid + 1; // Move left pointer to the right
+            else right = mid - 1; // Move right pointer to the left
+        }
+        // If target is not found, left is the insertion index
+        return left;
+    }
+}

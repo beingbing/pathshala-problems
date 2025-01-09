@@ -1,4 +1,4 @@
-~~ how hashtables work ~~
+~~ how hashtable work ~~
 
 hashing solves problems related to key-value pair
 
@@ -9,7 +9,7 @@ element => frequency
 
 so for this we need a DS which can -
 - insert a key-value pair efficiently. TC = O(1) or O(n) (depending on type of key)
-- can retrieve information related to a key efficiently. TC = O(1) or O(n) (if it goe in rehashing/resizing)
+- can retrieve information related to a key efficiently. TC = O(1) or O(n) (if it goes in rehashing/resizing)
 theoretically there TC can go till O(n) in worst case
 but amortized is mostly O(1)
 

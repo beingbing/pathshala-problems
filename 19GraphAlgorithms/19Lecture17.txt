@@ -1,4 +1,4 @@
-~~ check bipartite graph (very famouns interview problem) ~~
+~~ check bipartite graph (very famous interview problem) ~~
 
 given a graph, find if it is bipartite or not.
 

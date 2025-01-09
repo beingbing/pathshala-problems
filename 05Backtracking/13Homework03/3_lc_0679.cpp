@@ -7,8 +7,7 @@ public:
     bool judgePoint24(vector<int> &nums) {
         sort(nums.begin(), nums.end());
         do {
-            if (valid(nums))
-                return true;
+            if (valid(nums)) return true;
         } while (next_permutation(nums.begin(), nums.end()));
         return false;
     }

@@ -29,7 +29,7 @@ skewed tree -
 all the nodes are trying in a single straight line (just like linked-list)
 
 binary tree -
-a node can have maximum 2 children. 
+a node can have maximum 2 children.
 
 level -> every descendent creates a level.
 

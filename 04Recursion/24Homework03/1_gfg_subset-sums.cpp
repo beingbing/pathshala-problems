@@ -52,3 +52,37 @@ int main() {
     }
     return 0;
 } // } Driver Code Ends
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class SubsetSums {
+
+    public List<Integer> subsetSums(int[] arr, int n) {
+        List<Integer> result = new ArrayList<>();
+        calculateSubsetSums(arr, 0, 0, result);
+        return result;
+    }
+
+    private void calculateSubsetSums(int[] arr, int index, int currentSum, List<Integer> result) {
+        if (index == arr.length) {
+            result.add(currentSum);
+            return;
+        }
+
+        // Include the current element in the sum
+        calculateSubsetSums(arr, index + 1, currentSum + arr[index], result);
+
+        // Exclude the current element from the sum
+        calculateSubsetSums(arr, index + 1, currentSum, result);
+    }
+
+    public static void main(String[] args) {
+        SubsetSums solver = new SubsetSums();
+        int[] arr = {2, 3};
+        System.out.println(solver.subsetSums(arr, arr.length)); // Expected output: [0, 2, 3, 5]
+
+        int[] arr2 = {1, 2, 1};
+        System.out.println(solver.subsetSums(arr2, arr2.length)); // Expected output: [0, 1, 1, 2, 2, 3, 3, 4]
+    }
+}

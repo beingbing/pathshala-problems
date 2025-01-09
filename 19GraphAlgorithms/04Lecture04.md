@@ -1,47 +1,30 @@
-~~ graph representation ~~
+# Graph Representation
+Graphs can be represented in two common ways:
 
-adjacency list -
+## 1. Adjacency List
+Efficient for sparse graphs, where not all nodes are connected.
 
-struct Node {
-    int val;
-    vector<Node*> adj; // adjacency list
-}
+### Structure:
+Each node stores a list of its adjacent nodes (or a list of pair of node and weight if edges are weighted). Thus, the degree of each node can be defined as the size of its adjacency list.
 
-in this case, degree of a node i will be i->adj.size();
+### Complexity:
+- **Space Complexity:** It depends on the total number of nodes (`v`) and edges (`e`) and can be defined as the sum of size of adjacency-lists of all the nodes, which in turn is equal to the degree of the graph. hence O(v + 2e) which gets normalized into O(v + e)
+- **Time Complexity:** Traversing all adjacency lists involves visiting each node and its edges, hence, time complexity will be O(v + e)
 
-in adjacency list representation how much space we require to represent a graph.
-we would assume that if number of nodes are v then in worst case we can require v^2 space, in case
-all the nodes are connected to all other nodes. but it doesn't happen in real world. there are not
-this many connection and we also do not represent only in terms of nodes we take in account number
-of edges e too.
+### Note:
+In a complete graph there is an edge between every two nodes. Hence both time and space complexity will be O(v^2) -
+```
+ => e = vC2 = v*(v-1)/2 
+ => e = v^2
+```
 
-so, in order to calculate space required, we know that sum of size of adjacency-lists of all the
-nodes will give us the required space taken, but, we know that,
-sum of size of adjacency-lists of all the nodes gives us total degree of the graph, and,
-degree of graph is equal to 2*e.
-so, it implies, we can conclude,
-the space required is 2*e.
-but that's not the end of the story,
-if we have a graph with no nodes then, in this case we have size as v but according to our conclusion
-we will get size to be 2*e = 0, which is wrong,
-so,
-the space required = v + 2*e
-but we ignore the constant, hence,
-SC = O(v + e)
+## 2. Adjacency Matrix
+Efficient for dense graphs, where most nodes are connected.
 
-while traversing, we need to check the adjacency list of all the nodes which again brings us to the
-above derivation, but this time it is for finding time complexity.
-hence, TC = O(v + e)
+### Structure:
+- A `v × v` matrix where `mat[i][j] = 1` if there's an edge between `i` and `j`, otherwise `0`.
+- In a **weighted graph**, `mat[i][j]` stores the weight of the edge, or `0` if no edge exists.
 
-in a complete graph, e = vC2 = v*(v-1)/2 which gives, e = v^2 so TC and SC becomes O(v^2)
-
-adjacency matrix -
-
-it's a matrix representation in which mat[i][j] = 1 if there is an edge between i and j, otherwise it
-will be 0.
-degree of node i = sum of adj[i]
-SC = O(v^2) (size of matrix)
-TC = O(v^2) (size of matrix)
-
-Note: in case of weighted graph the adjacency list will have pair instead of single node, in which,
-(node, weight)
+### Complexity:
+- **Space Complexity:** O(v^2)
+- **Time Complexity for Traversal:** O(v^2)

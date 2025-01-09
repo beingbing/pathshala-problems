@@ -1,34 +1,46 @@
-// write all the permutations of a given string in lexicographic order
+# permutations of a string - 2
+Swapping string characters losses the relative order of characters in the permuted string in that subtree. Hence, to maintain relative ordering within a subset of characters or when cyclic shifts are required as part of the constraints, an alternative to swapping would be to perform rotation.
+## Code
+```java
+public class RotationalPermutations {
 
-#include <iostream>
-using namespace std;
-
-void rightRotate(string& str, int i, int j) {
-    int temp = str[j];
-    for (auto idx{j}; idx > i; idx--) str[idx] = str[idx-1];
-    str[i] = temp;
-}
-
-void leftRotate(string& str, int i, int j) {
-    int temp = str[i];
-    for (auto idx{i}; idx < j; idx++) str[idx] = str[idx+1];
-    str[j] = temp;
-}
-
-void permute(string str, int idx) {
-    if (idx == str.size()) {
-        cout << str << endl;
-        return;
+    private void rightRotate(char[] chars, int i, int j) {
+        char temp = chars[j];
+        for (int idx = j; idx > i; idx--) chars[idx] = chars[idx - 1];
+        chars[i] = temp;
     }
-    for (auto toSwapIdx{idx}; toSwapIdx < str.size(); toSwapIdx++) {
-        rightRotate(str, idx, toSwapIdx); // do
-        permute(str, idx+1);              // recurse  
-        leftRotate(str, idx, toSwapIdx);  // undo
+
+    private void leftRotate(char[] chars, int i, int j) {
+        char temp = chars[i];
+        for (int idx = i; idx < j; idx++) chars[idx] = chars[idx + 1];
+        chars[j] = temp;
+    }
+
+    private void generatePermutations(char[] chars, int index, List<String> result) {
+        if (index == chars.length) {
+            result.add(new String(chars));
+            return;
+        }
+
+        for (int toSwapIdx = index; toSwapIdx < chars.length; toSwapIdx++) {
+            rightRotate(chars, index, toSwapIdx);  // do
+            generatePermutations(chars, index + 1, result);  // recurse
+            leftRotate(chars, index, toSwapIdx);  // undo
+        }
+    }
+
+    public List<String> permute(String s) {
+        List<String> result = new ArrayList<>();
+        generatePermutations(s.toCharArray(), 0, result);
+        return result;
+    }
+
+    public static void main(String[] args) {
+        RotationalPermutations permuter = new RotationalPermutations();
+        System.out.println(permuter.permute("abc"));  // Expected output: [abc, acb, bac, bca, cab, cba]
     }
 }
-
-int main() {
-    string str = "abc";
-    permute(str, 0);
-    return 0;
-}
+```
+## Complexity
+- **Time Complexity**: `O(n!)` for generating all permutations, where `n` is the length of the string.
+- **Space Complexity**: `O(n)` for the recursion stack and auxiliary space used for swaps.

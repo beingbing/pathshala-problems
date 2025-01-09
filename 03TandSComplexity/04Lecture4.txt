@@ -1,5 +1,9 @@
 ~~ space complexity ~~
 
-It depends on extra space taken
+Space complexity depends on extra space taken.
 
-If someone asks then total memory consumption = extra space + input
+If someone asks,
+total memory consumption = extra space (space complexity) + input
+
+In case of a recursive code,
+Space complexity = maximum height of the call-stack

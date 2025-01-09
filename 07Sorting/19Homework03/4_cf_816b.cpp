@@ -10,8 +10,8 @@ int main() {
     int l, r;
     for (int i{0}; i<n; i++) {
         cin >> l >> r;
-        temps[r]++;
         temps[l-1]--;
+        temps[r]++;
     }
     for (int i = 200001 - 2; i >= 0; i--) temps[i] = temps[i] + temps[i + 1];
     vector<int> pfSum(200001, 0); // if temps[i] >= k then consider them.

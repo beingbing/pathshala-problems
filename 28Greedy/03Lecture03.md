@@ -1,40 +1,17 @@
-~~ Activity Selection - 2 ~~
+# Activity Selection - 2: Two Persons
+## Problem Statement
+Given `n` activities with start and end times, find the maximum number of non-overlapping activities that two people can collectively perform. Each person can perform only one activity at a time.
 
-given n Activities with start time and end time. You can perform two Activity at a time, find
-max number of activities that can be performed.
+## Solution
+### Key Insight:
+If an activity can be assigned to both persons, assign it to the one whose last activity ends earlier. This ensures future activities have better opportunities to fit.
 
-our logic of previous lecture -
-if an activity can be performed (endTime(cur) <= startTime(next)) then perform it.
+#### Steps to Solve:
+1. Pair the start and end times as `(start[i], end[i])`.
+2. Sort activities by end time.
+3. Maintain two variables (`endTime1` and `endTime2`) to track the end times of the activities assigned to the two persons.
+4. Assign each activity to the person whose last activity ends earlier.
 
-will not work in this problem, because we need to distribute every next upcoming activity such that
-both persons could complete max number of activities. so, even if the next activity can be performed
-by first person but before assigning that we need to keep in account as whether second person can also do
-that activity or not, and if yes, then do we get more number of activities completed that way.
-
-because if situation arises that an upcoming activity can be assigned to both persons then we need to check
-whether next activity after that can also be assigned to both or not.
-
-in simple terms, we need to check that, if an activity can be assigned to second person can also be assigned
-to first person but can an activity that can be assigned to first person, can it be assigned to second person
-too or not.
-
-so, if an activity can be assigned to both then assign it to the person which has higher endTime activity
-at hand that way we have option that if an activity comes next which had startTime between endTime of first
-and second person, then it can go to first person, that way more activities can be completed.
-
-vector<pair<int, int>> vec;
-for (int i{0}; i<n; i++) vec.push_back({strts[i], ends[i]});
-sort(vec.begin(), vec.end(), Comp);
-int ans = 0;
-int endTime1 = 0, endTime2 = 0;
-for (auto &ele : vec) {
-    if (ele.first >= endTime1 || ele.first >= endTime2) {
-        ans++;
-        if (ele.second > endTime2) endTime2 = ele.second;
-        else endTime1 = ele.second;
-    }
-}
-return ans;
-
-TC = O(nlogn)
-SC = O(n)
+#### Complexity:
+- **Time Complexity:** O(n log n)
+- **Space Complexity:** O(n)

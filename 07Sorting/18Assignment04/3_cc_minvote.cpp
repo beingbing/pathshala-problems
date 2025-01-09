@@ -7,7 +7,7 @@ typedef long long int ll;
 
 void voteEveryone(ll i, ll j, vector<ll> &votes) {
     votes[j]++;
-    if (i > 0) votes[i - 1]--;
+    if (i >= 0) votes[i]--;
 }
 
 ll sum(ll i, ll j, vector<ll> &pfsum) {
@@ -66,11 +66,11 @@ int main() {
         vector<ll> votes(cands, 0);
         for (int i{0}; i < cands - 1; i++) {
             ll j = findRight(i, influence, pfSum);
-            voteEveryone(i + 1, j - 1, votes);
+            voteEveryone(i, j - 1, votes);
         }
         for(int i{1}; i < cands; i++) {
             ll k = findLeft(i, influence, pfSum);
-            voteEveryone(k + 1, i - 1, votes);
+            voteEveryone(k, i - 1, votes);
         }
         for (int i = cands - 2; i >= 0; i--) votes[i] = votes[i] + votes[i + 1];
         for (auto ele : votes) cout << ele << " ";

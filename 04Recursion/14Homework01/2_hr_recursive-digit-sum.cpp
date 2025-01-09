@@ -29,8 +29,7 @@ int superDigit(string n, int k) {
     return stoi(str);
 }
 
-int main()
-{
+int main() {
     ofstream fout(getenv("OUTPUT_PATH"));
 
     string first_multiple_input_temp;

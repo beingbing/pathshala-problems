@@ -32,3 +32,25 @@ int main() {
     Solution* obj = new Solution();
     cout << obj->firstBadVersion(n) << endl;
 }
+
+public class Solution {
+    private boolean isBadVersion(int version) {
+        // Implementation hidden; returns true if version is bad, false otherwise.
+    }
+
+    public int firstBadVersion(int n) {
+        int left = 1;
+        int right = n;
+
+        // Perform binary search
+        while (left < right) {
+            int mid = left + (right - left) / 2; // Prevent overflow
+
+            if (isBadVersion(mid)) right = mid; // If mid is bad, the first bad version is at mid or before
+            else left = mid + 1; // If mid is good, search in the right half
+        }
+
+        // Left now points to the first bad version
+        return left;
+    }
+}

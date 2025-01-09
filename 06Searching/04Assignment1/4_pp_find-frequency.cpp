@@ -71,3 +71,82 @@ int main() {
     }
     return 0;
 }
+
+import java.util.Scanner;
+
+public class TargetOccurrenceCounter {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        // Read the size of the array
+        int N = scanner.nextInt();
+        int[] nums = new int[N];
+
+        // Read the sorted array elements
+        for (int i = 0; i < N; i++) {
+            nums[i] = scanner.nextInt();
+        }
+
+        // Read the number of test cases
+        int T = scanner.nextInt();
+        StringBuilder result = new StringBuilder();
+
+        // Process each test case
+        for (int i = 0; i < T; i++) {
+            int target = scanner.nextInt();
+            int count = countOccurrences(nums, target);
+            result.append(count).append("\n");
+        }
+
+        System.out.print(result); // Print all results at once for efficiency
+        scanner.close();
+    }
+
+    // Counts occurrences of target in the sorted array using binary search
+    private static int countOccurrences(int[] nums, int target) {
+        int firstPos = findFirstPosition(nums, target);
+        if (firstPos == -1) {
+            return 0; // Target not found
+        }
+        int lastPos = findLastPosition(nums, target);
+        return lastPos - firstPos + 1; // Calculate count of occurrences
+    }
+
+    // Binary search to find the first position of the target
+    private static int findFirstPosition(int[] nums, int target) {
+        int left = 0, right = nums.length - 1;
+        int firstPosition = -1;
+
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+            if (nums[mid] == target) {
+                firstPosition = mid;
+                right = mid - 1; // Move left to find first occurrence
+            } else if (nums[mid] < target) {
+                left = mid + 1;
+            } else {
+                right = mid - 1;
+            }
+        }
+        return firstPosition;
+    }
+
+    // Binary search to find the last position of the target
+    private static int findLastPosition(int[] nums, int target) {
+        int left = 0, right = nums.length - 1;
+        int lastPosition = -1;
+
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+            if (nums[mid] == target) {
+                lastPosition = mid;
+                left = mid + 1; // Move right to find last occurrence
+            } else if (nums[mid] < target) {
+                left = mid + 1;
+            } else {
+                right = mid - 1;
+            }
+        }
+        return lastPosition;
+    }
+}

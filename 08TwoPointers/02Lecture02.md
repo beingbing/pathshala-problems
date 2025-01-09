@@ -1,4 +1,4 @@
-~~ pair sum - 2 ~~
+# pair sum - 2 ~~
 
 given an array and a sum, find two numbers in array whose sum equals sum.
 such that a[i] + a[j] = sum, where i != j

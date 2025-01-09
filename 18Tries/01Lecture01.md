@@ -1,19 +1,13 @@
-~~ prefix match problem ~~
+### The Need for Tries
+We needed a data structure that efficiently manages operations involving strings like:
+- Add a string s to the list (no repetitions allowed).
+- Delete a string s from the list (only if it exists).
+- Find the number of strings in the list that start with a given prefix p.
 
-Lets discuss first how need of trie originated and it is created.
+#### Example:
+A list of size n is provided containing strings:
+- Adding a string of length l has a time complexity of O(l).
+- Deleting a string may require searching through the entire list, leading to a complexity of O(n * l).
+- Finding strings with a specific prefix can also take O(n * l).
 
-suppose we need to design a DS that supports -
-- add a string s to your list of strings. (no repetation allowed)
-- delete a string s from your list of strings. (for deletion, string should be present)
-- to find number of strings in the list that has p as prefix.
-
-suppose a list of strings is given of size n -
-- add a string of size l to this list.
-TC = O(l)
-- delete a string s from that list.
-TC - O(n*l)
-- find a list of strings matching given prefix p
-TC = O(n*l)
-
-the above results will be in normal circumstances. We can not afford this much complexities hence
-we came up with trie.
+These complexities can become unmanageable for large datasets. To address this, we use a Trie.

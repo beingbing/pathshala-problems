@@ -1,13 +1,10 @@
-~~ what is greedy algorithm ~~
+### Greedy Algorithm
+A **Greedy Algorithm** is a problem-solving strategy where decisions are made step-by-step, choosing the **locally optimal solution** at each step with the hope that this approach leads to the **global optimal solution**.
 
-problems which are solvable by using some greed.
+### Key Concept:
+1. **Greed in Action:** Make decisions without considering future consequences, focusing only on immediate gains.
 
-greed -
-- pick current min
-- pick current max
+A problem has an optimal substructure if an optimal solution to the problem can be constructed efficiently from optimal solutions to its subproblems.
 
-to pick current extreme without worrying about the future is where greedy algos come into play.
-
-
-greedy, technical approach -
-local optimal => always leads to => global optimal (eventual answer).
+### Limitations:
+Not all problems can be solved using a greedy approach. If the **greedy choice property** or **optimal substructure** is not satisfied, a greedy algorithm may fail to find the global optimal solution.

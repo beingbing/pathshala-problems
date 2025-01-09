@@ -17,7 +17,7 @@ public:
                 if (prfxMn[j] < stk.top()) return true;
                 stk.pop(); // too small for being nums[k]
             }
-            stk.push(nums[j]); // no longer nums[j] candidate but can be nums[k] candidate
+            stk.push(nums[j]);
         }
         return false;
     }

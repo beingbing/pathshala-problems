@@ -45,3 +45,32 @@ int main() {
         cout << obj.findExtra(a, b, n) << endl;
     }
 }  // } Driver Code Ends
+
+```java
+public class Solution {
+    public static int findExtraElementIndex(int[] A, int[] B) {
+        int low = 0;
+        int high = A.length - 2; // B has one less element than A
+
+        while (low <= high) {
+            int mid = (low + high) / 2;
+
+            // If they are the same, extra element must be in the right half
+            if (A[mid] == B[mid]) low = mid + 1;
+            else high = mid - 1; // If they are different, the extra element is at mid or in the left half
+        }
+
+        // 'low' will be at the index of the extra element
+        return low;
+    }
+
+    public static void main(String[] args) {
+        // Example usage:
+        int[] A = {2, 4, 6, 8, 9, 10, 12};
+        int[] B = {2, 4, 6, 8, 10, 12};
+
+        System.out.println(findExtraElementIndex(A, B)); // Output: 4
+    }
+}
+
+```

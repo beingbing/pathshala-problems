@@ -1,58 +1,67 @@
-~~ count sort ~~
+ # count sort
 
-non comparison based sorting algortithm
+Count Sort is a non-comparison-based stable sorting algorithm suitable for sorting elements that can be mapped to integers within a specific range. It works efficiently when the range of the data (difference between maximum and minimum elements) is not significantly larger than the number of elements to be sorted.
 
-5   7   1   4   5   5   7   4
+## How Count Sort Works
+1. **Determine the Range of Elements**: Identify the minimum and maximum values in the input array to compute the range of the data.
+2. **Count Frequencies**: Create a frequency array (`count[]`) where each index represents an element in the range, and the value at each index represents the count of that element in the input array.
+3. **Compute Cumulative Frequencies**: Transform the `count[]` array to store the cumulative count. This determines the position of each element in the sorted output.
+4. **Build the Output Array**: Iterate through the input array in reverse to maintain the stability of the sort (important for applications where the order of equal elements should remain the same). Use the cumulative counts to place elements into their correct positions in the output array.
+5. **Copy Back to Original Array (if needed)**: Copy the sorted elements from the output array back to the input array if the sorting is to be done in place.
 
-find frequecy of all elements
+## Properties of Count Sort
+- **Time**: O(n + k), where n is the number of elements and k is the range of the input.
+- **Space**: O(n + k), for the count and output arrays.
 
-1   4   4   5   5   5   7   7
+## Code
+```java
+import java.util.Arrays;
 
-use frequecy array of size max element value which can be present in given array
+public class CountSort {
 
-con -> max value can be very large
+    public static void countSort(int[] arr) {
+        if (arr.length == 0) return;
 
-TC = O(maxVal)
-SC = O(maxVal)
+        // Step 1: Find the range of the input
+        // automatically accommodates -ve elements as well
+        int min = Arrays.stream(arr).min().getAsInt();
+        int max = Arrays.stream(arr).max().getAsInt();
+        int range = max - min + 1;
 
+        // Step 2: Create and populate the count array
+        int[] count = new int[range];
+        for (int num : arr) count[num - min]++;
 
-for negative elements -
-- find the smallest element
-- put that smallest array @ 0th index and then put all others with the same offset ( - minEle )
+        // Step 3: Compute cumulative count
+        for (int i = 1; i < count.length; i++) count[i] += count[i - 1];
 
-we can do above trick with positive elements as well ( - minEle)
+        // Step 4: Sort the elements into an output array
+        int[] output = new int[arr.length];
+        // iterating input array in reverse ensures stability
+        for (int i = arr.length - 1; i >= 0; i--) {
+            int num = arr[i];
+            output[count[num - min] - 1] = num;
+            count[num - min]--;
+        }
 
-we can do above trick with max element as well, so our frequecy array size becomes max-min+1
+        // Step 5: Copy sorted elements back to the original array
+        System.arraycopy(output, 0, arr, 0, arr.length);
+    }
 
-but still after doing all those things we will be iterating on frequecy array, which is futile
-as our original array might be 3 elements long but their magnitude can make frequecy array
-variably big,
-so, to resolve this issue -
-- traverse over original array and create frequecy array
-- create a cumulative array with that frequecy array
-- traverse over original array again and use cumulative array value as sorted index of final
-answer and keep decrementing them by 1 after each iteration.
-
-
-input:  1   4   1   2   7   5   2
-vals:   1   2   3   4   5   6   7
-freq:   2   2   0   1   1   0   1
-
-cum:    2   4   4   5   6   6   7
-
-        1   3       4   5       6
-        0   2
-
-code -
-int freq[max-min+1] = {0}
-for (i{0}; i<n) freq[a[i]-min]++
-for (i{1}; i<max-min+1) freq[i] += freq[i-1]
-for (i{0}; i<n) {
-    ans[freq[a[i]-min]-1] = a[i]
-    freq[a[i]-min]--
+    public static void main(String[] args) {
+        int[] arr = {4, 2, 2, 8, 3, 3, 1};
+        System.out.println("Original array: " + Arrays.toString(arr));
+        countSort(arr);
+        System.out.println("Sorted array:   " + Arrays.toString(arr));
+    }
 }
+```
 
-SC = O(max(n, max-min))
-TC = O(max(n, max-min))
-
-it do not maintain order if you start from oth index, instead start from end while creating ans arr
+### Example Execution
+#### Input:
+\[4, 2, 2, 8, 3, 3, 1\]
+#### Steps:
+1. **Find Range**: \(min = 1, max = 8, range = 8 - 1 + 1 = 8\).
+2. **Count Array**: \([0, 1, 2, 0, 1, 0, 0, 1]\).
+3. **Cumulative Count**: \([0, 1, 3, 3, 4, 4, 4, 5]\).
+4. **Output Array**: \([1, 2, 2, 3, 3, 4, 8]\).

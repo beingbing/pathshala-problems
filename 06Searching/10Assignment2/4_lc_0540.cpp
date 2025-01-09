@@ -9,7 +9,6 @@ public:
         int low = 0, high = n-1;
         while (low <= high) {
             int mid = low + (high - low)/2;
-            // cout << "low: " << low << " mid: " << mid << " high: " << high << endl;
             if (mid == 0) {
                 if (a[mid] != a[mid+1]) return a[mid];
                 else low = mid + 1;

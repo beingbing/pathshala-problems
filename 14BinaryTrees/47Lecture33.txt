@@ -16,11 +16,11 @@ be done.
 these null nodes signifies us as when to return in our recursion call stack.
 
 // to construct preorder array
-void preorder(Node* root, vector<int> po) {
-    if (!root) po.push_back(NULL), return;
+void preorder(Node* root, vector<int> pre) {
+    if (!root) pre.push_back(NULL), return;
     pre.push_back(root->val);
-    preorder(root->left, po);
-    preorder(root->right, po);
+    preorder(root->left, pre);
+    preorder(root->right, pre);
 }
 
 // to construct tree from preorder

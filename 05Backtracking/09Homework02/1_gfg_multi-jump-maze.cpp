@@ -4,7 +4,7 @@
 using namespace std;
 
 class Solution {
-    vector<vector<int>> ans;
+    int n;
 
     bool isSafe(vector<vector<int>>& grid, int i, int j) {
         if (i >= grid.size()) return false;
@@ -13,7 +13,7 @@ class Solution {
         return true;
     }
 	
-	void findPath(vector<vector<int>>& mat, vector<vector<int>>& isVisited, int i, int j) {
+	bool findPath(vector<vector<int>>& mat, vector<vector<int>>& ans, int i, int j) {
 	    if (mat[i][j] == 0) return;
 	    if (i == j && j == mat.size()-1) {
 	        isVisited[i][j] = 1;
@@ -31,12 +31,11 @@ class Solution {
     
 public:
 	vector<vector<int>> ShortestDistance(vector<vector<int>>&mat){
-	   int n = mat.size();
-	   vector<vector<int>> isVisited(n, vector<int>(n, 0));
+	   n = mat.size();
+	   vector<vector<int>> ans(n, vector<int>(n, 0));
        mat[n-1][n-1] = 1;
-	   findPath(mat, isVisited, 0, 0);
-	   if (ans.size() > 0) return ans;
-       return {{-1}};
+	   if (findPath(mat, ans, 0, 0)) return ans;
+       else return {{-1}};
 	}
 };
 

@@ -1,44 +1,75 @@
-~~ kth smallest in array - 2 ~~
+# k-th Smallest Element in an Array
+Optimized by finding Monotonicity
 
-In last solution, we were considering all the elements as a potential candidate and iterating to
-find there count, but if we have found a count for a previous number whose count is less than k,
-and if we currently have a number which is smaller than the previous number, then definetly it's
-count will be lesser than the previous number, so it can never be our answer.
-similarly,
-if previously we have seen that a numbers count is greater than k and current number is greater
-than previous number then its count will definetly be greater than k.
-so, here
-we get a monotonicity on the basis of results we got earlier.
-if a number is greater then the previously obtained count for a number then decide
-whether we need to go with a bigger number or a smaller number as a candidate.
+## Problem
+Given an unsorted array with possible duplicates and an integer `k`, find the k-th smallest element without modifying the array or using extra space.
 
-int countNums(int x) {
-    int cnt = 0;
-    for (int i{0}; i<n; i++) if (a[i] <= x) cnt++;
-    return cnt;
-}
+### Solution
+In this approach, we further optimize the solution from `O(n^2)` by leveraging a monotonic property and binary search.
 
-the above function is a monotonic function, for a bigger input, output will be either same or it will
-be greater, it can never be less, hence, it is a monotonically increasing function.
+#### Insight into Monotonicity
+In the previous solution, for every element, we checked the count of values that were less than or equal to it. However, if we find that a particular count does not meet our `k` requirement, we can use the monotonic nature of the counts to limit our search space:
+1. **Monotonic Count Property**:
+    - If an element `x` has fewer than `k` elements less than or equal to it, all elements smaller than `x` will also have fewer than `k` such elements. So, we can discard elements less than `x`.
+    - Conversely, if `x` has `k` or more elements less than or equal to it, we may have found a candidate, or else we move to smaller values to continue the search.
 
-so, we can apply binary search here,
+2. **Binary Search with Count Function**:
+    - Use binary search to narrow down on the candidate value by setting initial bounds as the value of minimum and maximum elements of the array.
+    - Use a helper function, `countNums(x)`, to count elements less than or equal to `x`.
+    - Adjust the binary search bounds based on the count results:
+        - If `countNums(mid) < k`, move to the right (higher values).
+        - Otherwise, check if `countNums(mid - 1) < k` to confirm `mid` is the k-th smallest. If not, move to the left.
 
-but, we still need a domain in which our binary search will function so that we can have our low and high
-values for each iteration.
+#### Code
+```java
+public class KthSmallestFinderOptimized {
 
-for that, we can consider, minimum and maximum elements of the array as our domain, as we are sure that
-our answer can never go out of this.
+    // Helper function to count elements <= x
+    private int countNums(int[] a, int x) {
+        int count = 0;
+        for (int num : a) if (num <= x) count++;
+        return count;
+    }
 
-l = min, h = max
-while (l <= h) {
-    m = (l+h)/2
-    cnt = countNums(m);
-    if (cnt < k) l = m+1
-    else {
-        cnt1 = countNums(m-1);
-        if (cnt1 < k) return m
-        else h = m-1
+    public int kthSmallest(int[] a, int k) {
+        int min = Integer.MAX_VALUE;
+        int max = Integer.MIN_VALUE;
+
+        // Determine the min and max in the array
+        for (int num : a) {
+            min = Math.min(min, num);
+            max = Math.max(max, num);
+        }
+
+        int low = min, high = max;
+
+        // Binary search between min and max
+        while (low <= high) {
+            int mid = low + (high - low) / 2;
+            int count = countNums(a, mid);
+
+            if (count < k) low = mid + 1; // Move to higher values
+            else {
+                // Check if this is the k-th smallest element
+                int countLower = countNums(a, mid - 1);
+                if (countLower < k) return mid; // Found k-th smallest
+                else high = mid - 1; // Move to lower values
+            }
+        }
+
+        // If no element meets criteria (shouldn't happen with valid k)
+        throw new IllegalArgumentException("Invalid input: k is out of range");
+    }
+
+    public static void main(String[] args) {
+        KthSmallestFinderOptimized finder = new KthSmallestFinderOptimized();
+        int[] arr = {40, 10, 10, 30, 40, 20, 50, 70, 50};
+        int k = 6;
+        System.out.println("The " + k + "-th smallest element is " + finder.kthSmallest(arr, k));
     }
 }
+```
 
-TC = O(nlog(max-min))
+### Complexity Analysis
+- **Time**: `O(n log(max - min))`: For each binary search step, `countNums` is `O(n)`, and binary search takes `O(log(max - min))`.
+- **Space**: `O(1)`, meeting the no extra space constraint. 

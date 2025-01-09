@@ -1,6 +1,6 @@
 ~~ binary matrix - 1 ~~
 
-given a mxn biary matrix. find max area rectangle whose -
+given a mxn binary matrix. find max area rectangle whose -
 - all cells must contain 1.
 - the base must be in last row.
 

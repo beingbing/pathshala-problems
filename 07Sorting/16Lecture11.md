@@ -1,45 +1,68 @@
-~~ processing range queries ~~
+# Processing Range Queries
+## Problem
+You are given an array of size n, initialized with all elements as zero. You also have q queries, where each query specifies two indices: a starting index l and an ending index r. For each query, increment all elements in the subarray a[l] to arr[r] by +1. Return the final state of the array after processing all queries.
 
-given an arr with n elements initially all zero.
-given q queries, each query is a pair containing details about 2 indexes
-for each query +1 for each query from q.first till q.second
-give state of array after execution of all the queries.
+### Solution
+#### Brute-Force Solution:
+1. For each query, iterate over the specified range from l to r.
+2. Increment each element within this range.
+3. Repeat for all q queries.
+4. Time Complexity: Worst case: O(q * n), where n is the size of the array.  
 
-now to solve this problem let's take a simpler one first.
-assume we got each query in which we need to +1 from 0 till given index
-and then return the final state.
+#### Optimized Solution:
+To optimize, we can reduce the time complexity by using prefix/suffix sums to propagate changes. The idea is to:
+1. Increment the starting index l by +1 for every query.
+2. Decrement the index r+1 by -1 (if it is within bounds).
+3. Compute the prefix sum of the array to distribute these changes across the array.
+4. The opposite of this can be done with the suffix sum.
 
-what we can do here is,
-- we can create an array
-- for each query just do +1 for that index which is specified in query
-- and then take suffix sum of that array
-- that suffix sum will be our answer
+#### Complexity:
+- Marking updates: O(q)
+- Prefix sum computation: O(n)
+- Total: O(n + q)
 
-for (i{0}; i<q; i++) {
-    a[q]++
+## Java Implementation
+```java
+import java.util.Arrays;
+
+public class RangeQueries {
+    // Function to process range queries and return the final array
+    public static int[] processQueries(int n, int[][] queries) {
+        int[] aux = new int[n + 1];
+
+        // Mark increments and decrements in the auxiliary array
+        for (int[] query : queries) {
+            int l = query[0];
+            int r = query[1];
+            aux[l] += 1;
+            if (r + 1 < n) {
+                aux[r + 1] -= 1;
+            }
+        }
+
+        // Compute the prefix sum to get the final state of the array
+        int[] result = new int[n];
+        result[0] = aux[0];
+        for (int i = 1; i < n; i++) {
+            result[i] = result[i - 1] + aux[i];
+        }
+
+        return result;
+    }
+
+    public static void main(String[] args) {
+        int n = 5; // Size of the array
+        int[][] queries = {
+            {0, 2}, // Increment arr[0] to arr[2] by 1
+            {1, 4}, // Increment arr[1] to arr[4] by 1
+            {2, 3}  // Increment arr[2] to arr[3] by 1
+        };
+
+        int[] result = processQueries(n, queries);
+        System.out.println("Final Array: " + Arrays.toString(result));
+    }
 }
-for (i{n-2}; i>=0; i++)
-    sufArr[i] = a[i]+sufArr[i+1]
+```
 
-
-similarly,
-if we go back to original problem
-
-what we can do here is,
-- we can create an array
-- for each query just do +1 for q.second index which is specified in query
-  and, -1 for q.first-1 index
-- and then take suffix sum of that array
-- that suffix sum will be our answer
-
-for (i{0}; i<q; i++) {
-    a[q.second]++
-    if (q.first > 0) a[q.first-1]--
-}
-for (i{n-2}; i>=0; i++)
-    sufArr[i] = a[i]+sufArr[i+1]
-
-
-
-This question comes under category of range queries
-it's a separate domain for approaching a problem
+### Generalization for Arbitrary Values:
+The problem can be extended to handle queries that specify a value k to increment the subarray.

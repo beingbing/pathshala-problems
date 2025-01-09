@@ -3,7 +3,7 @@
 implement two stacks within same array
 
 using same array but with two top variables running in opposite direction on opposite ends of array.
-All the operaitions will be separately available for both top variables.
+All the operations will be separately available for both top variables.
 
 stack has a free end and a fixed end, every operation is available only for free end.
 
