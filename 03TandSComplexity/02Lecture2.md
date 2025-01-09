@@ -1,10 +1,6 @@
-~~ order of expressions and recorrence relations ~~
+~~ order of expressions and recurrence relations ~~
 
-let us assume for a code of input size n, we performed some operations which can be
-represented by the equation,
-
-an^3 + bn^2 + cn + d
-where a,b,c and d are constants
+let us assume, for a code of input size n, we performed some operations which can be represented by the equation, an^3 + bn^2 + cn + d where a,b,c and d are constants.
 
 for a large input size the order of the expression will be,
 TC = O(n^3)

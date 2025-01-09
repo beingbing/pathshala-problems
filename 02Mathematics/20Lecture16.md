@@ -1,7 +1,7 @@
 # Counting Triplets Divisible by a Given Number
 
 **Problem:**
-Given an array `a[]` of size `n` containing non-negative integers, find the total number of distinct triplets `(i, j, k)` such that `(a[i] + a[j] + a[k])` is divisible by a given integer `m`. Triplets where `i == j == k` are not allowed, i.e., the indices in each triplet should be unique (i.e., `i`, `j`, and `k` should all differ), and duplicate triplets in different orders should not be counted, it means, pairs `(i, j, k)` and `(j, i, k)` should be considered the same.
+Given an array `a[]` of size `n` containing non-negative integers, find the total number of distinct triplets `(i, j, k)` such that `(a[i] + a[j] + a[k])` is divisible by a given integer `m`. Each index of a triplet should be unique (i.e., `i`, `j`, and `k` should all differ), and duplicate triplets in different orders should not be counted, it means, pairs `(i, j, k)` and `(j, i, k)` should be considered the same.
 
 ## Approach 1: Brute Force
 The brute-force method involves checking every possible triplet in the array to see if their sum is divisible by `m`.
@@ -30,29 +30,51 @@ public static int countPairsBruteForce(int[] a, int m) {
 **Space Complexity:** O(1)
 
 ## Approach 2: Remainder Buckets and Counting
-Since we’re interested in sums divisible by `k`, we can optimize using **modular property `remainder of sums = sum of remainder % m`**, if the sum of remainders `(a[i] % m)`, `(a[j] % m)`, and `(a[k] % m)` is also divisible by `m`. By distributing elements into **remainder buckets: `a[i] % m`** , we can efficiently compute valid triplets using combinatorial counting within and across these remainder buckets.
+Since we’re interested in sums divisible by `k`, we can optimize using **modular property `remainder of sums = sum of remainder % m`**.
 
 ### Key Insight:
-- For any three elements a[i], a[j] and a[k],
+- We want to count all unique triplets `(i, j, k)` in the array such that `(a[i] + a[j] + a[k]) % m = 0` where `i`, `j`, and `k` are distinct indices. Breaking it down using modular addition property
 ```
 (a[i] + a[j] + a[k]) % m = (((a[i] + a[j]) % m) + (a[k] % m)) % m
                          = ((((a[i] % m) + (a[j] % m)) % m) + (a[k] % m)) % m
+                         = (((r1 + r2) % m) + r3) % m
                          = LHS
 ```
-resolves LHS into range (0, 2m-2), which equate to 0 if their remainder sum is either `0` or `m`.
-- This gives three cases to consider, if r1 = a[i]%m, r2 = a[j]%m and r3 = a[k]%m :
-    1. **All remainders are the same:** If r1=r2=r3, then we choose three elements from the same bucket
-    2. **Two remainders are the same, one is different:** If r1=r2≠r3, then we need two from one bucket and one from another.
-    3. **All three remainders are different:** r1≠r2≠r3, we take all three from different buckets
+We can observe that instead of focusing on specific values, we can focus on **remainders** when each element is divided by `m` and grouped based on modular congruence into buckets.
+- This gives us a **count of each remainder**, which is easier to work with than individual values when forming triplets. By storing frequencies of each remainder, we avoid repeatedly iterating over the array to find triplets, saving time.
+- This approach simplifies the problem and resolves LHS into range `(0, 2m-2)`. With `r1` and `r2` bounded in `(0, m-1)` and `r3` in complementary `(0, m-1)` range.
+- equating LHS to 0 will only be satisfied if sum of remainders is either `0` or `m`
+- This gives three cases to consider,
+  1. **All remainders are the same:** If `r1=r2=r3`, then all three of them will be `0`. Thus, we choose three elements from that same bucket.
+  2. **Two remainders are the same, one is different:** If `r1=r2≠r3`, then we need two from one bucket and one from another complementary bucket.
+  3. **All three remainders are different:** `r1≠r2≠r3`, we take all three from different buckets
+
+### Algorithm:
+#### Step 1: Count Frequencies of Each Remainder
+1. We create an array `cnt` of size `m`, where `cnt[r]` will store the number of elements in `a` with remainder `r` when divided by `m`.
+2. For each element in the array, calculate the remainder when it is divided by `m`, and increment the corresponding count in `cnt`.
+
+#### Step 2: Generate Triplets from Remainder Combinations
+1. Using three nested cases, we determine the valid combinations of remainders `(i, j, k)` and calculate the number of ways to form triplets for each case.
+2. **Cases**:
+- The outer loop iterates over each possible remainder `i`, the inner loop over each `j >= i`, and we calculate `k` based on `i` and `j`.
+  - **Case 1**: All three remainders are the same (`i == j == k`).
+    - Here, all triplet elements share the same remainder. This can only happen if `cnt[i] >= 3`. The number of triplets is calculated as `cnt[i] * (cnt[i] - 1) * (cnt[i] - 2) / 6`
+    - This formula is a combination formula for choosing 3 items from `cnt[i]` items.
+
+  - **Case 2**: Two remainders are the same (`i == j != k`).
+    - In this case, two elements have the same remainder, and the third element has a different remainder. This scenario is counted as `cnt[i] * (cnt[i] - 1) / 2 * cnt[k]`
+    - This formula chooses two items from `cnt[i]` items and one item from `cnt[k]` items.
+
+  - **Case 3**: All three remainders are different (`i != j != k`).
+    - Each element in the triplet has a different remainder. The count of such triplets is `cnt[i] * cnt[j] * cnt[k]`
+
+3. **Avoiding Redundancies**: By structuring the loops to check only `j >= i` and `k >= j`, we maintain order among `i`, `j`, and `k`, avoiding duplicate triplet counts and ensure that each unique triplet combination is counted exactly once, without needing additional conditions.
 
 ### Edge cases:
 - Handle cases where m=1, as all sums will be divisible by m.
 - If n<3, return 0 as we can’t form triplets.
 - only consider i < j < k. If j > k pass through it without doing anything
-
-### Algorithm:
-1. Build the `cnt` array: `cnt[i]` holds the count of elements where `a[i] % m = r`.
-2. Use nested loops over the possible remainder values to count triplets that satisfy `(a[i] % m + a[j] % m + a[k] % m) % m == 0`.
 
 ### Code:
 ```java
@@ -80,7 +102,7 @@ public static int countTripletsUsingBuckets(int[] a, int m) {
 }
 ```
 ### Note:
-`else if (i == k) ans += cnt[i]*(cnt[i]-1)/2  * cnt[j];` case is not considered because this condition won't get created
+`else if (i == k) ans += cnt[i]*(cnt[i]-1)/2  * cnt[j];` case is not considered because i = k != j won't occur because i <= j <= k
 
-**Time Complexity:** O(n + m²) (efficient when `m` is smaller than `n`)  
+**Time Complexity:** O(n + m²), counting remainders takes O(n), and checking all remainder combinations takes O(m^2). (efficient when `m` is smaller than `n`)
 **Space Complexity:** O(m)

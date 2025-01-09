@@ -1,7 +1,4 @@
-// as there can never a full binary tree with even number of nodes, so omitting count of those.
 #include <iostream>
-#include <vector>
-#include <unordered_map>
 using namespace std;
 
 struct TreeNode {
@@ -14,27 +11,28 @@ struct TreeNode {
 };
 
 class Solution {
-    unordered_map<int, vector<TreeNode*>> nodesCnt;
-public:
-    vector<TreeNode*> allPossibleFBT(int n) {
-        if (nodesCnt.find(n) == nodesCnt.end()) {
-            vector<TreeNode*> ans;
-            if (n == 1) ans.push_back(new TreeNode(0));
-            else if (n % 2 == 1) {
-                for (int x = 1; x < n; x += 2) {
-                    vector<TreeNode *> lst = allPossibleFBT(x);
-                    vector<TreeNode *> rst = allPossibleFBT(n - 1 - x);
-                    for (TreeNode* &left: lst)
-                        for (TreeNode* &right: rst) {
-                            TreeNode* root = new TreeNode(0);
-                            root->left = left;
-                            root->right = right;
-                            ans.push_back(root);
-                        }
-                }
-            }
-            nodesCnt[n] = ans;
+
+    pair<TreeNode*, TreeNode*> convert(TreeNode* root) {
+        if (!root) return {nullptr, nullptr};
+        pair<TreeNode*, TreeNode*> lst = convert(root->left);
+        pair<TreeNode*, TreeNode*> rst = convert(root->right);
+        TreeNode* head = root;
+        TreeNode* tail = root;
+        root->left = nullptr;
+        if (lst.first) {
+            root->right = lst.first;
+            lst.second->right = rst.first;
+            if (rst.first) tail = rst.second;
+            else tail = lst.second;
+        } else if (rst.first) {
+            root->right = rst.first;
+            tail = rst.second;
         }
-        return nodesCnt[n];
+        return {head, tail};
+    }
+
+public:
+    void flatten(TreeNode* root) {
+        root = convert(root).first;
     }
 };
