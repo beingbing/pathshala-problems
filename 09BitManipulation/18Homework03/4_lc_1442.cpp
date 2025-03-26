@@ -1,7 +1,7 @@
 // we need to find a == b, so if a^a = a^b => a^b = 0, hence if we can find all the pairs (i, k)
 // such that their pfXor is same then also our problem will be solved.
 // this is M2
-// below is M1 which is brute force, as constraints are very lineant so this solution also cleared
+// below is M1 which is brute force, as constraints are very lenient so this solution also cleared
 // all test cases.
 #include <iostream>
 #include <vector>
