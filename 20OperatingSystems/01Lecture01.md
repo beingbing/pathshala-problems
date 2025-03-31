@@ -1,6 +1,6 @@
 ### Introduction to Operating Systems  
 
-An **Operating System (OS)** acts as a bridge between hardware and software, enabling programs to run efficiently on a computer.  
+An **Operating System (OS)** acts as a bridge between hardware and software, enabling programs to run efficiently on a computer.
 
 But why should we understand how an OS works, even though we rarely write one ourselves?  
 - It helps us understand how code executes at a deeper level.  
