@@ -52,11 +52,3 @@ Even with segmentation, **free memory may become scattered**, leading to **fragm
 
 2. **Internal Fragmentation:**  
    - A segment is allocated more space than needed, leaving unused memory inside it.  
-
----
-
-### **Key Takeaways**  
-- **Segmentation divides memory into logical parts** that can be placed **separately in RAM**.  
-- **Dynamic allocation of heap and stack** prevents unnecessary memory reservation.  
-- **Fragmentation remains an issue**, requiring **efficient allocation strategies**.  
-- Future solutions like **paging** will further optimize memory allocation and reduce fragmentation.
