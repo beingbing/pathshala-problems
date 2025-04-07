@@ -49,14 +49,3 @@ At a high level, databases can be categorized into two major types:
 | Querying                  | Powerful & SQL-based           | Simple or use-case specific                |
 | Scalability               | Vertical (scale-up)            | Horizontal (scale-out)                     |
 | Use Case Examples         | Banking, ERP, E-commerce       | Real-time apps, analytics, social networks |
-
----
-
-## 🔚 Summary
-
-- **RDBMS** = Structured, Table-based, SQL, Strong consistency.
-- **NoSQL** = Unstructured or semi-structured, Highly scalable, Optimized for specific scenarios.
-
-> Choose based on **data structure**, **scalability needs**, and **application complexity**—not just trend or popularity.
-
-Let me know if you want this visualized as a comparison chart or decision tree!
