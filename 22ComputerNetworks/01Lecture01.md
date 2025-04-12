@@ -39,13 +39,3 @@ When accessing any hosted resource, the two most important factors are:
 
 - **Reliability**:  
   Whether the data reaches its destination correctly and consistently, even if parts of the network fail.
-
----
-
-### 📌 Summary
-
-Networking makes remote access to resources possible. To load a webpage:
-- Your browser **finds** the host,
-- **Connects** to it,
-- **Sends** a request,
-- And **receives** a response — all while aiming for speed and reliability.
