@@ -1,31 +1,52 @@
-# Session layer
-Till transport layer software engineers do not have to actively be concerned how things are done. But from Session layer, we need to design the interaction using the framework we are using.
+# 🌐 Session Layer — Managing Conversations on the Internet
 
-Session, Presentation and Application layer do not have a well defined boundary or layered structure. Boundaries are very blur.
+The **Session Layer** (Layer 5 of the OSI model) is responsible for establishing (organizing), manage (maintaining), and terminate communication (interaction) sessions between applications. It acts as a **conversation coordinator**, keeping interaction between devices organized and synchronized over time.
 
-Session layer deals with the session.
+> 🧠 Note: The **Session**, **Presentation**, and **Application** layers often overlap in real-world software. Their boundaries are conceptual rather than strictly enforced.
 
-## What is a Session ?
-To define it we need to first define two more terms:
+In modern systems, the Session Layer is often **blended into the Application or Transport Layers**, especially in the **TCP/IP model**. From this layer upward, many applications manage sessions directly using tools like **cookies, JWTs, or auth tokens** in web apps.
 
-### Authentication
-To check users authenticity. It validates if user is legitimate or not. User is who he/she says he/she is.
+Even though it's not always a distinct layer today, understanding the Session Layer clarifies how devices manage and structure ongoing communication session across the internet.
 
-### Authorization
-To check whether a user has authority to perform a particular action.
+## 🔑 What Is a Session?
 
-- Once user is authenticated during login process, a token is generated which facilitates to maintain a session.
-- Every token has an expiry, once it expires, user needs to login again.
-- We have a concept of refresh token as well, which is stored at BE. Once a token expires but the user still has a valid refresh token stored, then a new token is generated automatically without user taking any action and user session is continued. Websites with time sensitive subscription features do not use refresh tokens mostly.
+A **session** is a **temporary, continuous exchange of information** between two parties (usually a client and a server). Sessions begin when a user connects (e.g., logs in) and end after a timeout or logout.
 
-### Webinar synchronization
-In recent time, apart from authentication and authorization session layer also need to synchronize (superimpose) different components of user feed like video, audio, etc according to timestamp and convert it into a single webinar stream.
+To establish a session, let's look at two core components:
 
-## Cookies
-In user machine, the process runs in volatile memory, so if we store token with that, we loose it once the browser is closed. But to avoid it we have cookies. Browser cookies are persistent storage, as cookies are stored in persistent memory of the machine when browser is closed. 
+### ✅ Authentication
+- Verifies **who the user is**.
+- Example: Login with username and password, biometric scan, etc.
 
-### drawbacks of having cookies
-- as cookies persistent, other websites opened in the browser can access your cookies from any other website.
-- these extracted information can be used to show you targeted ads.
+### 🔐 Authorization
+- Verifies **what the user is allowed to do**.
+- Example: Can this user access admin pages or edit content?
 
+## 🆔 Tokens and Session Management
+- After **successful authentication**, the server generates a **session token** (usually a JWT or similar).
+- This token represents an active session.
+- This token is sent to the client and is included with every request to identify the client and validate the session.
+- **Tokens have an expiry time** for security. Once expired, users must log in again — unless there's a **refresh token**.
 
+### 🔁 Refresh Tokens
+- Stored securely (usually on the backend) and allows silent session renewal without re-login.
+- If the access token expires but a valid refresh token exists, the server issues a **new token** without requiring user interaction.
+- Some systems **avoid refresh tokens** (e.g., subscription services with strict time limits).
+
+## 🎥 Session Layer in Modern Use: Webinar Synchronization
+Beyond login sessions, the session layer also deals with **synchronizing multiple data streams** in real-time applications.
+
+Example:  
+In a **webinar**, video, audio, chat, and screen sharing must be aligned correctly by timestamp to form a smooth, cohesive experience — the **session layer helps coordinate** these streams.
+
+## 🍪 Cookies: Persistent Sessions on Client Side
+Since in-memory session data is volatile and lost when the browser closes, **cookies** are used to persist session tokens.
+
+- **Cookies** are small pieces of data stored in the client’s machine, allowing the browser to **remember session information** across reloads and even restarts.
+
+### ⚠️ Drawbacks of Cookies:
+1. **Security Risks**:
+    - Cookies are often accessible by other scripts or websites in the same browser, especially if not secured properly.
+    - Can be used for **cross-site tracking** (showing you targeted ads across sites).
+2. **Vulnerability to Attacks**:
+    - Improper cookie settings (e.g., missing `HttpOnly` or `Secure` flags) can expose them to **XSS or CSRF attacks**.
