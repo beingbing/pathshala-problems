@@ -38,10 +38,15 @@ Let’s say you send a message through a chat app:
 |-----------------------|----------|--------------|
 | HTTP (Web)            | TCP      | 80           |
 | HTTPS (Secure Web)    | TCP      | 443          |
-| FTP (File Transfer)   | TCP      | 21           |
+| Telnet                | TCP      | 23           |
+| FTP (Send File)       | TCP      | 20           |
+| FTP (Receive File)    | TCP      | 21           |
 | SSH (Remote Shell)    | TCP      | 22           |
 | DNS (Name Resolution) | UDP      | 53           |
 | SMTP (Email sending)  | TCP      | 25           |
+| POP3 (receive Email)  | TCP      | 110          |
+| DHCP (server/sender)  | TCP      | 67           |
+| DHCP (client/receive) | TCP      | 68           |
 
 ### Real-world example of a port in action with TCP/IP
 When a connection is made:
