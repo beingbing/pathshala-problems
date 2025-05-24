@@ -3,10 +3,10 @@
 ## Connected Component
 A sub-graph of a graph where every node is reachable from every other node.
 
-### **Strongly Connected Components (SCC) Definition
+## Strongly Connected Components (SCC) Definition
 A **Strongly Connected Component (SCC)** of a directed graph is a maximal subgraph where every vertex is reachable from every other vertex in the subgraph.
 
-#### **Properties of SCC**
+### Properties of SCC
 1. A graph can be decomposed into a **Directed Acyclic Graph (DAG)** of its SCCs.
 
 ### **Applications of SCC**
@@ -15,31 +15,16 @@ A **Strongly Connected Component (SCC)** of a directed graph is a maximal subgra
 3. **Optimization**: Decompose problems in circuits or networks.
 4. **Social Networks**: Identify communities where users are mutually reachable.
 
-### **Kosaraju's Algorithm**
+## **Kosaraju's Algorithm**
 Kosaraju's algorithm is a popular method to find SCCs in a directed graph. It uses **DFS** twice and is based on the idea of graph reversal.
 
-#### **Steps**
+### **Steps**
 1. Perform a **DFS** on the original graph, storing the vertices in a **stack** based on their finish time (finishing a vertex after all its descendants are visited).
 2. Reverse the graph (reverse all edges).
 3. Perform DFS again on the reversed graph, visiting vertices in the order determined by the stack.
 4. Each DFS tree in this pass represents one SCC.
 
-#### **Time Complexity**
-- `O(V + E)`: Linear in the number of vertices and edges.
-
-### **Tarjan's Algorithm**
-Tarjan's algorithm finds SCCs in a single DFS traversal using **low-link values**.
-
-#### **Concepts**
-- **Discovery Time**: The time when a vertex is first visited.
-- **Low-Link Value**: The smallest discovery time reachable from the vertex or its descendants.
-
-#### **Steps**
-1. Perform a DFS, keeping track of discovery times and low-link values.
-2. Use a stack to maintain vertices of the current DFS path.
-3. When a vertex's low-link value equals its discovery time, it is the root of an SCC. Pop all vertices in the stack up to this vertex.
-
-#### **Time Complexity**
+### **Time Complexity**
 - `O(V + E)`: Linear in the number of vertices and edges.
 
 ### **Implementation: Kosaraju's Algorithm in Java**
@@ -161,7 +146,20 @@ Consider the graph:
 3. Perform DFS on the reversed graph:
     - Components: \( [4], [3], [0, 2, 1] \).
 
----
+### **Tarjan's Algorithm**
+Tarjan's algorithm finds SCCs in a single DFS traversal using **low-link values**.
+
+#### **Concepts**
+- **Discovery Time**: The time when a vertex is first visited.
+- **Low-Link Value**: The smallest discovery time reachable from the vertex or its descendants.
+
+#### **Steps**
+1. Perform a DFS, keeping track of discovery times and low-link values.
+2. Use a stack to maintain vertices of the current DFS path.
+3. When a vertex's low-link value equals its discovery time, it is the root of an SCC. Pop all vertices in the stack up to this vertex.
+
+#### **Time Complexity**
+- `O(V + E)`: Linear in the number of vertices and edges.
 
 ### **Implementation: Tarjan's Algorithm in Java**
 

@@ -1,7 +1,7 @@
 # Optimized Union
 
 ### Approach 2:
-Organize elements which belong to the same set hierarchically. Like in a Tree. Then, our union() operation will have O(log n) time complexity. That's because we just need to find the root of both sets and make root of one set child node of another root. Thing is famously called Union of Disjoint sets.
+Organize elements which belong to the same set hierarchically. Like in a Tree. Then, our union() operation will have O(log n) time complexity. That's because we just need to find the root of both sets and make one set's root child node of another root. Thing is famously called Union of Disjoint sets.
 
 ### What is a Disjoint Set Union (DSU)?
 Disjoint Set Union (DSU), also known as Union-Find, is a data structure used to efficiently manage a collection of disjoint sets. It supports two main operations:
@@ -17,7 +17,7 @@ Disjoint Set Union (DSU), also known as Union-Find, is a data structure used to 
 3. **Path Compression**:
     - During the `find` operation, flatten the tree structure by pointing all nodes on the path directly to the root. This significantly speeds up future operations.
 4. **Time Complexity**:
-    - Using both Union by Rank and Path Compression, the operations (`find` and `union`) have an almost constant time complexity, `O(alpha(n))`, where `alpha` is the inverse Ackermann function (extremely slow-growing).
+    - Using both Union by Rank and Path Compression, the operations (`find` and `union`) have an almost constant time complexity, `O(alpha(n))`, where `alpha` is the inverse Ackermann function (extremely slow-growing). O(e log v)
 
 ---
 
@@ -25,16 +25,16 @@ Disjoint Set Union (DSU), also known as Union-Find, is a data structure used to 
 ```java
 public class DisjointSetUnion {
     private int[] parent;
-    private int[] rank;
+    private int[] size;
 
     // Constructor to initialize the DSU with n elements
     public DisjointSetUnion(int n) {
         parent = new int[n];
-        rank = new int[n];
+        size = new int[n];
         // Each element is initially its own parent (self-representative)
         for (int i = 0; i < n; i++) {
             parent[i] = i;
-            rank[i] = 0;
+            size[i] = 0;
         }
     }
 
@@ -52,13 +52,13 @@ public class DisjointSetUnion {
         int rootY = find(y);
 
         if (rootX != rootY) {
-            if (rank[rootX] > rank[rootY]) {
+            if (size[rootX] > size[rootY]) {
                 parent[rootY] = rootX;
-            } else if (rank[rootX] < rank[rootY]) {
+            } else if (size[rootX] < size[rootY]) {
                 parent[rootX] = rootY;
             } else {
                 parent[rootY] = rootX;
-                rank[rootX]++;
+                size[rootX]++;
             }
         }
     }
@@ -80,7 +80,7 @@ public class DisjointSetUnion {
     // Utility to print rank array (for debugging)
     public void printRanks() {
         System.out.print("Ranks: ");
-        for (int i : rank) {
+        for (int i : size) {
             System.out.print(i + " ");
         }
         System.out.println();
