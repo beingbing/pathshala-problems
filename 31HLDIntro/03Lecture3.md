@@ -2,22 +2,17 @@
 
 ## Client Data Storage and Retrieval
 
-Client data storage and retrieval from the database (DB) happen via the backend, but the client can
-request data only through the frontend.
+Client data storage and retrieval from the database (DB) happen via the backend, but the client can request data only through the frontend.
 
 client -> frontend -> backend -> storage
 
-The backend provides functionalities to the frontend/client for data storage and updates. These
-functionalities are exposed as functions available over the internet, known as APIs.
+The backend provides functionalities to the frontend/client for data storage and updates. These functionalities are exposed as functions available over the internet, known as APIs.
 
 ## APIs
 
-Normal functions in a programming language work within the environment of that language. However,
-backend functions need to be accessible over the internet. Hence, interface using which we can
-programme our application from internet is called API.
+Normal functions in a programming language work within the environment of that language. However, backend functions need to be accessible over the internet. Hence, interface using which we can programme our application from internet is called API.
 
-When a client requests an API, the request goes via the DNS, finds backend using IP mapping then
-looks for the exposed function.
+When a client requests an API, the request goes via the DNS, finds backend using IP mapping then looks for the exposed function.
 
 client -> DNS -> ... -> backend -> exposed function (API) -> assigned process starts
 
@@ -26,8 +21,7 @@ APIs typically use JSON format to send data, though plain text can also be used.
 ### Data Validation and Storage
 
 1. **Validation**: The backend first verifies the validity of the request.
-2. **Storage**: The backend then uses the address, username, and password of both the DB and
-file-system (FS) to establish a connection and store or update the data according to request.
+2. **Storage**: The backend then uses the address, username, and password of both the DB and file-system (FS) to establish a connection and store or update the data according to request.
 
 ### API Types
 
@@ -46,8 +40,7 @@ APIs return data along with status codes:
 
 ## Scaling
 
-As concurrent users increase, scaling becomes necessary across all tiers to handle the load and
-maintain performance.
+As concurrent users increase, scaling becomes necessary across all tiers to handle the load and maintain performance.
 
 ### 1. Scaling DB, FS, and Cloud Storage
 
@@ -71,9 +64,6 @@ Issues:
 
 ## Future Lectures
 
-In future lectures, we will address these issues and explore strategies for scaling and optimizing
-our architecture. Each strategy may introduce new layers to our three-tier architecture and come
-with its own set of challenges.
+In future lectures, we will address these issues and explore strategies for scaling and optimizing our architecture. Each strategy may introduce new layers to our three-tier architecture and come with its own set of challenges.
 
-> Note: There is no one-size-fits-all solution; it’s always a trade-off. We will approach each
-> issue based on specific scenarios to find the best possible solutions.
+> Note: There is no one-size-fits-all solution; it’s always a trade-off. We will approach each issue based on specific scenarios to find the best possible solutions.
