@@ -1,11 +1,7 @@
 # Database Maintainability
-
-DB server maintainability is often handled by vendors, but choosing the right database type is
-crucial for maintainability. The goal is to use existing solutions rather than modifying a
-relational database to fit specific needs when there are ready-made solutions available.
+DB server maintainability is often handled by vendors, but choosing the right database type is crucial for maintainability. The goal is to use existing solutions rather than modifying a relational database to fit specific needs when there are ready-made solutions available.
 
 ## Types of Databases
-
 Databases can be broadly divided into two categories:
 
 ### A. SQL (Relational Databases)
@@ -25,7 +21,6 @@ representing sets as key/value pairs in JSON format.
 - **Time Series Databases**: Example - InfluxDB. Used by services like Uber.
 
 ## Conclusion and Comparison
-
 ### SQL
 - **Schema**: Strict schema.
 - **Joins**: Supports complex joins.
@@ -38,6 +33,4 @@ representing sets as key/value pairs in JSON format.
 - **Principles**: BASE principles (Basically Available, Soft state, Eventual consistency).
 - **Scalability**: Capable of storing large amounts of data.
 
-Choose SQL databases for scenarios requiring complex transactions and strict schema enforcement.
-Opt for NoSQL databases for flexibility, scalability, and when dealing with diverse data types like
-JSON, key/value pairs, or graph data.
+Choose SQL databases for scenarios requiring complex transactions and strict schema enforcement. Opt for NoSQL databases for flexibility, scalability, and when dealing with diverse data types like JSON, key/value pairs, or graph data.
